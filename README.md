@@ -6,13 +6,13 @@ L'obiettivo primario di DressMeNow consiste nel migliorare significativamente la
 
  
 
-Ambito del sistema 
+# Ambito del sistema 
 
 DressMeNow è un e-commerce specializzato nella vendita di abbigliamento. 
 
  
 
-Obiettivi e criteri di successo del sistema 
+# Obiettivi e criteri di successo del sistema 
 
 Assumendo aziende grandi come Zalando che nell’anno 2020 ha effettuato 185,5 milioni di ordini. Secondo dati di mercato, è noto che il 10% di questi ordini, pari a 18.550.000 circa, viene reso. Di questi 18.550.000 ordini il 42% corrispondenti a 7.797.000 ordini corrispondono a resi dovuti a cambi di idea sulla vestibilità del prodotto. Poiché il nostro software mira a ridurre significativamente questi resi, che rappresentano un costo totale di 7.797.000*5€ (dove 5€ rappresenta il costo di una spedizione in media per una azienda) annui per resi dovuti al cambio di idea della vestibilità arriviamo a parlare di 38,985,000€ di spedizioni secondo le statistiche. Ci aspettiamo di catturare il 0,5% di questo importo, ovvero 194.250€. Tale collaborazione si tradurrà in un notevole miglioramento nella precisione degli ordini effettuati dagli utenti. Questa collaborazione con aziende di alto profilo incoraggerà i clienti a effettuare acquisti con maggiore fiducia e, di conseguenza, a ridurre il numero di resi. Ciò, a sua volta, comporterà risparmi per l'azienda e nel tempo attirerà un numero crescente di clienti. Portando un guadano di minimo un milione l’anno. Sicuramente agni anno puteremo a far sì che il nostro software sì sempre più preciso e perfetto nella simulazione e puntando in base al successo di aumentare anche le tasse per d’uso in base all’inflazione dell'aggiunta del nostro software. 
 
