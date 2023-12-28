@@ -1,0 +1,71 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+
+.profile-section {
+        display: none;
+      }
+
+    #personal-data {
+        display: block; /* Mostra la sezione "Dati personali" all'inizio */
+      }
+
+  .profile-container {
+    display: flex;
+    margin: 0 5%;
+  }
+
+  .profile-menu {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+  }
+
+  .profile-menu ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .profile-menu li {
+    margin-bottom: 10px;
+  }
+
+  .profile-menu a {
+    text-decoration: none;
+    color: #fff;
+  }
+
+  .profile-content {
+    flex: 1;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .personal-data {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .profile-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .label {
+    font-weight: bold;
+  }
+
+  .edit-button {
+    background-color: #00A2E8;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+
+  .edit-button:hover {
+    background-color: #007bb5;
+  }

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="Profilostyles.css" />
+    <title>Profilo Utente</title>
+  </head>
+  <body>
+    <div class="profile-container">
+      <nav class="profile-menu">
+        <ul>
+          <li>
+            <a href="#" onclick="showSection('personal-data')"
+              >Dati personali</a
+            >
+          </li>
+          <li><a href="#" onclick="showSection('addresses')">Indirizzi</a></li>
+          <li><a href="#" onclick="showSection('orders')">Ordini</a></li>
+          <li><a href="#" onclick="showSection('avatar')">Avatar</a></li>
+        </ul>
+      </nav>
+
+      <div class="profile-content">
+        <section id="personal-data" class="profile-section">
+          <h2>Dati personali</h2>
+          <div class="profile-item">
+            <div class="label">Nome:</div>
+            <div class="value">John</div>
+            <button class="edit-button">Modifica</button>
+          </div>
+
+          <div class="profile-item">
+            <div class="label">Cognome:</div>
+            <div class="value">Doe</div>
+            <button class="edit-button">Modifica</button>
+          </div>
+
+          <div class="profile-item">
+            <div class="label">Sesso:</div>
+            <div class="value">Maschio</div>
+            <button class="edit-button">Modifica</button>
+          </div>
+
+          <div class="profile-item">
+            <div class="label">Numero:</div>
+            <div class="value">1234567890</div>
+            <button class="edit-button">Modifica</button>
+          </div>
+
+          <div class="profile-item">
+            <div class="label">Email:</div>
+            <div class="value">john.doe@example.com</div>
+            <button class="edit-button">Modifica</button>
+          </div>
+
+          <div class="profile-item">
+            <div class="label">Password:</div>
+            <div class="value">********</div>
+            <button class="edit-button">Modifica</button>
+          </div>
+        </section>
+
+        <section id="addresses" class="profile-section">
+          <h2>Indirizzi</h2>
+          <div class="profile-item">
+            <div class="label">Indirizzo di casa:</div>
+            <div class="value">Via Roma, 123</div>
+            <button class="edit-button">Modifica</button>
+          </div>
+
+          <div class="profile-item">
+            <div class="label">Indirizzo di lavoro:</div>
+            <div class="value">Via Milano, 456</div>
+            <button class="edit-button">Modifica</button>
+          </div>
+        </section>
+
+        <section id="orders" class="profile-section">
+          <h2>Ordini</h2>
+          <div class="profile-item">
+            <div class="label">Ordine #1:</div>
+            <div class="value">Prodotto A, Prodotto B</div>
+            <button class="edit-button">Modifica</button>
+          </div>
+
+          <div class="profile-item">
+            <div class="label">Ordine #2:</div>
+            <div class="value">Prodotto C, Prodotto D</div>
+            <button class="edit-button">Modifica</button>
+          </div>
+        </section>
+
+        <section id="avatar" class="profile-section">
+          <h2>Avatar</h2>
+          <div class="profile-item">
+            <div class="label">Immagine:</div>
+            <div class="value"><img src="avatar.jpg" alt="Avatar" /></div>
+            <button class="edit-button">Modifica</button>
+          </div>
+        </section>
+      </div>
+    </div>
+    <script src="ProfiloJavaScript.js"></script>
+  </body>
+</html>
