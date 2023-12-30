@@ -19,10 +19,10 @@ mycursor = mydb.cursor()
 
 @app.route('/')
 def login_page():
-    return render_template('login.html')
+    return render_template('loginAdmin.html')
 
 
-# Pagina di login
+# Pagina di login dell'amministratore
 @app.route('/login', methods=['POST'])
 def login():
 
@@ -31,7 +31,7 @@ def login():
         password = request.form['password']
 
         # Verifica delle credenziali nel database
-        sql = "SELECT * FROM utente WHERE email = %s AND password = %s"
+        sql = "SELECT * FROM personale WHERE email = %s AND password = %s"
         val = (email, password)
         mycursor.execute(sql, val)
         user = mycursor.fetchone()
@@ -40,32 +40,32 @@ def login():
             # Creazione della sessione
             session['logged_in'] = True
             session['email'] = email
-            return redirect(url_for('profilo', email=email))
+
+            tipo_personale = user[3]
+
+            # Redirect in base al tipo di personale
+            if tipo_personale == 'direttore':
+                return redirect(url_for('direttore'))
+            elif tipo_personale == 'gestore_ordine':
+                return redirect(url_for('gestore_ordine'))
+            elif tipo_personale == 'gestore_prodotto':
+                return redirect(url_for('gestore_prodotto'))
+
+
         else:
-            return print("Credenziali non valide. Riprova.")
+            return "Credenziali non valide. Riprova."
 
-    return redirect('Profilo.html')
+@app.route('/gestore_ordine')
+def gestore_ordine():
+    return render_template('gestoreOrdine.html')
 
-@app.route("/profilo/<email>")
-def profilo(email):
-    return render_template("Profilo.html", email=email)
+@app.route('/gestore_prodotto')
+def gestore_prodotto():
+    return render_template('gestoreProdotto.html')
 
-
-# Pagina del dashboard dopo il login
-    #@app.route('/AreaRiservata')
-    #def dashboard():
-    #    if 'logged_in' in session:
-    #        return f"Benvenuto, {session['email']}! Questa è la tua area riservata."
-    #    else:
-    #        return redirect('/login')
-
-
-# Pagina di logout
-#@app.route('/logout')
-#def logout():
-#    session.pop('logged_in', None)
-#    session.pop('email', None)
-#    return redirect('/login')
+@app.route('/direttore')
+def direttore():
+    return render_template('direttore.html')
 
 
 if __name__ == '__main__':

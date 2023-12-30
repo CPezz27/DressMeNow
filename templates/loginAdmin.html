@@ -8,17 +8,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/Login.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='Login.css') }}">
 </head>
 
 <body>
 
-    <form class="my-form">
+    <form class="my-form" action="/login" method="POST">
         <div class="login-welcome-row">
             <a href="#" title="Logo">
-                <img src="../assets/Logo.png" alt="Logo" class="logo">
+                <img src="../static/Logo.png" alt="Logo" class="logo">
             </a>
-            <h1>Bentornato! &#x1F44F;</h1>
+            <h1>Ehylà capo! ;</h1>
             <p>Inserisci le tue credenziali!</p>
         </div>
         <div class="input__wrapper">
@@ -32,8 +32,8 @@
             </svg>
         </div>
         <div class="input__wrapper">
-            <input id="password" type="password" class="input__field" placeholder="La tua password"
-                title="Minimo 6 characters e almeno 1 MAIUSCOLA ed un numero"
+            <input id="password" name="password" type="password" class="input__field" placeholder="La tua password"
+                title="Minimo 6 caratteri, di cui una maiuscola ed un numero"
                 pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" required>
             <label for="password" class="input__label">
                 Password
@@ -49,15 +49,6 @@
         <button type="submit" class="my-form__button">
             Login
         </button>
-
-        <div class="my-form__actions">
-            <div class="my-form__row">
-                <span>Non hai un account?</span>
-                <a href="registrazione.html" title="Registrati">
-                    Registrati
-                </a>
-            </div>
-        </div>
     </form>
 
     <script src="../js/login.js"></script>
