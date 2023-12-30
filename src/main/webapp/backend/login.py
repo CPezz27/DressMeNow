@@ -42,7 +42,7 @@ def login():
             session['email'] = email
             return redirect(url_for('profilo', email=email))
         else:
-            return print("Credenziali non valide. Riprova.")
+            return "Credenziali non valide. Riprova."
 
     return redirect('Profilo.html')
 
