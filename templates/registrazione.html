@@ -8,12 +8,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/Registrazione.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='registrazione.css') }}">
 </head>
 
 <body>
 
-    <form class="my-form">
+    <form class="my-form" action="/registrati" method="post">
         <div class="login-welcome-row">
             <a href="#" title="Logo">
                 <img src="../assets/Logo.png" alt="Logo" class="logo">
@@ -58,12 +58,13 @@
         </div>
 
         <div class="input__wrapper">
-            <input type="bool" id="sesso" name="sesso" class="input__field" placeholder="Sesso" required>
-            <label for="lastName" class="input__label">Sesso</label>
-            <svg class="input__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                # Icona per il cognome
-            </svg>
+            <input type="radio" id="Maschio" name="sesso" class="input__field" value="uomo" required>
+            <label for="Maschio" class="input__label">Maschio</label>
+        </div>
+
+        <div class="input__wrapper">
+            <input type="radio" id="Femmina" name="sesso" class="input__field" value="donna" required>
+            <label for="Femmina" class="input__label">Femmina</label>
         </div>
 
         <div class="input__wrapper">
@@ -77,7 +78,7 @@
             </svg>
         </div>
         <div class="input__wrapper">
-            <input id="password" type="password" class="input__field" placeholder="La tua password"
+            <input id="password" type="password" name="password" class="input__field" placeholder="La tua password"
                 title="Minimo 6 characters e almeno 1 MAIUSCOLA ed un numero"
                 pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" required>
             <label for="password" class="input__label">
@@ -92,7 +93,7 @@
             </svg>
         </div>
         <div class="input__wrapper">
-            <input id="confirmPassword" type="password" class="input__field" placeholder="Conferma password"
+            <input id="confirmPassword" type="password" name="confirmPassword" class="input__field" placeholder="Conferma password"
                 title="Conferma la tua password" required>
             <label for="confirmPassword" class="input__label">
                 Conferma Password
@@ -122,5 +123,7 @@
 
     <script src="../js/registration.js"></script>
 </body>
+
+</html>
 
 </html>
