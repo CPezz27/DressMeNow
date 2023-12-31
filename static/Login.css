@@ -224,3 +224,16 @@ body {
     gap: 8px;
     justify-content: space-between;
 }
+
+.error-box {
+    display: none;
+    background-color: #ffcccc;
+    border: 1px solid #ff0000;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.error-message {
+    color: #ff0000;
+    font-weight: bold;
+}

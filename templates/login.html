@@ -50,6 +50,18 @@
             Login
         </button>
 
+        <div id="error-box" class="error-box">
+            <p class="error-message" id="error-message"></p>
+        </div>
+    
+        <script>
+            // Funzione JavaScript per mostrare il messaggio di errore
+            function showErrorMessage(message) {
+                document.getElementById('error-message').innerHTML = message;
+                document.getElementById('error-box').style.display = message ? 'block' : 'none';
+            }
+        </script>
+
         <div class="my-form__actions">
             <div class="my-form__row">
                 <span>Non hai un account?</span>
@@ -61,6 +73,12 @@
     </form>
 
     <script src="../js/login.js"></script>
+    <script>
+        window.onload = function() {
+            var errorMessage = "{{ error_message }}";
+            showErrorMessage(errorMessage);
+        };
+    </script>
 </body>
 
 </html>

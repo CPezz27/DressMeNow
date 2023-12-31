@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, session, url_for
 import logging
 import mysql.connector
 
-app = Flask(__name__, template_folder='../../../../templates', static_folder='../../../../static')
+app = Flask(__name__, template_folder='../templates', static_folder='../static')
 app.secret_key = 'your_secret_key'  # Chiave segreta per gestire le sessioni
 
 logging.basicConfig(level=logging.DEBUG)
@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.DEBUG)
 mydb = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="password",
+    password="Carlodi02",
     database="DressMeNow"
 )
 

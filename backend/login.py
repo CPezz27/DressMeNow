@@ -1,17 +1,22 @@
+import re
 from flask import Flask, render_template, request, redirect, session, url_for
 import logging
 import mysql.connector
 
-app = Flask(__name__, template_folder='../../../../templates', static_folder='../../../../static')
+app = Flask(__name__, template_folder='../templates', static_folder='../static')
 app.secret_key = 'your_secret_key'  # Chiave segreta per gestire le sessioni
 
 logging.basicConfig(level=logging.DEBUG)
+
+def is_valid_password(password):
+    regex = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%?&])[A-Za-z\d@$!%?&]{8,}$'
+    return re.match(regex, password) is not None
 
 # Connessione al database MySQL
 mydb = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="password",
+    password="Carlodi02",
     database="DressMeNow"
 )
 
@@ -29,6 +34,10 @@ def login():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
+
+        if not is_valid_password(password):
+            error_message = "La password non rispetta i criteri richiesti."
+            return render_template('login.html', error_message=error_message)
 
         # Verifica delle credenziali nel database
         sql = "SELECT * FROM utente WHERE email = %s AND password = %s"
