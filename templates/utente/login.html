@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='Login.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 </head>
 
 <body>
@@ -72,7 +72,7 @@
         </div>
     </form>
 
-    <script src="/js/login.js"></script>
+    <script src="static/js/login.js"></script>
     <script>
         window.onload = function() {
             var errorMessage = "{{ error_message }}";
