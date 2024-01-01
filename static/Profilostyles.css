@@ -34,7 +34,7 @@ body {
 }
  nav a {
 	 list-style: none;
-	 padding: 35px;
+	 padding: 28px;
 	 color: #fff;
 	 font-size: 1.1em;
 	 display: block;
@@ -44,6 +44,7 @@ body {
 	 color: #3fb6a8;
 	 transform: scale(1.2);
 	 cursor: pointer;
+	 text-shadow: 3px 3px 10px rgba(119, 119, 119, .5);
 }
  nav a:first-child {
 	 margin-top: 7px;
@@ -117,9 +118,19 @@ body {
  .settings h2 {
 	 margin-top: 25px;
 }
+.subscription h2 {
+	margin-top: 25px;
+}
+.payment h2 {
+	margin-top: 25px;
+}
+.profile h2 {
+	margin-top: 25px;
+}
  .noshow {
 	 opacity: 0;
 }
+
  footer {
 	 position: absolute;
 	 width: 20%;

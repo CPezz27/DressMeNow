@@ -8,19 +8,22 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='Profilostyles.css') }}">
-</head>
+  <!-- <link rel="stylesheet" href="/static/Profilostyles.css"> -->
+
+  </head>
 
 <body>
   <div class="container">
     <div id="logo">
       <h1 class="logo">
-        <img style="width: 33px; height: 39px" src="{{ url_for('static', filename='Logo.png') }}" alt="DressMeNow"></h1>
+        <!-- <img style="width: 33px; height: 39px" src="{{ url_for('static', filename='Logo.png') }}" alt="DressMeNow"></h1> -->
+        <img style="width: 33px; height: 39px" src="/static/Logo.png" alt="DressMeNow"></h1>
     </div>
 
     <div class="leftbox">
       <nav>
 
-        <a id="profile" href="/indirizzi" class="active">TASTO
+        <a id="profile" href="#" class="active">
           <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path d="M12 12a5.25 5.25 0 1 0 0-10.499A5.25 5.25 0 0 0 12 12Zm0 1.5c-3.254 0-9.75 2.01-9.75 6v3h19.5v-3c0-3.99-6.496-6-9.75-6Z"></path>
         </svg>
@@ -32,6 +35,10 @@
           <path d="M23.011 11.444 19.505 8.09V3a.75.75 0 0 0-.75-.75h-2.25a.75.75 0 0 0-.75.75v1.5L13.04 1.904c-.254-.257-.632-.404-1.04-.404-.407 0-.784.147-1.038.405l-9.97 9.539a.765.765 0 0 0-.063 1.048.749.749 0 0 0 1.087.05l9.726-9.294a.375.375 0 0 1 .519 0l9.727 9.294a.75.75 0 0 0 1.059-.02c.288-.299.264-.791-.036-1.078Z"></path>
         </svg>
         </a>
+
+        <div class="rightbox">
+          
+        </div>
 
         <a id="subscription">
           <svg width="25" height="25" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -96,23 +103,38 @@
                   />
         <h2>Numero di telefono</h2>
         <input
-        type="text"
-        class="input-text"
-        name="number"
-        value="{{ data.telefono }}"
-        readonly
-      />
+                    type="text"
+                    class="input-text"
+                    name="number"
+                   value="{{ data.telefono }}"
+                    readonly
+                  />
         <h2>Sesso</h2>
         <input
-        type="text"
-        class="input-text"
-        name="gender"
-        value="{{ data.sesso }}"
-        readonly
-      />
+                    type="text"
+                    class="input-text"
+                    name="gender"
+                    value="{{ data.sesso }}"
+                    readonly
+                  />
     </div>
+      <div class="payment noshow">
+        <h2>Indirizzo 1</h2>
+        <input type="text" class="input-text" value="Descrizione o informazione dettagliata 1" readonly />
+        <h2>Indirizzo 2</h2>
+        <input type="text" class="input-text" value="Descrizione o informazione dettagliata 2" readonly />
+        <h2>Indirizzo 3</h2>
+        <input type="text" class="input-text" value="Descrizione o informazione dettagliata 3" readonly />
+      </div>
+      <div class="settings noshow">
+        <h2>AAAA</h2>
+        <input type="text" class="input-text" value="Descrizione o informazione dettagliata 1" readonly />
+        <h2>BBB 2</h2>
+        <input type="text" class="input-text" value="Descrizione o informazione dettagliata 2" readonly />
+      </div>
     </div>
   </div>
+  <script src="/static/ProfiloJavaScript.js"></script>
   <footer>
   </footer>
 </body>

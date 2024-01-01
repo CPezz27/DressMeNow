@@ -1,6 +1,6 @@
 let LoginForm = document.querySelector(".my-form");
 
-loginForm.addEventListener("submit", (e) => {
+LoginForm.addEventListener("submit", (e) => {
     e.preventDefault();
     let email = document.getElementById("email");
     let password = document.getElementById("password");

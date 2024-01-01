@@ -33,8 +33,8 @@
         </div>
         <div class="input__wrapper">
             <input id="password" name="password" type="password" class="input__field" placeholder="La tua password"
-                title="Minimo 6 caratteri, di cui una maiuscola ed un numero"
-                pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" required>
+                title="Minimo 8 caratteri, di cui una maiuscola ed un numero"
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%?&])[A-Za-z\d@$!%?&]{8,}$" required>
             <label for="password" class="input__label">
                 Password
             </label>
@@ -65,14 +65,14 @@
         <div class="my-form__actions">
             <div class="my-form__row">
                 <span>Non hai un account?</span>
-                <a href="registrazione.html" title="Registrati">
+                <a href="/templates/registrazione.html" title="Registrati">
                     Registrati
                 </a>
             </div>
         </div>
     </form>
 
-    <script src="../js/login.js"></script>
+    <script src="/static/login.js"></script>
     <script>
         window.onload = function() {
             var errorMessage = "{{ error_message }}";

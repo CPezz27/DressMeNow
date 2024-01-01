@@ -16,8 +16,8 @@ def is_valid_password(password):
 mydb = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="Carlodi02",
-    database="DressMeNow"
+    password="password", #TODO: modificatela in base al vostro DB
+    database="dressmenow"
 )
 
 mycursor = mydb.cursor()
