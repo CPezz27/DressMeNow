@@ -59,4 +59,4 @@ def gestore_prodotto():
 
 @app_bp.route('/direttore/')
 def direttore():
-    return render_template('direttore.html')
+    return render_template('direttore/index.html')

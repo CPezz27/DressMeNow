@@ -14,7 +14,7 @@ cursor = conn.cursor()
 
 @app_bp.route('/registrati')
 def register_page():
-    return render_template('registrazione.html')
+    return render_template('utente/registrazione.html')
 
 
 @app_bp.route('/registrati', methods=['POST'])
@@ -66,6 +66,6 @@ def register():
                 cursor.close()
                 conn.close()
 
-        return redirect(url_for('login'))
+        return redirect(url_for('utente/login'))
 
-    return render_template('registrazione.html')
+    return render_template('utente/registrazione.html')

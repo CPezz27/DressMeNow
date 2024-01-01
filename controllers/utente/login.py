@@ -14,7 +14,7 @@ cursor = conn.cursor()
 
 @app_bp.route('/login')
 def login_page():
-    return render_template('login.html')
+    return render_template('utente/login.html')
 
 
 @app_bp.route('/login', methods=['POST'])
@@ -33,7 +33,7 @@ def login():
                 if user:
                     session['logged_in'] = True
                     session['email'] = email
-                    return redirect(url_for('profilo'))
+                    return redirect(url_for('utente/profilo'))
                 else:
                     return "Credenziali non valide. Riprova."
             except mysql.connector.Error as err:
@@ -42,4 +42,4 @@ def login():
                 cursor.close()
                 conn.close()
 
-    return redirect('login.html')
+    return redirect('utente/login.html')
