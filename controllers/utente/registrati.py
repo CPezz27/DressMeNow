@@ -5,7 +5,7 @@ from models.Utente import Utente
 from utils import mysql_config
 from utils.utils import validate_input
 
-app_bp = Blueprint('user', __name__)
+app_bp = Blueprint('user_register', __name__)
 
 conn = mysql_config.get_database_connection()
 

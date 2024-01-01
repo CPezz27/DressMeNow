@@ -5,7 +5,7 @@ from models import Utente
 from utils import mysql_config
 from utils.utils import is_valid_password
 
-app_bp = Blueprint('user', __name__)
+app_bp = Blueprint('user_login', __name__)
 
 conn = mysql_config.get_database_connection()
 
