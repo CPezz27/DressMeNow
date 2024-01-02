@@ -61,50 +61,55 @@
 
       <div class="rightbox">
         <div class="addresses">
-          {% if data %} {% for indirizzo in data %}
-          <h2>Provincia</h2>
-          <input
-            type="text"
-            class="input-text"
-            name="name"
-            value="{{data[3]}}"
-            readonly
-          />
-          <h2>Cap</h2>
-          <input
-            type="text"
-            class="input-text"
-            name="surname"
-            value="{{data[4]}}"
-            readonly
-          />
-          <h2>via</h2>
-          <input
-            type="text"
-            class="input-text"
-            name="date"
-            value="{{data[5]}}"
-            readonly
-          />
-          <h2>tipo </h2>
-          <input
-            type="text"
-            class="input-text"
-            name="number"
-            value="{{data[6]}}"
-            readonly
-          />
-          <h2>città</h2>
-          <input
-            type="text"
-            class="input-text"
-            name="gender"
-            value="{{data[7]}}"
-            readonly
-          />
-          {% endfor %} {% else %}
-          <p>Nessun indirizzo trovato per questo utente.</p>
+            {% if data %}
+            {% for indirizzo in data %}
+            <div class="indirizzo indirizzo-attivo" id="indirizzo{{ loop.index0 }}">
+                <h2>Provincia</h2>
+                <input
+                  type="text"
+                  class="input-text"
+                  name="name"
+                  value="{{indirizzo[2]}}"
+                  readonly
+                />
+                <h2>Cap</h2>
+                <input
+                  type="text"
+                  class="input-text"
+                  name="surname"
+                  value="{{indirizzo[3]}}"
+                  readonly
+                />
+                <h2>via</h2>
+                <input
+                  type="text"
+                  class="input-text"
+                  name="date"
+                  value="{{indirizzo[4]}}"
+                  readonly
+                />
+                <h2>tipo </h2>
+                <input
+                  type="text"
+                  class="input-text"
+                  name="number"
+                  value="{{indirizzo[5]}}"
+                  readonly
+                />
+                <h2>città</h2>
+                <input
+                  type="text"
+                  class="input-text"
+                  name="gender"
+                  value="{{indirizzo[6]}}"
+                  readonly
+                />
+              </div>
+            {% endfor %}
+          {% else %}
+            <p>Nessun indirizzo trovato per questo utente.</p>
           {% endif %}
+        </div>
         </div>
       </div>
     </div>
