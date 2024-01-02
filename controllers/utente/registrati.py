@@ -68,4 +68,4 @@ def register():
 
         return redirect(url_for('utente/login'))
 
-    return render_template('utente/registrazione.html')
+    return render_template('utente.registrazione.html')
