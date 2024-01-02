@@ -20,6 +20,8 @@
         <img style="width: 33px; height: 39px" src="/assets/Logo.png" alt="DressMeNow"></h1>
     </div>
 
+
+
     <div class="leftbox">
       <nav>
 
@@ -82,7 +84,7 @@
                     type="text"
                     class="input-text"
                     name="name"
-                    value="{{ data.nome }}"
+                    value="{{data[1]}}"
                     readonly
                   />
         <h2>Cognome</h2>
@@ -90,7 +92,7 @@
                     type="text"
                     class="input-text"
                     name="surname"
-                    value="{{ data.cognome }}"
+                    value="{{data[2]}}"
                     readonly
                   />
         <h2>Data di nascita </h2>
@@ -98,7 +100,7 @@
                     type="text"
                     class="input-text"
                     name="date"
-                    value="{{ data.data_di_nascita }}"
+                    value="{{data[5]}}"
                     readonly
                   />
         <h2>Numero di telefono</h2>
@@ -106,7 +108,7 @@
                     type="text"
                     class="input-text"
                     name="number"
-                   value="{{ data.telefono }}"
+                   value="{{data[6]}}"
                     readonly
                   />
         <h2>Sesso</h2>
@@ -114,7 +116,7 @@
                     type="text"
                     class="input-text"
                     name="gender"
-                    value="{{ data.sesso }}"
+                    value="{{data[7]}}"
                     readonly
                   />
     </div>

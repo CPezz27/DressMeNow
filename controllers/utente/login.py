@@ -32,8 +32,8 @@ def login():
 
                 if user:
                     session['logged_in'] = True
-                    session['email'] = email
-                    return redirect('utente/profilo.html')
+                    session['id'] = user[0]
+                    return redirect('utente/profilo')
                 else:
                     return "Credenziali non valide. Riprova."
             except mysql.connector.Error as err:
@@ -42,4 +42,4 @@ def login():
                 cursor.close()
                 conn.close()
 
-    return redirect('utente/login.html')
+    return redirect('utente/login')
