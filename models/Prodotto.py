@@ -4,6 +4,44 @@ from utils import mysql_config
 conn = mysql_config.get_database_connection()
 cursor = conn.cursor()
 
+
+def search_prodotto_by_name(nome):
+    search_query = "SELECT * FROM prodotto WHERE nome LIKE %s"
+    search_name = f"%{nome}%"
+
+    try:
+        cursor.execute(search_query, (search_name,))
+        result = cursor.fetchall()
+
+        return result
+    except mysql.connector.Error as err:
+        print(f"Errore durante la ricerca dei prodotti per nome: {err}")
+
+
+def view_products():
+    search_query = "SELECT * FROM prodotto"
+
+    try:
+        cursor.execute(search_query)
+        result = cursor.fetchall()
+
+        return result
+    except mysql.connector.Error as err:
+        print(f"Errore durante la visualizzazione dei prodotti per nome: {err}")
+
+
+def view_product(product_id):
+    search_query = "SELECT * FROM prodotto WHERE id_prodotto = %s"
+
+    try:
+        cursor.execute(search_query, (product_id,))
+        result = cursor.fetchall()
+
+        return result
+    except mysql.connector.Error as err:
+        print(f"Errore durante la visualizzazione del prodotto per nome: {err}")
+
+
 def update_prodotto(product_id, **kwargs):
     update_query = "UPDATE prodotto SET "
 
