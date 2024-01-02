@@ -1,6 +1,6 @@
 from flask import Flask, session, redirect, url_for, Blueprint
 from utils import mysql_config
-from models import Ordine
+from models.Ordine import Ordine
 from datetime import datetime
 import mysql.connector
 
@@ -23,14 +23,18 @@ def effettua_ordine():
         stato = "Effettuato"
         data = datetime.now().strftime('%Y-%m-%d')
 
-        nuovo_ordine = Ordine(id_utente, stato, data) #warning che chatGPT non mi sa dire come risolvere
+        nuovo_ordine = Ordine(
+                    id_utente=id_utente,
+                    stato=stato,
+                    data=data)
+
         nuovo_ordine.save()
 
-        return redirect(url_for('riepilogo')) #non esiste ancora
+        return redirect("utente/effettua_ordine")
 
     except mysql.connector.Error as err:
         print(f"Errore durante l'ordine: {err}")
-        return redirect(url_for('carrello')) #non esiste ancora
+        return redirect("utente/carrello")
 
     finally:
         cursor.close()
