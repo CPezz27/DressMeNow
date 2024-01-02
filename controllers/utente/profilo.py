@@ -38,7 +38,7 @@ def orders():
 
     user_id = session['id']
 
-    orders = Utente.get_addresses(user_id)
+    orders = Utente.get_orders(user_id)
 
     return render_template("utente/ordini.html", data=orders)
 

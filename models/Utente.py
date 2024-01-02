@@ -50,6 +50,18 @@ def get_addresses(id):
     except mysql.connector.Error as err:
         print(f"Errore durante la lettura degli indirizzi")
 
+def get_orders(id):
+    try:
+        query = "SELECT * FROM ordine WHERE id_utente = %s"
+
+        cursor.execute(query, (id,))
+
+        orders = cursor.fetchall()
+
+        return orders
+    except mysql.connector.Error as err:
+        print(f"Errore durante la lettura degli indirizzi")
+
 
 def delete_account(id):
     try:
@@ -62,6 +74,24 @@ def delete_account(id):
     except mysql.connector.Error as err:
         print(f"Errore durante la cancellazione dell'account: {err}")
 
+
+def modifica_account(self, id_utente, campi_da_modificare):
+    update_query = "UPDATE utente SET "
+    update_values = []
+
+    for campo, valore in campi_da_modificare.items():
+        update_query += f"{campo} = %s, "
+        update_values.append(valore)
+
+    update_query = update_query[:-2] + " WHERE id_utente = %s"
+    update_values.append(id_utente)
+
+    try:
+        cursor.execute(update_query, tuple(update_values))
+        conn.commit()
+        print("Profilo utente aggiornato correttamente nel database.")
+    except mysql.connector.Error as err:
+        print(f"Errore durante la modifica del profilo: {err}")
 
 
 class Utente:
