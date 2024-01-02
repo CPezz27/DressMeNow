@@ -51,6 +51,19 @@ def get_addresses(id):
         print(f"Errore durante la lettura degli indirizzi")
 
 
+def delete_account(id):
+    try:
+        delete_address_query = "DELETE FROM indirizzo WHERE id_utente = %s"
+        cursor.execute(delete_address_query, (id,))
+        conn.commit()
+        delete_user_query = "DELETE FROM utente WHERE id = %s"
+        cursor.execute(delete_user_query, (id,))
+        conn.commit()
+    except mysql.connector.Error as err:
+        print(f"Errore durante la cancellazione dell'account: {err}")
+
+
+
 class Utente:
     def __init__(self, nome, cognome, email, password, sesso, numero_telefono, data_nascita):
         self.nome = nome
@@ -66,7 +79,6 @@ class Utente:
                         "(nome, cognome, email, password, sesso, numero_telefono, data_nascita) "
                         "VALUES (%s, %s, %s, %s, %s, %s, %s)")
 
-        # Dati da inserire nel database
         user_data = (self.nome, self.cognome, self.email, self.password,
                      self.sesso, self.numero_telefono, self.data_nascita)
 

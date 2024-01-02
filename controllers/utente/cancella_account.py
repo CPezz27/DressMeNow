@@ -1,35 +1,33 @@
-from flask import Flask, render_template, redirect, url_for, session
-
-import mysql.connector
-from flask import Blueprint, render_template, request, session, redirect, url_for
-
-from models import Utente
+from flask import Flask, session, redirect, url_for
 from utils import mysql_config
-from utils.utils import is_valid_password
+from models import Utente
+import mysql.connector
 
-@app.route('/confirm_delete_account')
-def confirm_delete_account():
-    return render_template('/profilo')
+app = Flask(__name__)
+
+conn = mysql_config.get_database_connection()
+cursor = conn.cursor()
+
 
 @app.route('/delete_account', methods=['POST'])
 def delete_account():
-    if 'id' in session and session['logged_in']:
 
-        db.execute("DELETE FROM Utente WHERE id = ?", (session['id'],))
+    if 'id' not in session:
+        return redirect('utente/login')
+
+    try:
+        user_id = session['id']
+        Utente.delete_account(user_id)
 
         session.pop('id', None)
         session.pop('logged_in', None)
 
         return redirect(url_for('homepage'))
-    else:
-        return redirect(url_for('login'))
 
+    except mysql.connector.Error as err:
+        print(f"Errore durante la cancellazione dell'account: {err}")
+        return redirect(url_for('profilo', message='Si è verificato un errore'))
 
-# Pagina di conferma della cancellazione dell'account
-@app.route('/account_deleted')
-def account_deleted():
-    return "Il tuo account è stato cancellato con successo."
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
+    finally:
+        cursor.close()
+        conn.close()
