@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - Clothing Store</title>
+    <!-- Link to Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 font-sans">
+
+    <div class="container mx-auto my-8 p-4">
+
+        <!-- Header -->
+        <h1 class="text-3xl font-semibold mb-4">Your Cart</h1>
+
+        <!-- Cart Items List -->
+        <div id="cartItems" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Sample Cart Item -->
+            <div class="bg-white p-4 rounded-lg shadow-md">
+                <img src="path_to_image.jpg" alt="Product" class="w-full h-32 object-cover mb-4">
+                <h2 class="text-lg font-semibold">Product Name</h2>
+                <p class="text-gray-600">Size: M</p>
+                <p class="text-gray-600">Price: $19.99</p>
+                <button onclick="removeFromCart(this)" class="mt-4 bg-red-500 text-white py-2 px-4 rounded-full">Remove</button>
+            </div>
+            <!-- Additional Cart Items go here -->
+        </div>
+
+        <!-- Order Summary -->
+        <div class="mt-8 p-4 bg-white rounded-lg shadow-md">
+            <h2 class="text-xl font-semibold mb-4">Order Summary</h2>
+            <div class="flex justify-between items-center mb-2">
+                <span class="text-gray-600">Total Products:</span>
+                <span id="totalProducts" class="font-semibold" style="color: #FF6347;">$19.99</span>
+            </div>
+            <div class="flex justify-between items-center mb-2">
+                <span class="text-gray-600">Shipping:</span>
+                <span class="font-semibold" style="color: #6DBAEE;">$5.00</span>
+            </div>
+            <hr class="my-2 border-gray-300">
+            <div class="flex justify-between items-center">
+                <span class="text-lg font-semibold" style="color: #00A2E8;">Total:</span>
+                <span id="orderTotal" class="text-lg font-semibold" style="color: #50C878;">$24.99</span>
+            </div>
+            <button class="mt-4 bg-blue-500 text-white py-2 px-4 rounded-full">Proceed to Checkout</button>
+        </div>
+
+    </div>
+
+    <script>
+        // Function to remove an item from the cart
+        function removeFromCart(button) {
+            // Remove the parent element of the button
+            button.parentNode.remove();
+
+            // Update total products and order total
+            updateOrderSummary();
+        }
+
+        // Function to update the order summary
+        function updateOrderSummary() {
+            var totalProducts = 0;
+            var cartItems = document.getElementById('cartItems').children;
+
+            // Calculate total products in the cart
+            for (var i = 0; i < cartItems.length; i++) {
+                var price = parseFloat(cartItems[i].querySelector('p:nth-child(3)').innerText.replace('$', ''));
+                totalProducts += price;
+            }
+
+            // Update values in the order summary
+            document.getElementById('totalProducts').innerText = '$' + totalProducts.toFixed(2);
+            document.getElementById('orderTotal').innerText = '$' + (totalProducts + 5.00).toFixed(2);
+        }
+    </script>
+
+</body>
+
+</html>
+
