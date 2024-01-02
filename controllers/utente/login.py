@@ -24,7 +24,7 @@ def login():
         password = request.form['password']
 
         if not is_valid_password(password):
-            return render_template('login.html', message="La password non rispetta i criteri richiesti.")
+            return render_template('utente/login.html', message="La password non rispetta i criteri richiesti.")
 
         if conn:
             try:
@@ -35,7 +35,7 @@ def login():
                     session['id'] = user[0]
                     return redirect('utente/profilo')
                 else:
-                    return "Credenziali non valide. Riprova."
+                    return render_template('utente/login.html', message="Credenziali non valide. Riprova.")
             except mysql.connector.Error as err:
                 print(f"Errore durante l'esecuzione della query: {err}")
             finally:

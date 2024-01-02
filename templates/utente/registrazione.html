@@ -5,125 +5,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>DressMeNow - Registrazione</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='registrazione.css') }}">
 </head>
 
-<body>
+<body class="bg-green-200 font-sans">
 
-    <form class="my-form" action="/registrati" method="post">
-        <div class="login-welcome-row">
-            <a href="#" title="Logo">
-                <img src="../assets/Logo.png" alt="Logo" class="logo">
-            </a>
-            <h1>Benvenuto! Vuoi registrarti?</h1>
-            <p>Crea un nuovo account!</p>
-        </div>
+    <div class="min-h-screen flex items-center justify-center">
 
-        <div class="input__wrapper">
-            <input type="text" id="firstName" name="firstName" class="input__field" placeholder="Nome" required>
-            <label for="firstName" class="input__label">Nome:</label>
-            <svg class="input__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                # Icona per il nome
-            </svg>
-        </div>
-        <div class="input__wrapper">
-            <input type="text" id="lastName" name="lastName" class="input__field" placeholder="Cognome" required>
-            <label for="lastName" class="input__label">Cognome:</label>
-            <svg class="input__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                # Icona per il cognome
-            </svg>
-        </div>
+        <form class="bg-white p-8 rounded shadow-md w-full md:w-2/3 lg:w-1/2" action="/registrati" method="post">
 
-        <div class="input__wrapper">
-            <input type="date" id="date" name="dataNascita" class="input__field" placeholder="Data di nascita" required>
-            <label for="lastName" class="input__label">Data di Nascita</label>
-            <svg class="input__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                # Icona per il cognome
-            </svg>
-        </div>
+            <div class="text-center mb-8">
+                <a href="#" title="Logo">
+                    <img src="../static/assets/Logo.png" alt="Logo" class="w-16 h-16 mx-auto mb-4">
+                </a>
+                <h1 class="text-2xl font-bold">Registrati</h1>
+                <p>Crea un nuovo account!</p>
+            </div>
 
-        <div class="input__wrapper">
-            <input type="text" id="numTel" name="NumeroTelefonico" class="input__field" placeholder="Numero di telefono" required>
-            <label for="lastName" class="input__label">Numero di telefono</label>
-            <svg class="input__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                # Icona per il cognome
-            </svg>
-        </div>
+            <div class="mb-4">
+                <p class="text-red-500 text-sm">{{ message }}</p>
+            </div>
 
-        <div class="input__wrapper">
-            <input type="radio" id="Maschio" name="sesso" class="input__field" value="uomo" required>
-            <label for="Maschio" class="input__label">Maschio</label>
-        </div>
+            <div class="mb-4 grid grid-cols-2 gap-4">
+                <div>
+                    <input type="text" id="firstName" name="firstName" class="border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Nome" required>
+                </div>
+                <div>
+                    <input type="text" id="lastName" name="lastName" class="border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Cognome" required>
+                </div>
+            </div>
 
-        <div class="input__wrapper">
-            <input type="radio" id="Femmina" name="sesso" class="input__field" value="donna" required>
-            <label for="Femmina" class="input__label">Femmina</label>
-        </div>
+            <div class="mb-4">
+                <input type="date" id="date" name="dataNascita" class="border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Data di nascita" required>
+            </div>
 
-        <div class="input__wrapper">
-            <input type="email" id="email" name="email" class="input__field" placeholder="La tua Email" required>
-            <label for="email" class="input__label">Email</label>
-            <svg class="input__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path>
-                <path d="M16 12v1.5a2.5 2.5 0 0 0 5 0v-1.5a9 9 0 1 0 -5.5 8.28"></path>
-            </svg>
-        </div>
-        <div class="input__wrapper">
-            <input id="password" type="password" name="password" class="input__field" placeholder="La tua password"
-                title="Minimo 6 characters e almeno 1 MAIUSCOLA ed un numero"
-                pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" required>
-            <label for="password" class="input__label">
-                Password
-            </label>
-            <svg class="input__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6z"></path>
-                <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0"></path>
-                <path d="M8 11v-4a4 4 0 1 1 8 0v4"></path>
-            </svg>
-        </div>
-        <div class="input__wrapper">
-            <input id="confirmPassword" type="password" name="confirmPassword" class="input__field" placeholder="Conferma password"
-                title="Conferma la tua password" required>
-            <label for="confirmPassword" class="input__label">
-                Conferma Password
-            </label>
-            <svg class="input__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6z"></path>
-                <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0"></path>
-                <path d="M8 11v-4a4 4 0 1 1 8 0v4"></path>
-            </svg>
-            </svg>
-        </div>
-        <button type="submit" class="my-form__button">
-            Registrati
-        </button>
+            <div class="mb-4">
+                <input type="text" id="numTel" name="NumeroTelefonico" class="border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Numero di telefono" required>
+            </div>
 
-        <div class="my-form__actions">
-            <div class="my-form__row">
-                <span>Già un utente?</span>
-                <a href="login.html" title="Accedi">
+            <div class="mb-4 flex items-center">
+                <input type="radio" id="Maschio" name="sesso" class="mr-2" value="uomo" required>
+                <label for="Maschio">Maschio</label>
+                <input type="radio" id="Femmina" name="sesso" class="ml-8 mr-2" value="donna" required>
+                <label for="Femmina">Femmina</label>
+            </div>
+
+            <div class="mb-4">
+                <input type="email" id="email" name="email" class="border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="La tua Email" required>
+            </div>
+
+            <div class="mb-4 grid grid-cols-1 gap-4">
+                <div>
+                    <input id="password" type="password" name="password" class="border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="La tua password" title="Minimo 6 caratteri e almeno 1 MAIUSCOLA ed un numero" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" required>
+                </div>
+                <div>
+                    <input id="confirmPassword" type="password" name="confirmPassword" class="border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Conferma password" title="Conferma la tua password" required>
+                </div>
+            </div>
+
+            <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                Registrati
+            </button>
+
+            <div class="mt-4 text-center">
+                <span>Hai già un account?</span>
+                <a href="/login" title="Accedi" class="text-green-500 hover:underline">
                     Accedi
                 </a>
             </div>
-        </div>
-    </form>
+
+        </form>
+
+    </div>
 
     <script src="../static/js/registration.js"></script>
 </body>
-
-</html>
 
 </html>

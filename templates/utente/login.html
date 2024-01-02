@@ -5,79 +5,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>DressMeNow - Login</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 </head>
 
-<body>
+<body class="bg-green-200 font-sans">
 
-    <form class="my-form" action="/login" method="POST">
-        <div class="login-welcome-row">
-            <a href="#" title="Logo">
-                <img src="../static/assets/Logo.png" alt="Logo" class="logo">
-            </a>
-            <h1>Bentornato! &#x1F44F;</h1>
-            <p>Inserisci le tue credenziali!</p>
-        </div>
-        <div class="input__wrapper">
-            <input type="email" id="email" name="email" class="input__field" placeholder="La tua Email" required>
-            <label for="email" class="input__label">Email</label>
-            <svg class="input__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path>
-                <path d="M16 12v1.5a2.5 2.5 0 0 0 5 0v-1.5a9 9 0 1 0 -5.5 8.28"></path>
-            </svg>
-        </div>
-        <div class="input__wrapper">
-            <input id="password" name="password" type="password" class="input__field" placeholder="La tua password"
-                title="Minimo 8 caratteri, di cui una maiuscola ed un numero"
-                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%?&])[A-Za-z\d@$!%?&]{8,}$" required>
-            <label for="password" class="input__label">
-                Password
-            </label>
-            <svg class="input__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6z"></path>
-                <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0"></path>
-                <path d="M8 11v-4a4 4 0 1 1 8 0v4"></path>
-            </svg>
-        </div>
-        <button type="submit" class="my-form__button">
-            Login
-        </button>
+    <div class="min-h-screen flex items-center justify-center">
 
-        <div id="error-box" class="error-box">
-            <p class="error-message" id="error-message"></p>
-        </div>
-    
-        <script>
-            // Funzione JavaScript per mostrare il messaggio di errore
-            function showErrorMessage(message) {
-                document.getElementById('error-message').innerHTML = message;
-                document.getElementById('error-box').style.display = message ? 'block' : 'none';
-            }
-        </script>
+        <form class="bg-white p-8 rounded shadow-md w-full md:w-2/3 lg:w-1/2" action="/login" method="POST">
 
-        <div class="my-form__actions">
-            <div class="my-form__row">
+            <div class="text-center mb-8">
+                <a href="#" title="Logo">
+                    <img src="../static/assets/Logo.png" alt="Logo" class="w-16 h-16 mx-auto mb-4">
+                </a>
+                <h1 class="text-2xl font-bold">Accedi</h1>
+                <p>Inserisci le tue credenziali!</p>
+            </div>
+
+            <div class="mb-4">
+                <p class="text-red-500 text-sm">{{ message }}</p>
+            </div>
+
+            <div class="mb-4">
+                <input type="email" id="email" name="email" class="border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="La tua Email" required>
+            </div>
+
+            <div class="mb-4">
+                <input id="password" name="password" type="password" class="border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="La tua password" title="Minimo 8 caratteri, di cui una maiuscola ed un numero" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%?&])[A-Za-z\d@$!%?&]{8,}$" required>
+            </div>
+
+            <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                Login
+            </button>
+
+            <div id="error-box" class="mt-4 text-red-500">
+                <p class="error-message" id="error-message"></p>
+            </div>
+
+            <div class="mt-4 text-center">
                 <span>Non hai un account?</span>
-                <a href="/templates/registrazione.html" title="Registrati">
+                <a href="/registrati" title="Registrati" class="text-green-500 hover:underline">
                     Registrati
                 </a>
             </div>
-        </div>
-    </form>
 
-    <script>
-        window.onload = function() {
-            var errorMessage = "{{ error_message }}";
-            showErrorMessage(errorMessage);
-        };
-    </script>
+        </form>
+
+    </div>
+
 </body>
 
 </html>
