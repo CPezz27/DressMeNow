@@ -38,6 +38,19 @@ def get_user(id):
         print(f"Errore durante la lettura dell'utente")
 
 
+def get_addresses(id):
+    try:
+        query = "SELECT * FROM indirizzo WHERE id_utente = %s"
+
+        cursor.execute(query, (id,))
+
+        addresses = cursor.fetchall()
+
+        return addresses
+    except mysql.connector.Error as err:
+        print(f"Errore durante la lettura degli indirizzi")
+
+
 class Utente:
     def __init__(self, nome, cognome, email, password, sesso, numero_telefono, data_nascita):
         self.nome = nome

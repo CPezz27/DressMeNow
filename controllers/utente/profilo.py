@@ -15,3 +15,15 @@ def profilo():
     user = Utente.get_user(user_id)
 
     return render_template("utente/profilo.html", data=user)
+
+
+@app_bp.route("/utente/indirizzi")
+def indirizzi():
+    if 'id' not in session:
+        return redirect('utente/login')
+
+    user_id = session['id']
+
+    addresses = Utente.get_addresses(user_id)
+
+    return render_template("utente/indirizzi.html", data=addresses)
