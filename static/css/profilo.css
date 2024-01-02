@@ -39,6 +39,7 @@ body {
 	 font-size: 1.1em;
 	 display: block;
 	 transition: all 0.3s ease-in-out;
+	 align-items: center;
 }
  nav a:hover {
 	 color: #3fb6a8;
@@ -56,11 +57,14 @@ body {
 	 width: 60%;
 	 height: 100%;
 }
- .profile, .addresses, .subscription, .privacy, .settings {
+ .profile, .addresses, .orders, .avatar, .settings {
 	 transition: opacity 0.5s ease-in;
 	 position: absolute;
 	 width: 70%;
 }
+.addresses svg {
+	margin-left: 2px; /* Regola per correggere il posizionamento dell'icona in addresses */
+  }
  h1 {
 	 font-family: 'Montserrat', sans-serif;
 	 color: #7ed386;
@@ -111,13 +115,13 @@ body {
 	 padding: 2px;
 	 margin: 0;
 }
- .privacy h2 {
+ .avatar h2 {
 	 margin-top: 25px;
 }
  .settings h2 {
 	 margin-top: 25px;
 }
-.subscription h2 {
+.orders h2 {
 	margin-top: 25px;
 }
 .addresses h2 {
