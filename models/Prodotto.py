@@ -35,11 +35,23 @@ def view_product(product_id):
 
     try:
         cursor.execute(search_query, (product_id,))
-        result = cursor.fetchall()
+        result = cursor.fetchone()
 
         return result
     except mysql.connector.Error as err:
         print(f"Errore durante la visualizzazione del prodotto per nome: {err}")
+
+
+def view_products_by_category(category):
+    search_query = "SELECT * FROM prodotto WHERE categoria = %s"
+
+    try:
+        cursor.execute(search_query, (category,))
+        result = cursor.fetchall()
+
+        return result
+    except mysql.connector.Error as err:
+        print(f"Errore durante la visualizzazione del prodotto per categoria: {err}")
 
 
 def update_prodotto(product_id, **kwargs):
