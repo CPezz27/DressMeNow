@@ -1,16 +1,11 @@
 import mysql.connector
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect
 
 from models.Utente import Utente
 from utils import mysql_config
 from utils.utils import validate_input
 
 app_bp = Blueprint('user_register', __name__)
-
-conn = mysql_config.get_database_connection()
-
-cursor = conn.cursor()
-
 
 @app_bp.route('/registrati')
 def register_page():
@@ -46,25 +41,22 @@ def register():
             validate_input(email, pattern_email),
             validate_input(password, pattern_password)
         ]):
-            return "Dati inseriti non validi. Controlla i campi e riprova."
+            return render_template('utente/registrazione.html', message="Dati inseriti non validi. Controlla i campi "
+                                                                        "e riprova.")
 
-        if conn:
-            try:
-                user = Utente(
-                    nome=nome,
-                    cognome=cognome,
-                    email=email,
-                    password=password,
-                    sesso=sesso,
-                    numero_telefono=telefono,
-                    data_nascita=data_nascita)
+        try:
+            user = Utente(
+                nome=nome,
+                cognome=cognome,
+                email=email,
+                password=password,
+                sesso=sesso,
+                numero_telefono=telefono,
+                data_nascita=data_nascita)
 
-                user.save()
-            except mysql.connector.Error as err:
-                print(f"Errore durante l'esecuzione della query: {err}")
-            finally:
-                cursor.close()
-                conn.close()
+            user.save()
+        except mysql.connector.Error as err:
+            return render_template('utente/registrazione.html', message="Errore nel server. Riprova più tardi.")
 
         return redirect('utente/login')
 
