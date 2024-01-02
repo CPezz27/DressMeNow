@@ -44,7 +44,6 @@ body {
 	 color: #3fb6a8;
 	 transform: scale(1.2);
 	 cursor: pointer;
-	 text-shadow: 3px 3px 10px rgba(119, 119, 119, .5);
 }
  nav a:first-child {
 	 margin-top: 7px;
@@ -57,7 +56,7 @@ body {
 	 width: 60%;
 	 height: 100%;
 }
- .profile, .payment, .subscription, .privacy, .settings {
+ .profile, .addresses, .subscription, .privacy, .settings {
 	 transition: opacity 0.5s ease-in;
 	 position: absolute;
 	 width: 70%;
@@ -121,7 +120,7 @@ body {
 .subscription h2 {
 	margin-top: 25px;
 }
-.payment h2 {
+.addresses h2 {
 	margin-top: 25px;
 }
 .profile h2 {
