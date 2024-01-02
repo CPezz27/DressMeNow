@@ -7,14 +7,6 @@ conn = mysql_config.get_database_connection()
 cursor = conn.cursor()
 
 
-def aggiungi_ordine(id_utente, stato, data):
-    try:
-        nuovo_ordine = Ordine(id_utente, stato, data)
-        nuovo_ordine.save()
-    except Exception as e:
-        print(f"Errore durante l'aggiunta dell'ordine: {e}")
-
-
 class Ordine:
     def __init__(self, id_utente, stato, data):
         self.id_utente = id_utente

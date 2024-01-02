@@ -1,4 +1,4 @@
-from flask import Flask, session, redirect, url_for
+from flask import Flask, session, redirect, url_for, Blueprint
 from utils import mysql_config
 from models import Utente
 import mysql.connector
@@ -8,8 +8,10 @@ app = Flask(__name__)
 conn = mysql_config.get_database_connection()
 cursor = conn.cursor()
 
+app_bp = Blueprint('delete_account', __name__)
 
-@app.route('/delete_account', methods=['POST'])
+
+@app_bp.route('/delete_account', methods=['POST'])
 def delete_account():
 
     if 'id' not in session:
