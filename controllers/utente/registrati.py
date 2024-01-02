@@ -66,6 +66,6 @@ def register():
                 cursor.close()
                 conn.close()
 
-        return redirect(url_for('utente/login.html'))
+        return redirect('utente/login.html')
 
     return render_template('utente/registrazione.html')
