@@ -19,13 +19,10 @@ document.querySelectorAll('nav a').forEach((link, index) => {
           window.location.href = '/utente/ordini';
           break;
         case 3:
-          window.location.href = 'pagina2.html';
+          window.location.href = '/utente/modifica_avatar';
           break;
         case 4:
-          window.location.href = 'pagina3.html';
-          break;
-        // Aggiungi altri casi per altre pagine se necessario
-        default:
+          window.location.href = '/utente/impostazioni';
           break;
       }
 

@@ -41,10 +41,6 @@
           </svg>
           </a>
   
-          <div class="rightbox">
-            
-          </div>
-  
           <a id="orders">
             <i class="fa fa-truck fa-2x" aria-hidden="true"></i>
           </a>
@@ -64,6 +60,7 @@
             {% if data %}
             {% for indirizzo in data %}
             <div class="indirizzo indirizzo-attivo" id="indirizzo{{ loop.index0 }}">
+              <h1>Indirizzo {{ loop.index }}</h1>
                 <h2>Provincia</h2>
                 <input
                   type="text"

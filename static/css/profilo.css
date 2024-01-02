@@ -40,6 +40,7 @@ body {
 	 display: block;
 	 transition: all 0.3s ease-in-out;
 	 align-items: center;
+	 justify-content: center;
 }
  nav a:hover {
 	 color: #3fb6a8;
@@ -54,7 +55,7 @@ body {
 }
  .rightbox {
 	 float: right;
-	 width: 60%;
+	 width: 65%;
 	 height: 100%;
 }
  .profile, .addresses, .orders, .avatar, .settings {
@@ -156,3 +157,125 @@ body {
  footer a:hover {
 	 color: #7d7d7d;
 }
+
+div .addresses{
+	display: flex;
+	margin-left: 10px;
+}
+
+.orders{
+  margin-top: 5px;
+  max-height: 300px; /* Imposta l'altezza desiderata per il div degli ordini */
+  overflow-y: auto; /* Aggiungi uno scrollbar verticale quando necessario */
+}
+
+.ordine{
+	display: flex;
+    flex-direction: row;
+	width: 90%;
+	border-bottom: 1px solid #3fb6a8; /* Imposta il colore desiderato e lo stile del bordo inferiore */
+}
+
+.rightbox h1{
+	margin-bottom: 5px;
+}
+
+.orders_data{
+	color: black;
+}
+
+.orders-info {
+	width: 85%;
+	display: grid;
+	grid-template-columns: 1fr 1fr; /* Divide in due colonne uguali */
+	grid-column-gap: 10px; /* Aggiunge spazio tra le colonne */
+  }
+  
+  .orders-infotext-name,
+  .orders-infotext-value {
+	box-sizing: border-box;
+	padding: 5px;
+  }
+  
+.addresses h1{
+	margin-top: 20px;
+}
+
+/* Nascondi la scrollbar predefinita */
+::-webkit-scrollbar {
+	width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+	background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+	background: #888;
+	border-radius: 5px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+	background: #555;
+  }
+
+  @media screen and (max-width: 555px) {
+	.container {
+	  width: 100%;
+	  height: 1500px;
+	  display: flex;
+	  flex-direction: column;
+	  align-items: center;
+	}
+  
+	#logo {
+	  text-align: center; /* Centra il logo */
+	  margin-top: 20px; /* Aggiunge spazio sopra il logo */
+	  margin-bottom: -15px;
+	}
+  
+	.leftbox {
+	  position: static;
+	  display: flex;
+	  flex-direction: row; /* Mostra la nav bar in riga */
+	  width: 105%;
+	  height: auto;
+	  float: none;
+	  margin-bottom: 20px;
+	}
+  
+	nav {
+	  order: -1; /* Imposta la nav sopra */
+	  width: 100%;
+	  display: flex;
+	  flex-direction: row;
+	  align-items: end;
+	  justify-content: space-between;
+	  align-self: auto;
+	}
+  
+	.rightbox {
+	  width: calc(100% - 20px); /* Si restringe un po' in larghezza */
+	  height: auto; /* Altezza automatica */
+	  margin-top: 20px;
+	}
+  
+	.orders {
+	  max-height: none;
+	  overflow-y: visible;
+	}
+  
+	.ordine {
+	  width: 100%;
+	  flex-direction: column;
+	  align-items: flex-start;
+	}
+  
+	.orders-info {
+	  width: 100%;
+	  display: block;
+	}
+  }
