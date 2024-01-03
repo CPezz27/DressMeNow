@@ -112,3 +112,19 @@ class Utente:
             print("Utente salvato correttamente nel database.")
         except mysql.connector.Error as err:
             print(f"Errore durante l'inserimento dell'utente")
+
+    @classmethod
+    def visualizza_tutti_gli_utenti(cls):
+        try:
+            query = "SELECT * FROM utente"
+            cursor.execute(query)
+
+            utenti = cursor.fetchall()
+
+            return utenti
+        except mysql.connector.Error as err:
+            print(f"Errore durante il recupero degli utenti: {err}")
+            return []
+        finally:
+            cursor.close()
+            conn.close()
