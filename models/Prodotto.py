@@ -1,3 +1,5 @@
+import base64
+
 import mysql.connector
 from utils import mysql_config
 
@@ -54,7 +56,8 @@ def view_product(product_id):
             result_dict = {
                 'product_details': result,
                 'images': [
-                    {'id_immagine': img[0], 'id_prodotto': img[1], 'immagine': img[2], 'tipo': img[3]}
+                    {'id_immagine': img[0], 'id_prodotto': img[1], 'immagine': base64.b64encode(img[2]).decode('utf-8'),
+                     'tipo': img[3]}
                     for img in image_result
                 ],
                 'sizes': [
