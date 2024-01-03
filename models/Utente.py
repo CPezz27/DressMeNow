@@ -68,7 +68,7 @@ def delete_account(user_id):
         print(f"Errore durante la cancellazione dell'account: {err}")
 
 
-def modifica_account(self, id_utente, campi_da_modificare):
+def modifica_account(id_utente, campi_da_modificare):
     update_query = "UPDATE utente SET "
     update_values = []
 

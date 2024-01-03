@@ -43,7 +43,6 @@ def modifica_profilo():
             pattern_telefono = r'^[0-9]+$'
             pattern_sesso = r'^(Uomo|Donna)$'
             pattern_email = r'^\S+@\S+\.\S+$'
-            pattern_password = r'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$'
 
             if not all([
                 validate_input(nuovi_valori['nome'], pattern_n),
