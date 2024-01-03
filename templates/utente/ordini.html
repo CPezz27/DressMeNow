@@ -58,71 +58,30 @@
       <div class="rightbox">
         <h1>Lista Ordini</h1>
         <div class="orders">
+
             <div class="ordine" id="ordine">
+              {% if data %}
+              {% for order in data %}
                 <h2>data ordine</h2>
-                <h2 class="orders_data">2023-12-07</h2>
+                <h2 class="orders_data">{{ order['order_details']['data_ordine'] }}</h2>
                 <h2>Totale</h2>
-                <h2 class="orders_data">2 eur</h2>          
+                <h2 class="orders_data">{{ order['transaction_details']['totale'] }}</h2>          
             </div>
             <div class="orders-info">
-
+              {% for product in order['products'] %}
               <h2 class="orders-infotext-name">Nome:</h2>
-              <h2 class="orders-infotext-value">MARIO ROSSA</h2>
+              <h2 class="orders-infotext-value">{{ product['nome_prodotto'] }}</h2>
               <h2 class="orders-infotext-name">Quantity:</h2>
               <h2 class="orders-infotext-value">1,5 pezzi</h2>
               <h2 class="orders-infotext-name">pvezzo unitavio:</h2>
               <h2 class="orders-infotext-value">0,500 cents</h2>
+              {% endfor %}
             </div>
+            {% else %}
+          <p>No orders available for this user.</p>
+      {% endif %}
 
-            <!-- TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST-->
-
-            <div class="ordine" id="ordine">
-              <h2>data ordine</h2>
-              <h2 class="orders_data">2023-12-07</h2>
-              <h2>Totale</h2>
-              <h2 class="orders_data">2 eur</h2>
-            </div>
-            <div class="orders-info">
-
-              <h2 class="orders-infotext-name">Nome:</h2>
-              <h2 class="orders-infotext-value">MARIO ROSSA</h2>
-              <h2 class="orders-infotext-name">Quantity:</h2>
-              <h2 class="orders-infotext-value">1,5 pezzi</h2>
-              <h2 class="orders-infotext-name">pvezzo unitavio:</h2>
-              <h2 class="orders-infotext-value">0,500 cents</h2>
-            </div>
-            <div class="ordine" id="ordine">
-              <h2>data ordine</h2>
-              <h2 class="orders_data">2023-12-07</h2>
-              <h2>Totale</h2>
-              <h2 class="orders_data">2 eur</h2>
-            </div>
-            <div class="orders-info">
-
-              <h2 class="orders-infotext-name">Nome:</h2>
-              <h2 class="orders-infotext-value">MARIO ROSSA</h2>
-              <h2 class="orders-infotext-name">Quantity:</h2>
-              <h2 class="orders-infotext-value">1,5 pezzi</h2>
-              <h2 class="orders-infotext-name">pvezzo unitavio:</h2>
-              <h2 class="orders-infotext-value">0,500 cents</h2>
-            </div>
-            <div class="ordine" id="ordine">
-              <h2>data ordine</h2>
-              <h2 class="orders_data">2023-12-07</h2>
-              <h2>Totale</h2>
-              <h2 class="orders_data">2 eur</h2>
-          </div>
-          <div class="orders-info">
-
-            <h2 class="orders-infotext-name">Nome:</h2>
-            <h2 class="orders-infotext-value">MARIO ROSSA</h2>
-            <h2 class="orders-infotext-name">Quantity:</h2>
-            <h2 class="orders-infotext-value">1,5 pezzi</h2>
-            <h2 class="orders-infotext-name">pvezzo unitavio:</h2>
-            <h2 class="orders-infotext-value">0,500 cents</h2>
-          </div>
-<!-- TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST-->
-        </div>
+    </div>
         </div>
         
       </div>
