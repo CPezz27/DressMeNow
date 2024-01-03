@@ -51,8 +51,24 @@ def view_product(product_id):
         size_result = cursor.fetchall()
 
         if result and image_result:
-            result['images'] = image_result
-            result['sizes'] = size_result
+            result_images = []
+            for image in image_result:
+                result_images.append({
+                    'id_immagine': image[0],
+                    'id_prodotto': image[1],
+                    'immagine': image[2],
+                    'tipo': image[3]
+                })
+
+            result_sizes = []
+            for size in size_result:
+                result_sizes.append({
+                    'nome_taglia': size[0],
+                    'qta': size[1]
+                })
+
+            result[9] = result_images
+            result[10] = result_sizes
             return result
         else:
             return None
