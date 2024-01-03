@@ -34,10 +34,10 @@ def main_products():
     return render_template("utente/search_product.html", data=products)
 
 
-@app_bp.route("/p")
+@app_bp.route("/pd")
 def view_product():
     product_id = request.args.get('product_id')
 
     product = Prodotto.view_product(product_id)
 
-    return render_template("utente/product.html", data=product)
+    return render_template("utente/dettagliProdotto.html", data=product)
