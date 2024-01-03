@@ -10,19 +10,19 @@ document.querySelectorAll('nav a').forEach((link, index) => {
       //reindirizza alle pagine html desiderate
       switch (index) {
         case 0:
-          window.location.href = '/utente/profilo';
+          window.location.href = '/p/profilo';
           break;
         case 1:
-          window.location.href = '/utente/indirizzi';
+          window.location.href = '/p/indirizzi';
           break;
         case 2:
-          window.location.href = '/utente/ordini';
+          window.location.href = '/p/ordini';
           break;
         case 3:
-          window.location.href = '/utente/modifica_avatar';
+          window.location.href = '/p/modifica_avatar';
           break;
         case 4:
-          window.location.href = '/utente/impostazioni';
+          window.location.href = '/p/impostazioni';
           break;
       }
 
