@@ -33,6 +33,12 @@ def view_products():
 def view_product(product_id):
     search_query = "SELECT * FROM prodotto WHERE id_prodotto = %s"
     image_query = "SELECT * FROM immagine WHERE id_prodotto = %s"
+    size_query = (
+        "SELECT t.nometaglia, tp.quantita "
+        "FROM taglia t "
+        "JOIN taglia_prodotto tp ON t.id_taglia = tp.id_taglia "
+        "WHERE tp.id_prodotto = %s"
+    )
 
     try:
         cursor.execute(search_query, (product_id,))
@@ -41,8 +47,12 @@ def view_product(product_id):
         cursor.execute(image_query, (product_id,))
         image_result = cursor.fetchall()
 
+        cursor.execute(size_query, (product_id,))
+        size_result = cursor.fetchall()
+
         if result and image_result:
             result['images'] = image_result
+            result['sizes'] = size_result
             return result
         else:
             return None
