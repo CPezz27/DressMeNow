@@ -1,12 +1,8 @@
 from flask import Flask, session, redirect, url_for, Blueprint
-from utils import mysql_config
 from models import Utente
 import mysql.connector
 
 app = Flask(__name__)
-
-conn = mysql_config.get_database_connection()
-cursor = conn.cursor()
 
 app_bp = Blueprint('delete_account', __name__)
 
@@ -29,7 +25,3 @@ def delete_account():
     except mysql.connector.Error as err:
         print(f"Errore durante la cancellazione dell'account: {err}")
         return redirect(url_for('profilo', message='Si è verificato un errore'))
-
-    finally:
-        cursor.close()
-        conn.close()

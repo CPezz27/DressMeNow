@@ -10,7 +10,7 @@ cursor = conn.cursor()
 
 def login(email, password):
     try:
-        query = "SELECT * FROM direttore WHERE email = %s AND password = %s"
+        query = "SELECT * FROM personale WHERE email = %s AND password = %s"
 
         hashed_password = hash_password(password)
 
@@ -22,32 +22,27 @@ def login(email, password):
 
         return user
     except mysql.connector.Error as err:
-        print(f"Errore durante l'inserimento dell'utente")
+        return False
 
 
 class Direttore:
-    def __init__(self, nome, cognome, email, password, sesso, numero_telefono, data_nascita):
-        self.nome = nome
-        self.cognome = cognome
+    def __init__(self, email, password, tipo_personale):
         self.email = email
         self.password = hash_password(password)
-        self.sesso = sesso
-        self.numero_telefono = numero_telefono
-        self.data_nascita = data_nascita
+        self.tipo_personale = tipo_personale
 
     def save(self):
-        insert_query = ("INSERT INTO direttore "
-                        "(nome, cognome, email, password, sesso, numero_telefono, data_nascita) "
-                        "VALUES (%s, %s, %s, %s, %s, %s, %s)")
+        insert_query = ("INSERT INTO personale "
+                        "(email, password, tipo_personale) "
+                        "VALUES (%s, %s, %s)")
 
         # Dati da inserire nel database
-        user_data = (self.nome, self.cognome, self.email, self.password,
-                     self.sesso, self.numero_telefono, self.data_nascita)
+        user_data = (self.email, self.password, self.tipo_personale)
 
         try:
             cursor.execute(insert_query, user_data)
 
             conn.commit()
-            print("Utente salvato correttamente nel database.")
+            return True
         except mysql.connector.Error as err:
-            print(f"Errore durante l'inserimento dell'utente")
+            return False

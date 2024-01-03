@@ -1,13 +1,9 @@
-from flask import Flask, session, redirect, url_for, Blueprint
-from utils import mysql_config
+from flask import Flask, session, redirect, Blueprint
 from models.Ordine import Ordine
 from datetime import datetime
 import mysql.connector
 
 app = Flask(__name__)
-
-conn = mysql_config.get_database_connection()
-cursor = conn.cursor()
 
 app_bp = Blueprint('effettua_ordine', __name__)
 
@@ -35,7 +31,3 @@ def effettua_ordine():
     except mysql.connector.Error as err:
         print(f"Errore durante l'ordine: {err}")
         return redirect("utente/carrello")
-
-    finally:
-        cursor.close()
-        conn.close()
