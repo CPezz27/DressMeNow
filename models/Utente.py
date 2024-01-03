@@ -112,18 +112,3 @@ class Utente:
             return True
         except mysql.connector.Error as err:
             return False
-
-    @classmethod
-    def visualizza_tutti_gli_utenti(cls):
-        try:
-            query = "SELECT * FROM utente"
-            cursor.execute(query)
-
-            utenti = cursor.fetchall()
-
-            return utenti
-        except mysql.connector.Error as err:
-            return None
-        finally:
-            cursor.close()
-            conn.close()
