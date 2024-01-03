@@ -1,5 +1,5 @@
 import mysql.connector
-from flask import Blueprint, render_template, request, session, redirect, url_for
+from flask import Blueprint, render_template, request, session, redirect
 
 from models import Utente
 from utils.utils import is_valid_password

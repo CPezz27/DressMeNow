@@ -70,5 +70,3 @@ def orders():
     print(user_orders)
 
     return render_template("utente/ordini.html", data=user_orders)
-
-
