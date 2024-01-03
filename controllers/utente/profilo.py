@@ -43,30 +43,31 @@ def orders():
 
     order_dict = {}
     for order in user_orders:
-        order_id = order['id_ordine']
+        order_id = order[0]
         if order_id not in order_dict:
             order_dict[order_id] = {
                 'order_details': {
                     'id_ordine': order_id,
-                    'stato_ordine': order['stato_ordine'],
-                    'data_ordine': order['data_ordine']
+                    'stato_ordine': order[1],
+                    'data_ordine': order[2]
                 },
                 'transaction_details': {
-                    'id_transazione': order['id_transazione'],
-                    'totale': order['totale'],
-                    'stato_transazione': order['stato_transazione']
+                    'id_transazione': order[3],
+                    'totale': order[5],
+                    'stato_transazione': order[6]
                 },
                 'products': []
             }
 
         order_dict[order_id]['products'].append({
-            'id_prodotto': order['id_prodotto'],
-            'nome_prodotto': order['nome_prodotto'],
-            'qta': order['quantità'],
-            'prezzo': order['prezzo'],
+            'id_prodotto': order[7],
+            'nome_prodotto': order[8],
+            'prezzo_individuale': order[10],
         })
 
     user_orders = list(order_dict.values())
+
+    print(user_orders)
 
     return render_template("utente/ordini.html", data=user_orders)
 
