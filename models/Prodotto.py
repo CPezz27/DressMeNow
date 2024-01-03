@@ -15,7 +15,7 @@ def search_prodotto_by_name(nome):
 
         return result
     except mysql.connector.Error as err:
-        print(f"Errore durante la ricerca dei prodotti per nome: {err}")
+        return None
 
 
 def view_products():
@@ -27,7 +27,7 @@ def view_products():
 
         return result
     except mysql.connector.Error as err:
-        print(f"Errore durante la visualizzazione dei prodotti per nome: {err}")
+        return None
 
 
 def view_product(product_id):
@@ -39,7 +39,7 @@ def view_product(product_id):
 
         return result
     except mysql.connector.Error as err:
-        print(f"Errore durante la visualizzazione del prodotto per nome: {err}")
+        return None
 
 
 def view_products_by_category(category):
@@ -51,7 +51,7 @@ def view_products_by_category(category):
 
         return result
     except mysql.connector.Error as err:
-        print(f"Errore durante la visualizzazione del prodotto per categoria: {err}")
+        return None
 
 
 def update_prodotto(product_id, **kwargs):
@@ -70,9 +70,9 @@ def update_prodotto(product_id, **kwargs):
         cursor.execute(update_query, update_data)
 
         conn.commit()
-        print(f"Prodotto con ID {product_id} aggiornato correttamente.")
+        return True
     except mysql.connector.Error as err:
-        print(f"Errore durante l'aggiornamento del prodotto")
+        return False
 
 
 def delete(product_id):
@@ -82,9 +82,10 @@ def delete(product_id):
         cursor.execute(delete_query, (product_id,))
 
         conn.commit()
-        print(f"Prodotto con ID {product_id} eliminato correttamente.")
+        return True
     except mysql.connector.Error as err:
-        print(f"Errore durante l'eliminazione del prodotto")
+        return False
+
 
 class Prodotto:
     def __init__(self, nome, categoria, marca, descrizione, vestibilita, prezzo, colore, materiale):
@@ -109,6 +110,6 @@ class Prodotto:
             cursor.execute(insert_query, product_data)
 
             conn.commit()
-            print("Prodotto salvato correttamente nel database.")
+            return True
         except mysql.connector.Error as err:
-            print(f"Errore durante l'inserimento del prodotto")
+            return False

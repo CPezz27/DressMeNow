@@ -21,7 +21,7 @@ class Indirizzo:
             addresses = cursor.fetchall()
             return addresses
         except mysql.connector.Error as err:
-            print(f"Errore durante la lettura dell'indirizzo: {err}")
+            return None
         finally:
             cursor.close()
             conn.close()
@@ -38,10 +38,10 @@ class Indirizzo:
         try:
             cursor.execute(insert_query, data)
             conn.commit()
-            print("Indirizzo salvato correttamente nel database.")
+            return True
         except mysql.connector.Error as err:
             conn.rollback()
-            print(f"Errore durante l'inserimento dell'indirizzo: {err}")
+            return False
         finally:
             cursor.close()
             conn.close()
@@ -57,10 +57,10 @@ class Indirizzo:
         try:
             cursor.execute(update_query, data)
             conn.commit()
-            print("Indirizzo aggiornato correttamente nel database.")
+            return True
         except mysql.connector.Error as err:
             conn.rollback()
-            print(f"Errore durante l'aggiornamento dell'indirizzo: {err}")
+            return False
         finally:
             cursor.close()
             conn.close()
@@ -73,10 +73,10 @@ class Indirizzo:
         try:
             cursor.execute(delete_query, self)
             conn.commit()
-            print("Indirizzo eliminato correttamente dal database.")
+            return True
         except mysql.connector.Error as err:
             conn.rollback()
-            print(f"Errore durante l'eliminazione dell'indirizzo: {err}")
+            return False
         finally:
             cursor.close()
             conn.close()

@@ -22,7 +22,7 @@ def login(email, password):
 
         return user
     except mysql.connector.Error as err:
-        print(f"Errore durante l'inserimento dell'utente")
+        return None
 
 
 def get_user(id):
@@ -35,7 +35,7 @@ def get_user(id):
 
         return user
     except mysql.connector.Error as err:
-        print(f"Errore durante la lettura dell'utente")
+        return None
 
 
 def get_addresses(id):
@@ -48,7 +48,7 @@ def get_addresses(id):
 
         return addresses
     except mysql.connector.Error as err:
-        print(f"Errore durante la lettura degli indirizzi")
+        return None
 
 
 def delete_account(user_id):
@@ -62,10 +62,10 @@ def delete_account(user_id):
         cursor.execute(delete_user_query, (user_id,))
 
         conn.commit()
-        print("Account eliminato con successo")
+        return True
     except mysql.connector.Error as err:
         conn.rollback()
-        print(f"Errore durante la cancellazione dell'account: {err}")
+        return False
 
 
 def modifica_account(id_utente, **kwargs):
@@ -82,9 +82,9 @@ def modifica_account(id_utente, **kwargs):
     try:
         cursor.execute(update_query, tuple(update_values))
         conn.commit()
-        print("Profilo utente aggiornato correttamente nel database.")
+        return True
     except mysql.connector.Error as err:
-        print(f"Errore durante la modifica del profilo: {err}")
+        return False
 
 
 class Utente:
@@ -109,9 +109,9 @@ class Utente:
             cursor.execute(insert_query, user_data)
 
             conn.commit()
-            print("Utente salvato correttamente nel database.")
+            return True
         except mysql.connector.Error as err:
-            print(f"Errore durante l'inserimento dell'utente")
+            return False
 
     @classmethod
     def visualizza_tutti_gli_utenti(cls):
@@ -123,8 +123,7 @@ class Utente:
 
             return utenti
         except mysql.connector.Error as err:
-            print(f"Errore durante il recupero degli utenti: {err}")
-            return []
+            return None
         finally:
             cursor.close()
             conn.close()

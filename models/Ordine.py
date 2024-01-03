@@ -12,11 +12,9 @@ def modifica_ordine(id_ordine, nuovo_stato):
         update_query = "UPDATE ordine SET stato = %s WHERE id_ordine = %s"
         cursor.execute(update_query, (nuovo_stato, id_ordine))
         conn.commit()
-        print("Stato dell'ordine modificato correttamente.")
         return True
     except mysql.connector.Error as err:
         conn.rollback()
-        print(f"Errore durante la modifica dello stato dell'ordine: {err}")
         return False
 
 
@@ -25,11 +23,9 @@ def cancella_ordine(id_ordine):
         update_query = "UPDATE ordine SET stato = 'cancellato' WHERE id_ordine = %s"
         cursor.execute(update_query, (id_ordine,))
         conn.commit()
-        print("Ordine cancellato correttamente.")
         return True
     except mysql.connector.Error as err:
         conn.rollback()
-        print(f"Errore durante la cancellazione dell'ordine: {err}")
         return False
 
 
@@ -38,11 +34,9 @@ def modifica_stato_ordine(id_ordine, nuovo_stato):
         update_query = "UPDATE ordine SET stato = %s WHERE id_ordine = %s"
         cursor.execute(update_query, (nuovo_stato, id_ordine))
         conn.commit()
-        print("Stato dell'ordine modificato correttamente.")
         return True
     except mysql.connector.Error as err:
         conn.rollback()
-        print(f"Errore durante la modifica dello stato dell'ordine: {err}")
         return False
 
 
@@ -54,8 +48,7 @@ def calcola_vendite_totali():
             return result[0]
         return 0
     except mysql.connector.Error as err:
-        print(f"Errore durante il calcolo delle vendite totali: {err}")
-        return 0
+        return None
 
 
 def calcola_guadagno():
@@ -66,8 +59,7 @@ def calcola_guadagno():
             return result[0]
         return 0
     except mysql.connector.Error as err:
-        print(f"Errore durante il calcolo del guadagno: {err}")
-        return 0
+        return None
 
 
 def get_user_orders(user_id):
@@ -88,8 +80,7 @@ def get_user_orders(user_id):
 
         return orders
     except mysql.connector.Error as err:
-        print(f"Errore durante il recupero degli ordini: {err}")
-        return []
+        return None
     
 
 def modifica_reso(id_prodotto, stato_reso, note_reso, id_ordine):
@@ -102,10 +93,8 @@ def modifica_reso(id_prodotto, stato_reso, note_reso, id_ordine):
     try:
         cursor.execute(update_query, reso_data)
         conn.commit()
-        print("Reso effettuato correttamente.")
         return True
     except mysql.connector.Error as err:
-        print(f"Errore durante l'effettuazione del reso: {err}")
         return False
 
 
@@ -125,8 +114,7 @@ class Ordine:
         try:
             cursor.execute(insert_query, order_data)
             conn.commit()
-            print("Ordine salvato correttamente nel database.")
+            return True
         except mysql.connector.Error as err:
-            print(f"Errore durante l'inserimento dell'ordine: {err}")
-
+            return False
     

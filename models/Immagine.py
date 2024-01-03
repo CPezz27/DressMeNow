@@ -20,10 +20,10 @@ class Immagine:
         try:
             cursor.execute(insert_query, (id_prodotto, immagine, tipo))
             conn.commit()
-            print("Immagine salvata correttamente nel database.")
+            return True
         except mysql.connector.Error as err:
             conn.rollback()
-            print(f"Errore durante l'inserimento dell'immagine: {err}")
+            return False
         finally:
             cursor.close()
             conn.close()
@@ -38,10 +38,10 @@ class Immagine:
         try:
             cursor.execute(delete_query, (id_immagine,))
             conn.commit()
-            print("Immagine rimossa correttamente dal database.")
+            return True
         except mysql.connector.Error as err:
             conn.rollback()
-            print(f"Errore durante la rimozione dell'immagine: {err}")
+            return False
         finally:
             cursor.close()
             conn.close()
