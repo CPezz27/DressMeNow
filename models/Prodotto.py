@@ -8,26 +8,26 @@ cursor = conn.cursor()
 
 
 def search_prodotto_by_name(nome):
-    search_query = "SELECT * FROM prodotto WHERE nome LIKE %s"
+    search_query = "SELECT p.*, MIN(i.id_immagine) AS first_image FROM prodotto p LEFT JOIN immagine i ON " \
+                   "p.id_prodotto = i.id_prodotto WHERE p.nome LIKE %s GROUP BY p.id_prodotto"
     search_name = f"%{nome}%"
 
     try:
         cursor.execute(search_query, (search_name,))
-        result = cursor.fetchall()
-
-        return result
+        results = cursor.fetchall()
+        return results
     except mysql.connector.Error as err:
         return None
 
 
 def view_products():
-    search_query = "SELECT * FROM prodotto"
+    search_query = "SELECT p.*, MIN(i.id_immagine) AS first_image FROM prodotto p LEFT JOIN immagine i ON " \
+                   "p.id_prodotto = i.id_prodotto GROUP BY p.id_prodotto"
 
     try:
         cursor.execute(search_query)
-        result = cursor.fetchall()
-
-        return result
+        results = cursor.fetchall()
+        return results
     except mysql.connector.Error as err:
         return None
 
