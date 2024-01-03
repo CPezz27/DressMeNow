@@ -86,7 +86,7 @@ def login(email, password):
         return None
 
 
-class Direttore:
+class Personale:
     def __init__(self, email, password, tipo_personale):
         self.email = email
         self.password = hash_password(password)

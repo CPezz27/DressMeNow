@@ -1,7 +1,7 @@
 import mysql.connector
 from flask import Blueprint, render_template, request, redirect, session, url_for
 
-from models import Direttore
+from models import Personale
 from utils import mysql_config
 
 app_bp = Blueprint('direttore_login', __name__)
