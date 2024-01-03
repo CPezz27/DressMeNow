@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from models import Prodotto
+from models.Prodotto import Prodotto
 
 prodotto_bp = Blueprint('gestore_prodotti', __name__)
 
