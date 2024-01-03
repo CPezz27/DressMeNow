@@ -48,3 +48,17 @@ class Ordine:
             print("Ordine salvato correttamente nel database.")
         except mysql.connector.Error as err:
             print(f"Errore durante l'inserimento dell'ordine")
+
+    def effettua_reso(self, id_prodotto, motivo_reso):
+            update_query = ("UPDATE prodotto_in_ordine "
+                            "SET reso = 1, stato_reso = %s, note_reso = %s "
+                            "WHERE id_ordine = %s AND id_prodotto = %s")
+
+            reso_data = ('richiesto', motivo_reso, self.id_ordine, id_prodotto)
+
+            try:
+                cursor.execute(update_query, reso_data)
+                conn.commit()
+                print("Reso effettuato correttamente.")
+            except mysql.connector.Error as err:
+                print(f"Errore durante l'effettuazione del reso: {err}")
