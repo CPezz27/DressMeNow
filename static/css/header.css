@@ -16,23 +16,23 @@ body {
   .logo {
     margin-right: 10px;
 }
-  nav {
+  .nav-header {
     display: flex;
     justify-content: end;
 }
  .three-lined-menu{
     display: none;
 }
-  nav .main-links {
+.nav-header .main-links {
     display: flex;
 }
-  nav .icons {
+.nav-header .icons {
     display: flex;
     align-items: center;
     margin-left: auto;
     align-items: right;
 }
-  nav .main-links a {
+.nav-header .main-links a {
     color: rgb(0, 0, 0);
     text-decoration: none;
     display: flex;
@@ -40,7 +40,7 @@ body {
     align-items: center;
     padding: 0 15px;
 }
-  nav a:hover {
+.nav-header a:hover {
     text-decoration: underline;
 }
   .icons img {
@@ -63,7 +63,7 @@ body {
   header{
     flex-direction: column;
   }
-  nav .main-links{
+  .nav-header .main-links{
     display: none;
   }
   .icons img{
@@ -76,7 +76,7 @@ body {
     cursor: pointer;
     transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
   }
-  nav {
+  .nav-header {
     display: flex;
     justify-content: space-between;
   }
