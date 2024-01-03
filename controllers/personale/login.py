@@ -24,7 +24,7 @@ def login():
 
         if conn:
             try:
-                direttore = Direttore.login(email, password)
+                direttore = Personale.login(email, password)
 
                 if direttore:
                     session['logged_in'] = True
