@@ -1,13 +1,9 @@
 import mysql.connector
-from utils import mysql_config
-
-
 import mysql.connector
 from utils import mysql_config
 
 conn = mysql_config.get_database_connection()
 cursor = conn.cursor()
-
 
 
 def aggiungi_al_carrello(id_carrello, id_prodotto, quantita=1):

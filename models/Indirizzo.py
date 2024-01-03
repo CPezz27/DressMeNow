@@ -2,6 +2,22 @@ import mysql.connector
 from utils.mysql_config import get_database_connection
 
 
+def get_addresses(id_utente):
+    conn = get_database_connection()
+    cursor = conn.cursor(dictionary=True)
+    query = "SELECT * FROM indirizzo WHERE id_utente = %s"
+
+    try:
+        cursor.execute(query, (id_utente,))
+        addresses = cursor.fetchall()
+        return addresses
+    except mysql.connector.Error as err:
+        return None
+    finally:
+        cursor.close()
+        conn.close()
+
+
 class Indirizzo:
     def __init__(self, provincia, cap, via, tipo, citta):
         self.provincia = provincia
@@ -9,22 +25,6 @@ class Indirizzo:
         self.via = via
         self.tipo = tipo
         self.citta = citta
-
-    @staticmethod
-    def get_addresses(id_utente):
-        conn = get_database_connection()
-        cursor = conn.cursor(dictionary=True)
-        query = "SELECT * FROM indirizzo WHERE id_utente = %s"
-
-        try:
-            cursor.execute(query, (id_utente,))
-            addresses = cursor.fetchall()
-            return addresses
-        except mysql.connector.Error as err:
-            return None
-        finally:
-            cursor.close()
-            conn.close()
 
     def save(self):
         conn = get_database_connection()

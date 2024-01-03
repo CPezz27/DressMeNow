@@ -2,10 +2,10 @@ import mysql.connector
 from flask import Blueprint, render_template, request, redirect
 
 from models.Utente import Utente
-from utils import mysql_config
 from utils.utils import validate_input
 
 app_bp = Blueprint('user_register', __name__)
+
 
 @app_bp.route('/registrati')
 def register_page():
