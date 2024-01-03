@@ -51,15 +51,18 @@ def view_product(product_id):
         size_result = cursor.fetchall()
 
         if result and image_result:
-            result[9] = [
-                {'id_immagine': img[0], 'id_prodotto': img[1], 'immagine': img[2], 'tipo': img[3]}
-                for img in image_result
-            ]
-            result[10] = [
-                {'nome_taglia': size[0], 'qta': size[1]}
-                for size in size_result
-            ]
-            return result
+            result_dict = {
+                'product_details': result,
+                'images': [
+                    {'id_immagine': img[0], 'id_prodotto': img[1], 'immagine': img[2], 'tipo': img[3]}
+                    for img in image_result
+                ],
+                'sizes': [
+                    {'nome_taglia': size[0], 'qta': size[1]}
+                    for size in size_result
+                ]
+            }
+            return result_dict
         else:
             return None
     except mysql.connector.Error as err:
