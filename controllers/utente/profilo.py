@@ -53,7 +53,6 @@ def orders():
                 },
                 'transaction_details': {
                     'id_transazione': order['id_transazione'],
-                    'data_transazione': order['data_transazione'],
                     'totale': order['totale'],
                     'stato_transazione': order['stato_transazione']
                 },
@@ -63,9 +62,8 @@ def orders():
         order_dict[order_id]['products'].append({
             'id_prodotto': order['id_prodotto'],
             'nome_prodotto': order['nome_prodotto'],
-            'reso': order['reso'],
-            'stato_reso': order['stato_reso'],
-            'note_reso': order['note_reso']
+            'qta': order['quantità'],
+            'prezzo': order['prezzo'],
         })
 
     user_orders = list(order_dict.values())

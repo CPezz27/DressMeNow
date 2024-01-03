@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, session, redirect, url_for
+from models import Utente
 from models.Utente import Utente
 from utils.utils import validate_input, is_valid_password
 import mysql.connector
@@ -21,7 +22,7 @@ def modifica_profilo():
             if user:
                 return render_template('modifica_profilo.html', user=user)  # Pagina per la modifica
             else:
-                return render_template('404.html', message="Utente non trovato.")
+                return render_template('profilo.html', message="Utente non trovato.")
         else:
             return render_template('/login')
 
@@ -51,9 +52,9 @@ def modifica_profilo():
                 validate_input(nuovi_valori['telefono'], pattern_telefono),
                 validate_input(nuovi_valori['sesso'], pattern_sesso),
                 validate_input(nuovi_valori['email'], pattern_email),
-                is_valid_password(request.form['password'], pattern_password)
+                is_valid_password(request.form['password'])
             ]):
-                return "Dati inseriti non validi. Controlla i campi e riprova."
+                return render_template('profilo.html', message="Dati inseriti non validi. Controlla i campi e riprova.")
 
             try:
                 utente = Utente.get_user(user_id)
@@ -67,7 +68,7 @@ def modifica_profilo():
                         numero_telefono=nuovi_valori['telefono'],
                         data_nascita=nuovi_valori['data_nascita']
                     )
-                    utente_modificato.modifica_account(user_id, utente)
+                    Utente.modifica_account(user_id, utente)
                     return redirect(url_for('user_profile.profilo'))
                 else:
                     return render_template('404.html', message="Utente non trovato.")
