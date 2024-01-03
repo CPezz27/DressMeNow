@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dettagli prodotto</title>
+    <title>{{ data.product_details[1] }}</title>
     <link
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
       rel="stylesheet"
@@ -11,22 +11,23 @@
   </head>
 
   <body class="font-poppins bg-gray-100">
+    {% if data %}
     <div class="container mx-auto py-8">
       <div class="text-center mb-8">
-        <h2 class="text-3xl font-semibold">Product Details</h2>
+        <h2 class="text-3xl font-semibold">Dettagli Prodotto</h2>
       </div>
 
       <div class="flex flex-wrap">
         <div class="w-full md:w-1/2 mb-8">
           <div id="slider" class="owl-carousel product-slider owl-theme">
             <!-- Images go here -->
+            {% for image in data.images %}
             <img
-              src="{{ url_for('static', filename='assets/Logo.png') }}"
-              alt="Logo"
-              alt="logo"
-              width="53"
-              height="60"
+              style="width: 30px; height: 30px"
+              src="data:image/jpeg;base64,{{ image.immagine }}"
+              alt="{{ image.tipo }}"
             />
+            {% endfor %}
           </div>
           <div id="thumb" class="owl-carousel product-thumb owl-theme">
             <!-- Thumbnail images go here -->
@@ -44,34 +45,30 @@
           <div class="product-dtl">
             <div class="product-info">
               <div class="product-name text-2xl font-semibold mb-4">
-                Variable Product
+                {{ data.product_details[1] }}
               </div>
               <div class="product-price-discount">
-                <span class="text-lg font-semibold text-green-600">$39.00</span>
-                <span class="line-through text-sm text-gray-500">$29.00</span>
+                <span class="text-lg font-semibold text-green-600"
+                  >{{ data.product_details[6] }}€</span
+                >
               </div>
             </div>
 
+            <p
+              class="text-gray-700 text-base leading-6 mt-4 product-name text-xl"
+            >
+              Descrizione:
+            </p>
             <p class="text-gray-700 text-base leading-6 mt-4">
-              <!-- Product description goes here -->
-              Con il termine lorem ipsum si indica un testo segnaposto
-              utilizzato da grafici, progettisti, programmatori e tipografi a
-              modo riempitivo per bozzetti e prove grafiche.[1] È un testo privo
-              di senso, composto da parole (o parti di parole) in lingua latina,
-              riprese pseudocasualmente dal De finibus bonorum et malorum
-              scritto da Cicerone del 45 a.C, a volte alterate con l'inserzione
-              di passaggi ironici. La caratteristica principale è data dal fatto
-              che offre una distribuzione delle lettere uniforme, apparendo come
-              un normale blocco di testo leggibile. Il testo fu utilizzato per
-              la prima volta nel 1500 da un anonimo tipografo per mostrare i
-              propri caratteri; da allora è diventato lo standard dell'industria
-              tipografica. È sopravvissuto non solo a più di cinque secoli, ma
-              anche al passaggio alla videoimpaginazione, pervenendoci
-              sostanzialmente inalterato. Fu reso popolare, negli anni '60, con
-              la diffusione dei fogli di caratteri trasferibili, detti anche
-              trasferelli, e successivamente dai programmi di grafica. La sua
-              funzione lo avvicina al testo ETAOIN SHRDLU un tempo usato per
-              provare le Linotype.[2]
+              {{ data.product_details[4] }}
+            </p>
+            <p
+              class="text-gray-700 text-base leading-6 mt-4 product-name text-xl"
+            >
+              colore:
+            </p>
+            <p class="text-gray-700 text-base leading-6 mt-4">
+              {{ data.product_details[7] }}
             </p>
 
             <div class="flex flex-wrap mt-4">
@@ -86,26 +83,9 @@
                   name="size"
                   class="form-select block w-full bg-white border border-gray-300 rounded p-2"
                 >
-                  <option>S</option>
-                  <option>M</option>
-                  <option>L</option>
-                  <option>XL</option>
-                </select>
-              </div>
-              <div class="w-full md:w-1/2">
-                <label
-                  for="color"
-                  class="block text-sm font-semibold text-gray-600 mb-1"
-                  >Color</label
-                >
-                <select
-                  id="color"
-                  name="color"
-                  class="form-select block w-full bg-white border border-gray-300 rounded p-2"
-                >
-                  <option>Blue</option>
-                  <option>Green</option>
-                  <option>Red</option>
+                  {% for size in data.sizes %}
+                  <option>{{ size.nome_taglia }}</option>
+                  {% endfor %}
                 </select>
               </div>
             </div>
@@ -145,7 +125,9 @@
         </div>
       </div>
     </div>
-
+    {% else %}
+    <p>Prodotto non trovato</p>
+    {% endif %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
