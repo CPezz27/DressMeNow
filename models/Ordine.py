@@ -7,6 +7,45 @@ conn = mysql_config.get_database_connection()
 cursor = conn.cursor()
 
 
+def modifica_ordine(id_ordine, nuovo_stato):
+    try:
+        update_query = "UPDATE ordine SET stato = %s WHERE id_ordine = %s"
+        cursor.execute(update_query, (nuovo_stato, id_ordine))
+        conn.commit()
+        print("Stato dell'ordine modificato correttamente.")
+        return True
+    except mysql.connector.Error as err:
+        conn.rollback()
+        print(f"Errore durante la modifica dello stato dell'ordine: {err}")
+        return False
+
+
+def cancella_ordine(id_ordine):
+    try:
+        update_query = "UPDATE ordine SET stato = 'cancellato' WHERE id_ordine = %s"
+        cursor.execute(update_query, (id_ordine,))
+        conn.commit()
+        print("Ordine cancellato correttamente.")
+        return True
+    except mysql.connector.Error as err:
+        conn.rollback()
+        print(f"Errore durante la cancellazione dell'ordine: {err}")
+        return False
+
+
+def modifica_stato_ordine(id_ordine, nuovo_stato):
+    try:
+        update_query = "UPDATE ordine SET stato = %s WHERE id_ordine = %s"
+        cursor.execute(update_query, (nuovo_stato, id_ordine))
+        conn.commit()
+        print("Stato dell'ordine modificato correttamente.")
+        return True
+    except mysql.connector.Error as err:
+        conn.rollback()
+        print(f"Errore durante la modifica dello stato dell'ordine: {err}")
+        return False
+
+
 def calcola_vendite_totali():
     try:
         cursor.execute("SELECT COUNT(*) FROM ordine")
