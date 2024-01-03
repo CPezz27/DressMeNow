@@ -50,28 +50,21 @@ def get_addresses(id):
     except mysql.connector.Error as err:
         print(f"Errore durante la lettura degli indirizzi")
 
-def get_orders(id):
+
+def delete_account(user_id):
     try:
-        query = "SELECT * FROM ordine WHERE id_utente = %s"
+        conn.start_transaction()
 
-        cursor.execute(query, (id,))
-
-        orders = cursor.fetchall()
-
-        return orders
-    except mysql.connector.Error as err:
-        print(f"Errore durante la lettura degli indirizzi")
-
-
-def delete_account(id):
-    try:
         delete_address_query = "DELETE FROM indirizzo WHERE id_utente = %s"
-        cursor.execute(delete_address_query, (id,))
+        cursor.execute(delete_address_query, (user_id,))
+
+        delete_user_query = "DELETE FROM utente WHERE id_utente = %s"
+        cursor.execute(delete_user_query, (user_id,))
+
         conn.commit()
-        delete_user_query = "DELETE FROM utente WHERE id = %s"
-        cursor.execute(delete_user_query, (id,))
-        conn.commit()
+        print("Account eliminato con successo")
     except mysql.connector.Error as err:
+        conn.rollback()
         print(f"Errore durante la cancellazione dell'account: {err}")
 
 

@@ -11,7 +11,7 @@ cursor = conn.cursor()
 app_bp = Blueprint('delete_account', __name__)
 
 
-@app_bp.route('/delete_account', methods=['POST'])
+@app_bp.route('/p/cancella_account', methods=['POST'])
 def delete_account():
 
     if 'id' not in session:
