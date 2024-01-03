@@ -7,6 +7,30 @@ conn = mysql_config.get_database_connection()
 cursor = conn.cursor()
 
 
+def calcola_vendite_totali():
+    try:
+        cursor.execute("SELECT COUNT(*) FROM ordine")
+        result = cursor.fetchone()
+        if result:
+            return result[0]
+        return 0
+    except mysql.connector.Error as err:
+        print(f"Errore durante il calcolo delle vendite totali: {err}")
+        return 0
+
+
+def calcola_guadagno():
+    try:
+        cursor.execute("SELECT SUM(totale) FROM transazione")
+        result = cursor.fetchone()
+        if result and result[0]:
+            return result[0]
+        return 0
+    except mysql.connector.Error as err:
+        print(f"Errore durante il calcolo del guadagno: {err}")
+        return 0
+
+
 def get_user_orders(user_id):
     try:
         query = (
@@ -30,20 +54,20 @@ def get_user_orders(user_id):
     
 
 def modifica_reso(id_prodotto, stato_reso, note_reso, id_ordine):
-            update_query = ("UPDATE prodotto_in_ordine "
-                            "SET reso = 1, stato_reso = %s, note_reso = %s "
-                            "WHERE id_ordine = %s AND id_prodotto = %s")
+    update_query = ("UPDATE prodotto_in_ordine "
+                    "SET reso = 1, stato_reso = %s, note_reso = %s "
+                    "WHERE id_ordine = %s AND id_prodotto = %s")
 
-            reso_data = (stato_reso, note_reso, id_ordine, id_prodotto)
+    reso_data = (stato_reso, note_reso, id_ordine, id_prodotto)
 
-            try:
-                cursor.execute(update_query, reso_data)
-                conn.commit()
-                print("Reso effettuato correttamente.")
-                return True
-            except mysql.connector.Error as err:
-                print(f"Errore durante l'effettuazione del reso: {err}")
-                return False
+    try:
+        cursor.execute(update_query, reso_data)
+        conn.commit()
+        print("Reso effettuato correttamente.")
+        return True
+    except mysql.connector.Error as err:
+        print(f"Errore durante l'effettuazione del reso: {err}")
+        return False
 
 
 class Ordine:
@@ -64,6 +88,6 @@ class Ordine:
             conn.commit()
             print("Ordine salvato correttamente nel database.")
         except mysql.connector.Error as err:
-            print(f"Errore durante l'inserimento dell'ordine")
+            print(f"Errore durante l'inserimento dell'ordine: {err}")
 
     
