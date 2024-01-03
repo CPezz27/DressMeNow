@@ -3,16 +3,20 @@ from models import Ordine
 
 effettua_reso_bp = Blueprint('effettua_reso', __name__)
 
-@effettua_reso_bp.route('/gestore_prodotti/effettua_reso/<int:order_id>/<int:product_id>', methods=['POST'])
-def effettua_reso(order_id, product_id):
+@effettua_reso_bp.route('/gestore_prodotti/effettua_reso', methods=['POST'])
+def effettua_reso():
     if request.method == 'POST':
-        stato_reso = request.form.get('stato_reso')
         try:
-            ordine_da_modificare = Ordine.view_order(order_id)
-            id_prodotto = product_id
-            ordine_da_modificare.effettua_reso(id_prodotto, stato_reso)
+            id_ordine = request.form.get('id_ordine')
+            id_prodotto = request.form.get('id_prodotto')
+            note_reso = request.form.get('note_reso')
 
-            return render_template('/gestore_prodotti/effettua_reso.html', message='Reso effettuato con successo')
+
+            if Ordine.modifica_reso(id_prodotto, 'richiesto', note_reso, id_ordine):
+                return render_template('/gestore_prodotti/effettua_reso.html', message='Reso effettuato con successo')
+            else:
+                return render_template('/gestore_prodotti/effettua_reso.html', error='Errore durante l\'effettuazione del reso')
+
         except Exception as err:
             return render_template('/gestore_prodotti/effettua_reso.html', error=f'Errore durante l\'effettuazione del reso: {err}')
 

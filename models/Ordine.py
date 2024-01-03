@@ -27,6 +27,23 @@ def get_user_orders(user_id):
     except mysql.connector.Error as err:
         print(f"Errore durante il recupero degli ordini: {err}")
         return []
+    
+
+def modifica_reso(id_prodotto, stato_reso, note_reso, id_ordine):
+            update_query = ("UPDATE prodotto_in_ordine "
+                            "SET reso = 1, stato_reso = %s, note_reso = %s "
+                            "WHERE id_ordine = %s AND id_prodotto = %s")
+
+            reso_data = (stato_reso, note_reso, id_ordine, id_prodotto)
+
+            try:
+                cursor.execute(update_query, reso_data)
+                conn.commit()
+                print("Reso effettuato correttamente.")
+                return True
+            except mysql.connector.Error as err:
+                print(f"Errore durante l'effettuazione del reso: {err}")
+                return False
 
 
 class Ordine:
@@ -49,16 +66,4 @@ class Ordine:
         except mysql.connector.Error as err:
             print(f"Errore durante l'inserimento dell'ordine")
 
-    def effettua_reso(self, id_prodotto, stato_reso):
-            update_query = ("UPDATE prodotto_in_ordine "
-                            "SET reso = 1, stato_reso = %s, note_reso = %s "
-                            "WHERE id_ordine = %s AND id_prodotto = %s")
-
-            reso_data = ('richiesto', stato_reso, self.id_ordine, id_prodotto)
-
-            try:
-                cursor.execute(update_query, reso_data)
-                conn.commit()
-                print("Reso effettuato correttamente.")
-            except mysql.connector.Error as err:
-                print(f"Errore durante l'effettuazione del reso: {err}")
+    
