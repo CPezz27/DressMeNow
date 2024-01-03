@@ -32,12 +32,20 @@ def view_products():
 
 def view_product(product_id):
     search_query = "SELECT * FROM prodotto WHERE id_prodotto = %s"
+    image_query = "SELECT * FROM immagine WHERE id_prodotto = %s"
 
     try:
         cursor.execute(search_query, (product_id,))
         result = cursor.fetchone()
 
-        return result
+        cursor.execute(image_query, (product_id,))
+        image_result = cursor.fetchall()
+
+        if result and image_result:
+            result['images'] = image_result
+            return result
+        else:
+            return None
     except mysql.connector.Error as err:
         return None
 
