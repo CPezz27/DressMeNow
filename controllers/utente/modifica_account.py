@@ -6,6 +6,7 @@ import mysql.connector
 
 app_bp = Blueprint('modifica_profilo', __name__)
 
+
 @app_bp.route('/profilo/modifica', methods=['GET', 'POST'])
 def modifica_profilo():
     if 'logged_in' not in session or not session['logged_in']:
@@ -36,7 +37,6 @@ def modifica_profilo():
                 'sesso': request.form['sesso']
             }
 
-            # Validazione dei campi
             pattern_n = r'^[A-Za-z ]+$'
             pattern_data = r'^\d{4}-\d{2}-\d{2}$'
             pattern_telefono = r'^[0-9]+$'
