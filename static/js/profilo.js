@@ -1,5 +1,5 @@
 // Funzione per gestire il clic sulle icone nella barra laterale
-document.querySelectorAll('nav-profilo a').forEach((link, index) => {
+document.querySelectorAll('.nav-profilo a').forEach((link, index) => {
   link.addEventListener('click', () => {
     // Nascondi tutti i contenuti
     document.querySelectorAll('.profile, .addresses, .subscription, .privacy, .settings')

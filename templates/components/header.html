@@ -2,7 +2,8 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="../../static/css/header.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome-4.7.0/css/font-awesome.min.css') }}">
 </head>
 <body>
 
@@ -10,7 +11,7 @@
     <nav class="nav-header">
         <div class="logo">
           <a href="#">
-            <img src="../../static/assets/Logo.png" alt="Logo"
+            <img src="{{ url_for('static', filename='assets/logo.png') }}" alt="Logo"
             alt="logo" width="53" height="60">
           </a>
         </div>
@@ -20,21 +21,21 @@
           <a href="#">Bambino</a>
         </div>
         <div class="icons">
-          <a href="#"><img src="../../static/assets/carrello.svg" alt="Carrello"></a>
-          <a href="profilo.html"><img src="../../static/assets/profilo_utente.svg" alt="Profilo Utente"></a>
+          <a href="#"><i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i></a>
+          <a href="profilo.html"><i class="fa fa-user fa-2x" aria-hidden="true"></i></a>
         </div>
         <div class="three-lined-menu" onclick="toggleMenu()">
-          <img src="menu.svg" alt="menu">
+          <i class="fa fa-bars fa-2x" aria-hidden="true" class="menu"></i>
         </div>
         <div class="dropdown-content" id="dropdownContent">
           <a href="#">Uomo</a>
           <a href="#">Donna</a>
           <a href="#">Bambino</a>
-          <img src="carrello.svg" alt="Carrello">
-          <img src="profilo_utente.svg" alt="Profilo Utente">
+          <a href="#" class="cart-link"><i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i></a>
+          <a href="profilo.html" class="profile-link"><i class="fa fa-user fa-2x" aria-hidden="true"></i></a>
         </div>
     </nav>
 </header>
-<script src="HJavaScript.js"></script>
+<script src="../../static/js/header.js"></script>
 </body>
 </html>
