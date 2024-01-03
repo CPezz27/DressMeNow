@@ -3,9 +3,7 @@ from utils.mysql_config import get_database_connection
 
 
 class Indirizzo:
-    def __init__(self, id_indirizzo, id_utente, provincia, cap, via, tipo, citta):
-        self.id_indirizzo = id_indirizzo
-        self.id_utente = id_utente
+    def __init__(self, provincia, cap, via, tipo, citta):
         self.provincia = provincia
         self.cap = cap
         self.via = via
@@ -13,15 +11,15 @@ class Indirizzo:
         self.citta = citta
 
     @staticmethod
-    def get_address(address_id):
+    def get_addresses(id_utente):
         conn = get_database_connection()
         cursor = conn.cursor(dictionary=True)
-        query = "SELECT * FROM indirizzo WHERE id_indirizzo = %s"
+        query = "SELECT * FROM indirizzo WHERE id_utente = %s"
 
         try:
-            cursor.execute(query, (address_id,))
-            address = cursor.fetchone()
-            return address
+            cursor.execute(query, (id_utente,))
+            addresses = cursor.fetchall()
+            return addresses
         except mysql.connector.Error as err:
             print(f"Errore durante la lettura dell'indirizzo: {err}")
         finally:
@@ -35,7 +33,7 @@ class Indirizzo:
                         "(id_utente, provincia, cap, via, tipo, città) "
                         "VALUES (%s, %s, %s, %s, %s, %s)")
 
-        data = (self.id_utente, self.provincia, self.cap, self.via, self.tipo, self.citta)
+        data = (self.provincia, self.cap, self.via, self.tipo, self.citta)
 
         try:
             cursor.execute(insert_query, data)
@@ -54,7 +52,7 @@ class Indirizzo:
         update_query = ("UPDATE indirizzo SET provincia = %s, cap = %s, via = %s, tipo = %s, città = %s "
                         "WHERE id_indirizzo = %s")
 
-        data = (self.provincia, self.cap, self.via, self.tipo, self.citta, self.id_indirizzo)
+        data = (self.provincia, self.cap, self.via, self.tipo, self.citta)
 
         try:
             cursor.execute(update_query, data)
@@ -73,7 +71,7 @@ class Indirizzo:
         delete_query = "DELETE FROM indirizzo WHERE id_indirizzo = %s"
 
         try:
-            cursor.execute(delete_query, (self.id_indirizzo,))
+            cursor.execute(delete_query, self)
             conn.commit()
             print("Indirizzo eliminato correttamente dal database.")
         except mysql.connector.Error as err:
