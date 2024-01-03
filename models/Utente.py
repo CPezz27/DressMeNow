@@ -68,11 +68,11 @@ def delete_account(user_id):
         print(f"Errore durante la cancellazione dell'account: {err}")
 
 
-def modifica_account(id_utente, campi_da_modificare):
+def modifica_account(id_utente, **kwargs):
     update_query = "UPDATE utente SET "
     update_values = []
 
-    for campo, valore in campi_da_modificare.items():
+    for campo, valore in kwargs.items()[:-1]:
         update_query += f"{campo} = %s, "
         update_values.append(valore)
 

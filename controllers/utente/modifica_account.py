@@ -58,16 +58,16 @@ def modifica_profilo():
             try:
                 utente = Utente.get_user(user_id)
                 if utente:
-                    utente_modificato = Utente(
-                        nome=nuovi_valori['nome'],
-                        cognome=nuovi_valori['cognome'],
-                        email=nuovi_valori['email'],
-                        password=request.form['password'],
-                        sesso=nuovi_valori['sesso'],
-                        numero_telefono=nuovi_valori['telefono'],
-                        data_nascita=nuovi_valori['data_nascita']
-                    )
-                    Utente.modifica_account(user_id, utente)
+                    utente_mod = {
+                        'nome': nuovi_valori['nome'],
+                        'cognome': nuovi_valori['cognome'],
+                        'email': nuovi_valori['email'],
+                        'password': request.form['password'],
+                        'sesso': nuovi_valori['sesso'],
+                        'numero_telefono': nuovi_valori['telefono'],
+                        'data_nascita': nuovi_valori['data_nascita']
+                    }
+                    Utente.modifica_account(user_id, **utente_mod)
                     return redirect(url_for('user_profile.profilo'))
                 else:
                     return render_template('404.html', message="Utente non trovato.")
