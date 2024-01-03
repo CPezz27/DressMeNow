@@ -6,11 +6,11 @@ effettua_reso_bp = Blueprint('effettua_reso', __name__)
 @effettua_reso_bp.route('/gestore_prodotti/effettua_reso/<int:order_id>/<int:product_id>', methods=['POST'])
 def effettua_reso(order_id, product_id):
     if request.method == 'POST':
-        motivo_reso = request.form.get('motivo_reso')
+        stato_reso = request.form.get('stato_reso')
         try:
             ordine_da_modificare = Ordine.view_order(order_id)
             id_prodotto = product_id
-            ordine_da_modificare.effettua_reso(id_prodotto, motivo_reso)
+            ordine_da_modificare.effettua_reso(id_prodotto, stato_reso)
 
             return render_template('/gestore_prodotti/effettua_reso.html', message='Reso effettuato con successo')
         except Exception as err:
