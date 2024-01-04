@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, session, redirect, url_for
-from models.Indirizzo import Indirizzo
 from models import Indirizzo
+from models.Indirizzo import Indirizzo
 from utils.utils import validate_input
 
 app_bp = Blueprint('gestione_indirizzi', __name__)
@@ -48,9 +48,12 @@ def aggiungi_indirizzo():
             ]):
                 return "Dati inseriti non validi. Controlla i campi e riprova."
 
-            new_address = Indirizzo(provincia=provincia, cap=cap, via=via, tipo=tipo, citta=citta)
-            new_address.save()
-            return redirect(url_for('gestione_indirizzi.visualizza_indirizzi'))
+            new_address = Indirizzo(id_utente=user_id, provincia=provincia, cap=cap, via=via, tipo=tipo, citta=citta)
+            success = new_address.save()
+            if success:
+                return redirect(url_for('gestione_indirizzi.visualizza_indirizzi'))
+            else:
+                return render_template('errore.html', message="Errore durante l'aggiunta dell'indirizzo.")
         else:
             return render_template('/login')
 
@@ -86,23 +89,24 @@ def modifica_indirizzo(address_id):
             ]):
                 return "Dati inseriti non validi. Controlla i campi e riprova."
 
-            address = Indirizzo.get_addresses(address_id)
-            if address and address['id_utente'] == user_id:
-                address_to_update = Indirizzo(
-                    provincia=provincia,
-                    cap=cap,
-                    via=via,
-                    tipo=tipo,
-                    citta=citta
-                )
-                address_to_update.update()
-                return redirect(url_for('gestione_indirizzi.visualizza_indirizzi'))
+            address = Indirizzo.get_address(address_id)
+            if address and address.id_utente == user_id:
+                address.provincia = provincia
+                address.cap = cap
+                address.via = via
+                address.tipo = tipo
+                address.citta = citta
+                success = address.save()
+                if success:
+                    return redirect(url_for('gestione_indirizzi.visualizza_indirizzi'))
+                else:
+                    return render_template('errore.html', message="Errore durante la modifica dell'indirizzo.")
             else:
                 return render_template('404.html', message="Indirizzo non trovato o non autorizzato.")
         else:
             return render_template('/login')
 
-    address = Indirizzo.get_addresses(address_id)
+    address = Indirizzo.get_address(address_id)
     if address:
         return render_template('modifica_indirizzo.html', address=address)
     else:
@@ -116,13 +120,14 @@ def elimina_indirizzo(address_id):
 
     user_id = session.get('id')
     if user_id:
-        addresses = Indirizzo.get_addresses(user_id)
-        address_ids = [address['id_indirizzo'] for address in addresses]
-
-        if int(address_id) in address_ids:
-            Indirizzo.delete()
-            return redirect(url_for('gestione_indirizzi.visualizza_indirizzi'))
+        address = Indirizzo.get_address(address_id)
+        if address and address.id_utente == user_id:
+            success = Indirizzo.delete(address_id)
+            if success:
+                return redirect(url_for('gestione_indirizzi.visualizza_indirizzi'))
+            else:
+                return render_template('errore.html', message="Errore durante l'eliminazione dell'indirizzo.")
         else:
             return render_template('404.html', message="Indirizzo non trovato o non autorizzato.")
     else:
-        return render_template('/login')
+        return redirect(url_for('user_login.login_page'))
