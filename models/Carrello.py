@@ -6,50 +6,72 @@ conn = mysql_config.get_database_connection()
 cursor = conn.cursor()
 
 
-def aggiungi_al_carrello(id_carrello, id_prodotto, quantita=1):
+def aggiungi_al_carrello(id_utente, id_prodotto, quantita=1):
     try:
-        query = "INSERT INTO prodotto_in_carrello (id_carrello, id_prodotto, quantita) VALUES (%s, %s, %s)"
-        cursor.execute(query, (id_carrello, id_prodotto, quantita))
-        conn.commit()
-        print("Prodotto aggiunto al carrello con successo.")
+        query_get_cart_id = "SELECT id FROM carrello WHERE id_utente = %s"
+        cursor.execute(query_get_cart_id, (id_utente,))
+        cart_id = cursor.fetchone()
+
+        if cart_id:
+            query = "INSERT INTO prodotto_in_carrello (id_carrello, id_prodotto, quantita) VALUES (%s, %s, %s)"
+            cursor.execute(query, (cart_id[0], id_prodotto, quantita))
+            conn.commit()
+            return True
+        else:
+            return False
     except mysql.connector.Error as err:
-        conn.rollback()
-        print(f"Errore durante l'aggiunta del prodotto al carrello: {err}")
+        return False
 
 
-def rimuovi_dal_carrello(id_carrello, id_prodotto):
+def rimuovi_dal_carrello(id_utente, id_prodotto):
     try:
-        query = "DELETE FROM prodotto_in_carrello WHERE id_carrello = %s AND id_prodotto = %s"
-        cursor.execute(query, (id_carrello, id_prodotto))
-        conn.commit()
-        print("Prodotto rimosso dal carrello con successo.")
+        query_get_cart_id = "SELECT id FROM carrello WHERE id_utente = %s"
+        cursor.execute(query_get_cart_id, (id_utente,))
+        cart_id = cursor.fetchone()
+
+        if cart_id:
+            query = "DELETE FROM prodotto_in_carrello WHERE id_carrello = %s AND id_prodotto = %s"
+            cursor.execute(query, (cart_id[0], id_prodotto))
+            conn.commit()
+            return True
+        else:
+            return False
     except mysql.connector.Error as err:
-        conn.rollback()
-        print(f"Errore durante la rimozione del prodotto dal carrello: {err}")
+        return False
 
 
-def svuota_carrello(id_carrello):
+def svuota_carrello(id_utente):
     try:
-        query = "DELETE FROM prodotto_in_carrello WHERE id_carrello = %s"
-        cursor.execute(query, (id_carrello,))
-        conn.commit()
-        print("Carrello svuotato con successo.")
+        query_get_cart_id = "SELECT id FROM carrello WHERE id_utente = %s"
+        cursor.execute(query_get_cart_id, (id_utente,))
+        cart_id = cursor.fetchone()
+
+        if cart_id:
+            query = "DELETE FROM prodotto_in_carrello WHERE id_carrello = %s"
+            cursor.execute(query, (cart_id[0],))
+            conn.commit()
+            return True
+        else:
+            return False
     except mysql.connector.Error as err:
-        conn.rollback()
-        print(f"Errore durante lo svuotamento del carrello: {err}")
+        return False
 
 
-def contenuto_carrello(id_carrello):
+def contenuto_carrello(id_utente):
     try:
-        query = "SELECT * FROM prodotto_in_carrello WHERE id_carrello = %s"
-        cursor.execute(query, (id_carrello,))
-        cart_contents = cursor.fetchall()
-        print("Contenuto del carrello:")
-        for item in cart_contents:
-            print(item)
-        return cart_contents
+        query_get_cart_id = "SELECT id FROM carrello WHERE id_utente = %s"
+        cursor.execute(query_get_cart_id, (id_utente,))
+        cart_id = cursor.fetchone()
+
+        if cart_id:
+            query = "SELECT * FROM prodotto_in_carrello WHERE id_carrello = %s"
+            cursor.execute(query, (cart_id[0],))
+            cart_contents = cursor.fetchall()
+            return cart_contents
+        else:
+            return None
     except mysql.connector.Error as err:
-        print(f"Errore durante la visualizzazione del contenuto del carrello: {err}")
+        return None
 
 
 class Carrello:
@@ -58,7 +80,7 @@ class Carrello:
         self.conn = mysql_config.get_database_connection()
         self.cursor = self.conn.cursor()
 
-    def create_cart(self):
+    def save(self):
         try:
             query = "INSERT INTO carrello (id_utente) VALUES (%s)"
             self.cursor.execute(query, (self.id_utente,))
