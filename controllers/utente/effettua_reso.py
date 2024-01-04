@@ -4,7 +4,7 @@ from models import Ordine
 app_bp = Blueprint('effettua_reso', __name__)
 
 
-@app_bp.route('/gestore_prodotti/effettua_reso', methods=['POST'])
+@app_bp.route('/o/effettua_reso', methods=['POST'])
 def effettua_reso():
     if request.method == 'POST':
         try:
