@@ -18,8 +18,46 @@ def get_addresses(id_utente):
         conn.close()
 
 
+def update(provincia, cap, via, tipo, citta, id_indirizzo):
+    conn = get_database_connection()
+    cursor = conn.cursor()
+    update_query = ("UPDATE indirizzo SET provincia = %s, cap = %s, via = %s, tipo = %s, città = %s "
+                    "WHERE id_indirizzo = %s")
+
+    data = (provincia, cap, via, tipo, citta, id_indirizzo)
+
+    try:
+        cursor.execute(update_query, data)
+        conn.commit()
+        return True
+    except mysql.connector.Error as err:
+        conn.rollback()
+        return False
+    finally:
+        cursor.close()
+        conn.close()
+
+
+def delete(id_indirizzo):
+    conn = get_database_connection()
+    cursor = conn.cursor()
+    delete_query = "DELETE FROM indirizzo WHERE id_indirizzo = %s"
+
+    try:
+        cursor.execute(delete_query, (id_indirizzo,))
+        conn.commit()
+        return True
+    except mysql.connector.Error as err:
+        conn.rollback()
+        return False
+    finally:
+        cursor.close()
+        conn.close()
+
+
 class Indirizzo:
-    def __init__(self, provincia, cap, via, tipo, citta):
+    def __init__(self, id_utente, provincia, cap, via, tipo, citta):
+        self.id_utente = id_utente
         self.provincia = provincia
         self.cap = cap
         self.via = via
@@ -33,45 +71,10 @@ class Indirizzo:
                         "(id_utente, provincia, cap, via, tipo, città) "
                         "VALUES (%s, %s, %s, %s, %s, %s)")
 
-        data = (self.provincia, self.cap, self.via, self.tipo, self.citta)
+        data = (self.id_utente, self.provincia, self.cap, self.via, self.tipo, self.citta)
 
         try:
             cursor.execute(insert_query, data)
-            conn.commit()
-            return True
-        except mysql.connector.Error as err:
-            conn.rollback()
-            return False
-        finally:
-            cursor.close()
-            conn.close()
-
-    def update(self):
-        conn = get_database_connection()
-        cursor = conn.cursor()
-        update_query = ("UPDATE indirizzo SET provincia = %s, cap = %s, via = %s, tipo = %s, città = %s "
-                        "WHERE id_indirizzo = %s")
-
-        data = (self.provincia, self.cap, self.via, self.tipo, self.citta)
-
-        try:
-            cursor.execute(update_query, data)
-            conn.commit()
-            return True
-        except mysql.connector.Error as err:
-            conn.rollback()
-            return False
-        finally:
-            cursor.close()
-            conn.close()
-
-    def delete(self):
-        conn = get_database_connection()
-        cursor = conn.cursor()
-        delete_query = "DELETE FROM indirizzo WHERE id_indirizzo = %s"
-
-        try:
-            cursor.execute(delete_query, self)
             conn.commit()
             return True
         except mysql.connector.Error as err:
