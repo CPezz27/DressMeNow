@@ -96,17 +96,34 @@ class Utente:
         self.data_nascita = data_nascita
 
     def save(self):
-        insert_query = ("INSERT INTO utenti "
-                        "(nome, cognome, email, password, sesso, numero_telefono, data_nascita) "
-                        "VALUES (%s, %s, %s, %s, %s, %s, %s)")
-
-        user_data = (self.nome, self.cognome, self.email, self.password,
-                     self.sesso, self.numero_telefono, self.data_nascita)
-
         try:
-            cursor.execute(insert_query, user_data)
+            conn.start_transaction()
+
+            insert_user_query = ("INSERT INTO utente "
+                                "(nome, cognome, email, password, sesso, telefono, data_nascita) "
+                                "VALUES (%s, %s, %s, %s, %s, %s, %s)")
+
+            user_data = (self.nome, self.cognome, self.email, self.password,
+                         self.sesso, self.numero_telefono, self.data_nascita)
+
+            cursor.execute(insert_user_query, user_data)
+
+            user_id = cursor.lastrowid
+
+            insert_cart_query = "INSERT INTO carrello (id_utente) VALUES (%s)"
+            cursor.execute(insert_cart_query, (user_id,))
+
+            insert_avatar_query = ("INSERT INTO configurazione_avatar "
+                                  "(colore_pelle, colore_occhi, colore_capelli, lunghezza_capelli, "
+                                  "altezza, peso, barba, eta, dimensioni_corpo, sesso, id_utente) "
+                                  "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
+
+            avatar_data = ("white", "brown", "brown", "standard", 170, 65, 0, 25, "normal", self.sesso, user_id)
+
+            cursor.execute(insert_avatar_query, avatar_data)
 
             conn.commit()
             return True
         except mysql.connector.Error as err:
+            conn.rollback()
             return False
