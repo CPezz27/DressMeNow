@@ -1,1 +1,49 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ricerca Prodotti</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .search-container {
+            text-align: center;
+        }
+
+        #search-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        <h1>Ricerca Prodotti</h1>
+        <button onclick="searchProduct()" id="search-button">Cerca</button>
+    </div>
+
+    <script>
+        function searchProduct() {
+            // Aggiungi qui la logica di ricerca del prodotto
+            alert('Hai cliccato su Cerca');
+            // Puoi implementare la logica di ricerca AJAX o qualsiasi altra logica necessaria qui
+        }
+    </script>
+</body>
+</html>
 
