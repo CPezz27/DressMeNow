@@ -1,5 +1,6 @@
 from flask import Flask, session, redirect, Blueprint, request
 from models.Ordine import Ordine
+from models import TagliaProdotto
 from datetime import datetime
 import mysql.connector
 
@@ -31,10 +32,7 @@ def effettua_ordine():
         id_taglia = request.form.get('id_taglia')
         quantita_da_decrementare = 1
 
-        update_query = f"UPDATE taglia_prodotto SET quantita = quantita - {quantita_da_decrementare} " \
-                       f"WHERE id_prodotto = {id_prodotto} AND id_taglia = {id_taglia};"
-
-        cursor.execute(update_query)
+        TagliaProdotto.decrementa_quantita(id_prodotto, id_taglia, quantita_da_decrementare)
 
         return redirect("utente/effettua_ordine")
 
