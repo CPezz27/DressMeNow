@@ -11,6 +11,9 @@ def aggiungi_taglia():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
 
+    if session['ruolo'] is not 'gestore_prodotto':
+        return redirect(url_for('index'))
+
     if request.method == 'POST':
         nome_taglia = request.form['nome_taglia']
         taglia = Taglia(nome_taglia=nome_taglia)
@@ -28,6 +31,9 @@ def modifica_taglia():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
 
+    if session['ruolo'] is not 'gestore_prodotto':
+        return redirect(url_for('index'))
+
     if request.method == 'POST':
         id_taglia = request.form['id_taglia']
         nome_taglia = request.form['nome_taglia']
@@ -44,6 +50,9 @@ def modifica_taglia():
 def rimuovi_taglia():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
+
+    if session['ruolo'] is not 'gestore_prodotto':
+        return redirect(url_for('index'))
 
     if request.method == 'POST':
         id_taglia = request.form['id_taglia']

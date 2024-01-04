@@ -33,10 +33,13 @@ def login():
                     tipo_personale = direttore[3]
 
                     if tipo_personale == 'direttore':
+                        session['ruolo'] = 'direttore'
                         return redirect(url_for('direttore'))
                     elif tipo_personale == 'gestore_ordine':
+                        session['ruolo'] = 'gestore_ordine'
                         return redirect(url_for('gestore_ordine'))
                     elif tipo_personale == 'gestore_prodotto':
+                        session['ruolo'] = 'gestore_prodotto'
                         return redirect(url_for('gestore_prodotto'))
                 else:
                     return "Credenziali non valide. Riprova."

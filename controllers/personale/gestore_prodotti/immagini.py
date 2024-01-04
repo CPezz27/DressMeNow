@@ -11,6 +11,9 @@ def aggiungi_immagine():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
 
+    if session['ruolo'] is not 'gestore_prodotto':
+        return redirect(url_for('index'))
+
     if request.method == 'POST':
         id_prodotto = request.form['id_prodotto']
         tipo = request.form['tipo_immagine']
@@ -33,6 +36,9 @@ def rimuovi_immagine(id_immagine):
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
 
+    if session['ruolo'] is not 'gestore_prodotto':
+        return redirect(url_for('index'))
+
     success = Immagine.rimuovi_immagine(id_immagine)
 
     if success:
@@ -45,6 +51,9 @@ def rimuovi_immagine(id_immagine):
 def visualizza_immagini():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
+
+    if session['ruolo'] is not 'gestore_prodotto':
+        return redirect(url_for('index'))
 
     immagini = Immagine.visualizza_immagini()
 

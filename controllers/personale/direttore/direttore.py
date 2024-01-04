@@ -11,6 +11,9 @@ def visualizza_personale():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
 
+    if session['ruolo'] is not 'direttore':
+        return redirect(url_for('index'))
+
     personale = Personale.get_all_personale()
     return render_template("direttore/personale.html", data=personale)
 
@@ -19,6 +22,9 @@ def visualizza_personale():
 def aggiungi_personale():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
+
+    if session['ruolo'] is not 'direttore':
+        return redirect(url_for('index'))
 
     if request.method == 'POST':
         email = request.form['email']
@@ -43,6 +49,9 @@ def modifica_personale():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
 
+    if session['ruolo'] is not 'direttore':
+        return redirect(url_for('index'))
+
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
@@ -61,6 +70,9 @@ def rimuovi_personale():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
 
+    if session['ruolo'] is not 'direttore':
+        return redirect(url_for('index'))
+
     if request.method == 'POST':
         id_personale = request.form['id_personale']
         flag = Personale.delete_personale(id_personale)
@@ -74,6 +86,9 @@ def rimuovi_personale():
 def visualizza_statistiche_ordini():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
+
+    if session['ruolo'] is not 'direttore':
+        return redirect(url_for('index'))
 
     try:
         vendite_totali = Ordine.calcola_vendite_totali()
