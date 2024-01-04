@@ -12,7 +12,6 @@ def modifica_ordine(id_ordine, nuovo_stato):
         conn.commit()
         return True
     except mysql.connector.Error as err:
-        conn.rollback()
         return False
 
 
@@ -23,7 +22,6 @@ def cancella_ordine(id_ordine):
         conn.commit()
         return True
     except mysql.connector.Error as err:
-        conn.rollback()
         return False
 
 
@@ -34,7 +32,6 @@ def modifica_stato_ordine(id_ordine, nuovo_stato):
         conn.commit()
         return True
     except mysql.connector.Error as err:
-        conn.rollback()
         return False
 
 

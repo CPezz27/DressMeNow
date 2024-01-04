@@ -43,7 +43,6 @@ class Immagine:
             conn.commit()
             return True
         except mysql.connector.Error as err:
-            conn.rollback()
             return False
         finally:
             cursor.close()

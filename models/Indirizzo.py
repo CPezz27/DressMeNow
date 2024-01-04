@@ -47,7 +47,6 @@ def update(provincia, cap, via, tipo, citta, id_indirizzo):
         conn.commit()
         return True
     except mysql.connector.Error as err:
-        conn.rollback()
         return False
     finally:
         cursor.close()
@@ -64,7 +63,6 @@ def delete(id_indirizzo):
         conn.commit()
         return True
     except mysql.connector.Error as err:
-        conn.rollback()
         return False
     finally:
         cursor.close()
@@ -94,7 +92,6 @@ class Indirizzo:
             conn.commit()
             return True
         except mysql.connector.Error as err:
-            conn.rollback()
             return False
         finally:
             cursor.close()

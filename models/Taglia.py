@@ -21,9 +21,6 @@ def modifica_taglia(id_taglia, nome_taglia):
     try:
         update_query = "UPDATE taglia SET nometaglia = %s WHERE id_taglia = %s"
         taglia_data = (nome_taglia, id_taglia)
-
-        # Raffinato il carico
-
         cursor.execute(update_query, taglia_data)
         conn.commit()
         return True
@@ -68,7 +65,7 @@ def get_elenco_taglie():
     return elenco_taglie
 
 
-class Taglia:
+class Taglia:   #raffinato il carico
     def __init__(self, id_taglia=None, nome_taglia=None):
         self.id_taglia = id_taglia
         self.nome_taglia = nome_taglia
