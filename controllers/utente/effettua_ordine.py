@@ -3,6 +3,7 @@ from models.Ordine import Ordine
 from models import TagliaProdotto
 from datetime import datetime
 import mysql.connector
+#da modificare tutto il controller
 
 
 app = Flask(__name__)

@@ -3,10 +3,10 @@ from models.Indirizzo import Indirizzo
 from models import Indirizzo
 from utils.utils import validate_input
 
-indirizzo_bp = Blueprint('gestione_indirizzi', __name__)
+app_bp = Blueprint('gestione_indirizzi', __name__)
 
 
-@indirizzo_bp.route('/indirizzi', methods=['GET'])
+app_bp.route('/indirizzi', methods=['GET'])
 def visualizza_indirizzi():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
@@ -19,7 +19,7 @@ def visualizza_indirizzi():
         return render_template('/login')
 
 
-@indirizzo_bp.route('/indirizzo/aggiungi', methods=['GET', 'POST'])
+@app_bp.route('/indirizzo/aggiungi', methods=['GET', 'POST'])
 def aggiungi_indirizzo():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
@@ -57,7 +57,7 @@ def aggiungi_indirizzo():
     return render_template('aggiungi_indirizzo.html')
 
 
-@indirizzo_bp.route('/indirizzo/modifica/<int:address_id>', methods=['GET', 'POST'])
+@app_bp.route('/indirizzo/modifica/<int:address_id>', methods=['GET', 'POST'])
 def modifica_indirizzo(address_id):
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
@@ -109,7 +109,7 @@ def modifica_indirizzo(address_id):
         return render_template('404.html', message="Indirizzo non trovato.")
 
 
-@indirizzo_bp.route('/indirizzo/elimina/<int:address_id>', methods=['GET'])
+@app_bp.route('/indirizzo/elimina/<int:address_id>', methods=['GET'])
 def elimina_indirizzo(address_id):
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
