@@ -2,7 +2,7 @@ from flask import Blueprint, request, render_template, session, redirect, url_fo
 
 from models import Carrello
 
-app_bp = Blueprint('utente_carrello', __name__)
+app_bp = Blueprint('user_carrello', __name__)
 
 
 @app_bp.route("/carrello")
