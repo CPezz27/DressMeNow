@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prodotti per Categoria</title>
+    <link rel="stylesheet" href="/static/css/header.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+
+<body>
+    <header>
+    <nav class="nav-header">
+        <div class="logo">
+          <a href="#">
+            <img src="/static/assets/Logo.png" alt="Logo"
+            alt="logo" width="53" height="60">
+          </a>
+        </div>
+        <div class="main-links">
+          <a href="#">Uomo</a>
+          <a href="#">Donna</a>
+          <a href="#">Bambino</a>
+        </div>
+        <div class="icons">
+          <div class="relative">
+            <input type="text" placeholder="Comprendi il mio stile!" class="pl-10 py-2 pr-4 rounded-full border border-gray-300 focus:outline-none focus:border-gray-500">
+            <i class="fa fa-search fa-lg text-gray-400 absolute top-1/2 left-1 transform -translate-y-1/2"></i>
+          </div>
+          <a href="#"><i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i></a>
+          <a href="profilo.html"><i class="fa fa-user fa-2x" aria-hidden="true"></i></a>
+
+        </div>
+        <div class="three-lined-menu" onclick="toggleMenu()">
+          <i class="fa fa-bars fa-2x" aria-hidden="true" class="menu"></i>
+        </div>
+        <div class="dropdown-content" id="dropdownContent">
+          <a href="#">Uomo</a>
+          <a href="#">Donna</a>
+          <a href="#">Bambino</a>
+          <a href="#" class="cart-link"><i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i></a>
+          <a href="profilo.html" class="profile-link"><i class="fa fa-user fa-2x" aria-hidden="true"></i></a>
+        </div>
+    </nav>
+</header>
+<script src="../../static/js/header.js"></script>
+
+    <div class="container mx-auto py-8">
+        <h2 class="text-3xl font-semibold mb-4">Prodotti Uomo</h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Qui inserisci i prodotti relativi alla categoria Uomo -->
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="https://lorenzograssia.com/wp-content/uploads/2014/01/prodotto.jpg" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div><div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div><div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div><div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div><div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div><div class="bg-white p-4 shadow-md rounded-md">
+                <img src="https://lorenzograssia.com/wp-content/uploads/2014/01/prodotto.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="https://lorenzograssia.com/wp-content/uploads/2014/01/prodotto.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div><div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div><div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div><div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div><div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div><div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div><div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div><div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div><div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="https://lorenzograssia.com/wp-content/uploads/2014/01/prodotto.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div><div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div><div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div><div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div><div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="https://lorenzograssia.com/wp-content/uploads/2014/01/prodotto.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-md">
+                <img src="img/prodotto1.jpg" alt="Prodotto 1" class="w-full h-40 object-cover mb-4 rounded-md">
+                <h3 class="text-lg font-semibold mb-2">Nome Prodotto 1</h3>
+                <p class="text-gray-600">Descrizione del prodotto.</p>
+                <p class="text-lg font-bold mt-2">€19.99</p>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600">Aggiungi al carrello</button>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+
+    <script>
+        // Questo è solo un esempio statico di prodotti per la categoria Uomo
+        // Normalmente, questi dati sarebbero dinamici e verrebbero recuperati da un backend
+
+        // Puoi ripetere questa struttura per ogni prodotto della categoria
+    </script>
+</body>
+</html>
