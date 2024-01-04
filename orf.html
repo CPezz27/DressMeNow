@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ricerca Prodotti</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+
+    <div class="w-full max-w-md p-6 bg-white rounded-md shadow-md">
+        <h1 class="text-3xl font-semibold mb-6">Ricerca Prodotti</h1>
+        
+        <form onsubmit="searchProduct(event)">
+            <div class="flex items-center mb-4">
+                <input type="text" id="search-input" placeholder="Inserisci il nome del prodotto" class="p-3 border border-gray-300 rounded-md w-full" required>
+                <button type="submit" id="search-button" class="ml-2 px-4 py-2 bg-green-500 text-white rounded-md">Cerca</button>
+            </div>
+        </form>
+
+        <ul id="results" class="list-none"></ul>
+    </div>
+
+    <script>
+        function searchProduct(event) {
+            event.preventDefault();
+            
+            var searchTerm = document.getElementById('search-input').value.trim();
+            var resultsContainer = document.getElementById('results');
+            
+            if (searchTerm !== "") {
+                // Simuliamo una lista di prodotti ricercati
+                var products = ['Prodotto 1', 'Prodotto 2', 'Prodotto 3'];
+
+                // Pulizia dei risultati precedenti
+                resultsContainer.innerHTML = "";
+
+                // Stampiamo la lista dei prodotti
+                products.forEach(function(product) {
+                    var listItem = document.createElement('li');
+                    listItem.textContent = product;
+                    resultsContainer.appendChild(listItem);
+                });
+            } else {
+                alert('Inserisci un termine di ricerca valido.');
+            }
+        }
+    </script>
+</body>
+</html>
+
