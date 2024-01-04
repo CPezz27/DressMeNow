@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, session, redirect, url_for
+
 from models import Indirizzo
 from models.Indirizzo import Indirizzo
 from utils.utils import validate_input

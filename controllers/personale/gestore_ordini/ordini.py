@@ -1,12 +1,16 @@
-from flask import Blueprint, render_template, request
-from models import Ordine
+from flask import Blueprint, render_template, request, session, redirect, url_for
 
+from models import Ordine
+from models.Ordine import visualizza_ordine
 
 app_bp = Blueprint('order_controller', __name__)
 
 
-@app_bp.route("/cancella_ordine", methods=['POST'])
+@app_bp.route("/go/cancella_ordine", methods=['POST'])
 def cancella_ordine():
+    if 'logged_in' not in session or not session['logged_in']:
+        return redirect(url_for('user_login.login_page'))
+
     if request.method == 'POST':
         id_ordine = request.form['id_ordine']
         success = cancella_ordine(id_ordine)
@@ -17,8 +21,11 @@ def cancella_ordine():
             return render_template("error.html", message="Errore durante la cancellazione dell'ordine.")
 
 
-@app_bp.route("/modifica_stato_ordine", methods=['POST'])
+@app_bp.route("/go/modifica_stato_ordine", methods=['POST'])
 def modifica_stato_ordine():
+    if 'logged_in' not in session or not session['logged_in']:
+        return redirect(url_for('user_login.login_page'))
+
     if request.method == 'POST':
         id_ordine = request.form['id_ordine']
         nuovo_stato = request.form['nuovo_stato']
@@ -30,8 +37,11 @@ def modifica_stato_ordine():
             return render_template("error.html", message="Errore durante la modifica dello stato dell'ordine.")
 
 
-@app_bp.route("/modifica_ordine", methods=['POST'])
+@app_bp.route("/go/modifica_ordine", methods=['POST'])
 def modifica_ordine():
+    if 'logged_in' not in session or not session['logged_in']:
+        return redirect(url_for('user_login.login_page'))
+
     if request.method == 'POST':
         id_ordine = request.form['id_ordine']
         nuovo_stato = request.form['nuovo_stato']
@@ -44,8 +54,11 @@ def modifica_ordine():
             return render_template("errore.html", message="Si è verificato un errore durante la modifica dell'ordine.")
 
 
-@app_bp.route("/visualizza_ordine", methods=['GET'])
+@app_bp.route("/go/visualizza_ordine", methods=['GET'])
 def visual_ordine():
+    if 'logged_in' not in session or not session['logged_in']:
+        return redirect(url_for('user_login.login_page'))
+
     try:
         id_ordine = request.args.get('id_ordine')
 
@@ -55,8 +68,11 @@ def visual_ordine():
             if order_details:
                 return render_template("/gestore_ordini/visualizza_ordine.html", order_details=order_details)
             else:
-                return render_template("/gestore_ordini/visualizza_ordine.html", message="Errore durante il recupero dei dettagli dell'ordine.")
+                return render_template("/gestore_ordini/visualizza_ordine.html",
+                                       message="Errore durante il recupero dei dettagli dell'ordine.")
         else:
-            return render_template("/gestore_ordini/visualizza_ordine.html", message="Errore durante il recupero dei dettagli dell'ordine.")
+            return render_template("/gestore_ordini/visualizza_ordine.html",
+                                   message="Errore durante il recupero dei dettagli dell'ordine.")
     except Exception as e:
-        return render_template("/gestore_ordini/visualizza_ordine.html", message="Errore durante il recupero dei dettagli dell'ordine.")
+        return render_template("/gestore_ordini/visualizza_ordine.html",
+                               message="Errore durante il recupero dei dettagli dell'ordine.")

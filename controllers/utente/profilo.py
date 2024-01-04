@@ -1,10 +1,8 @@
+import mysql.connector
 from flask import Blueprint, render_template, session, redirect, url_for, request
 
-from models import Utente, ConfigurazioneAvatar
 from models import Ordine
-
-import mysql.connector
-
+from models import Utente, ConfigurazioneAvatar
 from utils.utils import validate_input, is_valid_password
 
 app_bp = Blueprint('user_profile', __name__)
@@ -12,8 +10,8 @@ app_bp = Blueprint('user_profile', __name__)
 
 @app_bp.route("/p/profilo")
 def profilo():
-    if 'id' not in session:
-        return redirect('utente/login')
+    if 'logged_in' not in session or not session['logged_in']:
+        return redirect(url_for('user_login.login_page'))
 
     user_id = session['id']
 
@@ -24,8 +22,8 @@ def profilo():
 
 @app_bp.route("/p/indirizzi")
 def indirizzi():
-    if 'id' not in session:
-        return redirect('utente/login')
+    if 'logged_in' not in session or not session['logged_in']:
+        return redirect(url_for('user_login.login_page'))
 
     user_id = session['id']
 
@@ -38,8 +36,8 @@ def indirizzi():
 
 @app_bp.route("/p/ordini")
 def orders():
-    if 'id' not in session:
-        return redirect('utente/login')
+    if 'logged_in' not in session or not session['logged_in']:
+        return redirect(url_for('user_login.login_page'))
 
     user_id = session['id']
 
@@ -76,9 +74,8 @@ def orders():
 
 @app_bp.route('/p/cancella_account', methods=['POST'])
 def delete_account():
-
-    if 'id' not in session:
-        return redirect('utente/login')
+    if 'logged_in' not in session or not session['logged_in']:
+        return redirect(url_for('user_login.login_page'))
 
     try:
         user_id = session['id']

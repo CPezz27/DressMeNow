@@ -5,21 +5,23 @@ conn = mysql_config.get_database_connection()
 cursor = conn.cursor()
 
 
-def salva_immagine(id_prodotto, immagine, tipo):
-    nuova_immagine = Immagine(None, id_prodotto, immagine, tipo)
-    return nuova_immagine.save()
+def visualizza_immagini():
+    query = "SELECT * FROM immagine"
+    try:
+        cursor.execute(query)
+        immagini = cursor.fetchall()
+        return immagini
+    except mysql.connector.Error as err:
+        return None
 
 
 def rimuovi_immagine(id_immagine):
-
     delete_query = "DELETE FROM immagine WHERE id_immagine = %s"
-
     try:
         cursor.execute(delete_query, (id_immagine,))
         conn.commit()
         return True
     except mysql.connector.Error as err:
-        conn.rollback()
         return False
     finally:
         cursor.close()
@@ -27,8 +29,7 @@ def rimuovi_immagine(id_immagine):
 
 
 class Immagine:
-    def __init__(self, id_immagine, id_prodotto, immagine, tipo):
-        self.id_immagine = id_immagine
+    def __init__(self, id_prodotto, immagine, tipo):
         self.id_prodotto = id_prodotto
         self.immagine = immagine
         self.tipo = tipo
