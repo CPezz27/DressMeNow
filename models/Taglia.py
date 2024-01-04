@@ -5,8 +5,6 @@ conn = mysql_config.get_database_connection()
 cursor = conn.cursor()
 
 
-
-
 def aggiungi_taglia(nome_taglia):
     nuova_taglia = Taglia(nome_taglia)
     return nuova_taglia.save()

@@ -18,3 +18,11 @@ def aggiungi_immagine():
         return render_template("dettaglio_prodotto.html", id_prodotto=id_prodotto)
 
     return render_template("aggiungi_immagine.html")
+
+
+@app_bp.route("/rimuovi_immagine/<int:id_immagine>", methods=['POST'])
+def rimuovi_immagine(id_immagine):
+
+    Immagine.rimuovi_immagine(id_immagine)
+
+    return render_template("dettaglio_prodotto.html")
