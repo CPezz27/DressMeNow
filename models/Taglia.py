@@ -5,14 +5,29 @@ conn = mysql_config.get_database_connection()
 cursor = conn.cursor()
 
 
+def delete(id_taglia):
+
+    delete_query = "DELETE FROM taglia WHERE id_taglia = %s"
+
+    try:
+        cursor.execute(delete_query, (id_taglia,))
+        conn.commit()
+        return True
+    except mysql.connector.Error as err:
+        conn.rollback()
+        return False
+    finally:
+        cursor.close()
+        conn.close()
+
+
 def aggiungi_taglia(nome_taglia):
     nuova_taglia = Taglia(nome_taglia)
     return nuova_taglia.save()
 
 
-def rimozione_taglia(nome_taglia):
-    taglia_da_rimuovere = Taglia(nome_taglia)
-    return taglia_da_rimuovere.delete()
+def rimozione_taglia(id_taglia):
+    return delete(id_taglia)
 
 
 class Taglia:
@@ -25,17 +40,6 @@ class Taglia:
 
         try:
             cursor.execute(insert_query, taglia_data)
-            conn.commit()
-            return True
-        except mysql.connector.Error as err:
-            return False
-
-    def delete(self):
-        delete_query = "DELETE FROM taglia WHERE nometaglia = %s"
-        taglia_data = (self.nome_taglia,)
-
-        try:
-            cursor.execute(delete_query, taglia_data)
             conn.commit()
             return True
         except mysql.connector.Error as err:
