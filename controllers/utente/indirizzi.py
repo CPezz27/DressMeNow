@@ -6,7 +6,7 @@ from utils.utils import validate_input
 app_bp = Blueprint('gestione_indirizzi', __name__)
 
 
-app_bp.route('/indirizzi', methods=['GET'])
+@app_bp.route('/indirizzi', methods=['GET'])
 def visualizza_indirizzi():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
