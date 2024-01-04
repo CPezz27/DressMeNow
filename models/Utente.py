@@ -1,10 +1,8 @@
 import mysql.connector
-
 from utils import mysql_config
 from utils.utils import hash_password
 
 conn = mysql_config.get_database_connection()
-
 cursor = conn.cursor()
 
 

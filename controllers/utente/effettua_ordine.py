@@ -1,7 +1,8 @@
-from flask import Flask, session, redirect, Blueprint
+from flask import Flask, session, redirect, Blueprint, request
 from models.Ordine import Ordine
 from datetime import datetime
 import mysql.connector
+
 
 app = Flask(__name__)
 
@@ -26,8 +27,16 @@ def effettua_ordine():
 
         nuovo_ordine.save()
 
+        id_prodotto = request.form.get('id_prodotto')
+        id_taglia = request.form.get('id_taglia')
+        quantita_da_decrementare = 1
+
+        update_query = f"UPDATE taglia_prodotto SET quantita = quantita - {quantita_da_decrementare} " \
+                       f"WHERE id_prodotto = {id_prodotto} AND id_taglia = {id_taglia};"
+
+        cursor.execute(update_query)
+
         return redirect("utente/effettua_ordine")
 
     except mysql.connector.Error as err:
-        print(f"Errore durante l'ordine: {err}")
-        return redirect("utente/carrello")
+        return None

@@ -1,9 +1,7 @@
 import mysql.connector
-
 from utils import mysql_config
 
 conn = mysql_config.get_database_connection()
-
 cursor = conn.cursor()
 
 

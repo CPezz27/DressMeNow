@@ -72,7 +72,6 @@ def modifica_profilo():
                 else:
                     return render_template('404.html', message="Utente non trovato.")
             except mysql.connector.Error as err:
-                print(f"Errore durante la modifica dell'account: {err}")
-                return render_template('profilo.html', message="Errore durante la modifica dell'account.")
+                return None
         else:
             return render_template('/login')
