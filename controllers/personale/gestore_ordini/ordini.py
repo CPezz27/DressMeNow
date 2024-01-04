@@ -42,3 +42,21 @@ def modifica_ordine():
             return render_template("successo.html", message="Stato dell'ordine modificato con successo.")
         else:
             return render_template("errore.html", message="Si è verificato un errore durante la modifica dell'ordine.")
+
+
+@app_bp.route("/visualizza_ordine", methods=['GET'])
+def visual_ordine():
+    try:
+        id_ordine = request.args.get('id_ordine')
+
+        if id_ordine is not None:
+            order_details = visualizza_ordine(int(id_ordine))
+
+            if order_details:
+                return render_template("/gestore_ordini/visualizza_ordine.html", order_details=order_details)
+            else:
+                return render_template("/gestore_ordini/visualizza_ordine.html", message="Errore durante il recupero dei dettagli dell'ordine.")
+        else:
+            return render_template("/gestore_ordini/visualizza_ordine.html", message="Errore durante il recupero dei dettagli dell'ordine.")
+    except Exception as e:
+        return render_template("/gestore_ordini/visualizza_ordine.html", message="Errore durante il recupero dei dettagli dell'ordine.")
