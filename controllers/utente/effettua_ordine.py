@@ -1,4 +1,4 @@
-from flask import Flask, session, redirect, Blueprint, request
+from flask import Flask, session, redirect, Blueprint, request, url_for
 from models.Ordine import Ordine
 from models import TagliaProdotto
 from datetime import datetime
@@ -12,29 +12,26 @@ app_bp = Blueprint('effettua_ordine', __name__)
 
 @app.route('/effettua_ordine', methods=['POST'])
 def effettua_ordine():
+    if request.method == 'POST':
+        try:
+            if 'logged_in' not in session or not session['logged_in']:
+                return redirect(url_for('user_login.login_page'))
 
-    if 'id' not in session:
-        return redirect('utente/login')
+            id_utente = session['id']
+            id_prodotto = request.form.get('id_prodotto')
+            id_taglia = request.form.get('id_taglia')
+            quantita_da_decrementare = 1
+            data = datetime.now().strftime('%Y-%m-%d')
 
-    try:
-        id_utente = session['id']
-        stato = "Effettuato"
-        data = datetime.now().strftime('%Y-%m-%d')
+            nuovo_ordine = Ordine(
+                        id_utente=id_utente,
+                        stato="Effettuato",
+                        data=data)
 
-        nuovo_ordine = Ordine(
-                    id_utente=id_utente,
-                    stato=stato,
-                    data=data)
+            nuovo_ordine.save()
 
-        nuovo_ordine.save()
+            TagliaProdotto.decrementa_quantita(id_prodotto, id_taglia, quantita_da_decrementare)
 
-        id_prodotto = request.form.get('id_prodotto')
-        id_taglia = request.form.get('id_taglia')
-        quantita_da_decrementare = 1
-
-        TagliaProdotto.decrementa_quantita(id_prodotto, id_taglia, quantita_da_decrementare)
-
-        return redirect("utente/effettua_ordine")
-
-    except mysql.connector.Error as err:
-        return None
+            return redirect("utente/effettua_ordine")
+        except mysql.connector.Error as err:
+            return redirect("utente/effettua_ordine")

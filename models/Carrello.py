@@ -85,7 +85,7 @@ class Carrello:
             query = "INSERT INTO carrello (id_utente) VALUES (%s)"
             self.cursor.execute(query, (self.id_utente,))
             self.conn.commit()
-            print("Carrello creato con successo.")
+            return True
         except mysql.connector.Error as err:
             self.conn.rollback()
-            print(f"Errore durante la creazione del carrello: {err}")
+            return False
