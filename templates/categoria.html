@@ -40,29 +40,26 @@
 
   <!-- Contenitore per i prodotti -->
   <div class="container mx-auto mt-8 grid grid-cols-3 gap-6" id="products-container">
-    <!-- Qui verranno visualizzati i prodotti in base alla categoria selezionata -->
-    <!-- L'HTML dei prodotti sarà generato dinamicamente con JavaScript -->
+
   </div>
 
   <script>
-    // Array di esempio di prodotti per ogni categoria
     const products = {
       uomo: [
         { name: 'Camicia Uomo', price: '39.99€', image: "https://i.ebayimg.com/images/g/VswAAOSwn35hTueS/s-l1600.jpg" },
         { name: 'Pantaloni Uomo', price: '49.99€', image:"https://m.media-amazon.com/images/I/613eb4ELmxL._AC_SX569_.jpg" },
-        { name: 'Pantaloni Uomo', price: '49.99€', image:"https://m.media-amazon.com/images/I/613eb4ELmxL._AC_SX569_.jpg" },
-        { name: 'Accappatoio Uomo', price: '49.99€', image:"https://static.sscnapoli.it/img/p/8/5/5/6/8556-small_default.jpg"}
-        // Altri prodotti per uomo
+        { name: 'Pantaloni Uomo', price: '50.99€', image:"https://m.media-amazon.com/images/I/613eb4ELmxL._AC_SX569_.jpg" },
+        { name: 'Accappatoio Uomo', price: '109.99€', image:"https://static.sscnapoli.it/img/p/8/5/5/6/8556-small_default.jpg"}
       ],
       donna: [
         { name: 'Abito Donna', price: '59.99€', image:"https://shippingdog.com/uploads/products/tshm/86083-blk-1-1024.webp?=1697462360"},
         { name: 'Maglia Donna', price: '29.99€', image:"https://m.media-amazon.com/images/I/81bIQAmRzjL.AC_UF1000,1000_QL80.jpg" },
-        // Altri prodotti per donna
       ],
       bambino: [
         { name: 'Giacca Bambino', price: '34.99€', image: "https://static.sscnapoli.it/img/p/7/4/1/4/7414-small_default.jpg"},
-        { name: 'Vestitino Bambina', price: '24.99€', image:"https://i.etsystatic.com/13135881/r/il/a67244/1984363000/il_1588xN.1984363000_tpnx.jpg" },
-        // Altri prodotti per bambino
+        { name: 'Vestitino Bambina', price: '24.99€', image: "https://i.etsystatic.com/13135881/r/il/a67244/1984363000/il_1588xN.1984363000_tpnx.jpg" },
+        { name: 'Mantello Bambina', price: '24.99€', image: "https://bimbiribelli.com/11878/copertina-carrozzino-del-napoli-invernale.jpg" },
+        { name: 'Mantello Bambina', price: '24.99€', image: "https://bimbiribelli.com/11878/copertina-carrozzino-del-napoli-invernale.jpg" },
       ],
     };
 
@@ -75,7 +72,7 @@
         const productCard = `
           <div class="bg-white p-4 shadow-md">
             <h3 class="font-bold">${product.name}</h3>
-            <img src=${product.image}>
+            <img src=${product.image} width=500px lenght=500px>
             <p>${product.price}</p>
           </div>
         `;
@@ -92,7 +89,7 @@
       });
     });
 
-    // Mostra i prodotti della categoria predefinita all'avvio (es. uomo)
+    // Mostra i prodotti della categoria predefinita all'avvio
     showProducts('uomo');
   </script>
 </body>

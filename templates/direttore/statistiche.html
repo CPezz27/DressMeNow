@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Statistiche per il Direttore</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../static/css/direttore.css">
+</head>
+<body class="bg-gray-100">
+    <header>
+        <h1>Eccola, Direttore!</h1>
+        <nav>
+            <ul>
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="/d/aggiungi_personale">Aggiunta Personale</a></li>
+                <li><a href="statistiche_sito">Statistiche Sito</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+<div class="container mx-auto py-8">
+    <div class="bg-white p-6 rounded-md shadow-md">
+    <h2 class="text-xl font-bold mb-4">Dati Statistici</h2>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <p class="text-gray-600">Vendite Totali</p>
+        <p class="text-2xl font-bold" id="vendite-totali">-</p>
+      </div>
+      <div>
+        <p class="text-gray-600">Guadagni</p>
+        <p class="text-2xl font-bold" id="guadagni">-</p>
+      </div>
+      <div>
+        <p class="text-gray-600">Prodotti Resi</p>
+        <p class="text-2xl font-bold" id="prodotti-resi">-</p>
+      </div>
+      <div>
+        <p class="text-gray-600">Percentuale Prodotti Resi</p>
+        <p class="text-2xl font-bold" id="percentuale-resi">-</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Funzione per generare dati casuali
+  function generateRandomData() {
+    return {
+      venditeTotali: Math.floor(Math.random() * 1000) + 500,
+      guadagni: (Math.random() * 5000 + 2000).toFixed(2),
+      prodottiResi: Math.floor(Math.random() * 100) + 20,
+      percentualeResi: ((Math.random() * 10) + 5).toFixed(2),
+    };
+  }
+
+  // Funzione per aggiornare i dati sulla pagina
+  function updateStatistics() {
+    const { venditeTotali, guadagni, prodottiResi, percentualeResi } = generateRandomData();
+
+    document.getElementById('vendite-totali').textContent = venditeTotali;
+    document.getElementById('guadagni').textContent = guadagni + '€';
+    document.getElementById('prodotti-resi').textContent = prodottiResi;
+    document.getElementById('percentuale-resi').textContent = percentualeResi + '%';
+  }
+
+  // Simulazione di accesso solo per il direttore
+  const isDirector = true; // Cambia a false se non sei il direttore
+  if (isDirector) {
+    updateStatistics(); // Aggiorna le statistiche iniziali
+  } else {
+    // Se l'utente non è il direttore, nasconde le statistiche
+    document.querySelectorAll('.font-bold').forEach(stat => {
+      stat.textContent = 'Accesso Negato';
+    });
+  }
+</script>
+
+</body>
+</html>
