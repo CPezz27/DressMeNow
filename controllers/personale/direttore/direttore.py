@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, request, session, redirect, url_fo
 from models import Personale, Ordine, ProdottoInOrdine
 from models.Personale import Personale
 
-app_bp = Blueprint('user_controller', __name__)
+app_bp = Blueprint('direttore_controller', __name__)
 
 
 @app_bp.route("/d/")
