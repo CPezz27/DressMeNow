@@ -7,58 +7,61 @@
     <title>Shopping Cart - Clothing Store</title>
     <!-- Link to Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Aggiunta di stili personalizzati */
+        .custom-background {
+            background-color: #6EE7B7; /* Colore sfondo personalizzato */
+        }
+    </style>
+
 </head>
 
-<body class="font-sans bg-green-300">
+<body class="font-sans custom-background">
 
-    <div class="container mx-auto my-8 p-4 relative">
+    <div class="container mx-auto my-8 p-4 flex flex-wrap">
 
-        <!-- Header -->
-        <div class="absolute top-0 left-0 min-h-screen h-96 w-1/2 bg-white p-4 rounded-lg shadow-md mb-15" style="margin-left: 15px; bottom: 0;">
-            <h1 class="text-3xl font-semibold mb-4 text-center">Carrello</h1>
-        
-
+        <!-- Carrello -->
+        <div class="w-full md:w-1/2 mb-6 md:mb-0 md:pr-4">
+            <div class="bg-white p-4 rounded-lg shadow-md">
+                <h1 class="text-3xl font-semibold mb-4 text-center">Carrello</h1>
+                <div id="cartItems" class="grid grid-cols-0 md:grid-cols-0/5 lg:grid-cols-1 gap-4">
         <!-- Cart Items List -->
         <div id="cartItems" class="grid grid-cols-0 md:grid-cols-0/5 lg:grid-cols-1 gap-4">
             <!-- Sample Cart Item -->
-            <div class="bg-white p-4 rounded-lg shadow-md">
-                <img src="path_to_image.jpg" alt="Product" class="w-full h-32 object-cover mb-4">
-                <h2 class="text-lg font-semibold text-right">Product Name</h2>
-                <p class="text-gray-600 text-right">Size: M</p>
-                <p class="text-gray-600 text-right">Quantity: 1</p>
-                <p class="text-gray-600 text-right">Price: $19.99</p>
-                <button onclick="removeFromCart(this)" class="mt-4 bg-red-500 text-white py-2 px-4 rounded-full ml-auto">Remove</button>
-
-            </div>
-        </div>
-            </div>
-            
-            </div>
-
+            <div class="bg-gray-200 p-4 rounded-lg shadow-md flex items-center">
+                <div class="flex-shrink-0 mr-4">
+                    <img src="https://www.piggypet.it/wp-content/uploads/2023/08/Progetto-senza-titolo-2023-08-05T132259.115-870x563@2x.jpg" alt="Product" class="w-24 h-24 object-cover">
+                </div>
+                <div class="flex-1">
+                    <h2 class="text-lg font-semibold">Nome</h2>
+                    <p class="text-gray-600">Size: M</p>
+                    <p class="text-gray-600">Quantity: 1</p>
+                    <p class="text-gray-600">Price: $19.99</p>
+                </div>
+                <button onclick="removeFromCart(this)" class="bg-red-500 text-white py-2 px-4 rounded-full ml-4">Remove</button>
             </div>
             
-            <!-- Additional Cart Items go here -->
         </div>
 
-        <!-- Order Summary -->
-        <div class="fixed top-0 right-0 h-1/3 w-1/3 p-4 mr-20" style="margin-top: 15px;">
-            <div class="bg-white rounded-lg shadow-md p-4">
-            <h2 class="text-xl font-semibold mb-4">Order Summary</h2>
-            <div class="flex justify-between items-center mb-2">
-                <span class="text-gray-600">Total Products:</span>
-                <span id="totalProducts" class="font-semibold" style="color: #000000;">$19.99</span>
+        <!-- Riepilogo dell'ordine -->
+        <div class="fixed top-0 right-0 h-1/3 p-4 mr-28" style="margin-top: 30px;">
+            <div class="h-full bg-white rounded-lg shadow-md p-4">
+                <h2 class="text-xl font-semibold mb-4">Order Summary</h2>
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-gray-600">Total Products:</span>
+                    <span id="totalProducts" class="font-semibold" style="color: #000000;">$19.99</span>
+                </div>
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-gray-600">Shipping:</span>
+                    <span class="font-semibold" style="color: #000000;">$5.00</span>
+                </div>
+                <hr class="my-2 border-gray-300">
+                <div class="flex justify-between items-center">
+                    <span class="text-lg font-semibold" style="color: #000000;">Total:</span>
+                    <span id="orderTotal" class="text-lg font-semibold" style="color: #000000;">$24.99</span>
+                </div>
+                <button class="mt-4 bg-blue-500 text-white py-2 px-4 rounded-full">Proceed to Checkout</button>
             </div>
-            <div class="flex justify-between items-center mb-2">
-                <span class="text-gray-600">Shipping:</span>
-                <span class="font-semibold" style="color: #000000;">$5.00</span>
-            </div>
-            <hr class="my-2 border-gray-300">
-            <div class="flex justify-between items-center">
-                <span class="text-lg font-semibold" style="color: #000000;">Total:</span>
-                <span id="orderTotal" class="text-lg font-semibold" style="color: #000000;">$24.99</span>
-            </div>
-            <button class="mt-4 bg-blue-500 text-white py-2 px-4 rounded-full">Proceed to Checkout</button>
-        </div>
         </div>
 
     </div>
