@@ -1,28 +1,60 @@
-from flask import Blueprint, render_template, request
-from models.Immagine import Immagine
+from flask import Blueprint, render_template, request, redirect, session, url_for
+
 from models import Immagine
+from models.Immagine import Immagine
 
 app_bp = Blueprint('image_controller', __name__)
 
-TIPO_IMMAGINE = 'avatar', 'pagina_prodotto'
 
-
-@app_bp.route("/aggiungi_immagine", methods=['GET', 'POST'])
+@app_bp.route("/gp/aggiungi_immagine", methods=['GET', 'POST'])
 def aggiungi_immagine():
+    if 'logged_in' not in session or not session['logged_in']:
+        return redirect(url_for('user_login.login_page'))
+
+    if session['ruolo'] is not 'gestore_prodotto':
+        return redirect(url_for('index'))
+
     if request.method == 'POST':
         id_prodotto = request.form['id_prodotto']
-        immagine = request.files['immagine']
+        tipo = request.form['tipo_immagine']
+        image_file = request.files['immagine']
 
-        Immagine.salva_immagine(id_prodotto, immagine, TIPO_IMMAGINE)
+        immagine = Immagine(id_prodotto, image_file, tipo)
 
-        return render_template("dettaglio_prodotto.html", id_prodotto=id_prodotto)
+        success = immagine.save()
 
-    return render_template("aggiungi_immagine.html")
+        if success:
+            return render_template("gestore_prodotti/immagini.html")
+        else:
+            return render_template("gestore_prodotti/immagini.html")
+
+    return render_template("gestore_prodotti/aggiungi_immagine.html")
 
 
-@app_bp.route("/rimuovi_immagine/<int:id_immagine>", methods=['POST'])
+@app_bp.route("/gp/rimuovi_immagine/<int:id_immagine>", methods=['POST'])
 def rimuovi_immagine(id_immagine):
+    if 'logged_in' not in session or not session['logged_in']:
+        return redirect(url_for('user_login.login_page'))
 
-    Immagine.rimuovi_immagine(id_immagine)
+    if session['ruolo'] is not 'gestore_prodotto':
+        return redirect(url_for('index'))
 
-    return render_template("dettaglio_prodotto.html")
+    success = Immagine.rimuovi_immagine(id_immagine)
+
+    if success:
+        return render_template("gestore_prodotti/immagini.html")  # mess. successo
+    else:
+        return render_template("gestore_prodotti/immagini.html")  # mess. errore
+
+
+@app_bp.route("/gp/visualizza_immagini", methods=['POST'])
+def visualizza_immagini():
+    if 'logged_in' not in session or not session['logged_in']:
+        return redirect(url_for('user_login.login_page'))
+
+    if session['ruolo'] is not 'gestore_prodotto':
+        return redirect(url_for('index'))
+
+    immagini = Immagine.visualizza_immagini()
+
+    return render_template("gestore_prodotti/immagini.html", data=immagini)

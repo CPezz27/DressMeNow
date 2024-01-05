@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, session, redirect, url_for
+
 from models import Ordine
 
 app_bp = Blueprint('effettua_reso', __name__)
@@ -6,6 +7,9 @@ app_bp = Blueprint('effettua_reso', __name__)
 
 @app_bp.route('/o/effettua_reso', methods=['POST'])
 def effettua_reso():
+    if 'logged_in' not in session or not session['logged_in']:
+        return redirect(url_for('user_login.login_page'))
+
     if request.method == 'POST':
         try:
             id_ordine = request.form.get('id_ordine')

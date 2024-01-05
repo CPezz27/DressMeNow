@@ -2,6 +2,22 @@ import mysql.connector
 from utils.mysql_config import get_database_connection
 
 
+def get_address(address_id):
+    conn = get_database_connection()
+    cursor = conn.cursor(dictionary=True)
+    query = "SELECT * FROM indirizzo WHERE id_indirizzo = %s"
+
+    try:
+        cursor.execute(query, (address_id,))
+        address = cursor.fetchone()
+        return address
+    except mysql.connector.Error as err:
+        return None
+    finally:
+        cursor.close()
+        conn.close()
+
+
 def get_addresses(id_utente):
     conn = get_database_connection()
     cursor = conn.cursor(dictionary=True)
@@ -31,7 +47,6 @@ def update(provincia, cap, via, tipo, citta, id_indirizzo):
         conn.commit()
         return True
     except mysql.connector.Error as err:
-        conn.rollback()
         return False
     finally:
         cursor.close()
@@ -48,7 +63,6 @@ def delete(id_indirizzo):
         conn.commit()
         return True
     except mysql.connector.Error as err:
-        conn.rollback()
         return False
     finally:
         cursor.close()
@@ -78,7 +92,6 @@ class Indirizzo:
             conn.commit()
             return True
         except mysql.connector.Error as err:
-            conn.rollback()
             return False
         finally:
             cursor.close()

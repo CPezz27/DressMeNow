@@ -7,10 +7,10 @@ app_bp = Blueprint('user_carrello', __name__)
 
 @app_bp.route("/carrello")
 def visualizza_carrello():
-    try:
-        if 'logged_in' not in session or not session['logged_in']:
-            return redirect(url_for('user_login.login_page'))
+    if 'logged_in' not in session or not session['logged_in']:
+        return redirect(url_for('user_login.login_page'))
 
+    try:
         user_id = session.get('id')
 
         prodotti = Carrello.contenuto_carrello(user_id)
@@ -23,11 +23,11 @@ def visualizza_carrello():
 
 @app_bp.route("/aggiungi_al_carrello", methods=['POST'])
 def aggiungi_al_carrello():
+    if 'logged_in' not in session or not session['logged_in']:
+        return redirect(url_for('user_login.login_page'))
+
     if request.method == 'POST':
         try:
-            if 'logged_in' not in session or not session['logged_in']:
-                return redirect(url_for('user_login.login_page'))
-
             user_id = session.get('id')
 
             id_prodotto = request.form.get('id_prodotto')
@@ -45,11 +45,11 @@ def aggiungi_al_carrello():
 
 @app_bp.route("/rimuovi_dal_carrello", methods=['POST'])
 def rimuovi_dal_carrello():
+    if 'logged_in' not in session or not session['logged_in']:
+        return redirect(url_for('user_login.login_page'))
+
     if request.method == 'POST':
         try:
-            if 'logged_in' not in session or not session['logged_in']:
-                return redirect(url_for('user_login.login_page'))
-
             user_id = session.get('id')
 
             id_prodotto = request.form.get('id_prodotto')
@@ -67,11 +67,11 @@ def rimuovi_dal_carrello():
 
 @app_bp.route("/svuota_carrello", methods=['POST'])
 def svuota_carrello():
+    if 'logged_in' not in session or not session['logged_in']:
+        return redirect(url_for('user_login.login_page'))
+
     if request.method == 'POST':
         try:
-            if 'logged_in' not in session or not session['logged_in']:
-                return redirect(url_for('user_login.login_page'))
-
             user_id = session.get('id')
 
             flag = Carrello.svuota_carrello(user_id)

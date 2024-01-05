@@ -1,9 +1,12 @@
-from flask import Flask, session, redirect, Blueprint, request, url_for
-from models.Ordine import Ordine
-from models import TagliaProdotto
 from datetime import datetime
+
 import mysql.connector
-#da modificare tutto il controller
+from flask import Flask, session, redirect, Blueprint, request, url_for
+
+from models import TagliaProdotto
+from models.Ordine import Ordine
+
+# da modificare tutto il controller
 
 
 app = Flask(__name__)
@@ -13,10 +16,11 @@ app_bp = Blueprint('effettua_ordine', __name__)
 
 @app.route('/effettua_ordine', methods=['POST'])
 def effettua_ordine():
+    if 'logged_in' not in session or not session['logged_in']:
+        return redirect(url_for('user_login.login_page'))
+
     if request.method == 'POST':
         try:
-            if 'logged_in' not in session or not session['logged_in']:
-                return redirect(url_for('user_login.login_page'))
 
             id_utente = session['id']
             id_prodotto = request.form.get('id_prodotto')
@@ -25,9 +29,9 @@ def effettua_ordine():
             data = datetime.now().strftime('%Y-%m-%d')
 
             nuovo_ordine = Ordine(
-                        id_utente=id_utente,
-                        stato="Effettuato",
-                        data=data)
+                id_utente=id_utente,
+                stato="Effettuato",
+                data=data)
 
             nuovo_ordine.save()
 

@@ -12,7 +12,6 @@ def modifica_ordine(id_ordine, nuovo_stato):
         conn.commit()
         return True
     except mysql.connector.Error as err:
-        conn.rollback()
         return False
 
 
@@ -23,7 +22,6 @@ def cancella_ordine(id_ordine):
         conn.commit()
         return True
     except mysql.connector.Error as err:
-        conn.rollback()
         return False
 
 
@@ -34,7 +32,6 @@ def modifica_stato_ordine(id_ordine, nuovo_stato):
         conn.commit()
         return True
     except mysql.connector.Error as err:
-        conn.rollback()
         return False
 
 
@@ -56,6 +53,26 @@ def calcola_guadagno():
         if result and result[0]:
             return result[0]
         return 0
+    except mysql.connector.Error as err:
+        return None
+
+def visualizza_ordine(order_id):
+    try:
+        query = (
+            "SELECT o.id_ordine, o.stato AS stato_ordine, o.data AS data_ordine, "
+            "t.id_transazione, t.data AS data_transazione, t.totale, t.stato AS stato_transazione, "
+            "p.id_prodotto, p.nome AS nome_prodotto, pio.reso, p.prezzo "
+            "FROM ordine o "
+            "JOIN transazione t ON o.id_ordine = t.id_ordine "
+            "JOIN prodotto_in_ordine pio ON o.id_ordine = pio.id_ordine "
+            "JOIN prodotto p ON pio.id_prodotto = p.id_prodotto "
+            "WHERE o.id_ordine = %s"
+        )
+
+        cursor.execute(query, (order_id,))
+        order_details = cursor.fetchone()
+
+        return order_details
     except mysql.connector.Error as err:
         return None
 
