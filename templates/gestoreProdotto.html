@@ -6,6 +6,10 @@
     <title>Pagina del Gestore Prodotto</title>
     <link rel="stylesheet" href="../static/css/gestore_prodotti.css" />
     <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
       rel="stylesheet"
       type="text/css"
       href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css"
@@ -28,38 +32,79 @@
       <nav>
         <ul>
           <li><a href="#">Dashboard</a></li>
-          <li><a href="#">Catalogo Prodotti</a></li>
           <li><a href="#">Aggiungi Prodotto</a></li>
-          <li><a href="#">Statistiche</a></li>
           <li><a href="#">Logout</a></li>
         </ul>
       </nav>
     </header>
 
-    <main>
+    <div>
       <section>
-        <h2>Dashboard</h2>
         <p>Benvenuto nella tua area riservata, Gestore Prodotto!</p>
       </section>
-
-      <section>
-        <h2>Catalogo Prodotti</h2>
-        <!-- Qui potrebbero essere elencati i prodotti -->
-      </section>
-
-      <section>
-        <h2>Aggiungi Prodotto</h2>
-        <!-- Qui potrebbe essere il modulo per aggiungere un prodotto -->
-      </section>
-
-      <section>
-        <h2>Statistiche</h2>
-        <!-- Qui potrebbero essere visualizzate le statistiche dei prodotti -->
-      </section>
-    </main>
+      <div class="container mx-auto my-8 max-w-md">
+        <!-- TABELLA -->
+        <table id="example" class="display">
+          <thead>
+            <tr>
+              <th>Nome Prodotto</th>
+              <th>Prezzo</th>
+              <th>Taglia</th>
+              <th>Disponibilità</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Inserisci qui le righe della tabella con i dati dei prodotti -->
+            <tr>
+              <td>Prodotto 1</td>
+              <td>49.99</td>
+              <td>M</td>
+              <td>12</td>
+            </tr>
+            <tr>
+              <td>Prodotto 2</td>
+              <td>59.99</td>
+              <td>L</td>
+              <td>56</td>
+            </tr>
+            <tr>
+              <td>Prodotto 3</td>
+              <td>19.99</td>
+              <td>S</td>
+              <td>80</td>
+            </tr>
+            <tr>
+              <td>Prodotto 4</td>
+              <td>10.99</td>
+              <td>XL</td>
+              <td>14</td>
+            </tr>
+            <tr>
+              <td>Prodotto 5</td>
+              <td>9.99</td>
+              <td>XL</td>
+              <td>55</td>
+            </tr>
+            <tr>
+              <td>Prodotto 1</td>
+              <td>191.99</td>
+              <td>XS</td>
+              <td>43</td>
+            </tr>
+            <!-- Aggiungi altre righe secondo necessità -->
+          </tbody>
+        </table>
+      </div>
+    </div>
 
     <footer>
       <p>&copy; 2023 Ecommerce Company. Tutti i diritti riservati.</p>
     </footer>
+
+    <script>
+      $(document).ready(function () {
+        $("#example").DataTable();
+      });
+    </script>
   </body>
 </html>
