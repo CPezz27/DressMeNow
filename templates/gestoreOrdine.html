@@ -5,19 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Pagina del Gestore Ordine</title>
-    <link rel="stylesheet" href="../static/css/gestoreOrdine.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="../static/css/gestore_ordine.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
 </head>
-
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
 <body>
 
     <header>
         <h1>Pagina del Gestore Ordine</h1>
-        <nav>
+        <nav class="navGestoreOrdine">
             <ul>
                 <li><a href="#">Dashboard</a></li>
-                <li><a href="#">Ordini</a></li>
-                <li><a href="#">Prodotti</a></li>
-                <li><a href="#">Clienti</a></li>
                 <li><a href="#">Logout</a></li>
             </ul>
         </nav>
@@ -27,28 +27,35 @@
         <section>
             <h2>Dashboard</h2>
             <p>Benvenuto nella tua area riservata, Gestore Ordine!</p>
-        </section>
-
-        <section>
-            <h2>Elenco Ordini</h2>
-            <!-- Qui potrebbero essere elencati gli ordini -->
-        </section>
-
-        <section>
-            <h2>Gestione Prodotti</h2>
-            <!-- Qui potrebbe essere gestita la lista dei prodotti -->
-        </section>
-
-        <section>
-            <h2>Clienti</h2>
-            <!-- Qui potrebbero essere elencati i clienti -->
+            <table id="myTable" class="display">
+                <thead>
+                    <tr>
+                        <th>Email utente</th>
+                        <th>Stato ordine</th>
+                        <th>Data ordine</th>
+                        <th>Modifica ordine</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Da qui inzierebbe un ciclo for per ogni row della tabella -->
+                    <tr>
+                        <td>Email1</td>
+                        <td>Stato1</td>
+                        <td>Dato1</td>
+                        <td><a href="#">Tasto1</a></td>
+                    </tr>
+                    <tr>
+                        <td>Email2</td>
+                        <td>Stato2</td>
+                        <td>Dato2</td>
+                        <td><a href="#">Tasto2</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2023 Ecommerce Company. Tutti i diritti riservati.</p>
-    </footer>
-
 </body>
-
+<script src="../../static/js/gestore_ordine.js"></script>
 </html>
