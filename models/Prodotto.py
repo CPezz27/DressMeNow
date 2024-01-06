@@ -7,6 +7,29 @@ conn = mysql_config.get_database_connection()
 cursor = conn.cursor()
 
 
+def mostra_info_prodotto():
+    try:
+        query = (
+            "SELECT p.nome, p.prezzo, t.nometaglia, tp.quantita "
+            "FROM prodotto p "
+            "JOIN taglia_prodotto tp ON p.id_prodotto = tp.id_prodotto "
+            "JOIN taglia t ON tp.id_taglia = t.id_taglia"
+        )
+
+        cursor.execute(query)
+        results = cursor.fetchall()
+
+        for row in results:
+            nome_prodotto = row[0]
+            prezzo = row[1]
+            taglia = row[2]
+            quantita = row[3]
+            print(f"{nome_prodotto}, {prezzo}€, {taglia}, {quantita}")
+
+    except mysql.connector.Error as err:
+        return False
+
+
 def search_prodotto_by_name(nome):
     search_query = "SELECT p.*, MIN(i.id_immagine) AS first_image FROM prodotto p LEFT JOIN immagine i ON " \
                    "p.id_prodotto = i.id_prodotto WHERE p.nome LIKE %s GROUP BY p.id_prodotto"

@@ -6,6 +6,12 @@ from models.Prodotto import Prodotto
 app_bp = Blueprint('gestore_prodotti', __name__)
 
 
+#ELIMINARE QUESTA FUNZIONE MOMENTANEA!!!!!!
+@app_bp.route("/prodotti_momentaneo")
+def momentaneo():
+    return render_template("utente/ricercaProdotto.html")
+
+
 @app_bp.route('/gp/prodotti')
 def prodotti():
     if 'logged_in' not in session or not session['logged_in']:
@@ -87,3 +93,18 @@ def elimina_prodotto(product_id):
         return redirect(url_for('gestione_prodotto.prodotti', message="Prodotto eliminato con successo"))
     except Exception as err:
         return render_template('/gestore_prodotti/modifica_prodotto.html', messaggio="Errore durante l'eliminazione")
+    
+
+@app_bp.route('/gp/mostra_info_prodotti/', methods=['GET'])
+def mostra_info_prodotti():
+    if 'logged_in' not in session or not session['logged_in']:
+        return redirect(url_for('user_login.login_page'))
+
+    if session['ruolo'] != 'gestore_prodotto':
+        return redirect(url_for('index'))
+    try:
+        prodotti.mostra_info_prodotto()
+    except Exception as err:
+        return render_template('/gp/index.html', messaggio="Errore durante la visualizzazione")
+
+    return render_template('/gp/prodotti.html', prodotti=prodotti)
