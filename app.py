@@ -1,6 +1,7 @@
 from flask import Flask
 from controllers import index
 from controllers.utente import login, profilo, registrati, effettua_ordine, carrello, prodotti
+from controllers.personale import login
 from controllers.personale.direttore import direttore
 from controllers.personale.gestore_ordini import ordini
 

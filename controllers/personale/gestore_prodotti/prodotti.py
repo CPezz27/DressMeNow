@@ -6,7 +6,6 @@ from models.Prodotto import Prodotto
 app_bp = Blueprint('gestore_prodotti', __name__)
 
 
-
 @app_bp.route('/gp/prodotti')
 def prodotti():
     if 'logged_in' not in session or not session['logged_in']:

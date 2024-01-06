@@ -40,7 +40,7 @@ def login():
                         return redirect(url_for('gestore_ordine'))
                     elif tipo_personale == 'gestore_prodotto':
                         session['ruolo'] = 'gestore_prodotto'
-                        return redirect(url_for('gestore_prodotto'))
+                        return render_template('gestoreProdotto.html')
                 else:
                     return "Credenziali non valide. Riprova."
             except mysql.connector.Error as err:
