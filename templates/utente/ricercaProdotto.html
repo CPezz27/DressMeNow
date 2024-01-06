@@ -7,44 +7,9 @@
     <link rel="stylesheet" href="/static/css/header.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
 </head>
-
-<header>
-    <nav class="nav-header">
-        <div class="logo">
-          <a href="#">
-            <img src="/static/assets/Logo.png" alt="Logo"
-            alt="logo" width="53" height="60">
-          </a>
-        </div>
-        <div class="main-links">
-          <a href="#">Uomo</a>
-          <a href="#">Donna</a>
-          <a href="#">Bambino</a>
-        </div>
-        <div class="icons">
-          <div class="relative">
-            <input type="text" placeholder="Comprendi il mio stile!" class="pl-10 py-2 pr-4 rounded-full border border-gray-300 focus:outline-none focus:border-gray-500">
-            <i class="fa fa-search fa-lg text-gray-400 absolute top-1/2 left-1 transform -translate-y-1/2"></i>
-          </div>
-          <a href="#"><i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i></a>
-          <a href="profilo.html"><i class="fa fa-user fa-2x" aria-hidden="true"></i></a>
-          
-        </div>
-        <div class="three-lined-menu" onclick="toggleMenu()">
-          <i class="fa fa-bars fa-2x" aria-hidden="true" class="menu"></i>
-        </div>
-        <div class="dropdown-content" id="dropdownContent">
-          <a href="#">Uomo</a>
-          <a href="#">Donna</a>
-          <a href="#">Bambino</a>
-          <a href="#" class="cart-link"><i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i></a>
-          <a href="profilo.html" class="profile-link"><i class="fa fa-user fa-2x" aria-hidden="true"></i></a>
-        </div>
-    </nav>
-</header>
-<script src="../../static/js/header.js"></script>
-
+{% include 'components/header.html' %}
 <body class="bg-gray-100 min-h-screen flex flex-col items-center justify-start">
+
     <div class="w-full  mx-auto px-6 py-12">
         <h1 class="text-4xl font-semibold mb-8 text-center">Prodotti</h1>
 
@@ -52,22 +17,25 @@
 
             <!-- Prodotto 1 -->
             <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <div class="aspect-w-1 aspect-h-1">
-                    <img src="https://lorenzograssia.com/wp-content/uploads/2014/01/prodotto.jpg" alt="Prodotto 1" class="w-full h-48 object-cover object-center">
-                </div>
-                <div class="p-4 flex flex-col justify-between">
-                    <div>
-                        <h2 class="text-xl font-semibold mb-2">Nome Prodotto 1</h2>
-                        <p class="text-gray-600 mb-2 overflow-hidden whitespace-nowrap" id="product-description">
-                            Un bellissimo Nome Prodotto 1 per tutta la famiglia!!! Ora potete finalmente visualizzare questo prodotto bla bla bla bla bla aaaaaaa
-                        </p>
-                        <p class="text-gray-600 mb-2">Vestibilità disponibile: oversized??</p>
-                        <p class="text-gray-900 font-semibold text-lg mb-2">€99.99</p>
+                <form action="/aggiungi_al_carrello" method="post">
+                    <div class="aspect-w-1 aspect-h-1">
+                        <img src="https://lorenzograssia.com/wp-content/uploads/2014/01/prodotto.jpg" alt="Prodotto 1" class="w-full h-48 object-cover object-center">
                     </div>
-                    <div class="flex justify-between">
-                        <button class="px-4 py-2 bg-green-500 text-white rounded-md mr-2">Aggiungi al carrello</button>
+                    <div class="p-4 flex flex-col justify-between">
+                        <div>
+                            <h2 class="text-xl font-semibold mb-2">Nome Prodotto 1</h2>
+                            <input type="hidden" name="id_prodotto" value="1">
+                            <p class="text-gray-600 mb-2 overflow-hidden whitespace-nowrap" id="product-description">
+                                Un bellissimo Nome Prodotto 1 per tutta la famiglia!!! Ora potete finalmente visualizzare questo prodotto bla bla bla bla bla aaaaaaa
+                            </p>
+                            <p class="text-gray-600 mb-2">Vestibilità disponibile: oversized??</p>
+                            <p class="text-gray-900 font-semibold text-lg mb-2">€99.99</p>
+                        </div>
+                        <div class="flex justify-between">
+                            <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded-md mr-2">Aggiungi al carrello</button>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
             <!-- Prodotto 2 -->
             <div class="bg-white rounded-lg shadow-md overflow-hidden">

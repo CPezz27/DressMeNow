@@ -13,40 +13,42 @@
             background-color: #6EE7B7; /* Colore sfondo personalizzato */
         }
     </style>
-
 </head>
-
+{% include 'components/header.html' %}
 <body class="font-sans custom-background">
-    {% include 'components/header.html' %}
     <div class="container mx-auto my-8 p-4 flex flex-wrap">
-
-        <!-- Carrello -->
+        <!-- Carrello a sinistra -->
         <div class="w-full md:w-1/2 mb-6 md:mb-0 md:pr-4">
             <div class="bg-white p-4 rounded-lg shadow-md">
-                <h1 class="text-3xl font-semibold mb-4 text-center">Carrello</h1>
-                <div id="cartItems" class="grid grid-cols-0 md:grid-cols-0/5 lg:grid-cols-1 gap-4">
-        <!-- Cart Items List -->
-        <div id="cartItems" class="grid grid-cols-0 md:grid-cols-0/5 lg:grid-cols-1 gap-4">
-            <!-- Sample Cart Item -->
-            <div class="bg-gray-200 p-4 rounded-lg shadow-md flex items-center">
-                <div class="flex-shrink-0 mr-4">
-                    <img src="https://www.piggypet.it/wp-content/uploads/2023/08/Progetto-senza-titolo-2023-08-05T132259.115-870x563@2x.jpg" alt="Product" class="w-24 h-24 object-cover">
+                <div class="flex justify-between items-center mb-4">
+                    <h1 class="text-3xl font-semibold">Carrello</h1>
+                    <button onclick="removeAllFromCart()" class="bg-red-500 text-white py-2 px-4 rounded-full">Remove All from Cart</button>
                 </div>
-                <div class="flex-1">
-                    <h2 class="text-lg font-semibold">Nome</h2>
-                    <p class="text-gray-600">Size: M</p>
-                    <p class="text-gray-600">Quantity: 1</p>
-                    <p class="text-gray-600">Price: $19.99</p>
+                <div id="cartItems" class="grid grid-cols-1 gap-4">
+                    <!-- Esempio di elemento nel carrello -->
+                    
+                    <div class="bg-gray-200 p-4 rounded-lg shadow-md flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 mr-4">
+                                <img src="https://cdn.studenti.stbm.it/images/2017/03/13/luna-orig.jpeg" alt="Product" class="w-24 h-24 object-cover">
+                            </div>
+                            <div>
+                                <h2 class="text-lg font-semibold">Nome Prodotto</h2>
+                                <p class="text-gray-600">Size: M</p>
+                                <p class="text-gray-600">Quantity: 1</p>
+                                <p class="text-gray-600">Price: $19.99</p>
+                            </div>
+                        </div>
+                        <button onclick="removeFromCart(this)" class="bg-red-500 text-white py-2 px-4 rounded-full">Remove</button>
+                    </div>
                 </div>
-                <button onclick="removeFromCart(this)" class="bg-red-500 text-white py-2 px-4 rounded-full ml-4">Remove</button>
             </div>
-            
         </div>
 
-        <!-- Riepilogo dell'ordine -->
-        <div class="fixed top-0 right-0 h-1/3 p-4 mr-28" style="margin-top: 30px;">
-            <div class="h-full bg-white rounded-lg shadow-md p-4">
-                <h2 class="text-xl font-semibold mb-4">Order Summary</h2>
+        <!-- Riepilogo dell'ordine a destra -->
+        <div class="w-full md:w-1/2">
+            <div class="bg-white p-4 rounded-lg shadow-md">
+                <h1 class="text-3xl font-semibold mb-4 text-center">Order Summary</h1>
                 <div class="flex justify-between items-center mb-2">
                     <span class="text-gray-600">Total Products:</span>
                     <span id="totalProducts" class="font-semibold" style="color: #000000;">$19.99</span>
@@ -62,38 +64,52 @@
                 </div>
                 <button class="mt-4 bg-blue-500 text-white py-2 px-4 rounded-full">Proceed to Checkout</button>
             </div>
+
+                    <!-- Sezione "Prova i prodotti sull'avatar" -->
+            <div class="w-full md:w-1/2 mt-8">
+                <div class="bg-white p-4 rounded-lg shadow-md">
+                    <h1 class="text-3xl font-semibold mb-4 text-center">Prova i prodotti sull'avatar!</h1>
+                    <button class="mx-auto block bg-blue-500 text-white py-2 px-6 rounded-full">Prova ora</button>
+                </div>
+            </div>
         </div>
+
 
     </div>
 
     <script>
-        // Function to remove an item from the cart
+        // Funzione per rimuovere un elemento dal carrello
         function removeFromCart(button) {
-            // Remove the parent element of the button
+            // Rimuovi l'elemento padre del pulsante
             button.parentNode.remove();
-
-            // Update total products and order total
+            // Aggiorna il riepilogo dell'ordine
             updateOrderSummary();
         }
 
-        // Function to update the order summary
+        // Funzione per rimuovere tutti gli elementi dal carrello
+        function removeAllFromCart() {
+            var cartItems = document.getElementById('cartItems');
+            cartItems.innerHTML = ''; // Rimuovi tutti gli elementi dal carrello
+            // Aggiorna il riepilogo dell'ordine
+            updateOrderSummary();
+        }
+
+        // Funzione per aggiornare il riepilogo dell'ordine
         function updateOrderSummary() {
             var totalProducts = 0;
             var cartItems = document.getElementById('cartItems').children;
 
-            // Calculate total products in the cart
+            // Calcola il totale dei prodotti nel carrello
             for (var i = 0; i < cartItems.length; i++) {
                 var price = parseFloat(cartItems[i].querySelector('p:nth-child(3)').innerText.replace('$', ''));
                 totalProducts += price;
             }
 
-            // Update values in the order summary
+            // Aggiorna i valori nel riepilogo dell'ordine
             document.getElementById('totalProducts').innerText = '$' + totalProducts.toFixed(2);
             document.getElementById('orderTotal').innerText = '$' + (totalProducts + 5.00).toFixed(2);
         }
     </script>
-
 </body>
 
 </html>
-
