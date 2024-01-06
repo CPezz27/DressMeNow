@@ -3,6 +3,7 @@ from controllers import index
 from controllers.utente import login, profilo, registrati, effettua_ordine, carrello, prodotti
 from controllers.personale import login
 from controllers.personale.direttore import direttore
+from controllers.personale.gestore_prodotti import prodotti
 from controllers.personale.gestore_ordini import ordini
 
 app = Flask(__name__)

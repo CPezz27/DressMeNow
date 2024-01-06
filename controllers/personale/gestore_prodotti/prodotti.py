@@ -6,12 +6,17 @@ from models.Prodotto import Prodotto
 app_bp = Blueprint('gestore_prodotti', __name__)
 
 
+@app_bp.route('/aggiungi_prodotto')
+def aggiunta():
+    return render_template('aggiungiProdotto.html')
+
+
 @app_bp.route('/gp/prodotti')
 def prodotti():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
 
-    if session['ruolo'] is not 'gestore_prodotto':
+    if session['ruolo'] != 'gestore_prodotto':
         return redirect(url_for('index'))
 
     return render_template('/gestore_prodotti/prodotti.html')
@@ -22,7 +27,7 @@ def aggiungi_prodotto():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
 
-    if session['ruolo'] is not 'gestore_prodotto':
+    if session['ruolo'] != 'gestore_prodotto':
         return redirect(url_for('index'))
 
     if request.method == 'POST':
@@ -47,11 +52,11 @@ def aggiungi_prodotto():
                 materiale=materiale
             )
             nuovo_prodotto.save()
-            return redirect(url_for('gestione_prodotto.prodotti', message="Prodotto aggiunto con successo"))
+            return redirect(url_for('gestione_prodotto.aggiungiProdotto', message="Prodotto aggiunto con successo"))
         except Exception as err:
-            return render_template('/gestore_prodotti/aggiungi_prodotto.html', messaggio="Errore")
+            return render_template('aggiungiProdotto.html', messaggio="Errore")
 
-    return render_template('/gestore_prodotti/aggiungi_prodotto.html')
+    return render_template('aggiungiProdotto.html')
 
 
 @app_bp.route('/gp/modifica_prodotto/<int:product_id>', methods=['GET', 'POST'])
@@ -59,7 +64,7 @@ def modifica_prodotto(product_id):
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
 
-    if session['ruolo'] is not 'gestore_prodotto':
+    if session['ruolo'] != 'gestore_prodotto':
         return redirect(url_for('index'))
 
     prodotto_da_modificare = Prodotto.view_product(product_id)
@@ -79,7 +84,7 @@ def elimina_prodotto(product_id):
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
 
-    if session['ruolo'] is not 'gestore_prodotto':
+    if session['ruolo'] != 'gestore_prodotto':
         return redirect(url_for('index'))
 
     try:

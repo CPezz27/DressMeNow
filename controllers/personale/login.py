@@ -34,13 +34,13 @@ def login():
 
                     if tipo_personale == 'direttore':
                         session['ruolo'] = 'direttore'
-                        return redirect(url_for('direttore'))
+                        return redirect(url_for('direttore_login.direttore'))
                     elif tipo_personale == 'gestore_ordine':
                         session['ruolo'] = 'gestore_ordine'
-                        return redirect(url_for('gestore_ordine'))
+                        return redirect(url_for('direttore_login.gestore_ordine'))
                     elif tipo_personale == 'gestore_prodotto':
                         session['ruolo'] = 'gestore_prodotto'
-                        return render_template('gestoreProdotto.html')
+                        return redirect(url_for('direttore_login.gestore_prodotto'))
                 else:
                     return "Credenziali non valide. Riprova."
             except mysql.connector.Error as err:
