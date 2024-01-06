@@ -88,3 +88,10 @@ def visual_ordine():
     except Exception as e:
         return render_template("/gestore_ordini/visualizza_ordine.html",
                                message="Errore durante il recupero dei dettagli dell'ordine.")
+
+
+@app_bp.route('/go/dashboard')
+def dashboard():
+    orders_details = Ordine.get_all_orders_with_details()
+    
+    return render_template('gestoreOrdine.html', orders_details=orders_details)

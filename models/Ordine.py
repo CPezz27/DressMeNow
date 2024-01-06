@@ -113,6 +113,28 @@ def modifica_reso(id_prodotto, stato_reso, note_reso, id_ordine):
         return False
 
 
+def get_all_orders_with_details():
+        try:
+            query = (
+                "SELECT o.id_ordine, o.stato AS stato_ordine, o.data AS data_ordine, "
+                "u.nome AS nome_utente, u.cognome AS cognome_utente, u.email AS email,"
+                "t.id_transazione, t.data AS data_transazione, t.totale, t.stato AS stato_transazione, "
+                "p.id_prodotto, p.nome AS nome_prodotto, pio.reso, p.prezzo "
+                "FROM ordine o "
+                "JOIN utente u ON o.id_utente = u.id_utente "
+                "JOIN transazione t ON o.id_ordine = t.id_ordine "
+                "JOIN prodotto_in_ordine pio ON o.id_ordine = pio.id_ordine "
+                "JOIN prodotto p ON pio.id_prodotto = p.id_prodotto "
+            )
+
+            cursor.execute(query)
+            orders_details = cursor.fetchall()
+
+            return orders_details
+        except mysql.connector.Error as err:
+            return None
+
+
 class Ordine:
     def __init__(self, id_utente, stato, data):
         self.id_utente = id_utente
