@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aggiungi Prodotto</title>
+    <link rel="stylesheet" href="../static/css/gestore_prodotti.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    />
+  </head>
+
+  <body>
+    <header>
+      <h1>Pagina del Gestore Prodotto</h1>
+      <nav>
+        <ul>
+          <li><a href="#">Dashboard</a></li>
+          <li><a href="#">Aggiungi Prodotto</a></li>
+          <li><a href="#">Logout</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <body class="bg-gray-100">
+
+        <div class="container mx-auto p-8 max-w-md">
+            <h2 class="text-2xl font-bold mb-4">Inserisci Informazioni Prodotto</h2>
+                <form action="/gp/aggiungi_prodotto" method="post" class="space-y-4">
+    
+                <!-- NOME -->
+                <div class="flex flex-col">
+                    <label for="nome" class="text-sm font-semibold text-gray-600">Nome:</label>
+                    <input type="text" id="nome" name="nome" required
+                           class="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500">
+                </div>
+    
+                <!-- CATEGORIA -->
+                <div class="flex flex-col">
+                    <label for="categoria" class="text-sm font-semibold text-gray-600">Categoria:</label>
+                    <select id="categoria" name="categoria" required
+                            class="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500">
+                        <option value="uomo">Uomo</option>
+                        <option value="donna">Donna</option>
+                        <option value="bambino">Bambino</option>
+                    </select>
+                </div>
+    
+                <!-- MARCA -->
+                <div class="flex flex-col">
+                    <label for="marca" class="text-sm font-semibold text-gray-600">Marca:</label>
+                    <input type="text" id="marca" name="marca" required
+                           class="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500">
+                </div>
+
+                <!--DESCRIZIONE-->
+                <div class="flex flex-col">
+                    <label for="descrizione" class="text-sm font-semibold text-gray-600">Descrizione:</label>
+                    <input type="text" id="descrizione" name="descrizione" required
+                           class="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500">
+                </div>
+                <!--VESTIBILITA-->
+                <div class="flex flex-col">
+                    <label for="vestibilita" class="text-sm font-semibold text-gray-600">Vestibilità:</label>
+                    <select id="vestibilita" name="vestibilita" required
+                            class="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500">
+                        <option value="uomo">XS</option>
+                        <option value="donna">S</option>
+                        <option value="bambino">M</option>
+                        <option value="bambino">L</option>
+                        <option value="bambino">XL</option>
+                    </select>
+                </div>
+                <!--PREZZO-->
+                <div class="flex flex-col">
+                    <label for="prezzo" class="text-sm font-semibold text-gray-600">Prezzo:</label>
+                    <input type="text" id="prezzo" name="prezzo" required
+                           class="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500"
+                           placeholder="Inserisci il prezzo (es. 10.99)">
+                </div>
+                <!--COLORE-->
+                <div class="flex flex-col">
+                    <label for="colore" class="text-sm font-semibold text-gray-600">Colore:</label>
+                    <input type="text" id="colore" name="colore" required
+                           class="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500">
+                </div>
+                <!--MATERIALE-->
+                <div class="flex flex-col">
+                    <label for="materiale" class="text-sm font-semibold text-gray-600">Materiale:</label>
+                    <input type="text" id="materiale" name="materiale" required
+                           class="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500">
+                </div>
+
+                <!-- Pulsante di invio -->
+                <button type="submit" class="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300">Invia</button>
+    
+            </form>
+            <!-- Fine del form -->
+        </div>
+    
+  </body>
+</html>
