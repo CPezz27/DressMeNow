@@ -2,6 +2,8 @@ import mysql.connector
 from flask import Blueprint, render_template, request, redirect, session, url_for
 
 from models import Personale
+from models import Prodotto
+from models.Prodotto import Prodotto
 from utils import mysql_config
 
 app_bp = Blueprint('direttore_login', __name__)
@@ -57,6 +59,7 @@ def gestore_ordine():
 
 @app_bp.route('/gestore_prodotto')
 def gestore_prodotto():
+
     return render_template('gestoreProdotto.html')
 
 

@@ -3,7 +3,7 @@ from controllers import index
 from controllers.utente import login, profilo, registrati, effettua_ordine, carrello, prodotti
 from controllers.personale import login
 from controllers.personale.direttore import direttore
-from controllers.personale.gestore_prodotti import prodotti
+from controllers.personale.gestore_prodotti import prodotti as prodotti_gestore
 from controllers.personale.gestore_ordini import ordini
 
 app = Flask(__name__)
@@ -17,6 +17,7 @@ app.register_blueprint(registrati.app_bp)
 app.register_blueprint(effettua_ordine.app_bp)
 app.register_blueprint(carrello.app_bp)
 app.register_blueprint(prodotti.app_bp)
+app.register_blueprint(prodotti_gestore.app_bp)
 app.register_blueprint(direttore.app_bp)
 app.register_blueprint(ordini.app_bp)
 
