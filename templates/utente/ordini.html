@@ -31,7 +31,7 @@
       </div>
 
       <div class="leftbox">
-        <nav>
+        <nav class="nav-profilo">
   
           <a id="profile" href="#">
             <i class="fa fa-user fa-2x" aria-hidden="true"></i>
@@ -73,9 +73,9 @@
               <h2 class="orders-infotext-name">Nome:</h2>
               <h2 class="orders-infotext-value">{{ product['nome_prodotto'] }}</h2>
               <h2 class="orders-infotext-name">Quantity:</h2>
-              <h2 class="orders-infotext-value">1,5 pezzi</h2>
-              <h2 class="orders-infotext-name">pvezzo unitavio:</h2>
-              <h2 class="orders-infotext-value">0,500 cents</h2>
+              <h2 class="orders-infotext-value">RAGAZZI SI DEVE AGGIUNGERE</h2>
+              <h2 class="orders-infotext-name">prezzo unitario:</h2>
+              <h2 class="orders-infotext-value">{{ product['prezzo_individuale'] }}</h2>
               {% endfor %}
             </div>
             {% endfor %}
@@ -88,7 +88,8 @@
         
       </div>
     </div>
+    {% include 'components/footer.html' %}
     <script src="../../static/js/profilo.js"></script>
-    <footer></footer>
+
   </body>
 </html>
