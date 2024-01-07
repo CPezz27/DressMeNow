@@ -95,14 +95,14 @@ def elimina_prodotto(product_id):
     
 
 @app_bp.route('/gp/mostra_info_prodotti/', methods=['GET'])
-def mostra_info_prodotti():
+def mostra_info_prodotto():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
 
     if session['ruolo'] != 'gestore_prodotto':
         return redirect(url_for('index'))
     try:
-        prodotti.mostra_info_prodotto()
+        prodotti = mostra_info_prodotto()
     except Exception as err:
         return render_template('/gp/index.html', messaggio="Errore durante la visualizzazione")
 
