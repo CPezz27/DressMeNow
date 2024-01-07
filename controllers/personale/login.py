@@ -2,7 +2,6 @@ import mysql.connector
 from flask import Blueprint, render_template, request, redirect, session, url_for
 
 from models import Personale
-from models import Prodotto
 from models.Prodotto import Prodotto
 from utils import mysql_config
 
@@ -59,8 +58,18 @@ def gestore_ordine():
 
 @app_bp.route('/gestore_prodotto')
 def gestore_prodotto():
+    if 'logged_in' not in session or not session['logged_in']:
+        return redirect(url_for('user_login.login_page'))
 
-    return render_template('gestoreProdotto.html')
+    if session['ruolo'] != 'gestore_prodotto':
+        return redirect(url_for('index'))
+    try:
+        prodotti_tutti = Prodotto.view_products()
+        return render_template('gestoreProdotto.html', prodotti=prodotti_tutti)
+    except Exception as err:
+        return render_template('gestoreProdotto.html', messaggio="Errore durante la visualizzazione")
+
+
 
 
 @app_bp.route('/direttore/')

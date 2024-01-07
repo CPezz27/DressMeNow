@@ -13,7 +13,7 @@ def get_database_connection():
             password=os.environ['MYSQL_PASSWORD'],
             database=os.environ['MYSQL_DATABASE']
         )
-        print("Connessione al database avvenuta con successo.")
+
         return conn
     except mysql.connector.Error as err:
         print(f"Errore durante la connessione al database: {err}")
