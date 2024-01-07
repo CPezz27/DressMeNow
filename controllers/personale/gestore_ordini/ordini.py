@@ -11,7 +11,7 @@ def cancella_ordine():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
 
-    if session['ruolo'] is not 'gestore_ordine':
+    if session['ruolo'] != 'gestore_ordine':
         return redirect(url_for('index'))
 
     if request.method == 'POST':
@@ -29,7 +29,7 @@ def modifica_stato_ordine():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
 
-    if session['ruolo'] is not 'gestore_ordine':
+    if session['ruolo'] != 'gestore_ordine':
         return redirect(url_for('index'))
 
     if request.method == 'POST':
@@ -48,7 +48,7 @@ def modifica_ordine():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
 
-    if session['ruolo'] is not 'gestore_ordine':
+    if session['ruolo'] != 'gestore_ordine':
         return redirect(url_for('index'))
 
     if request.method == 'POST':
@@ -68,7 +68,7 @@ def visual_ordine():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
 
-    if session['ruolo'] is not 'gestore_ordine':
+    if session['ruolo'] != 'gestore_ordine':
         return redirect(url_for('index'))
 
     try:
