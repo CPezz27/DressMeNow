@@ -30,6 +30,7 @@
             <table id="myTable" class="display">
                 <thead>
                     <tr>
+                        <th>ID Ordine</th>
                         <th>Email utente</th>
                         <th>Stato ordine</th>
                         <th>Data ordine</th>
@@ -39,9 +40,10 @@
                 <tbody>
                     {% for order in orders_details %}
                         <tr>
-                            <td>{{ order[5] }}</td>  {# Cambiato da {{ order.email }} a {{ order[5] }} #}
-                            <td>{{ order[1] }}</td>  {# Cambiato da {{ order.stato_ordine }} a {{ order[1] }} #}
-                            <td>{{ order[2] }}</td>  {# Cambiato da {{ order.data_ordine }} a {{ order[2] }} #}
+                            <td>{{ order[0] }}</td>
+                            <td>{{ order[5] }}</td>
+                            <td>{{ order[1] }}</td>
+                            <td>{{ order[2] }}</td>
                             <td><a href="#">Modifica ordine</a></td>
                         </tr>
                     {% endfor %}
