@@ -29,6 +29,22 @@ def mostra_info_prodotto():
     except mysql.connector.Error as err:
         return False
 
+def get_sizes_for_product(prodotto_id):
+        try:
+            query = (
+            "SELECT t.id_taglia, t.nometaglia, tp.quantita "
+            "FROM taglia t "
+            "JOIN taglia_prodotto tp ON t.id_taglia = tp.id_taglia "
+            "WHERE tp.id_prodotto = %s"
+        )
+            cursor.execute(query, (prodotto_id,))
+            sizes = cursor.fetchall()
+            #print(sizes)
+            return sizes
+        except mysql.connector.Error as err:
+            print(f"Errore durante il recupero delle taglie per il prodotto {prodotto_id}: {err}")
+            return None
+
 
 def search_prodotto_by_name(nome):
     search_query = "SELECT p.*, MIN(i.id_immagine) AS first_image FROM prodotto p LEFT JOIN immagine i ON " \

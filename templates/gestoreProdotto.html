@@ -40,21 +40,26 @@
               <th>Prezzo</th>
               <th>Taglia</th>
               <th>Disponibilità</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             <!-- Inserisci qui le righe della tabella con i dati dei prodotti -->
-            {% if prodotti %}
-            {% for prodotto in prodotti %}
-            <tr>
-              <td>{{ prodotto[1] }}</td>
-              <td>{{ prodotto[2] }}</td>
-              <td>{{ prodotto[3] }}</td>
-              <td>{{ prodotto[4] }}</td>
-            </tr>
+            {% for prodotto in prodotti_da_mostrare %}
+                {% for taglia in prodotto['taglie'] %}
+                <tr>
+                    <td>{{ prodotto['nome'] }}</td>
+                    <td>{{ prodotto['prezzo'] }}</td>
+                    <td>{{ taglia['nometaglia'] }}</td>
+                    <td>{{ taglia['quantita'] }}</td>
+                    <td>
+                      <a href="#">
+                          Modifica
+                      </a>
+                  </td>
+                </tr>
+                {% endfor %}
             {% endfor %}
-            {% else %}
-            {% endif %}
 
           </tbody>
         </table>
@@ -62,7 +67,7 @@
     </div>
 
     <footer>
-      <p>&copy; 2023 Ecommerce Company. Tutti i diritti riservati.</p>
+      <p>&copy; 2023 DressMeNow. Tutti i diritti riservati.</p>
     </footer>
 
     <script>
