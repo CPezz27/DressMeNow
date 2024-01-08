@@ -1,211 +1,80 @@
 <!DOCTYPE html>
 <html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ricerca Prodotti</title>
-    <link rel="stylesheet" href="/static/css/header.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
-</head>
-{% include 'components/header.html' %}
-<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-start">
+    <link rel="stylesheet" href="/static/css/header.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    />
+  </head>
+  {% include 'components/header.html' %}
+  <body
+    class="bg-gray-100 min-h-screen flex flex-col items-center justify-start"
+  >
+    <div class="w-full mx-auto px-6 py-12">
+      <h1 class="text-4xl font-semibold mb-8 text-center">Prodotti</h1>
 
-    <div class="w-full  mx-auto px-6 py-12">
-        <h1 class="text-4xl font-semibold mb-8 text-center">Prodotti</h1>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-
-            <!-- Prodotto 1 -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <form action="/aggiungi_al_carrello" method="post">
-                    <div class="aspect-w-1 aspect-h-1">
-                        <img src="https://lorenzograssia.com/wp-content/uploads/2014/01/prodotto.jpg" alt="Prodotto 1" class="w-full h-48 object-cover object-center">
-                    </div>
-                    <div class="p-4 flex flex-col justify-between">
-                        <div>
-                            <h2 class="text-xl font-semibold mb-2">Nome Prodotto 1</h2>
-                            <input type="hidden" name="id_prodotto" value="1">
-                            <p class="text-gray-600 mb-2 overflow-hidden whitespace-nowrap" id="product-description">
-                                Un bellissimo Nome Prodotto 1 per tutta la famiglia!!! Ora potete finalmente visualizzare questo prodotto bla bla bla bla bla aaaaaaa
-                            </p>
-                            <p class="text-gray-600 mb-2">Vestibilità disponibile: oversized??</p>
-                            <p class="text-gray-900 font-semibold text-lg mb-2">€99.99</p>
-                        </div>
-                        <div class="flex justify-between">
-                            <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded-md mr-2">Aggiungi al carrello</button>
-                        </div>
-                    </div>
-                </form>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+        {% for prodotto in data %}
+        <!-- Prodotto 1 -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <form action="/aggiungi_al_carrello" method="post">
+            <div class="aspect-w-1 aspect-h-1">
+              <!-- <img src="{{prodotto['immagine']}}" alt="{{prodotto['nome']}}" class="w-full h-48 object-cover object-center"> -->
+              <img
+                src="https://lorenzograssia.com/wp-content/uploads/2014/01/prodotto.jpg"
+                alt="Prodotto 1"
+                class="w-full h-48 object-cover object-center"
+              />
             </div>
-            <!-- Prodotto 2 -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <div class="aspect-w-1 aspect-h-1">
-                    <img src="https://lorenzograssia.com/wp-content/uploads/2014/01/prodotto.jpg" alt="Prodotto 1" class="w-full h-48 object-cover object-center">
-                </div>
-                <div class="p-4 flex flex-col justify-between">
-                    <div>
-                        <h2 class="text-xl font-semibold mb-2">Nome Prodotto 2</h2>
-                        <p class="text-gray-600 mb-2 overflow-hidden whitespace-nowrap" id="product-description">
-                            Un bellissimo Nome Prodotto 1 per tutta la famiglia!!! Ora potete finalmente visualizzare questo prodotto bla bla bla bla bla aaaaaaa
-                        </p>
-                        <p class="text-gray-600 mb-2">Vestibilità disponibile: oversized??</p>
-                        <p class="text-gray-900 font-semibold text-lg mb-2">€99.99</p>
-                    </div>
-                    <div class="flex justify-between">
-                        <button class="px-4 py-2 bg-green-500 text-white rounded-md mr-2">Aggiungi al carrello</button>
-                    </div>
-                </div>
+            <div class="p-4">
+              <!-- flex flex-col justify-between -->
+              <h2 class="text-xl font-semibold mb-2">{{prodotto[1]}}</h2>
+              <input
+                type="hidden"
+                name="id_prodotto"
+                value="{{prodotto['id_prodotto']}}"
+              />
+              <p
+                class="text-gray-600 mb-2 overflow-hidden whitespace-nowrap"
+                id="product-description"
+              >
+                {{prodotto[4]}}
+              </p>
+              <p class="text-gray-600 mb-2">Taglia: {{prodotto[5]}}</p>
+              <p class="text-gray-900 font-semibold text-lg mb-2">
+                {{prodotto[6]}}€
+              </p>
+              <!-- </div>
+                    <div class="flex justify-between"> -->
+              <button
+                type="submit"
+                class="px-4 py-2 bg-green-500 text-white rounded-md mr-2"
+              >
+                Aggiungi al carrello
+              </button>
             </div>
-            <!-- Prodotto 3 -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <div class="aspect-w-1 aspect-h-1">
-                    <img src="https://lorenzograssia.com/wp-content/uploads/2014/01/prodotto.jpg" alt="Prodotto 1" class="w-full h-48 object-cover object-center">
-                </div>
-                <div class="p-4 flex flex-col justify-between">
-                    <div>
-                        <h2 class="text-xl font-semibold mb-2">Nome Prodotto 4</h2>
-                        <p class="text-gray-600 mb-2 overflow-hidden whitespace-nowrap" id="product-description">
-                            Un bellissimo Nome Prodotto 1 per tutta la famiglia!!! Ora potete finalmente visualizzare questo prodotto bla bla bla bla bla aaaaaaa
-                        </p>
-                        <p class="text-gray-600 mb-2">Vestibilità disponibile: oversized??</p>
-                        <p class="text-gray-900 font-semibold text-lg mb-2">€99.99</p>
-                    </div>
-                    <div class="flex justify-between">
-                        <button class="px-4 py-2 bg-green-500 text-white rounded-md mr-2">Aggiungi al carrello</button>
-                    </div>
-                </div>
-            </div>
-            <!-- Prodotto 3 -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <div class="aspect-w-1 aspect-h-1">
-                    <img src="https://lorenzograssia.com/wp-content/uploads/2014/01/prodotto.jpg" alt="Prodotto 1" class="w-full h-48 object-cover object-center">
-                </div>
-                <div class="p-4 flex flex-col justify-between">
-                    <div>
-                        <h2 class="text-xl font-semibold mb-2">Nome Prodotto 4</h2>
-                        <p class="text-gray-600 mb-2 overflow-hidden whitespace-nowrap" id="product-description">
-                            Un bellissimo Nome Prodotto 1 per tutta la famiglia!!! Ora potete finalmente visualizzare questo prodotto bla bla bla bla bla aaaaaaa
-                        </p>
-                        <p class="text-gray-600 mb-2">Vestibilità disponibile: oversized??</p>
-                        <p class="text-gray-900 font-semibold text-lg mb-2">€99.99</p>
-                    </div>
-                    <div class="flex justify-between">
-                        <button class="px-4 py-2 bg-green-500 text-white rounded-md mr-2">Aggiungi al carrello</button>
-                    </div>
-                </div>
-            </div>
-            <!-- Prodotto 3 -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <div class="aspect-w-1 aspect-h-1">
-                    <img src="https://lorenzograssia.com/wp-content/uploads/2014/01/prodotto.jpg" alt="Prodotto 1" class="w-full h-48 object-cover object-center">
-                </div>
-                <div class="p-4 flex flex-col justify-between">
-                    <div>
-                        <h2 class="text-xl font-semibold mb-2">Nome Prodotto 4</h2>
-                        <p class="text-gray-600 mb-2 overflow-hidden whitespace-nowrap" id="product-description">
-                            Un bellissimo Nome Prodotto 1 per tutta la famiglia!!! Ora potete finalmente visualizzare questo prodotto bla bla bla bla bla aaaaaaa
-                        </p>
-                        <p class="text-gray-600 mb-2">Vestibilità disponibile: oversized??</p>
-                        <p class="text-gray-900 font-semibold text-lg mb-2">€99.99</p>
-                    </div>
-                    <div class="flex justify-between">
-                        <button class="px-4 py-2 bg-green-500 text-white rounded-md mr-2">Aggiungi al carrello</button>
-                    </div>
-                </div>
-            </div>
-            <!-- Prodotto 3 -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <div class="aspect-w-1 aspect-h-1">
-                    <img src="https://lorenzograssia.com/wp-content/uploads/2014/01/prodotto.jpg" alt="Prodotto 1" class="w-full h-48 object-cover object-center">
-                </div>
-                <div class="p-4 flex flex-col justify-between">
-                    <div>
-                        <h2 class="text-xl font-semibold mb-2">Nome Prodotto 4</h2>
-                        <p class="text-gray-600 mb-2 overflow-hidden whitespace-nowrap" id="product-description">
-                            Un bellissimo Nome Prodotto 1 per tutta la famiglia!!! Ora potete finalmente visualizzare questo prodotto bla bla bla bla bla aaaaaaa
-                        </p>
-                        <p class="text-gray-600 mb-2">Vestibilità disponibile: oversized??</p>
-                        <p class="text-gray-900 font-semibold text-lg mb-2">€99.99</p>
-                    </div>
-                    <div class="flex justify-between">
-                        <button class="px-4 py-2 bg-green-500 text-white rounded-md mr-2">Aggiungi al carrello</button>
-                    </div>
-                </div>
-            </div>
-            <!-- Prodotto 3 -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <div class="aspect-w-1 aspect-h-1">
-                    <img src="https://lorenzograssia.com/wp-content/uploads/2014/01/prodotto.jpg" alt="Prodotto 1" class="w-full h-48 object-cover object-center">
-                </div>
-                <div class="p-4 flex flex-col justify-between">
-                    <div>
-                        <h2 class="text-xl font-semibold mb-2">Nome Prodotto 4</h2>
-                        <p class="text-gray-600 mb-2 overflow-hidden whitespace-nowrap" id="product-description">
-                            Un bellissimo Nome Prodotto 1 per tutta la famiglia!!! Ora potete finalmente visualizzare questo prodotto bla bla bla bla bla aaaaaaa
-                        </p>
-                        <p class="text-gray-600 mb-2">Vestibilità disponibile: oversized??</p>
-                        <p class="text-gray-900 font-semibold text-lg mb-2">€99.99</p>
-                    </div>
-                    <div class="flex justify-between">
-                        <button class="px-4 py-2 bg-green-500 text-white rounded-md mr-2">Aggiungi al carrello</button>
-                    </div>
-                </div>
-            </div>
-            <!-- Prodotto 3 -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <div class="aspect-w-1 aspect-h-1">
-                    <img src="https://lorenzograssia.com/wp-content/uploads/2014/01/prodotto.jpg" alt="Prodotto 1" class="w-full h-48 object-cover object-center">
-                </div>
-                <div class="p-4 flex flex-col justify-between">
-                    <div>
-                        <h2 class="text-xl font-semibold mb-2">Nome Prodotto 4</h2>
-                        <p class="text-gray-600 mb-2 overflow-hidden whitespace-nowrap" id="product-description">
-                            Un bellissimo Nome Prodotto 1 per tutta la famiglia!!! Ora potete finalmente visualizzare questo prodotto bla bla bla bla bla aaaaaaa
-                        </p>
-                        <p class="text-gray-600 mb-2">Vestibilità disponibile: oversized??</p>
-                        <p class="text-gray-900 font-semibold text-lg mb-2">€99.99</p>
-                    </div>
-                    <div class="flex justify-between">
-                        <button class="px-4 py-2 bg-green-500 text-white rounded-md mr-2">Aggiungi al carrello</button>
-                    </div>
-                </div>
-            </div>
-            <!-- Prodotto 3 -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <div class="aspect-w-1 aspect-h-1">
-                    <img src="https://lorenzograssia.com/wp-content/uploads/2014/01/prodotto.jpg" alt="Prodotto 1" class="w-full h-48 object-cover object-center">
-                </div>
-                <div class="p-4 flex flex-col justify-between">
-                    <div>
-                        <h2 class="text-xl font-semibold mb-2">Nome Prodotto 4</h2>
-                        <p class="text-gray-600 mb-2 overflow-hidden whitespace-nowrap" id="product-description">
-                            Un bellissimo Nome Prodotto 1 per tutta la famiglia!!! Ora potete finalmente visualizzare questo prodotto bla bla bla bla bla aaaaaaa
-                        </p>
-                        <p class="text-gray-600 mb-2">Vestibilità disponibile: oversized??</p>
-                        <p class="text-gray-900 font-semibold text-lg mb-2">€99.99</p>
-                    </div>
-                    <div class="flex justify-between">
-                        <button class="px-4 py-2 bg-green-500 text-white rounded-md mr-2">Aggiungi al carrello</button>
-                    </div>
-                </div>
-            </div>
+          </form>
         </div>
-
-
+        {% endfor %}
+      </div>
     </div>
-</body>
+  </body>
 </html>
 
 <script>
-    const description = document.getElementById('product-description');
-    const lineHeight = parseInt(window.getComputedStyle(description).lineHeight);
-    const maxHeight = lineHeight * 1; // Set the number of lines here (1 line in this case)
+  const description = document.getElementById("product-description");
+  const lineHeight = parseInt(window.getComputedStyle(description).lineHeight);
+  const maxHeight = lineHeight * 1; // Set the number of lines here (1 line in this case)
 
-    if (description.scrollHeight > maxHeight) {
-        description.style.webkitLineClamp = '1'; // Fallback for older Safari
-        description.style.overflow = 'hidden';
-        description.style.textOverflow = 'ellipsis';
-        description.style.display = '-webkit-box';
-        description.style.webkitBoxOrient = 'vertical';
-    }
+  if (description.scrollHeight > maxHeight) {
+    description.style.webkitLineClamp = "1"; // Fallback for older Safari
+    description.style.overflow = "hidden";
+    description.style.textOverflow = "ellipsis";
+    description.style.display = "-webkit-box";
+    description.style.webkitBoxOrient = "vertical";
+  }
 </script>
