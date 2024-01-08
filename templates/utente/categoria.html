@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prodotti per Categoria</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/header.css">
+  <link rel="stylesheet" href='css/font-awesome-4.7.0/css/font-awesome.min.css'>
+</head>
+<body class="bg-gray-100">
+    <!-- Prova -->
+<header class="bg-white py-4 shadow">
+    <nav class="nav-header">
+        <div class="logo">
+            <a href="#">
+            <img src="/static/assets/Logo.png" alt="Logo" width="53" height="60">
+            </a>
+        </div>
+        <div class="container mx-auto flex justify-center items-center space-x-6">
+            <button class="category-btn text-gray-800" data-category="uomo">Uomo</button>
+            <button class="category-btn text-gray-800" data-category="donna">Donna</button>
+            <button class="category-btn text-gray-800" data-category="bambino">Bambino</button>
+        </div>
+        <div class="icons">
+            <div class="relative">
+            <input type="text" placeholder="Comprendi il mio stile!" class="pl-10 py-2 pr-4 rounded-full border border-gray-300 focus:outline-none focus:border-gray-500">
+            <i class="fa fa-search fa-lg text-gray-400 absolute top-1/2 left-1 transform -translate-y-1/2"></i>
+                </div>
+        </div>
+        <div class="three-lined-menu" onclick="toggleMenu()">
+            <i class="fa fa-bars fa-2x" aria-hidden="true" class="menu"></i>
+        </div>
+    </nav>
+</header>
+
+  <!-- Contenitore per i prodotti -->
+  <div class="container mx-auto mt-8 grid grid-cols-3 gap-6" id="products-container">
+        <div class="prodotti">
+            {% for prodotto in data %}
+            <!-- Prodotto 1 -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <form action="/aggiungi_al_carrello" method="post">
+                    <div class="aspect-w-1 aspect-h-1">
+                        <img src="https://lorenzograssia.com/wp-content/uploads/2014/01/prodotto.jpg" alt="Prodotto 1" class="w-full h-48 object-cover object-center">
+                    </div>
+                    <div class="p-4 flex flex-col justify-between">
+                        <div>
+                            <h2 class="text-xl font-semibold mb-2">{{prodotto['nome']}}</h2>
+                            <input type="hidden" name="id_prodotto" value="{{prodotto['id_prodotto']}}">
+                            <p class="text-gray-600 mb-2 overflow-hidden whitespace-nowrap" id="product-description">
+                                {{prodotto['descrizione']}}
+                            </p>
+                            <p class="text-gray-600 mb-2">{{prodotto['vestibilita']}}</p>
+                            <p class="text-gray-900 font-semibold text-lg mb-2">{{prodotto['prezzo']}}</p>
+                        </div>
+                        <div class="flex justify-between">
+                            <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded-md mr-2">Aggiungi al carrello</button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+  </div>
+
+  <script>
+
+
+    // Mostra i prodotti della categoria predefinita all'avvio
+    var category = "{{ category }}";
+    showProducts(category);
+      console.log(category);
+  </script>
+</body>
+</html>

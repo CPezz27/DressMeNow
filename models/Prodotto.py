@@ -29,6 +29,7 @@ def mostra_info_prodotto():
     except mysql.connector.Error as err:
         return False
 
+
 def get_sizes_for_product(prodotto_id):
         try:
             query = (

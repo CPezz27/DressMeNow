@@ -10,8 +10,10 @@ app_bp = Blueprint('gestore_prodotti', __name__)
 def aggiunta():
     return render_template('aggiungiProdotto.html')
 
-#Alfredo n si pone questa domanda: ma a che serve 'sta funzione?
-@app_bp.route('/gp/prodotti')
+
+# Alfredo n si pone questa domanda: ma a che serve 'sta funzione?
+
+@app_bp.route('/gp/prodotti', methods=['POST'])
 def prodotti():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))

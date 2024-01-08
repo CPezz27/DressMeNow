@@ -17,9 +17,11 @@ def products_category():
 
     if category and (category == 'uomo' or category == 'donna' or category == 'bambino'):
         products = Prodotto.view_products_by_category(category)
-        return render_template(f"utente/{category}.html", data=products)
+        print(products)
+        return render_template("utente/categoria.html", data=products)
     else:
         return redirect("utente/index.html")
+
 
 
 @app_bp.route("/search")
