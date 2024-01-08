@@ -1,6 +1,8 @@
 import base64
 
 import mysql.connector
+
+from models.TagliaProdotto import TagliaProdotto
 from utils import mysql_config
 
 conn = mysql_config.get_database_connection()
@@ -158,7 +160,7 @@ def delete(product_id):
 
 
 class Prodotto:
-    def __init__(self, nome, categoria, marca, descrizione, vestibilita, prezzo, colore, materiale):
+    def __init__(self, nome, categoria, marca, descrizione, vestibilita, prezzo, colore, materiale, id_taglia, quantita):
         self.nome = nome
         self.categoria = categoria
         self.marca = marca
@@ -167,6 +169,8 @@ class Prodotto:
         self.prezzo = prezzo
         self.colore = colore
         self.materiale = materiale
+        self.id_taglia = id_taglia
+        self.quantita = quantita
 
     def save(self):
         insert_query = ("INSERT INTO prodotto "
@@ -178,6 +182,12 @@ class Prodotto:
 
         try:
             cursor.execute(insert_query, product_data)
+
+            id_prodotto = cursor.lastrowid
+
+            taglia_prodotto = TagliaProdotto(self.id_taglia, id_prodotto, self.quantita)
+
+            taglia_prodotto.save()
 
             conn.commit()
             return True
