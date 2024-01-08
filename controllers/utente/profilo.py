@@ -8,6 +8,18 @@ from utils.utils import validate_input, is_valid_password
 app_bp = Blueprint('user_profile', __name__)
 
 
+@app_bp.route("/p/impostazioni")
+def impostazioni():
+    if 'logged_in' not in session or not session['logged_in']:
+        return redirect(url_for('user_login.login_page'))
+
+    user_id = session['id']
+
+    user = Utente.get_user(user_id)
+
+    return render_template("utente/impostazioni.html", data=user)
+
+
 @app_bp.route("/p/profilo")
 def profilo():
     if 'logged_in' not in session or not session['logged_in']:
@@ -79,12 +91,14 @@ def delete_account():
 
     try:
         user_id = session['id']
-        Utente.delete_account(user_id)
+        success = Utente.delete_account(user_id)
+
+        print(user_id)
 
         session.pop('id', None)
         session.pop('logged_in', None)
 
-        return redirect(url_for('homepage'))
+        return redirect(url_for('user_login.login_page'))
 
     except mysql.connector.Error as err:
         print(f"Errore durante la cancellazione dell'account: {err}")
@@ -177,3 +191,13 @@ def configura_avatar():
                 return render_template("utente/avatar.html", message="Avatar non aggiornato.")
         else:
             return render_template("utente/avatar.html", message="Parametri mancanti.")
+
+
+@app_bp.route('/logout')
+def logout():
+    if 'logged_in' not in session or not session['logged_in']:
+        return redirect(url_for('user_login.login_page'))
+
+    session.pop('id', None)
+    session.pop('logged_in', None)
+    return redirect(url_for('user_login.login_page'))

@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/profilo.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome-4.7.0/css/font-awesome.min.css') }}">
-  </head>
+</head>
 
 <body>
   {% include 'components/header.html' %}
@@ -48,64 +48,20 @@
       </nav>
     </div>
 
-    <div class="rightbox">
-      <div class="profile">
-        <h2>Nome</h2>
-        <input
-                    type="text"
-                    class="input-text"
-                    name="name"
-                    value="{{data[1]}}"
-                    readonly
-                  />
-        <h2>Cognome</h2>
-        <input
-                    type="text"
-                    class="input-text"
-                    name="surname"
-                    value="{{data[2]}}"
-                    readonly
-                  />
-        <h2>Data di nascita </h2>
-        <input
-                    type="text"
-                    class="input-text"
-                    name="date"
-                    value="{{data[5]}}"
-                    readonly
-                  />
-        <h2>Numero di telefono</h2>
-        <input
-                    type="text"
-                    class="input-text"
-                    name="number"
-                   value="{{data[6]}}"
-                    readonly
-                  />
-        <h2>Sesso</h2>
-        <input
-                    type="text"
-                    class="input-text"
-                    name="gender"
-                    value="{{data[7]}}"
-                    readonly
-                  />
+    <div class="rightbox2">
+
+      <div class="impostazioni" id="impostazioni">
+        <h2>Effettua il logout:</h2>
+        <a href="/logout"><button>Esci</button></a>
+
+      
+        <h2>Cancella il tuo account</h2>
+        <form action="/p/cancella_account" method="post">
+          <button type="submit">Elimina</button>
+        </form>
     </div>
-      <div class="addresses noshow">
-        <h2>Indirizzo 1</h2>
-        <input type="text" class="input-text" value="Descrizione o informazione dettagliata 1" readonly />
-        <h2>Indirizzo 2</h2>
-        <input type="text" class="input-text" value="Descrizione o informazione dettagliata 2" readonly />
-        <h2>Indirizzo 3</h2>
-        <input type="text" class="input-text" value="Descrizione o informazione dettagliata 3" readonly />
-      </div>
-      <div class="settings noshow">
-        <h2>AAAA</h2>
-        <input type="text" class="input-text" value="Descrizione o informazione dettagliata 1" readonly />
-        <h2>BBB 2</h2>
-        <input type="text" class="input-text" value="Descrizione o informazione dettagliata 2" readonly />
-      </div>
-    </div>
+
+  </div>
   </div>
   <script src="../../static/js/profilo.js"></script>
   {% include 'components/footer.html' %}

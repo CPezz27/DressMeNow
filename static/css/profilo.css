@@ -200,6 +200,17 @@ div .addresses{
 	background: #555;
   }
 
+
+
+  .rightbox2{
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	float: center;
+	width: 65%;
+	height: 100%;
+  }
+
   @media screen and (max-width: 555px) {
 	.container {
 	  width: 100%;

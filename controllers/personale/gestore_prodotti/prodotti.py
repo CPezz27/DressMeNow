@@ -41,6 +41,8 @@ def aggiungi_prodotto():
         prezzo = request.form['prezzo']
         colore = request.form['colore']
         materiale = request.form['materiale']
+        id_taglia = request.form['taglia']
+        quantita = request.form['quantita']
 
         try:
             nuovo_prodotto = Prodotto(
@@ -51,10 +53,12 @@ def aggiungi_prodotto():
                 vestibilita=vestibilita,
                 prezzo=prezzo,
                 colore=colore,
-                materiale=materiale
+                materiale=materiale,
+                id_taglia=id_taglia,
+                quantita=quantita
             )
             nuovo_prodotto.save()
-            return redirect(url_for('gestione_prodotto.aggiungiProdotto', message="Prodotto aggiunto con successo"))
+            return redirect(url_for('taglia.aggiungi_taglia', message="Prodotto aggiunto con successo"))
         except Exception as err:
             return render_template('aggiungiProdotto.html', messaggio="Errore")
 

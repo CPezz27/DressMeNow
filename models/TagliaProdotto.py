@@ -1,8 +1,15 @@
 import mysql.connector
 from utils import mysql_config
+from flask import Blueprint, render_template
 
 conn = mysql_config.get_database_connection()
 cursor = conn.cursor()
+
+app_bp = Blueprint('taglia', __name__)
+
+@app_bp.route('/aggiungi_taglia')
+def aggiungi_taglia():
+    return render_template('aggiungiTaglia.html')
 
 
 def decrementa_quantita(id_prodotto, id_taglia, quantita_da_decrementare):
