@@ -56,25 +56,58 @@ def calcola_guadagno():
     except mysql.connector.Error as err:
         return None
 
+
 def visualizza_ordine(order_id):
-    try:
         query = (
-            "SELECT o.id_ordine, o.stato AS stato_ordine, o.data AS data_ordine, "
-            "t.id_transazione, t.data AS data_transazione, t.totale, t.stato AS stato_transazione, "
-            "p.id_prodotto, p.nome AS nome_prodotto, pio.reso, p.prezzo "
-            "FROM ordine o "
-            "JOIN transazione t ON o.id_ordine = t.id_ordine "
-            "JOIN prodotto_in_ordine pio ON o.id_ordine = pio.id_ordine "
-            "JOIN prodotto p ON pio.id_prodotto = p.id_prodotto "
-            "WHERE o.id_ordine = %s"
+            "SELECT o.id_ordine, o.stato AS stato_ordine, o.data AS data_ordine, t.id_transazione, t.data AS data_transazione, t.totale, t.stato AS stato_transazione, p.id_prodotto, p.nome AS nome_prodotto, pio.reso, p.prezzo, iu.id_utente AS id_utente, iu.nome AS nome_utente, iu.cognome AS cognome_utente, iu.email AS email_utente, iu.telefono, i.id_indirizzo, i.provincia AS provincia_indirizzo, i.cap AS cap_indirizzo, i.via AS via_indirizzo, i.tipo AS tipo_indirizzo, i.città AS città_indirizzo, p.marca FROM ordine o JOIN transazione t ON o.id_ordine = t.id_ordine JOIN prodotto_in_ordine pio ON o.id_ordine = pio.id_ordine JOIN prodotto p ON pio.id_prodotto = p.id_prodotto JOIN utente iu ON o.id_utente = iu.id_utente JOIN indirizzo i ON iu.id_utente = i.id_utente WHERE o.id_ordine = %s;"
         )
 
         cursor.execute(query, (order_id,))
-        order_details = cursor.fetchone()
+        order_details = cursor.fetchall()
 
-        return order_details
-    except mysql.connector.Error as err:
-        return None
+        if order_details:
+
+            order_dict = {
+                'id_ordine': order_details[0][0],
+                'stato_ordine': order_details[0][1],
+                'data_ordine': order_details[0][2],
+                'id_transazione': order_details[0][3],
+                'data_transazione': order_details[0][4],
+                'totale': order_details[0][5],
+                'stato_transazione': order_details[0][6],
+                'utente': {
+                    'id_utente': order_details[0][11],  # Modificato l'indice per l'id_utente
+                    'nome_utente': order_details[0][12],  # Modificato l'indice per il nome_utente
+                    'cognome_utente': order_details[0][13],  # Modificato l'indice per il cognome_utente
+                    'email_utente': order_details[0][14],  # Modificato l'indice per l'email_utente
+                    'telefono_utente': order_details[0][15]  # Modificato l'indice per il telefono_utente
+                },
+                'indirizzo': {
+                    'id_indirizzo': order_details[0][16],  # Modificato l'indice per l'id_indirizzo
+                    'provincia_indirizzo': order_details[0][17],  # Modificato l'indice per la provincia_indirizzo
+                    'cap_indirizzo': order_details[0][18],  # Modificato l'indice per il cap_indirizzo
+                    'via_indirizzo': order_details[0][19],  # Modificato l'indice per la via_indirizzo
+                    'tipo_indirizzo': order_details[0][20],  # Modificato l'indice per il tipo_indirizzo
+                    'città_indirizzo': order_details[0][21]  # Modificato l'indice per la città_indirizzo
+                },
+                'prodotti': []
+            }
+
+            for row in order_details:
+                product = {
+                    'id_prodotto': row[7],
+                    'nome_prodotto': row[8],
+                    'reso': row[9],
+                    'prezzo': row[10],
+                    'marca': row[18]
+                }
+                order_dict['prodotti'].append(product)
+
+            print(str(order_dict))
+            return order_dict
+        else:
+            return None
+
 
 
 def get_user_orders(user_id):
@@ -116,15 +149,7 @@ def modifica_reso(id_prodotto, stato_reso, note_reso, id_ordine):
 def get_all_orders_with_details():
         try:
             query = (
-                "SELECT o.id_ordine, o.stato AS stato_ordine, o.data AS data_ordine, "
-                "u.nome AS nome_utente, u.cognome AS cognome_utente, u.email AS email,"
-                "t.id_transazione, t.data AS data_transazione, t.totale, t.stato AS stato_transazione, "
-                "p.id_prodotto, p.nome AS nome_prodotto, pio.reso, p.prezzo "
-                "FROM ordine o "
-                "JOIN utente u ON o.id_utente = u.id_utente "
-                "JOIN transazione t ON o.id_ordine = t.id_ordine "
-                "JOIN prodotto_in_ordine pio ON o.id_ordine = pio.id_ordine "
-                "JOIN prodotto p ON pio.id_prodotto = p.id_prodotto "
+                "SELECT DISTINCT o.id_ordine, u.email AS email_utente, o.stato AS stato_ordine, o.data AS data_ordine FROM ordine o JOIN utente u ON o.id_utente = u.id_utente ORDER BY o.id_ordine;"
             )
 
             cursor.execute(query)

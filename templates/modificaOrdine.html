@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Modifica Ordine</title>
+    <link rel="stylesheet" href="../static/css/gestore_ordine.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Modifica stato dell'ordine</h1>
+        <nav class="navGestoreOrdine">
+            <ul>
+                <li><a href="/go/dashboard">Dashboard</a></li>
+                <li><a href="#">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Dettagli Ordine</h2>
+            <h3>Ordine n: {{ order_details['id_ordine'] }}</h3>
+            {% if message %}
+                <p class="success-message">{{ message }}</p>
+            {% endif %}
+            
+
+            <form method="post" action="/go/modifica_ordine">
+
+                <!-- Campi del formulario precaricati con i dati correnti dell'ordine -->
+                <label for="stato">Stato dell'Ordine:</label>
+                <input type="hidden" name="id_ordine" value="{{ order_details['id_ordine'] }}">
+                <select id="nuovo_stato" name="nuovo_stato" required>
+                    <option value="in_elaborazione" {% if order_details['stato_ordine'] == 'in_elaborazione' %}selected{% endif %}>In Elaborazione</option>
+                    <option value="confermato" {% if order_details['stato_ordine'] == 'confermato' %}selected{% endif %}>Confermato</option>
+                    <option value="spedito" {% if order_details['stato_ordine'] == 'spedito' %}selected{% endif %}>Spedito</option>
+                    <option value="consegnato" {% if order_details['stato_ordine'] == 'consegnato' %}selected{% endif %}>Consegnato</option>
+                    <option value="annullato" {% if order_details['stato_ordine'] == 'annullato' %}selected{% endif %}>Annullato</option>
+                    <option value="richiesta_reso" {% if order_details['stato_ordine'] == 'richiesta_reso' %}selected{% endif %}>Richiesta Reso</option>
+                </select>
+                <br>
+                <br>
+                <input type="submit" value="Salva Modifiche">
+            </form>
+
+            {% for product in order_details['prodotti'] %}
+            <p>{{ product['nome_prodotto'] }} - {{ product['prezzo'] }}</p>
+            {% endfor %}
+
+        </section>
+    </main>
+
+</body>
+
+</html>
