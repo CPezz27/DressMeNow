@@ -138,15 +138,12 @@ def modifica_profilo():
             pattern_n = r'^[A-Za-z ]+$'
             pattern_data = r'^\d{4}-\d{2}-\d{2}$'
             pattern_telefono = r'^[0-9]+$'
-            pattern_sesso = r'^(uomo|donna)$'
 
             if not all([
                 validate_input(nuovi_valori['nome'], pattern_n),
                 validate_input(nuovi_valori['cognome'], pattern_n),
                 validate_input(nuovi_valori['data_nascita'], pattern_data),
                 validate_input(nuovi_valori['telefono'], pattern_telefono),
-                validate_input(nuovi_valori['sesso'], pattern_sesso),
-                is_valid_password(request.form['password'])
             ]):
                 return render_template('profilo.html', message="Dati inseriti non validi. Controlla i campi e riprova.")
 
@@ -156,7 +153,6 @@ def modifica_profilo():
                     utente_mod = {
                         'nome': nuovi_valori['nome'],
                         'cognome': nuovi_valori['cognome'],
-                        'password': request.form['password'],
                         'sesso': nuovi_valori['sesso'],
                         'numero_telefono': nuovi_valori['telefono'],
                         'data_nascita': nuovi_valori['data_nascita']
