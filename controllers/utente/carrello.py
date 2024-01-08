@@ -35,9 +35,11 @@ def aggiungi_al_carrello():
             flag = Carrello.aggiungi_al_carrello(user_id, id_prodotto, 1)
 
             if flag:
-                return render_template('/utente/carrello.html', message='Reso effettuato con successo')
+                message = 'Prodotto aggiunto al carrello correttamente'
+                return redirect(url_for('carrello', message=message))
             else:
-                return render_template('/utente/carrello.html', message='Reso effettuato con successo')
+                message = 'Problema 1'
+                return redirect(url_for('carrello', message=message))
 
         except Exception as e:
             return render_template('/utente/carrello.html', message='Errore con il server')

@@ -36,16 +36,15 @@
 
   <!-- Contenitore per i prodotti -->
   <div class="container mx-auto mt-8 grid grid-cols-3 gap-6" id="products-container">
-        <div class="prodotti">
             {% for prodotto in data %}
             <!-- Prodotto 1 -->
             <div class="bg-white rounded-lg shadow-md overflow-hidden">
                 <form action="/aggiungi_al_carrello" method="post">
                     <div class="aspect-w-1 aspect-h-1">
+                        <!-- <img src="{{prodotto['immagine']}}" alt="{{prodotto['nome']}}" class="w-full h-48 object-cover object-center"> -->
                         <img src="https://lorenzograssia.com/wp-content/uploads/2014/01/prodotto.jpg" alt="Prodotto 1" class="w-full h-48 object-cover object-center">
                     </div>
-                    <div class="p-4 flex flex-col justify-between">
-                        <div>
+                    <div class="p-4"> <!-- flex flex-col justify-between -->
                             <h2 class="text-xl font-semibold mb-2">{{prodotto['nome']}}</h2>
                             <input type="hidden" name="id_prodotto" value="{{prodotto['id_prodotto']}}">
                             <p class="text-gray-600 mb-2 overflow-hidden whitespace-nowrap" id="product-description">
@@ -53,12 +52,10 @@
                             </p>
                             <p class="text-gray-600 mb-2">{{prodotto['vestibilita']}}</p>
                             <p class="text-gray-900 font-semibold text-lg mb-2">{{prodotto['prezzo']}}</p>
-                        </div>
-                        <div class="flex justify-between">
+                        <!-- </div>
+                        <div class="flex justify-between"> -->
                             <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded-md mr-2">Aggiungi al carrello</button>
                         </div>
-
-                    </div>
                 </form>
             </div>
             {% endfor %}
@@ -71,7 +68,7 @@
     // Mostra i prodotti della categoria predefinita all'avvio
     var category = "{{ category }}";
     showProducts(category);
-      console.log(category);
+    console.log(category);
   </script>
 </body>
 </html>
