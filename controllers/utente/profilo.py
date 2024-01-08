@@ -189,3 +189,13 @@ def configura_avatar():
                 return render_template("utente/avatar.html", message="Avatar non aggiornato.")
         else:
             return render_template("utente/avatar.html", message="Parametri mancanti.")
+
+
+@app_bp.route('/logout')
+def logout():
+    if 'logged_in' not in session or not session['logged_in']:
+        return redirect(url_for('user_login.login_page'))
+
+    session.pop('id', None)
+    session.pop('logged_in', None)
+    return redirect(url_for('homepage'))
