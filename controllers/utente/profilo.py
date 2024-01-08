@@ -198,4 +198,4 @@ def logout():
 
     session.pop('id', None)
     session.pop('logged_in', None)
-    return redirect(url_for('homepage'))
+    return redirect(url_for('user_login.login_page'))
