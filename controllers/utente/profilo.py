@@ -128,17 +128,17 @@ def modifica_profilo():
         user_id = session.get('id')
         if user_id:
             nuovi_valori = {
-                'nome': request.form['nome'],
-                'cognome': request.form['cognome'],
-                'data_nascita': request.form['data_nascita'],
-                'telefono': request.form['telefono'],
-                'sesso': request.form['sesso']
+                'nome': request.form.get('nome'),
+                'cognome': request.form.get('cognome'),
+                'data_nascita': request.form.get('data_nascita'),
+                'telefono': request.form.get('telefono'),
+                'sesso': request.form.get('sesso')
             }
 
             pattern_n = r'^[A-Za-z ]+$'
             pattern_data = r'^\d{4}-\d{2}-\d{2}$'
             pattern_telefono = r'^[0-9]+$'
-            pattern_sesso = r'^(Uomo|Donna)$'
+            pattern_sesso = r'^(uomo|donna)$'
 
             if not all([
                 validate_input(nuovi_valori['nome'], pattern_n),
