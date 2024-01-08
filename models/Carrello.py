@@ -12,6 +12,8 @@ def aggiungi_al_carrello(id_utente, id_prodotto, quantita=1):
         cursor.execute(query_get_cart_id, (id_utente,))
         cart_id = cursor.fetchone()
 
+        print(cart_id)
+
         if cart_id:
             query = "INSERT INTO prodotto_in_carrello (id_carrello, id_prodotto, quantita) VALUES (%s, %s, %s)"
             cursor.execute(query, (cart_id[0], id_prodotto, quantita))
