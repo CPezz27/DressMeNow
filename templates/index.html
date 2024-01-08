@@ -49,11 +49,8 @@
         <h2 class="text-3xl font-semibold mb-6">Categoria uomo</h2>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <!-- Prodotti Uomo -->
-          {% set limit = 3 %}
-          {% set count = 0 %}
           {% if res_u %} 
             {% for prodotto in res_u %}
-              {% if count < limit %}
           <!-- Prodotto 1 -->
         <div class="bg-white rounded-lg shadow-md overflow-hidden">
           <form action="/aggiungi_al_carrello" method="post">
@@ -94,8 +91,6 @@
             </div>
           </form>
         </div>
-                {% set count = count + 1 %}
-              {% endif %}
             {% endfor %}{% else %}
         <h1>
           Non abbiamo trovato nessun prodotto con questo nome
