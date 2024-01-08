@@ -91,7 +91,9 @@ def delete_account():
 
     try:
         user_id = session['id']
-        Utente.delete_account(user_id)
+        success = Utente.delete_account(user_id)
+
+        print(success)
 
         session.pop('id', None)
         session.pop('logged_in', None)
