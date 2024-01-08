@@ -18,7 +18,7 @@
       <h1 class="text-4xl font-semibold mb-8 text-center">Prodotti</h1>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-        {% for prodotto in data %}
+        {% if data %} {% for prodotto in data %}
         <!-- Prodotto 1 -->
         <div class="bg-white rounded-lg shadow-md overflow-hidden">
           <form action="/aggiungi_al_carrello" method="post">
@@ -59,7 +59,19 @@
             </div>
           </form>
         </div>
-        {% endfor %}
+        {% endfor %} {% else %}
+        <h1
+          style="
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+          "
+        >
+          Non abbiamo trovato nessun prodotto con questo nome
+        </h1>
+        {% endif %}
       </div>
     </div>
   </body>
