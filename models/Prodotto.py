@@ -183,12 +183,6 @@ class Prodotto:
         try:
             cursor.execute(insert_query, product_data)
 
-            id_prodotto = cursor.lastrowid
-
-            taglia_prodotto = TagliaProdotto(self.id_taglia, id_prodotto, self.quantita)
-
-            taglia_prodotto.save()
-
             conn.commit()
             return True
         except mysql.connector.Error as err:
