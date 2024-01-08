@@ -93,7 +93,7 @@ def delete_account():
         user_id = session['id']
         success = Utente.delete_account(user_id)
 
-        print(success)
+        print(user_id)
 
         session.pop('id', None)
         session.pop('logged_in', None)
