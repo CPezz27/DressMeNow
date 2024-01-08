@@ -84,8 +84,7 @@ def gestore_prodotto():
             # Recupera le taglie associate al prodotto
             taglie_prodotto = Prodotto.get_sizes_for_product(prodotto_id)  # Sostituisci con il metodo corretto
             for taglia in taglie_prodotto:
-                print("TAGLIA TAGLIA TAGLIA ")
-                print(taglia)
+
                 prodotti_dict[prodotto_id]['taglie'].append({
                     'id_taglia': taglia[0],
                     'nometaglia': taglia[1],

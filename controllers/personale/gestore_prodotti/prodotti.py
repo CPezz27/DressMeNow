@@ -58,7 +58,7 @@ def aggiungi_prodotto():
                 quantita=quantita
             )
             nuovo_prodotto.save()
-            return redirect(url_for('gestione_prodotto.aggiungiProdotto', message="Prodotto aggiunto con successo"))
+            return redirect(url_for('taglia.aggiungi_taglia', message="Prodotto aggiunto con successo"))
         except Exception as err:
             return render_template('aggiungiProdotto.html', messaggio="Errore")
 
