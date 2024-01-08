@@ -1,3 +1,5 @@
+import base64
+
 import mysql.connector
 import mysql.connector
 from utils import mysql_config
@@ -12,10 +14,8 @@ def aggiungi_al_carrello(id_utente, id_prodotto, quantita=1):
         cursor.execute(query_get_cart_id, (id_utente,))
         cart_id = cursor.fetchone()
 
-        print(cart_id)
-
         if cart_id:
-            query = "INSERT INTO prodotto_in_carrello (id_carrello, id_prodotto, quantita) VALUES (%s, %s, %s)"
+            query = "INSERT INTO prodotto_in_carrello (id_carrello, id_prodotto, quantità) VALUES (%s, %s, %s)"
             cursor.execute(query, (cart_id[0], id_prodotto, quantita))
             conn.commit()
             return True
@@ -66,14 +66,38 @@ def contenuto_carrello(id_utente):
         cart_id = cursor.fetchone()
 
         if cart_id:
-            query = "SELECT * FROM prodotto_in_carrello WHERE id_carrello = %s"
+            query = (
+                "SELECT pc.*, p.nome, p.categoria, p.marca, p.descrizione, p.vestibilità, "
+                "p.prezzo, p.colore, p.materiale, i.immagine "
+                "FROM prodotto_in_carrello pc "
+                "JOIN prodotto p ON pc.id_prodotto = p.id_prodotto "
+                "LEFT JOIN (SELECT id_prodotto, immagine FROM immagine WHERE tipo = 'pagina_prodotto' GROUP BY id_prodotto) i "
+                "ON pc.id_prodotto = i.id_prodotto "
+                "WHERE pc.id_carrello = %s"
+            )
             cursor.execute(query, (cart_id[0],))
             cart_contents = cursor.fetchall()
-            return cart_contents
+
+            for idx, row in enumerate(cart_contents):
+                image = row[11]
+                if image:
+                    encoded_image = base64.b64encode(image).decode('utf-8')
+                    cart_contents[idx] = (*row[:11], encoded_image, *row[12:])
+
+            query_total_price = (
+                "SELECT SUM(p.prezzo) as totale_prezzo "
+                "FROM prodotto_in_carrello pc "
+                "JOIN prodotto p ON pc.id_prodotto = p.id_prodotto "
+                "WHERE pc.id_carrello = %s"
+            )
+            cursor.execute(query_total_price, (cart_id[0],))
+            total_price = cursor.fetchone()[0]
+
+            return cart_contents, total_price
         else:
-            return None
+            return None, None
     except mysql.connector.Error as err:
-        return None
+        return None, None
 
 
 class Carrello:

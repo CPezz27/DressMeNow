@@ -21,26 +21,38 @@
             <div class="bg-white p-4 rounded-lg shadow-md">
                 <div class="flex justify-between items-center mb-4">
                     <h1 class="text-3xl font-semibold">Carrello</h1>
-                    <button onclick="removeAllFromCart()" class="bg-red-500 text-white py-2 px-4 rounded-full">Remove All from Cart</button>
+                    <form method="post" action="/svuota_carrello">
+                        <button class="bg-red-500 text-white py-2 px-4 rounded-full">Remove All from Cart</button>
+                    </form>
                 </div>
-                <div id="cartItems" class="grid grid-cols-1 gap-4">
-                    <!-- Esempio di elemento nel carrello -->
-                    
+            <div id="cartItems" class="grid grid-cols-1 gap-4">
+                <!-- Ciclo sugli elementi del carrello -->
+                {% for prodotto in data %}
                     <div class="bg-gray-200 p-4 rounded-lg shadow-md flex items-center justify-between">
                         <div class="flex items-center">
                             <div class="flex-shrink-0 mr-4">
-                                <img src="https://cdn.studenti.stbm.it/images/2017/03/13/luna-orig.jpeg" alt="Product" class="w-24 h-24 object-cover">
+                                {% if prodotto[7] %}
+                                <!-- Immagine del prodotto -->
+                                <img src="data:image/jpeg;base64,{{ prodotto[11] }}" alt="Product" class="w-24 h-24 object-cover">
+                                {% else %}
+                                <!-- Immagine di fallback -->
+                                <img src="https://lorenzograssia.com/wp-content/uploads/2014/01/prodotto.jpg" alt="Product" class="w-24 h-24 object-cover">
+                                {% endif %}
                             </div>
                             <div>
-                                <h2 class="text-lg font-semibold">Nome Prodotto</h2>
-                                <p class="text-gray-600">Size: M</p>
-                                <p class="text-gray-600">Quantity: 1</p>
-                                <p class="text-gray-600">Price: $19.99</p>
+                                <h2 class="text-lg font-semibold">{{ prodotto[3] }}</h2>
+                                <p class="text-gray-600">Size: {{ prodotto[7] }}</p>
+                                <p class="text-gray-600">Quantity: {{ prodotto[2] }}</p>
+                                <p class="text-gray-600">Price: {{ prodotto[8] }}€</p>
                             </div>
                         </div>
-                        <button onclick="removeFromCart(this)" class="bg-red-500 text-white py-2 px-4 rounded-full">Remove</button>
+                        <form action="/rimuovi_dal_carrello" method="post">
+                            <input type="hidden" name="id_prodotto" value="{{ prodotto[1] }}" />
+                            <button class="bg-red-500 text-white py-2 px-4 rounded-full">Remove</button>
+                        </form>
                     </div>
-                </div>
+                {% endfor %}
+            </div>
             </div>
         </div>
 
@@ -50,16 +62,28 @@
                 <h1 class="text-3xl font-semibold mb-4 text-center">Order Summary</h1>
                 <div class="flex justify-between items-center mb-2">
                     <span class="text-gray-600">Total Products:</span>
-                    <span id="totalProducts" class="font-semibold" style="color: #000000;">$19.99</span>
+                    <span id="totalProducts" class="font-semibold" style="color: #000000;">
+                        {% if totale %}
+                            {{ totale }}€
+                        {% else %}
+                            0.00€
+                        {% endif %}
+                    </span>
                 </div>
                 <div class="flex justify-between items-center mb-2">
                     <span class="text-gray-600">Shipping:</span>
-                    <span class="font-semibold" style="color: #000000;">$5.00</span>
+                    <span class="font-semibold" style="color: #000000;">5.00€</span>
                 </div>
                 <hr class="my-2 border-gray-300">
                 <div class="flex justify-between items-center">
                     <span class="text-lg font-semibold" style="color: #000000;">Total:</span>
-                    <span id="orderTotal" class="text-lg font-semibold" style="color: #000000;">$24.99</span>
+                    <span id="orderTotal" class="text-lg font-semibold" style="color: #000000;">
+                        {% if totale %}
+                            {{ totale + 5 }}€
+                        {% else %}
+                            0.00€
+                        {% endif %}
+                    </span>
                 </div>
                 <button class="mt-4 bg-blue-500 text-white py-2 px-4 rounded-full">Proceed to Checkout</button>
             </div>
@@ -76,39 +100,6 @@
 
     </div>
 
-    <script>
-        // Funzione per rimuovere un elemento dal carrello
-        function removeFromCart(button) {
-            // Rimuovi l'elemento padre del pulsante
-            button.parentNode.remove();
-            // Aggiorna il riepilogo dell'ordine
-            updateOrderSummary();
-        }
-
-        // Funzione per rimuovere tutti gli elementi dal carrello
-        function removeAllFromCart() {
-            var cartItems = document.getElementById('cartItems');
-            cartItems.innerHTML = ''; // Rimuovi tutti gli elementi dal carrello
-            // Aggiorna il riepilogo dell'ordine
-            updateOrderSummary();
-        }
-
-        // Funzione per aggiornare il riepilogo dell'ordine
-        function updateOrderSummary() {
-            var totalProducts = 0;
-            var cartItems = document.getElementById('cartItems').children;
-
-            // Calcola il totale dei prodotti nel carrello
-            for (var i = 0; i < cartItems.length; i++) {
-                var price = parseFloat(cartItems[i].querySelector('p:nth-child(3)').innerText.replace('$', ''));
-                totalProducts += price;
-            }
-
-            // Aggiorna i valori nel riepilogo dell'ordine
-            document.getElementById('totalProducts').innerText = '$' + totalProducts.toFixed(2);
-            document.getElementById('orderTotal').innerText = '$' + (totalProducts + 5.00).toFixed(2);
-        }
-    </script>
 </body>
 
 </html>

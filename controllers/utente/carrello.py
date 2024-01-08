@@ -13,9 +13,11 @@ def visualizza_carrello():
     try:
         user_id = session.get('id')
 
-        prodotti = Carrello.contenuto_carrello(user_id)
+        prodotti, totale = Carrello.contenuto_carrello(user_id)
 
-        return render_template('/utente/carrello.html', data=prodotti)
+        print(prodotti)
+
+        return render_template('/utente/carrello.html', data=prodotti, totale=totale)
 
     except Exception as e:
         return render_template('/utente/carrello.html', message='Errore con il server')
@@ -60,12 +62,15 @@ def rimuovi_dal_carrello():
             flag = Carrello.rimuovi_dal_carrello(user_id, id_prodotto)
 
             if flag:
-                return render_template('/utente/carrello.html', message='Prodotto rimosso con successo')
+                message = 'Prodotto rimosso con successo'
+                return redirect(url_for('user_carrello.visualizza_carrello', message=message))
             else:
-                return render_template('/utente/carrello.html', message='Prodotto non rimosso')
+                message = 'Prodotto non rimosso'
+                return redirect(url_for('user_carrello.visualizza_carrello', message=message))
 
         except Exception as e:
-            return render_template('/utente/carrello.html', message='Errore con il server')
+            message = 'Errore con il server'
+            return redirect(url_for('user_carrello.visualizza_carrello', message=message))
 
 
 @app_bp.route("/svuota_carrello", methods=['POST'])
@@ -80,9 +85,12 @@ def svuota_carrello():
             flag = Carrello.svuota_carrello(user_id)
 
             if flag:
-                return render_template('/utente/carrello.html', message='Carrello svuotato con successo')
+                message = 'Carrello svuotato con successo'
+                return redirect(url_for('user_carrello.visualizza_carrello', message=message))
             else:
-                return render_template('/utente/carrello.html', message='Carrello non svuotato')
+                message = 'Carrello non svuotato'
+                return redirect(url_for('user_carrello.visualizza_carrello', message=message))
 
         except Exception as e:
-            return render_template('/utente/carrello.html', message='Errore con il server')
+            message = 'Errore con il server'
+            return redirect(url_for('user_carrello.visualizza_carrello', message=message))
