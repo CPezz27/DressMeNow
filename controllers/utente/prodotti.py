@@ -30,7 +30,7 @@ def search_products():
 
     if product_name:
         products = Prodotto.search_prodotto_by_name(product_name)
-        return render_template("utente/search_product.html", data=products)
+        return render_template("utente/ricercaProdotto.html", data=products)
     else:
         return redirect("utente/index.html")
 

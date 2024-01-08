@@ -36,13 +36,14 @@ def aggiungi_al_carrello():
 
             if flag:
                 message = 'Prodotto aggiunto al carrello correttamente'
-                return redirect(url_for('carrello', message=message))
+                return redirect(url_for('user_carrello.visualizza_carrello', message=message))
             else:
                 message = 'Problema 1'
-                return redirect(url_for('carrello', message=message))
+                return redirect(url_for('user_carrello.visualizza_carrello', message=message))
 
         except Exception as e:
-            return render_template('/utente/carrello.html', message='Errore con il server')
+            message = 'Problema 2'
+            return redirect(url_for('user_carrello.visualizza_carrello', message=message))
 
 
 @app_bp.route("/rimuovi_dal_carrello", methods=['POST'])
