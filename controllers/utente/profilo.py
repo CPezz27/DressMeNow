@@ -8,6 +8,18 @@ from utils.utils import validate_input, is_valid_password
 app_bp = Blueprint('user_profile', __name__)
 
 
+@app_bp.route("/p/impostazioni")
+def impostazioni():
+    if 'logged_in' not in session or not session['logged_in']:
+        return redirect(url_for('user_login.login_page'))
+
+    user_id = session['id']
+
+    user = Utente.get_user(user_id)
+
+    return render_template("utente/impostazioni.html", data=user)
+
+
 @app_bp.route("/p/profilo")
 def profilo():
     if 'logged_in' not in session or not session['logged_in']:
