@@ -9,30 +9,7 @@
   <link rel="stylesheet" href='css/font-awesome-4.7.0/css/font-awesome.min.css'>
 </head>
 <body class="bg-gray-100">
-    <!-- Prova -->
-<header class="bg-white py-4 shadow">
-    <nav class="nav-header">
-        <div class="logo">
-            <a href="#">
-            <img src="/static/assets/Logo.png" alt="Logo" width="53" height="60">
-            </a>
-        </div>
-        <div class="container mx-auto flex justify-center items-center space-x-6">
-            <button class="category-btn text-gray-800" data-category="uomo">Uomo</button>
-            <button class="category-btn text-gray-800" data-category="donna">Donna</button>
-            <button class="category-btn text-gray-800" data-category="bambino">Bambino</button>
-        </div>
-        <div class="icons">
-            <div class="relative">
-            <input type="text" placeholder="Comprendi il mio stile!" class="pl-10 py-2 pr-4 rounded-full border border-gray-300 focus:outline-none focus:border-gray-500">
-            <i class="fa fa-search fa-lg text-gray-400 absolute top-1/2 left-1 transform -translate-y-1/2"></i>
-                </div>
-        </div>
-        <div class="three-lined-menu" onclick="toggleMenu()">
-            <i class="fa fa-bars fa-2x" aria-hidden="true" class="menu"></i>
-        </div>
-    </nav>
-</header>
+{% include 'components/header.html' %}
 
   <!-- Contenitore per i prodotti -->
   <div class="container mx-auto mt-8 grid grid-cols-3 gap-6" id="products-container">

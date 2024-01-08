@@ -19,16 +19,15 @@
             <img
               src="{{ url_for('static', filename='assets/logo.png') }}"
               alt="Logo"
-              alt="logo"
               width="53"
               height="60"
             />
           </a>
         </div>
         <div class="main-links">
-          <a href="#">Uomo</a>
-          <a href="#">Donna</a>
-          <a href="#">Bambino</a>
+          <a href="/c?category=uomo">Uomo</a>
+          <a href="/c?category=donna">Donna</a>
+          <a href="/c?category=bambino">Bambino</a>
         </div>
         <div class="icons">
           <svg
@@ -49,7 +48,7 @@
               class="pl-10 py-2 pr-4 rounded-full border border-gray-300 focus:outline-none focus:border-gray-500"
             />
           </div>
-          <a href="carrello.html" style="margin: 10px">
+          <a href="/carrello" style="margin: 10px">
             <svg
               width="25"
               height="25"
@@ -70,7 +69,7 @@
               ></path>
             </svg>
           </a>
-          <a href="profilo.html">
+          <a href="/p/profilo">
             <svg
               width="25"
               height="25"
