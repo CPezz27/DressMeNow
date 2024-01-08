@@ -17,7 +17,7 @@
         <h1>Pagina del Gestore Ordine</h1>
         <nav class="navGestoreOrdine">
             <ul>
-                <li><a href="#">Dashboard</a></li>
+                <li><a href="/go/dashboard">Dashboard</a></li>
                 <li><a href="#">Logout</a></li>
             </ul>
         </nav>
@@ -41,10 +41,10 @@
                     {% for order in orders_details %}
                         <tr>
                             <td>{{ order[0] }}</td>
-                            <td>{{ order[5] }}</td>
                             <td>{{ order[1] }}</td>
                             <td>{{ order[2] }}</td>
-                            <td><a href="#">Modifica ordine</a></td>
+                            <td>{{ order[3] }}</td>
+                            <td><a href="/go/visualizza_ordine?id_ordine={{ order[0] }}">Modifica ordine</a></td>
                         </tr>
                     {% endfor %}
                 </tbody>
