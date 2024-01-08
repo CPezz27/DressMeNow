@@ -49,7 +49,7 @@
         <h2 class="text-3xl font-semibold mb-6">Categoria uomo</h2>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <!-- Prodotti Uomo -->
-          {% if data %} {% for prodotto in data %}
+          {% if res_u %} {% for prodotto in res_u|slice(0, 3) %}
           <!-- Prodotto 1 -->
         <div class="bg-white rounded-lg shadow-md overflow-hidden">
           <form action="/aggiungi_al_carrello" method="post">
@@ -112,7 +112,7 @@
         <h2 class="text-3xl font-semibold mb-6">Categoria donna</h2>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <!-- Prodotti Donna -->
-          {% if data %} {% for prodotto in data %}
+          {% if res_d %} {% for prodotto in res_d|slice(0, 3) %}
           <!-- Prodotto 1 -->
         <div class="bg-white rounded-lg shadow-md overflow-hidden">
           <form action="/aggiungi_al_carrello" method="post">
@@ -175,7 +175,7 @@
         <h2 class="text-3xl font-semibold mb-6">Categoria bambino</h2>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <!-- Prodotti Bambino -->
-          {% if data %} {% for prodotto in data %}
+          {% if res_b %} {% for prodotto in res_b|slice(0, 3) %}
           <!-- Prodotto 1 -->
         <div class="bg-white rounded-lg shadow-md overflow-hidden">
           <form action="/aggiungi_al_carrello" method="post">
