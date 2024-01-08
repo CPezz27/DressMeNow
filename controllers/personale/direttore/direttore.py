@@ -99,7 +99,7 @@ def visualizza_statistiche_ordini():
 
         percentuale_resi = ProdottoInOrdine.percentuale_prodotti_resi()
 
-        return render_template("utente/statistiche_ordini.html",
+        return render_template("/d/statistiche_ordini.html",
                                vendite_totali=vendite_totali,
                                guadagno=guadagno,
                                prodotti_resi=prodotti_resi,
