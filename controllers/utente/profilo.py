@@ -117,7 +117,8 @@ def modifica_profilo():
             user = Utente.get_user(id=user_id)
 
             if user:
-                return render_template('modifica_profilo.html', user=user)  # Pagina per la modifica
+                # Pagina per la modifica
+                return render_template('modifica_profilo.html', user=user)
             else:
                 return render_template('profilo.html', message="Utente non trovato.")
         else:
@@ -129,7 +130,6 @@ def modifica_profilo():
             nuovi_valori = {
                 'nome': request.form['nome'],
                 'cognome': request.form['cognome'],
-                'email': request.form['email'],
                 'data_nascita': request.form['data_nascita'],
                 'telefono': request.form['telefono'],
                 'sesso': request.form['sesso']
@@ -139,7 +139,6 @@ def modifica_profilo():
             pattern_data = r'^\d{4}-\d{2}-\d{2}$'
             pattern_telefono = r'^[0-9]+$'
             pattern_sesso = r'^(Uomo|Donna)$'
-            pattern_email = r'^\S+@\S+\.\S+$'
 
             if not all([
                 validate_input(nuovi_valori['nome'], pattern_n),
@@ -147,7 +146,6 @@ def modifica_profilo():
                 validate_input(nuovi_valori['data_nascita'], pattern_data),
                 validate_input(nuovi_valori['telefono'], pattern_telefono),
                 validate_input(nuovi_valori['sesso'], pattern_sesso),
-                validate_input(nuovi_valori['email'], pattern_email),
                 is_valid_password(request.form['password'])
             ]):
                 return render_template('profilo.html', message="Dati inseriti non validi. Controlla i campi e riprova.")
@@ -158,7 +156,6 @@ def modifica_profilo():
                     utente_mod = {
                         'nome': nuovi_valori['nome'],
                         'cognome': nuovi_valori['cognome'],
-                        'email': nuovi_valori['email'],
                         'password': request.form['password'],
                         'sesso': nuovi_valori['sesso'],
                         'numero_telefono': nuovi_valori['telefono'],
@@ -184,7 +181,8 @@ def configura_avatar():
     if request.method == 'POST':
         data = request.json
         if data:
-            success = ConfigurazioneAvatar.update_configurazione_avatar(user_id, **data)
+            success = ConfigurazioneAvatar.update_configurazione_avatar(
+                user_id, **data)
             if success:
                 return render_template("utente/avatar.html", message="Avatar aggiornato correttamente.")
             else:
