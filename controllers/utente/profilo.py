@@ -96,7 +96,7 @@ def delete_account():
         session.pop('id', None)
         session.pop('logged_in', None)
 
-        return redirect(url_for('homepage'))
+        return redirect(url_for('user_login.login_page'))
 
     except mysql.connector.Error as err:
         print(f"Errore durante la cancellazione dell'account: {err}")
