@@ -8,6 +8,12 @@
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
       rel="stylesheet"
     />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap");
+      h1 {
+        font-family: "poppins", sans-serif;
+      }
+    </style>
   </head>
   <body class="font-sans bg-gray-100">
     {% include 'components/header.html' %}
@@ -49,59 +55,58 @@
         <h2 class="text-3xl font-semibold mb-6">Categoria uomo</h2>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <!-- Prodotti Uomo -->
-          {% if res_u %} 
-            {% for prodotto in res_u %}
+          {% if res_u %} {% for prodotto in res_u %}
           <!-- Prodotto 1 -->
-        <div class="bg-white rounded-lg shadow-md overflow-hidden">
-          <form action="/aggiungi_al_carrello" method="post">
-            <div class="aspect-w-1 aspect-h-1">
-              <!-- <img src="{{prodotto['immagine']}}" alt="{{prodotto['nome']}}" class="w-full h-48 object-cover object-center"> -->
-              <img
-                src="https://lorenzograssia.com/wp-content/uploads/2014/01/prodotto.jpg"
-                alt="Prodotto 1"
-                class="w-full h-48 object-cover object-center"
-              />
-            </div>
-            <div class="p-4">
-              <!-- flex flex-col justify-between -->
-              <h2 class="text-xl font-semibold mb-2">{{prodotto[1]}}</h2>
-              <input
-                type="hidden"
-                name="id_prodotto"
-                value="{{prodotto['id_prodotto']}}"
-              />
-              <p
-                class="text-gray-600 mb-2 overflow-hidden whitespace-nowrap"
-                id="product-description"
-              >
-                {{prodotto[4]}}
-              </p>
-              <p class="text-gray-600 mb-2">Taglia: {{prodotto[5]}}</p>
-              <p class="text-gray-900 font-semibold text-lg mb-2">
-                {{prodotto[6]}}€
-              </p>
-              <!-- </div>
+          <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <form action="/aggiungi_al_carrello" method="post">
+              <div class="aspect-w-1 aspect-h-1">
+                <!-- <img src="{{prodotto['immagine']}}" alt="{{prodotto['nome']}}" class="w-full h-48 object-cover object-center"> -->
+                <img
+                  src="https://lorenzograssia.com/wp-content/uploads/2014/01/prodotto.jpg"
+                  alt="Prodotto 1"
+                  class="w-full h-48 object-cover object-center"
+                />
+              </div>
+              <div class="p-4">
+                <!-- flex flex-col justify-between -->
+                <h2 class="text-xl font-semibold mb-2">{{prodotto[1]}}</h2>
+                <input
+                  type="hidden"
+                  name="id_prodotto"
+                  value="{{prodotto['id_prodotto']}}"
+                />
+                <p
+                  class="text-gray-600 mb-2 overflow-hidden whitespace-nowrap"
+                  id="product-description"
+                >
+                  {{prodotto[4]}}
+                </p>
+                <p class="text-gray-600 mb-2">Taglia: {{prodotto[5]}}</p>
+                <p class="text-gray-900 font-semibold text-lg mb-2">
+                  {{prodotto[6]}}€
+                </p>
+                <!-- </div>
                     <div class="flex justify-between"> -->
-              <button
-                type="submit"
-                class="px-4 py-2 bg-green-500 text-white rounded-md mr-2"
-              >
-                Aggiungi al carrello
-              </button>
-            </div>
-          </form>
-        </div>
-            {% endfor %}{% else %}
-        <h1>
-          Non abbiamo trovato nessun prodotto con questo nome
-        </h1>
-        {% endif %}
+                <button
+                  type="submit"
+                  class="px-4 py-2 bg-green-500 text-white rounded-md mr-2"
+                >
+                  Aggiungi al carrello
+                </button>
+              </div>
+            </form>
+          </div>
+          {% endfor %}{% else %}
+          <h1>Non abbiamo trovato nessun prodotto in questa Categoria</h1>
+          {% endif %}
           <!-- fine prodotti uomo -->
         </div>
         <div class="text-center mt-6">
-          <button class="px-4 py-2 bg-blue-500 text-white rounded-md">
-            Visualizza altro
-          </button>
+          <a href="/c?category=uomo"
+            ><button class="px-4 py-2 bg-blue-500 text-white rounded-md">
+              Visualizza altro
+            </button></a
+          >
         </div>
       </div>
     </section>
@@ -115,56 +120,56 @@
           <!-- Prodotti Donna -->
           {% if res_d %} {% for prodotto in res_d %}
           <!-- Prodotto 1 -->
-        <div class="bg-white rounded-lg shadow-md overflow-hidden">
-          <form action="/aggiungi_al_carrello" method="post">
-            <div class="aspect-w-1 aspect-h-1">
-              <!-- <img src="{{prodotto['immagine']}}" alt="{{prodotto['nome']}}" class="w-full h-48 object-cover object-center"> -->
-              <img
-                src="https://lorenzograssia.com/wp-content/uploads/2014/01/prodotto.jpg"
-                alt="Prodotto 1"
-                class="w-full h-48 object-cover object-center"
-              />
-            </div>
-            <div class="p-4">
-              <!-- flex flex-col justify-between -->
-              <h2 class="text-xl font-semibold mb-2">{{prodotto[1]}}</h2>
-              <input
-                type="hidden"
-                name="id_prodotto"
-                value="{{prodotto['id_prodotto']}}"
-              />
-              <p
-                class="text-gray-600 mb-2 overflow-hidden whitespace-nowrap"
-                id="product-description"
-              >
-                {{prodotto[4]}}
-              </p>
-              <p class="text-gray-600 mb-2">Taglia: {{prodotto[5]}}</p>
-              <p class="text-gray-900 font-semibold text-lg mb-2">
-                {{prodotto[6]}}€
-              </p>
-              <!-- </div>
+          <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <form action="/aggiungi_al_carrello" method="post">
+              <div class="aspect-w-1 aspect-h-1">
+                <!-- <img src="{{prodotto['immagine']}}" alt="{{prodotto['nome']}}" class="w-full h-48 object-cover object-center"> -->
+                <img
+                  src="https://lorenzograssia.com/wp-content/uploads/2014/01/prodotto.jpg"
+                  alt="Prodotto 1"
+                  class="w-full h-48 object-cover object-center"
+                />
+              </div>
+              <div class="p-4">
+                <!-- flex flex-col justify-between -->
+                <h2 class="text-xl font-semibold mb-2">{{prodotto[1]}}</h2>
+                <input
+                  type="hidden"
+                  name="id_prodotto"
+                  value="{{prodotto['id_prodotto']}}"
+                />
+                <p
+                  class="text-gray-600 mb-2 overflow-hidden whitespace-nowrap"
+                  id="product-description"
+                >
+                  {{prodotto[4]}}
+                </p>
+                <p class="text-gray-600 mb-2">Taglia: {{prodotto[5]}}</p>
+                <p class="text-gray-900 font-semibold text-lg mb-2">
+                  {{prodotto[6]}}€
+                </p>
+                <!-- </div>
                     <div class="flex justify-between"> -->
-              <button
-                type="submit"
-                class="px-4 py-2 bg-green-500 text-white rounded-md mr-2"
-              >
-                Aggiungi al carrello
-              </button>
-            </div>
-          </form>
-        </div>
-        {% endfor %}{% else %}
-        <h1>
-          Non abbiamo trovato nessun prodotto con questo nome
-        </h1>
-        {% endif %}
+                <button
+                  type="submit"
+                  class="px-4 py-2 bg-green-500 text-white rounded-md mr-2"
+                >
+                  Aggiungi al carrello
+                </button>
+              </div>
+            </form>
+          </div>
+          {% endfor %}{% else %}
+          <h1>Non abbiamo trovato nessun prodotto in questa Categoria</h1>
+          {% endif %}
           <!-- fine prodotti donna -->
         </div>
         <div class="text-center mt-6">
-          <button class="px-4 py-2 bg-blue-500 text-white rounded-md">
-            Visualizza altro
-          </button>
+          <a href="/c?category=donna"
+            ><button class="px-4 py-2 bg-blue-500 text-white rounded-md">
+              Visualizza altro
+            </button></a
+          >
         </div>
       </div>
     </section>
@@ -178,56 +183,56 @@
           <!-- Prodotti Bambino -->
           {% if res_b %} {% for prodotto in res_b %}
           <!-- Prodotto 1 -->
-        <div class="bg-white rounded-lg shadow-md overflow-hidden">
-          <form action="/aggiungi_al_carrello" method="post">
-            <div class="aspect-w-1 aspect-h-1">
-              <!-- <img src="{{prodotto['immagine']}}" alt="{{prodotto['nome']}}" class="w-full h-48 object-cover object-center"> -->
-              <img
-                src="https://lorenzograssia.com/wp-content/uploads/2014/01/prodotto.jpg"
-                alt="Prodotto 1"
-                class="w-full h-48 object-cover object-center"
-              />
-            </div>
-            <div class="p-4">
-              <!-- flex flex-col justify-between -->
-              <h2 class="text-xl font-semibold mb-2">{{prodotto[1]}}</h2>
-              <input
-                type="hidden"
-                name="id_prodotto"
-                value="{{prodotto['id_prodotto']}}"
-              />
-              <p
-                class="text-gray-600 mb-2 overflow-hidden whitespace-nowrap"
-                id="product-description"
-              >
-                {{prodotto[4]}}
-              </p>
-              <p class="text-gray-600 mb-2">Taglia: {{prodotto[5]}}</p>
-              <p class="text-gray-900 font-semibold text-lg mb-2">
-                {{prodotto[6]}}€
-              </p>
-              <!-- </div>
+          <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <form action="/aggiungi_al_carrello" method="post">
+              <div class="aspect-w-1 aspect-h-1">
+                <!-- <img src="{{prodotto['immagine']}}" alt="{{prodotto['nome']}}" class="w-full h-48 object-cover object-center"> -->
+                <img
+                  src="https://lorenzograssia.com/wp-content/uploads/2014/01/prodotto.jpg"
+                  alt="Prodotto 1"
+                  class="w-full h-48 object-cover object-center"
+                />
+              </div>
+              <div class="p-4">
+                <!-- flex flex-col justify-between -->
+                <h2 class="text-xl font-semibold mb-2">{{prodotto[1]}}</h2>
+                <input
+                  type="hidden"
+                  name="id_prodotto"
+                  value="{{prodotto['id_prodotto']}}"
+                />
+                <p
+                  class="text-gray-600 mb-2 overflow-hidden whitespace-nowrap"
+                  id="product-description"
+                >
+                  {{prodotto[4]}}
+                </p>
+                <p class="text-gray-600 mb-2">Taglia: {{prodotto[5]}}</p>
+                <p class="text-gray-900 font-semibold text-lg mb-2">
+                  {{prodotto[6]}}€
+                </p>
+                <!-- </div>
                     <div class="flex justify-between"> -->
-              <button
-                type="submit"
-                class="px-4 py-2 bg-green-500 text-white rounded-md mr-2"
-              >
-                Aggiungi al carrello
-              </button>
-            </div>
-          </form>
-        </div>
-        {% endfor %}{% else %}
-        <h1>
-          Non abbiamo trovato nessun prodotto con questo nome
-        </h1>
-        {% endif %}
+                <button
+                  type="submit"
+                  class="px-4 py-2 bg-green-500 text-white rounded-md mr-2"
+                >
+                  Aggiungi al carrello
+                </button>
+              </div>
+            </form>
+          </div>
+          {% endfor %}{% else %}
+          <h1>Non abbiamo trovato nessun prodotto in questa Categoria</h1>
+          {% endif %}
           <!-- fine prodotti bambino -->
         </div>
         <div class="text-center mt-6">
-          <button class="px-4 py-2 bg-blue-500 text-white rounded-md">
-            Visualizza altro
-          </button>
+          <a href="/c?category=bambino"
+            ><button class="px-4 py-2 bg-blue-500 text-white rounded-md">
+              Visualizza altro
+            </button></a
+          >
         </div>
       </div>
     </section>
