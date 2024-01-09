@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <style>
+            .conteiner img{
+                display: flex;
+                justify-content: center;
+            }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ricerca NLP</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+
+    <div class="conteiner bg-white p-8 md:p-10 max-w-md mx-auto rounded-md shadow-md w-full">
+
+        <img src="../../static/assets/Logo.png" alt="Immagine di esempio" width="35px" height="25px">
+
+        <h1 class="text-3xl font-semibold mb-6 text-blue-700">Ricerca NLP </h1>
+
+        <form id="nlpSearchForm">
+            <div class="mb-4">
+                <label for="search-query" class="block text-gray-700 font-medium"></label>
+                <input type="text" id="search-query" class="mt-1 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:border-blue-500" placeholder="Cerca il capo che ti interessa" required>
+            </div>
+
+            <div class="flex justify-end">
+                <button type="button" onclick="searchNLP()" class="px-4 py-2 bg-blue-500 text-white rounded-md">cerca</button>
+            </div>
+        </form>
+
+        <div class="mt-8" id="search-results">
+            <!-- I risultati della ricerca verranno visualizzati qui -->
+        </div>
+        
+        
+        
+
+    </div>
+
+    <script>
+        function searchNLP() {
+            var searchQuery = document.getElementById('search-query').value;
+
+            // Esempio di visualizzazione di risultati di ricerca simulati
+            var simulatedResults = [
+                'Risultato 1',
+                'Risultato 2',
+                'Risultato 3',
+            ];
+
+            // Simula la visualizzazione dei risultati
+            displaySearchResults(simulatedResults);
+        }
+
+        function displaySearchResults(results) {
+            var resultsContainer = document.getElementById('search-results');
+            resultsContainer.innerHTML = "";
+
+            if (results.length > 0) {
+                var resultList = document.createElement('ul');
+                resultList.className = 'list-disc';
+
+                results.forEach(result => {
+                    var listItem = document.createElement('li');
+                    listItem.textContent = result;
+                    resultList.appendChild(listItem);
+                });
+
+                resultsContainer.appendChild(resultList);
+            } else {
+                resultsContainer.textContent = 'Nessun risultato trovato.';
+            }
+        }
+    </script>
+
+</body>
+</html>
+
