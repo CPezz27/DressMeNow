@@ -14,8 +14,23 @@
         font-family: "poppins", sans-serif;
       }
     </style>
+    <style>
+      #tornaSu {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 15px;
+        cursor: pointer;
+        display: none; /* Il pulsante è nascosto all'inizio */
+      }
+    </style>
   </head>
   <body class="font-sans bg-gray-100">
+    <button id="tornaSu" onclick="tornaSu()">Torna su</button>
     {% include 'components/header.html' %}
     <!-- HTML con classi di Tailwind CSS -->
     <section class="py-12 px-4 bg-#d3d3d3">
@@ -54,7 +69,7 @@
     <div class="border-t-4 border-gray-800"></div>
 
     <!-- Sezione prodotti uomo, donna e bambino -->
-    <section class="py-12 px-4 bg-blue-300">
+    <section class="py-12 px-4 bg-blue-200">
       <div class="max-w-6xl mx-auto">
         <h2 class="text-3xl font-semibold mb-6">Categoria uomo</h2>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -117,7 +132,7 @@
 
     <div class="border-t-4 border-gray-800"></div>
 
-    <section class="py-12 px-4 bg-blue-400">
+    <section class="py-12 px-4 bg-blue-300">
       <div class="max-w-6xl mx-auto">
         <h2 class="text-3xl font-semibold mb-6">Categoria donna</h2>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -180,7 +195,7 @@
 
     <div class="border-t-4 border-gray-800"></div>
 
-    <section class="py-12 px-4 bg-blue-200">
+    <section class="py-12 px-4 bg-blue-400">
       <div class="max-w-6xl mx-auto">
         <h2 class="text-3xl font-semibold mb-6">Categoria bambino</h2>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
