@@ -20,6 +20,7 @@ def visualizza_personale():
         return redirect(url_for('index'))
 
     personale = Personale.get_all_personale()
+    print(personale)
     return render_template("direttore/personale.html", data=personale)
 
 

@@ -17,7 +17,7 @@
     <title>Personale</title>
 </head>
 
-<body>
+<body class="bg-green-300 text-white p-8">
     {% include 'components/headerDirettore.html' %}
 
         <main>
@@ -27,31 +27,33 @@
             <!--<a href="modifica_personale.html" class="inline-block mt-4 px-6 py-3 bg-blue-500 text-white rounded-full">Modifica Personale</a>-->
         </section>  
         </main>  
-<body class="bg-green-300 text-white p-8">
 
 <div class="container mx-auto my-8 max-w-md">
-    <table id="example" class="table-auto w-full bg-black border border-none shadow-md">
-        <thead class="bg-black">
-            <tr>
-                <th class="px-4 py-2 text-left text-xs font-medium bg-black">ID Personale</th>
-                <th class="px-4 py-2 text-left text-xs font-medium bg-black text-center">Email</th>
-                <th class="px-4 py-2 text-left text-xs font-medium bg-black">Modifica</th>
-            </tr>
-        </thead>
-        <tbody class="divide-y divide-white">
-            <tr>
-                <td class="px-4 py-3 whitespace-nowrap text-black">1</td>
-                <td class="px-4 py-3 whitespace-nowrap text-black">person1@example.com</td>
-                <td class="px-4 py-3 whitespace-nowrap"><button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Modifica</button></td>
-            </tr>
-            <tr>
-                <td class="px-4 py-3 whitespace-nowrap text-black">2</td>
-                <td class="px-4 py-3 whitespace-nowrap text-black">person2@example.com</td>
-                <td class="px-4 py-3 whitespace-nowrap"><button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Modifica</button></td>
-            </tr>
-            <!-- Add more rows with data as needed -->
-        </tbody>
-    </table>
+<table id="example" class="table-auto w-full bg-black border border-none shadow-md">
+    <thead class="bg-black">
+        <tr>
+            <th class="px-4 py-2 text-left text-xs font-medium bg-black">ID Personale</th>
+            <th class="px-4 py-2 text-left text-xs font-medium bg-black text-center">Email</th>
+            <th class="px-4 py-2 text-left text-xs font-medium bg-black">Tipo Personale</th>
+            <th class="px-4 py-2 text-left text-xs font-medium bg-black">Modifica</th>
+        </tr>
+    </thead>
+    <tbody class="divide-y divide-white">
+        {% for personale in data %}
+        <tr>
+            <td class="px-4 py-3 whitespace-nowrap text-black">{{ personale.id_personale }}</td>
+            <td class="px-4 py-3 whitespace-nowrap text-black">{{ personale.email }}</td>
+            <td class="px-4 py-3 whitespace-nowrap text-black">{{ personale.tipo_personale }}</td>
+            <td class="px-4 py-3 whitespace-nowrap">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Modifica
+                </button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
 </div>
 
 <script>
