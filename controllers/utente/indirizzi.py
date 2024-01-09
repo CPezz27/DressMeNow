@@ -93,12 +93,7 @@ def modifica_indirizzo(address_id):
 
             address = get_address(address_id)
             if address and address[1] == user_id:
-                address[2] = provincia
-                address[3] = cap
-                address[4] = via
-                address[5] = tipo
-                address[6] = citta
-                success = address.save()
+                success = Indirizzo.update(provincia, cap, via, tipo, citta, address_id)
                 if success:
                     return redirect(url_for('gestione_indirizzi.visualizza_indirizzi'))
                 else:
