@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, session, redirect, url_for
 
 from models import Indirizzo
-from models.Indirizzo import Indirizzo
+from models.Indirizzo import Indirizzo, get_address
 from utils.utils import validate_input
 
 app_bp = Blueprint('gestione_indirizzi', __name__)
@@ -49,7 +49,8 @@ def aggiungi_indirizzo():
             ]):
                 return "Dati inseriti non validi. Controlla i campi e riprova."
 
-            new_address = Indirizzo(id_utente=user_id, provincia=provincia, cap=cap, via=via, tipo=tipo, citta=citta)
+            new_address = Indirizzo(
+                id_utente=user_id, provincia=provincia, cap=cap, via=via, tipo=tipo, citta=citta)
             success = new_address.save()
             if success:
                 return redirect(url_for('gestione_indirizzi.visualizza_indirizzi'))
@@ -90,13 +91,13 @@ def modifica_indirizzo(address_id):
             ]):
                 return "Dati inseriti non validi. Controlla i campi e riprova."
 
-            address = Indirizzo.get_address(address_id)
-            if address and address.id_utente == user_id:
-                address.provincia = provincia
-                address.cap = cap
-                address.via = via
-                address.tipo = tipo
-                address.citta = citta
+            address = get_address(address_id)
+            if address and address[1] == user_id:
+                address[2] = provincia
+                address[3] = cap
+                address[4] = via
+                address[5] = tipo
+                address[6] = citta
                 success = address.save()
                 if success:
                     return redirect(url_for('gestione_indirizzi.visualizza_indirizzi'))
