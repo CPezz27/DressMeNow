@@ -17,80 +17,48 @@
     <body class="bg-gray-100">
 
         <div class="container mx-auto p-8 max-w-md">
-            <h2 class="text-2xl font-bold mb-4">Inserisci Informazioni Prodotto</h2>
+            <h2 class="text-2xl font-bold mb-4">Aggiungi taglie al prodotto</h2>
                 <form action="/gp/aggiungi_prodotto" method="post" class="space-y-4">
 
                 <!-- Deve innanzitutto displayare le taglie già aggiunte-->
+                <h3>Elenco di taglie aggiunte:</h3>
+                {% if taglie_impostate%}
+                    {% for taglia in taglie_impostate%}
+                    <li>
+                        ID Taglia: {{ taglia.id_taglia }} - Quantità: {{ taglia.quantita }}
+                    </li>
+                    {% endfor %}
+                {% else %}
+                    <h4>Non sono state impostate taglie.</h4>
+                {% endif %}
+                    
 
                 <!-- Poi displaya un select per selezionare una delle taglie id presenti nel DB-->
+                <!--TAGLIE DISPONIBILI-->
+                    <div class="flex flex-col">
+                        <label for="vestibilita" class="text-sm font-semibold text-gray-600">Seleziona una taglia:</label>
+                        <select id="vestibilita" name="vestibilita" required
+                                class="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500">
+                                {% for el_taglia in taglie_disponibili%}
+                                    <option value="{{ el_taglia[0] }}">{{ el_taglia[1] }}</option>
+                                {% endfor %}
+                        </select>
+                    </div>
 
                 <!-- da qui poi può aggiungere la quantità-->
     
-                <!-- NOME -->
+                <!-- QUANTITA' -->
                 <div class="flex flex-col">
-                    <label for="nome" class="text-sm font-semibold text-gray-600">Nome:</label>
+                    <label for="nome" class="text-sm font-semibold text-gray-600">Quantità:</label>
                     <input type="text" id="nome" name="nome" required
-                           class="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500">
-                </div>
-    
-                <!-- CATEGORIA -->
-                <div class="flex flex-col">
-                    <label for="categoria" class="text-sm font-semibold text-gray-600">Categoria:</label>
-                    <select id="categoria" name="categoria" required
-                            class="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500">
-                        <option value="uomo">Uomo</option>
-                        <option value="donna">Donna</option>
-                        <option value="bambino">Bambino</option>
-                    </select>
-                </div>
-    
-                <!-- MARCA -->
-                <div class="flex flex-col">
-                    <label for="marca" class="text-sm font-semibold text-gray-600">Marca:</label>
-                    <input type="text" id="marca" name="marca" required
-                           class="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500">
-                </div>
-
-                <!--DESCRIZIONE-->
-                <div class="flex flex-col">
-                    <label for="descrizione" class="text-sm font-semibold text-gray-600">Descrizione:</label>
-                    <input type="text" id="descrizione" name="descrizione" required
-                           class="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500">
-                </div>
-                <!--VESTIBILITA-->
-                <div class="flex flex-col">
-                    <label for="vestibilita" class="text-sm font-semibold text-gray-600">Vestibilità:</label>
-                    <select id="vestibilita" name="vestibilita" required
-                            class="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500">
-                        <option value="XS">XS</option>
-                        <option value="S">S</option>
-                        <option value="M">M</option>
-                        <option value="L">L</option>
-                        <option value="XL">XL</option>
-                    </select>
-                </div>
-                <!--PREZZO-->
-                <div class="flex flex-col">
-                    <label for="prezzo" class="text-sm font-semibold text-gray-600">Prezzo:</label>
-                    <input type="text" id="prezzo" name="prezzo" required
                            class="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500"
-                           placeholder="Inserisci il prezzo (es. 10.99)">
+                           placeholder="Inserisci la quantità (esempio: 53)">
                 </div>
-                <!--COLORE-->
-                <div class="flex flex-col">
-                    <label for="colore" class="text-sm font-semibold text-gray-600">Colore:</label>
-                    <input type="text" id="colore" name="colore" required
-                           class="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500">
-                </div>
-                <!--MATERIALE-->
-                <div class="flex flex-col">
-                    <label for="materiale" class="text-sm font-semibold text-gray-600">Materiale:</label>
-                    <input type="text" id="materiale" name="materiale" required
-                           class="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500">
-                </div>
-
-                <!-- Pulsante di invio -->
-                <button type="submit" class="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300">Invia</button>
+    
+                <!-- Pulsante di Aggiungi taglia -->
+                <button type="submit" class="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300">Conferma l'aggiunta taglia</button>
+                <!-- Pulsante di Termina Aggiunta -->
+                <button type="submit" class="bg-red-500 text-white p-2 rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:border-red-300">Termina l'aggiunta</button>
     
             </form>
             <!-- Fine del form -->

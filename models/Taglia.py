@@ -50,6 +50,31 @@ def get_taglia_by_id(id_taglia):
         return id_taglia, nome_taglia
     else:
         return None
+    
+def get_taglie_quantita_by_id_prodotto(id_prodotto):
+    #select_query ="SELECT taglia.id_taglia, taglia.nome_taglia, taglia_prodotto.quantita FROM taglia_prodotto INNER JOIN taglia ON taglia_prodotto.id_taglia = taglia.id_taglia WHERE taglia_prodotto.id_prodotto = %s"
+    select_query = """
+        SELECT taglia.id_taglia, taglia_prodotto.quantita 
+        FROM taglia_prodotto 
+        INNER JOIN taglia ON taglia_prodotto.id_taglia = taglia.id_taglia 
+        WHERE taglia_prodotto.id_prodotto = %s
+    """
+
+    cursor.execute(select_query, (id_prodotto,))
+    results = cursor.fetchall()
+
+    print(results)
+
+    taglie_quantita = []
+    for row in results:
+        id_taglia, nome_taglia, quantita = row
+        taglie_quantita.append({
+            'id_taglia': id_taglia,
+            'nome_taglia': nome_taglia,
+            'quantita': quantita
+        })
+
+    return taglie_quantita
 
 
 def get_elenco_taglie():

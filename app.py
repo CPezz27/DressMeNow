@@ -3,7 +3,7 @@ from controllers import index
 from controllers.utente import login, profilo, registrati, effettua_ordine, carrello, prodotti
 from controllers.personale import login as login_personale
 from controllers.personale.direttore import direttore
-from controllers.personale.gestore_prodotti import prodotti as prodotti_gestore
+from controllers.personale.gestore_prodotti import prodotti as prodotti_gestore, taglia
 from controllers.personale.gestore_ordini import ordini
 
 
@@ -22,6 +22,7 @@ app.register_blueprint(prodotti.app_bp)
 app.register_blueprint(prodotti_gestore.app_bp)
 app.register_blueprint(direttore.app_bp)
 app.register_blueprint(ordini.app_bp)
+app.register_blueprint(taglia.app_bp)
 
 
 if __name__ == '__main__':

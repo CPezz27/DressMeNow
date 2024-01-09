@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, sessio
 
 from models import Prodotto
 from models.Prodotto import Prodotto
+from controllers.personale.gestore_prodotti import taglia
 
 app_bp = Blueprint('gestore_prodotti', __name__)
 
@@ -41,8 +42,8 @@ def aggiungi_prodotto():
         prezzo = request.form['prezzo']
         colore = request.form['colore']
         materiale = request.form['materiale']
-        id_taglia = request.form['taglia']
-        quantita = request.form['quantita']
+        #id_taglia = request.form['taglia']
+        #quantita = request.form['quantita']
 
         try:
             nuovo_prodotto = Prodotto(
@@ -54,15 +55,23 @@ def aggiungi_prodotto():
                 prezzo=prezzo,
                 colore=colore,
                 materiale=materiale,
-                id_taglia=id_taglia,
-                quantita=quantita
+                #id_taglia=id_taglia,
+                #quantita=quantita
             )
-            nuovo_prodotto.save()
-            return redirect(url_for('taglia.aggiungi_taglia', message="Prodotto aggiunto con successo"))
+
+            #dopo aver inserito il prodotto mi prendo l'id generato 
+            successo, id_prodotto = nuovo_prodotto.save()
+            print(successo, id_prodotto)
+            print("STOQUI")
+            return redirect_to_aggiunta_taglia(id_prodotto)
         except Exception as err:
+            print("ERRORE:")
+            print(err)
             return render_template('aggiungiProdotto.html', messaggio="Errore")
 
-    return render_template('aggiungiProdotto.html')
+
+def redirect_to_aggiunta_taglia(id_prodotto):
+    return redirect(url_for('taglia_controller.aggiunta_taglia', id_prodotto=id_prodotto))
 
 
 @app_bp.route('/gp/modifica_prodotto/<int:product_id>', methods=['GET', 'POST'])
