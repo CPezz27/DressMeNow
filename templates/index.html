@@ -9,13 +9,11 @@
       rel="stylesheet"
     />
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap");
-      h1 {
-        font-family: "poppins", sans-serif;
+      html {
+        scroll-behavior: smooth;
       }
-    </style>
-    <style>
       #tornaSu {
+        z-index: 999;
         position: fixed;
         bottom: 20px;
         right: 20px;
@@ -25,12 +23,40 @@
         border-radius: 5px;
         padding: 10px 15px;
         cursor: pointer;
-        display: none; 
+        display: none;
+      }
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap");
+      h1 {
+        font-family: "poppins", sans-serif;
+      }
+      a {
+        font-family: "poppins", sans-serif;
+      }
+      a:hover {
+        text-decoration: underline;
+        text-decoration-color: #000000;
+        text-decoration-style: solid;
+        text-decoration-thickness: 2px;
       }
     </style>
   </head>
   <body class="font-sans bg-gray-100">
-    <button id="tornaSu" onclick="tornaSu()">Torna su</button>
+    <button id="tornaSu" onclick="tornaSu()">
+      <svg
+        width="25"
+        height="25"
+        fill="none"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M12 19V5"></path>
+        <path d="m5 12 7-7 7 7"></path>
+      </svg>
+    </button>
     {% include 'components/header.html' %}
     <!-- HTML con classi di Tailwind CSS -->
     <section class="py-12 px-4 bg-#d3d3d3">
@@ -43,20 +69,33 @@
           type="text"
           name="product_name"
           placeholder="Cerca prodotto..."
-          class="w-full border border-gray-300 px-4 py-2 rounded-l-md focus:outline-none focus:border-blue-500"
+          class="w-2/3 border border-gray-300 px-3 py-1 rounded-l-md focus:outline-none focus:border-blue-500"
         />
         <button
           type="submit"
-          class="bg-blue-500 text-white px-4 py-2 rounded-r-md"
+          class="bg-black text-white px-3 py-1 rounded-r-md"
         >
-          Cerca
+          <svg
+            width="25"
+            height="25"
+            fill="none"
+            stroke="white"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M10 17a7 7 0 1 0 0-14 7 7 0 0 0 0 14Z"></path>
+            <path d="m21 21-6-6"></path>
+          </svg>
         </button>
       </form>
       <div class="max-w-6xl mx-auto grid grid-cols-3 gap-2">
         <!-- Modello 1 -->
         <div class="border border-gray-300 rounded-lg overflow-hidden">
           <img
-            src="https://i.pinimg.com/236x/83/83/cc/8383cc2065c732b5f4d28a26d566c3b0.jpg"
+            src="https://img01.ztat.net/article/spp-media-p1/3985a41b8d8748d5b11c9fef3e1260e0/1d6b54fae2344dc18a6968ce4b60a3a2.jpg?imwidth=1800"
             alt="Modello 1"
             class="w-full h-auto"
           />
@@ -64,7 +103,7 @@
         <!-- Modello 2 -->
         <div class="border border-gray-300 rounded-lg overflow-hidden">
           <img
-            src="https://cdn.antonymorato.com.filoblu.com/rx/500x,ofmt_webp/media/catalog/product/l/o/look_17_1.jpg"
+            src="https://img01.ztat.net/article/spp-media-p1/81eccce9e55644a986a3e62336788e8d/df0a9a69fa6644c48b03d96470f5bee0.jpg?imwidth=1800"
             alt="Modello 2"
             class="w-full h-88 object-cover"
           />
@@ -72,7 +111,7 @@
         <!-- Modello 3 -->
         <div class="border border-gray-300 rounded-lg overflow-hidden">
           <img
-            src="https://www.myagencymilano.it/wp-content/uploads/2023/04/Andrea-R-modelli-fotomodelli-bambini-kids-junior_1.jpg"
+            src="https://img01.ztat.net/article/spp-media-p1/e6dd613f6ba04e24a63be651f3b41a1f/20c03e63085649dfb3465386c6223b49.jpg?imwidth=1800"
             alt="Modello 3"
             class="w-full h-auto"
           />
@@ -81,7 +120,6 @@
     </section>
 
     <div class="border-t-4 border-gray-800"></div>
-
     <!-- Categoria Uomo -->
     <section class="py-12 px-4 bg-blue-200">
       <div class="max-w-6xl mx-auto">
@@ -131,16 +169,28 @@
           <!-- fine prodotti uomo -->
         </div>
         <div class="text-center mt-6">
-          <a href="/c?category=uomo"
-            ><button class="px-4 py-2 bg-blue-500 text-white rounded-md">
-              Visualizza altro
-            </button></a
-          >
+          <a href="/c?category=uomo">
+            <span class="flex items-center">
+              Vedi di più
+              <span class="ml-1">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  height="1em"
+                  fill="currentColor"
+                  focusable="false"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M.443 12c0 .414.336.75.75.75h20.869l-7.72 7.72a.75.75 0 0 0 1.06 1.06l7.94-7.94a2.252 2.252 0 0 0 0-3.18l-7.94-7.94a.75.75 0 0 0-1.06 1.06l7.72 7.72H1.192a.75.75 0 0 0-.75.75z"
+                  ></path>
+                </svg>
+              </span>
+            </span>
+          </a>
         </div>
       </div>
     </section>
-
-    <div class="border-t-4 border-gray-800"></div>
 
     <!-- Categoria Donna -->
     <section class="py-12 px-4 bg-blue-300">
@@ -193,15 +243,27 @@
         </div>
         <div class="text-center mt-6">
           <a href="/c?category=donna"
-            ><button class="px-4 py-2 bg-blue-500 text-white rounded-md">
-              Visualizza altro
-            </button></a
-          >
+            ><span class="flex items-center">
+              Vedi di più
+              <span class="ml-1">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  height="1em"
+                  fill="currentColor"
+                  focusable="false"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M.443 12c0 .414.336.75.75.75h20.869l-7.72 7.72a.75.75 0 0 0 1.06 1.06l7.94-7.94a2.252 2.252 0 0 0 0-3.18l-7.94-7.94a.75.75 0 0 0-1.06 1.06l7.72 7.72H1.192a.75.75 0 0 0-.75.75z"
+                  ></path>
+                </svg>
+              </span>
+            </span>
+          </a>
         </div>
       </div>
     </section>
-
-    <div class="border-t-4 border-gray-800"></div>
 
     <!-- Categoria Bambino -->
     <section class="py-12 px-4 bg-blue-400">
@@ -256,10 +318,24 @@
         </div>
         <div class="text-center mt-6">
           <a href="/c?category=bambino"
-            ><button class="px-4 py-2 bg-blue-500 text-white rounded-md">
-              Visualizza altro
-            </button></a
-          >
+            ><span class="flex items-center">
+              Vedi di più
+              <span class="ml-1">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  height="1em"
+                  fill="currentColor"
+                  focusable="false"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M.443 12c0 .414.336.75.75.75h20.869l-7.72 7.72a.75.75 0 0 0 1.06 1.06l7.94-7.94a2.252 2.252 0 0 0 0-3.18l-7.94-7.94a.75.75 0 0 0-1.06 1.06l7.72 7.72H1.192a.75.75 0 0 0-.75.75z"
+                  ></path>
+                </svg>
+              </span>
+            </span>
+          </a>
         </div>
       </div>
     </section>
