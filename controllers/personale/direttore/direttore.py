@@ -1,17 +1,17 @@
 from flask import Blueprint, render_template, request, session, redirect, url_for
 
 from models import Personale, Ordine, ProdottoInOrdine
-from models.Personale import Personale
+from models.Personale import Personale, get_all_personale
 
 app_bp = Blueprint('direttore_controller', __name__)
 
 
-@app_bp.route("/d/dashboard")
+@app_bp.route("/direttore/")
 def dashboard():
     return render_template('direttore/index.html')
 
 
-@app_bp.route("/d/")
+@app_bp.route("/direttore/")
 def visualizza_personale():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
@@ -19,9 +19,8 @@ def visualizza_personale():
     if session['ruolo'] != 'direttore':
         return redirect(url_for('index'))
 
-    personale = Personale.get_all_personale()
-    print(personale)
-    return render_template("direttore/personale.html", data=personale)
+    personale = get_all_personale()
+    return render_template("direttore/index.html", data=personale)
 
 
 @app_bp.route("/d/aggiungi_personale", methods=['GET', 'POST'])
@@ -64,9 +63,9 @@ def modifica_personale():
         tipo_personale = request.form['tipo_personale']
         flag = Personale.update_personale(email, password, tipo_personale)
         if flag:
-            return render_template("direttore/modifica_personale.html", message="Personale modificato correttamente.")
+            return render_template("d/modifica_personale.html", message="Personale modificato correttamente.")
         else:
-            return render_template("direttore/modifica_personale.html", message="Personale non modificato.")
+            return render_template("d/modifica_personale.html", message="Personale non modificato.")
 
     return render_template("direttore/modifica_personale.html")
 

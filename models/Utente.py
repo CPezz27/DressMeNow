@@ -36,6 +36,16 @@ def get_user(id):
         return None
 
 
+def get_all_user():
+    try:
+        query = "SELECT * FROM utente"
+        cursor.execute(query)
+        result = cursor.fetchall()
+        return result
+    except mysql.connector.Error as err:
+        return None
+
+
 def get_addresses(id):
     try:
         query = "SELECT * FROM indirizzo WHERE id_utente = %s"

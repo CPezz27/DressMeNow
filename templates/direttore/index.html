@@ -41,13 +41,13 @@
     <tbody class="divide-y divide-white">
         {% for personale in data %}
         <tr>
-            <td class="px-4 py-3 whitespace-nowrap text-black">{{ personale.id_personale }}</td>
-            <td class="px-4 py-3 whitespace-nowrap text-black">{{ personale.email }}</td>
-            <td class="px-4 py-3 whitespace-nowrap text-black">{{ personale.tipo_personale }}</td>
+            <td class="px-4 py-3 whitespace-nowrap text-black text-color: black">{{ personale[0] }}</td>
+            <td class="px-4 py-3 whitespace-nowrap text-black text-color: black">{{ personale[1] }}</td>
+            <td class="px-4 py-3 whitespace-nowrap text-black text-color: black">{{ personale[3] }}</td>
             <td class="px-4 py-3 whitespace-nowrap">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <a href="modifica_personale.html', id_personale=personale.id_personale) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     Modifica
-                </button>
+                </a>
             </td>
         </tr>
         {% endfor %}
