@@ -1,17 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Modifica Personale</title>
+    <link rel="stylesheet" href="../static/css/gestore_ordine.css">
 </head>
+
 <body>
-    <h1>Modifica Personale</h1>
 
-    <form action="/d/modifica_personale" method="POST">
-        <input type="text" id="tipo_personale" name="tipo_personale" value="{{ personale['tipo_personale'] }}"><br><br>
-        <input type="text" id="cognome" name="cognome" value="{{ personale['cognome'] }}"><br><br>
-        <input type="email" id="email" name="email" value="{{ personale['email'] }}"><br><br>
+    {% include 'components/headerDirettore.html' %}
 
-        <input type="submit" value="Salva Modifiche">
-    </form>
+    <main>
+        <section>
+            <h2>Dettagli Personale</h2>
+            {% if message %}
+                <p class="success-message">{{ message }}</p>
+            {% endif %}
+
+            <form method="post" action="/d/modifica_personale">
+
+                <!-- Campi del formulario precaricati con i dati correnti del personale -->
+                <label for="id_personale">ID Personale:</label>
+                <input type="text" id="id_personale" name="id_personale" required><br><br>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required><br><br>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required><br><br>
+
+                <label for="tipo_personale">Tipo Personale:</label>
+                <select id="tipo_personale" name="tipo_personale" required>
+                    <option value="gestore_prodotto">Gestore Prodotto</option>
+                    <option value="gestore_ordine">Gestore Ordine</option>
+                </select>
+                <br><br>
+
+                <input type="submit" value="Salva Modifiche">
+            </form>
+        </section>
+    </main>
+
 </body>
+
 </html>
