@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, session, redirect, url_for
 
 from models import Indirizzo
-from models.Indirizzo import Indirizzo, get_address
+from models.Indirizzo import Indirizzo, get_address, get_addresses, update
 from utils.utils import validate_input
 
 app_bp = Blueprint('gestione_indirizzi', __name__)
@@ -14,7 +14,7 @@ def visualizza_indirizzi():
 
     user_id = session.get('id')
     if user_id:
-        addresses = Indirizzo.get_addresses(user_id)
+        addresses = get_addresses(user_id)
         return render_template('indirizzi.html', addresses=addresses)
     else:
         return render_template('/login')
@@ -93,7 +93,7 @@ def modifica_indirizzo(address_id):
 
             address = get_address(address_id)
             if address and address[1] == user_id:
-                success = Indirizzo.update(provincia, cap, via, tipo, citta, address_id)
+                success = update(provincia, cap, via, tipo, citta, address_id)
                 if success:
                     return redirect(url_for('gestione_indirizzi.visualizza_indirizzi'))
                 else:
