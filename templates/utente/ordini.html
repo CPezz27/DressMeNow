@@ -23,11 +23,11 @@
         }
        }
       button{
-        background-color: #e0e0e0; /* Colore di sfondo grigio */
-      border: 1px solid #e0e0e0; /* Bordo grigio con spessore 1px */
-      border-radius: 5px; /* Bordo arrotondato con raggio 5px */
-      padding: 5px 5px; /* Spaziatura interna del pulsante */
-      cursor: pointer; /* Cambia il cursore quando passi sopra il pulsante */
+        background-color: #e0e0e0; 
+      border: 1px solid #e0e0e0;
+      border-radius: 5px;
+      padding: 7px 7px;
+      cursor: pointer;
       }
     </style>
   </head>
@@ -122,9 +122,9 @@
               <h2 class="orders-infotext-value" style="color:black">RAGAZZI SI DEVE AGGIUNGERE</h2>
               <h2 class="orders-infotext-name">prezzo unitario:</h2>
               <h2 class="orders-infotext-value" style="color:black">{{ product['prezzo_individuale'] }}</h2>
-              {% endfor %}
             </div>
             <button>Effettua reso</button>
+            {% endfor %}
             {% endfor %}
             {% else %}
           <p>Non sono stati effettuati ordini</p>
