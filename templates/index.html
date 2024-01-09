@@ -34,9 +34,23 @@
     {% include 'components/header.html' %}
     <!-- HTML con classi di Tailwind CSS -->
     <section class="py-12 px-4 bg-#d3d3d3">
-      <form action="/search" method="get" class="flex items-center justify-center mt-5 mb-9 w-full max-w-6xl mx-auto">
-        <input type="text" name="product_name" placeholder="Cerca prodotto..." class="w-full border border-gray-300 px-4 py-2 rounded-l-md focus:outline-none focus:border-blue-500">
-        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-r-md">Cerca</button>
+      <form
+        action="/search"
+        method="get"
+        class="flex items-center justify-center mt-5 mb-9 w-full max-w-6xl mx-auto"
+      >
+        <input
+          type="text"
+          name="product_name"
+          placeholder="Cerca prodotto..."
+          class="w-full border border-gray-300 px-4 py-2 rounded-l-md focus:outline-none focus:border-blue-500"
+        />
+        <button
+          type="submit"
+          class="bg-blue-500 text-white px-4 py-2 rounded-r-md"
+        >
+          Cerca
+        </button>
       </form>
       <div class="max-w-6xl mx-auto grid grid-cols-3 gap-2">
         <!-- Modello 1 -->
@@ -68,26 +82,24 @@
 
     <div class="border-t-4 border-gray-800"></div>
 
-    <!-- Sezione prodotti uomo, donna e bambino -->
+    <!-- Categoria Uomo -->
     <section class="py-12 px-4 bg-blue-200">
       <div class="max-w-6xl mx-auto">
         <h2 class="text-3xl font-semibold mb-6">Categoria uomo</h2>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <!-- Prodotti Uomo -->
           {% if res_u %} {% for prodotto in res_u %}
           <!-- Prodotto 1 -->
           <div class="bg-white rounded-lg shadow-md overflow-hidden">
             <form action="/aggiungi_al_carrello" method="post">
-              <div class="aspect-w-1 aspect-h-1">
-                <!-- <img src="{{prodotto['immagine']}}" alt="{{prodotto['nome']}}" class="w-full h-48 object-cover object-center"> -->
-                <img
-                  src="https://lorenzograssia.com/wp-content/uploads/2014/01/prodotto.jpg"
-                  alt="Prodotto 1"
-                  class="w-full h-48 object-cover object-center"
-                />
-              </div>
+              <a href="/pd?product_id={{prodotto[0]}}"
+                ><div class="aspect-w-1 aspect-h-1">
+                  <img
+                    src="data:image/jpeg;base64,{{ prodotto[9] }}"
+                    alt="Prodotto 1"
+                    class="w-full h-48 object-cover object-center"
+                  /></div
+              ></a>
               <div class="p-4">
-                <!-- flex flex-col justify-between -->
                 <h2 class="text-xl font-semibold mb-2">{{prodotto[1]}}</h2>
                 <input
                   type="hidden"
@@ -104,8 +116,6 @@
                 <p class="text-gray-900 font-semibold text-lg mb-2">
                   {{prodotto[6]}}€
                 </p>
-                <!-- </div>
-                    <div class="flex justify-between"> -->
                 <button
                   type="submit"
                   class="px-4 py-2 bg-green-500 text-white rounded-md mr-2"
@@ -132,6 +142,7 @@
 
     <div class="border-t-4 border-gray-800"></div>
 
+    <!-- Categoria Donna -->
     <section class="py-12 px-4 bg-blue-300">
       <div class="max-w-6xl mx-auto">
         <h2 class="text-3xl font-semibold mb-6">Categoria donna</h2>
@@ -141,16 +152,15 @@
           <!-- Prodotto 1 -->
           <div class="bg-white rounded-lg shadow-md overflow-hidden">
             <form action="/aggiungi_al_carrello" method="post">
-              <div class="aspect-w-1 aspect-h-1">
-                <!-- <img src="{{prodotto['immagine']}}" alt="{{prodotto['nome']}}" class="w-full h-48 object-cover object-center"> -->
-                <img
-                  src="https://lorenzograssia.com/wp-content/uploads/2014/01/prodotto.jpg"
-                  alt="Prodotto 1"
-                  class="w-full h-48 object-cover object-center"
-                />
-              </div>
+              <a href="/pd?product_id={{prodotto[0]}}"
+                ><div class="aspect-w-1 aspect-h-1">
+                  <img
+                    src="data:image/jpeg;base64,{{ prodotto[9] }}"
+                    alt="Prodotto 1"
+                    class="w-full h-48 object-cover object-center"
+                  /></div
+              ></a>
               <div class="p-4">
-                <!-- flex flex-col justify-between -->
                 <h2 class="text-xl font-semibold mb-2">{{prodotto[1]}}</h2>
                 <input
                   type="hidden"
@@ -167,8 +177,6 @@
                 <p class="text-gray-900 font-semibold text-lg mb-2">
                   {{prodotto[6]}}€
                 </p>
-                <!-- </div>
-                    <div class="flex justify-between"> -->
                 <button
                   type="submit"
                   class="px-4 py-2 bg-green-500 text-white rounded-md mr-2"
@@ -195,6 +203,7 @@
 
     <div class="border-t-4 border-gray-800"></div>
 
+    <!-- Categoria Bambino -->
     <section class="py-12 px-4 bg-blue-400">
       <div class="max-w-6xl mx-auto">
         <h2 class="text-3xl font-semibold mb-6">Categoria bambino</h2>
@@ -204,14 +213,14 @@
           <!-- Prodotto 1 -->
           <div class="bg-white rounded-lg shadow-md overflow-hidden">
             <form action="/aggiungi_al_carrello" method="post">
-              <div class="aspect-w-1 aspect-h-1">
-                <!-- <img src="{{prodotto['immagine']}}" alt="{{prodotto['nome']}}" class="w-full h-48 object-cover object-center"> -->
-                <img
-                  src="https://lorenzograssia.com/wp-content/uploads/2014/01/prodotto.jpg"
-                  alt="Prodotto 1"
-                  class="w-full h-48 object-cover object-center"
-                />
-              </div>
+              <a href="/pd?product_id={{prodotto[0]}}"
+                ><div class="aspect-w-1 aspect-h-1">
+                  <img
+                    src="data:image/jpeg;base64,{{ prodotto[9] }}"
+                    alt="Prodotto 1"
+                    class="w-full h-48 object-cover object-center"
+                  /></div
+              ></a>
               <div class="p-4">
                 <!-- flex flex-col justify-between -->
                 <h2 class="text-xl font-semibold mb-2">{{prodotto[1]}}</h2>
@@ -230,8 +239,7 @@
                 <p class="text-gray-900 font-semibold text-lg mb-2">
                   {{prodotto[6]}}€
                 </p>
-                <!-- </div>
-                    <div class="flex justify-between"> -->
+
                 <button
                   type="submit"
                   class="px-4 py-2 bg-green-500 text-white rounded-md mr-2"
