@@ -8,7 +8,22 @@
   <link rel="stylesheet" href="/static/css/header.css">
   <link rel="stylesheet" href='css/font-awesome-4.7.0/css/font-awesome.min.css'>
 </head>
+<style>
+  #tornaSu {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    display: none; /* Il pulsante è nascosto all'inizio */
+  }
+</style>
 <body class="bg-gray-100">
+  <button id="tornaSu" onclick="tornaSu()">Torna su</button>
 {% include 'components/header.html' %}
 
   <!-- Contenitore per i prodotti -->
@@ -46,6 +61,31 @@
     var category = "{{ category }}";
     showProducts(category);
     console.log(category);
-  </script>
-</body>
+    </script>
+  <script>
+    // Funzione per tornare in cima alla pagina
+    function tornaSu() {
+      document.body.scrollTop = 0; // Per Safari
+      document.documentElement.scrollTop = 0; // Per altri browser
+    }
+
+    // Mostra o nascondi il pulsante in base allo scrolling
+    window.onscroll = function () {
+      mostraNascondiPulsante();
+    };
+
+    function mostraNascondiPulsante() {
+      var pulsanteTornaSu = document.getElementById("tornaSu");
+
+      if (
+        document.body.scrollTop > 20 ||
+        document.documentElement.scrollTop > 20
+      ) {
+        pulsanteTornaSu.style.display = "block";
+      } else {
+        pulsanteTornaSu.style.display = "none";
+      }
+    }
+    </script>
+  </body>
 </html>

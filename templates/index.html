@@ -284,5 +284,30 @@
       </div>
     </section>
     {% include 'components/footer.html' %}
+    <script>
+      // Funzione per tornare in cima alla pagina
+      function tornaSu() {
+        document.body.scrollTop = 0; // Per Safari
+        document.documentElement.scrollTop = 0; // Per altri browser
+      }
+
+      // Mostra o nascondi il pulsante in base allo scrolling
+      window.onscroll = function () {
+        mostraNascondiPulsante();
+      };
+
+      function mostraNascondiPulsante() {
+        var pulsanteTornaSu = document.getElementById("tornaSu");
+
+        if (
+          document.body.scrollTop > 20 ||
+          document.documentElement.scrollTop > 20
+        ) {
+          pulsanteTornaSu.style.display = "block";
+        } else {
+          pulsanteTornaSu.style.display = "none";
+        }
+      }
+    </script>
   </body>
 </html>
