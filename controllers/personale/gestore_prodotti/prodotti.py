@@ -1,6 +1,9 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session
 
 from models import Prodotto
+from models.Prodotto import view_product
+from models.Prodotto import update_prodotto
+
 from models.Prodotto import Prodotto
 from controllers.personale.gestore_prodotti import taglia
 
@@ -82,16 +85,17 @@ def modifica_prodotto(product_id):
     if session['ruolo'] != 'gestore_prodotto':
         return redirect(url_for('index'))
 
-    prodotto_da_modificare = Prodotto.view_product(product_id)
+    product = view_product(int(product_id))
 
     if request.method == 'POST':
         try:
-            Prodotto.update_prodotto(product_id, **request.form)
-            return redirect(url_for('gestione_prodotto.prodotti', message="Prodotto modificato con successo"))
+            update_prodotto(product_id, **request.form)
+            product = view_product(int(product_id))
+            return render_template('modificaProdotto.html', product=product, message="Prodotto modificato correttamente")
         except Exception as err:
-            return render_template('/gestore_prodotti/modifica_prodotto.html', messaggio="Errore durante la modifica")
+            return render_template('modificaProdotto.html', message="Errore durante la modifica")
 
-    return render_template('/gestore_prodotti/modifica_prodotto.html', prodotto=prodotto_da_modificare)
+    return render_template('modificaProdotto.html', product=product)
 
 
 @app_bp.route('/gp/elimina_prodotto/<int:product_id>', methods=['POST'])
@@ -107,7 +111,21 @@ def elimina_prodotto(product_id):
         return redirect(url_for('gestione_prodotto.prodotti', message="Prodotto eliminato con successo"))
     except Exception as err:
         return render_template('/gestore_prodotti/modifica_prodotto.html', messaggio="Errore durante l'eliminazione")
-    
+
+
+@app_bp.route('/gp/mostra_prodotto', methods=['GET'])
+def mostra_prodotto():
+    if 'logged_in' not in session or not session['logged_in']:
+        return redirect(url_for('user_login.login_page'))
+
+    if session['ruolo'] != 'gestore_prodotto':
+        return redirect(url_for('index'))
+
+    product_id=request.args.get('product_id')
+    product = view_product(int(product_id))
+
+    return render_template('modificaProdotto.html', product=product)
+
 
 @app_bp.route('/gp/mostra_info_prodotti/', methods=['GET'])
 def mostra_info_prodotto():

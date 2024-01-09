@@ -28,40 +28,43 @@
 
   <body class="bg-gray-100 min-h-screen flex items-center justify-center">
     {% include 'components/headerGestoreProdotto.html' %}
-
+    <!-- Supponendo che tu stia passando l'immagine come byte nel template Flask -->
+{% if message %}
+          <div class="mb-4"></div>
+                <p class="success-message">{{ message }}</p>
+        </div>
+            {% endif %}
     <div class="bg-white p-8 md:p-10 max-w-md mx-auto rounded-md shadow-md w-full">
         <h1 class="text-3xl font-semibold mb-6 text-blue-700">Modifica Prodotto</h1>
-        <form id="editProductForm">
-            <!-- Campi precompilati con i dettagli del prodotto -->
-            <!--
-            <div class="mb-4">
+        
+        <form id="editProductForm" action="/gp/modifica_prodotto/{{ product['product_details'][0] }}" method="POST">
+          
+          
+            
+          <div class="mb-4">
                 <label for="product-name" class="block text-gray-700 font-medium">Nome del Prodotto</label>
-                <input type="text" id="product-name" class="mt-1 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:border-blue-500" placeholder="Inserisci il nome del prodotto" value="{{ product.product_details['nome'] }}" required>
+                <input type="text" id="product-name" name="nome" class="mt-1 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:border-blue-500" placeholder="Inserisci il nome del prodotto" value="{{ product['product_details'][1] }}" required>
             </div>
             
             <div class="mb-4">
                 <label for="product-price" class="block text-gray-700 font-medium">Prezzo</label>
-                <input type="number" id="product-price" class="mt-1 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:border-blue-500" placeholder="Inserisci il prezzo" value="{{ product.product_details['prezzo'] }}" required>
+                <input type="number" id="product-price" name="prezzo" class="mt-1 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:border-blue-500" placeholder="Inserisci il prezzo" value="{{ product['product_details'][6] }}" required>
             </div>
             
             <div class="mb-4">
                 <label for="product-description" class="block text-gray-700 font-medium">Descrizione</label>
-                <textarea id="product-description" class="mt-1 p-2 border border-gray-300 rounded-md w-full resize-none focus:outline-none focus:border-blue-500" placeholder="Inserisci la descrizione" rows="4" required>{{ product.product_details['descrizione'] }}</textarea>
+                <textarea id="product-description" name="descrizione" class="mt-1 p-2 border border-gray-300 rounded-md w-full resize-none focus:outline-none focus:border-blue-500" placeholder="Inserisci la descrizione" rows="4" required>{{ product['product_details'][4] }}</textarea>
             </div>
             
             <div class="mb-4">
                 <label for="product-category" class="block text-gray-700 font-medium">Categoria</label>
-                <input type="text" id="product-category" class="mt-1 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:border-blue-500" placeholder="Inserisci la categoria" value="{{ product.product_details['categoria'] }}" required>
+                <input type="text" id="product-category" name="categoria" class="mt-1 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:border-blue-500" placeholder="Inserisci la categoria" value="{{ product['product_details'][2] }}" required>
             </div>
-            <div class="mb-4">
-                <label for="product-name" class="block text-gray-700 font-medium">Nome del Prodotto</label>
-                <input type="text" id="product-name" class="mt-1 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:border-blue-500" placeholder="Inserisci il nome del prodotto" value="{{ product.product_details['nome'] }}" required>
-            </div>
-            -->
+            
             <!-- Altri campi del prodotto precompilati -->
 
             <div class="flex justify-between">
-                <button type="button" onclick="salvaModifiche()" class="px-4 py-2 bg-blue-500 text-white rounded-md">Salva Modifiche</button>
+              <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md">Salva Modifiche</button>
                 <a href="/gestore_prodotto" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md">Torna Indietro</a>
             </div>
         </form>
