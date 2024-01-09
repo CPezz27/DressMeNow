@@ -1,10 +1,12 @@
 import mysql.connector
-from utils.mysql_config import get_database_connection
+from utils import mysql_config
+
+
+conn = mysql_config.get_database_connection()
+cursor = conn.cursor()
 
 
 def get_address(address_id):
-    conn = get_database_connection()
-    cursor = conn.cursor(dictionary=True)
     query = "SELECT * FROM indirizzo WHERE id_indirizzo = %s"
 
     try:
@@ -13,14 +15,9 @@ def get_address(address_id):
         return address
     except mysql.connector.Error as err:
         return None
-    finally:
-        cursor.close()
-        conn.close()
 
 
 def get_addresses(id_utente):
-    conn = get_database_connection()
-    cursor = conn.cursor(dictionary=True)
     query = "SELECT * FROM indirizzo WHERE id_utente = %s"
 
     try:
@@ -29,14 +26,9 @@ def get_addresses(id_utente):
         return addresses
     except mysql.connector.Error as err:
         return None
-    finally:
-        cursor.close()
-        conn.close()
 
 
 def update(provincia, cap, via, tipo, citta, id_indirizzo):
-    conn = get_database_connection()
-    cursor = conn.cursor()
     update_query = ("UPDATE indirizzo SET provincia = %s, cap = %s, via = %s, tipo = %s, città = %s "
                     "WHERE id_indirizzo = %s")
 
@@ -48,14 +40,9 @@ def update(provincia, cap, via, tipo, citta, id_indirizzo):
         return True
     except mysql.connector.Error as err:
         return False
-    finally:
-        cursor.close()
-        conn.close()
 
 
 def delete(id_indirizzo):
-    conn = get_database_connection()
-    cursor = conn.cursor()
     delete_query = "DELETE FROM indirizzo WHERE id_indirizzo = %s"
 
     try:
@@ -64,9 +51,6 @@ def delete(id_indirizzo):
         return True
     except mysql.connector.Error as err:
         return False
-    finally:
-        cursor.close()
-        conn.close()
 
 
 class Indirizzo:
@@ -79,8 +63,6 @@ class Indirizzo:
         self.citta = citta
 
     def save(self):
-        conn = get_database_connection()
-        cursor = conn.cursor()
         insert_query = ("INSERT INTO indirizzo "
                         "(id_utente, provincia, cap, via, tipo, città) "
                         "VALUES (%s, %s, %s, %s, %s, %s)")
@@ -93,6 +75,3 @@ class Indirizzo:
             return True
         except mysql.connector.Error as err:
             return False
-        finally:
-            cursor.close()
-            conn.close()
