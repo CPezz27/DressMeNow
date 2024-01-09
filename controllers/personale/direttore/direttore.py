@@ -6,12 +6,17 @@ from models.Personale import Personale
 app_bp = Blueprint('direttore_controller', __name__)
 
 
+@app_bp.route("/d/dashboard")
+def dashboard():
+    return render_template('direttore/index.html')
+
+
 @app_bp.route("/d/")
 def visualizza_personale():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
 
-    if session['ruolo'] is not 'direttore':
+    if session['ruolo'] != 'direttore':
         return redirect(url_for('index'))
 
     personale = Personale.get_all_personale()
@@ -23,7 +28,7 @@ def aggiungi_personale():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
 
-    if session['ruolo'] is not 'direttore':
+    if session['ruolo'] != 'direttore':
         return redirect(url_for('index'))
 
     if request.method == 'POST':
@@ -37,11 +42,11 @@ def aggiungi_personale():
         )
         flag = personale.save()
         if flag:
-            return render_template("direttore/personale.html", message="Personale creato correttamente.")
+            return render_template("direttore/aggiunta_personale.html", message="Personale creato correttamente.")
         else:
-            return render_template("direttore/personale.html", message="Personale non creato.")
+            return render_template("direttore/aggiunta_personale.html", message="Personale non creato.")
 
-    return render_template("direttore/aggiungi_personale.html")
+    return render_template("direttore/aggiunta_personale.html")
 
 
 @app_bp.route("/d/modifica_personale", methods=['GET', 'POST'])
@@ -49,7 +54,7 @@ def modifica_personale():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
 
-    if session['ruolo'] is not 'direttore':
+    if session['ruolo'] != 'direttore':
         return redirect(url_for('index'))
 
     if request.method == 'POST':
@@ -70,7 +75,7 @@ def rimuovi_personale():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
 
-    if session['ruolo'] is not 'direttore':
+    if session['ruolo'] != 'direttore':
         return redirect(url_for('index'))
 
     if request.method == 'POST':
@@ -87,22 +92,22 @@ def visualizza_statistiche_ordini():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
 
-    if session['ruolo'] is not 'direttore':
+    if session['ruolo'] != 'direttore':
         return redirect(url_for('index'))
 
     try:
         vendite_totali = Ordine.calcola_vendite_totali()
-
+        print("vendite totali", vendite_totali)
         guadagno = Ordine.calcola_guadagno()
-
+        print("calcolo guadagno:", guadagno)
         prodotti_resi = ProdottoInOrdine.conta_prodotti_resi()
-
+        print("conta prodotti resi:", prodotti_resi)
         percentuale_resi = ProdottoInOrdine.percentuale_prodotti_resi()
-
-        return render_template("/d/statistiche_ordini.html",
+        print("perc prodotti resi:", percentuale_resi)
+        return render_template("/direttore/statistiche.html",
                                vendite_totali=vendite_totali,
                                guadagno=guadagno,
                                prodotti_resi=prodotti_resi,
                                percentuale_resi=percentuale_resi)
     except Exception as e:
-        return render_template("errore.html", message="Errore durante il recupero delle statistiche ordini.")
+        return render_template("500.html", message="Errore durante il recupero delle statistiche ordini.")

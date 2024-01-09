@@ -58,16 +58,16 @@
     <h1>Benvenuto, Direttore!</h1>
     <nav>
         <ul>
-            <li><a href="#dashboard">Dashboard</a></li>
+            <li><a href="/d/dashboard">Dashboard</a></li>
             <li><a href="/d/aggiungi_personale">Aggiunta Personale</a></li>
-            <li><a href="/statistiche">Statistiche Sito</a></li>
-            <li><a href="/logout">Logout</a></li>
+            <li><a href="/d/statistiche_ordini">Statistiche Sito</a></li>
+            <li><button onclick="showLogoutConfirmation()">Logout</button></li>
         </ul>
     </nav>
 </header>
 <div id="overlay"></div>
     <div id="logoutConfirmation">
-      <p>Sei sicuro di voler effettuare il Logout?</p>
+      <p style="color: black;">Sei sicuro di voler effettuare il Logout?</p>
       <button id="Si" onclick="confirmLogout()">Si</button>
       <button id="No" onclick="cancelLogout()">No</button>
     </div>
