@@ -33,3 +33,19 @@ document.querySelectorAll('.nav-profilo a').forEach((link, index) => {
     link.classList.add('active');
   });
 });
+
+function abilitaModifica(button, e) {
+  e.preventDefault();
+  var input = button.previousElementSibling;
+  input.readOnly = false;
+  input.focus();
+  button.style.display = 'none';
+}
+
+function abilitaModificaselect(button, e) {
+  e.preventDefault();
+  var input = button.previousElementSibling;
+  input.disabled = false;
+  input.focus();
+  button.style.display = 'none';
+}

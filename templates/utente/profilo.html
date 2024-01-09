@@ -163,24 +163,7 @@
     </div>
 </div>
 <script src="../../static/js/profilo.js"></script>
-<script>
-      function abilitaModifica(button, e) {
-    e.preventDefault();
-    var input = button.previousElementSibling;
-    input.readOnly = false;
-    input.focus();
-    button.style.display = 'none';
-  }
 
-  function abilitaModificaselect(button, e) {
-    e.preventDefault();
-    var input = button.previousElementSibling;
-    input.disabled = false;
-    input.focus();
-    button.style.display = 'none';
-  }
-
-</script>
 {% include 'components/footer.html' %}
 
 </body>
