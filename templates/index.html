@@ -19,6 +19,10 @@
     {% include 'components/header.html' %}
     <!-- HTML con classi di Tailwind CSS -->
     <section class="py-12 px-4 bg-#d3d3d3">
+      <form action="/search" method="get" class="flex items-center justify-center mt-5 mb-9 w-full max-w-6xl mx-auto">
+        <input type="text" name="product_name" placeholder="Cerca prodotto..." class="w-full border border-gray-300 px-4 py-2 rounded-l-md focus:outline-none focus:border-blue-500">
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-r-md">Cerca</button>
+      </form>
       <div class="max-w-6xl mx-auto grid grid-cols-3 gap-2">
         <!-- Modello 1 -->
         <div class="border border-gray-300 rounded-lg overflow-hidden">

@@ -10,20 +10,19 @@
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
     />
   </head>
-  {% include 'components/header.html' %}
   <body
-    class="bg-gray-100 min-h-screen flex flex-col items-center justify-start"
+    class="bg-gray-100"
   >
+  {% include 'components/header.html' %}
+
     <div class="w-full mx-auto px-6 py-12">
       <h1 class="text-4xl font-semibold mb-8 text-center">Prodotti</h1>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
         {% if data %} {% for prodotto in data %}
-        <!-- Prodotto 1 -->
         <div class="bg-white rounded-lg shadow-md overflow-hidden">
           <form action="/aggiungi_al_carrello" method="post">
             <div class="aspect-w-1 aspect-h-1">
-              <!-- <img src="{{prodotto['immagine']}}" alt="{{prodotto['nome']}}" class="w-full h-48 object-cover object-center"> -->
               <img
                 src="https://lorenzograssia.com/wp-content/uploads/2014/01/prodotto.jpg"
                 alt="Prodotto 1"
@@ -31,7 +30,6 @@
               />
             </div>
             <div class="p-4">
-              <!-- flex flex-col justify-between -->
               <h2 class="text-xl font-semibold mb-2">{{prodotto[1]}}</h2>
               <input
                 type="hidden"
@@ -48,8 +46,6 @@
               <p class="text-gray-900 font-semibold text-lg mb-2">
                 {{prodotto[6]}}€
               </p>
-              <!-- </div>
-                    <div class="flex justify-between"> -->
               <button
                 type="submit"
                 class="px-4 py-2 bg-green-500 text-white rounded-md mr-2"
