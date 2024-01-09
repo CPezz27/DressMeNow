@@ -49,8 +49,13 @@ def get_sizes_for_product(prodotto_id):
 
 
 def search_prodotto_by_name(nome):
-    search_query = "SELECT p.*, MIN(i.id_immagine) AS first_image FROM prodotto p LEFT JOIN immagine i ON " \
-                   "p.id_prodotto = i.id_prodotto WHERE p.nome LIKE %s GROUP BY p.id_prodotto"
+    search_query = ("SELECT p.*, MIN(i.id_immagine) AS first_image, "
+                    "TO_BASE64(MIN(i.immagine)) AS base64_image "
+                    "FROM prodotto p "
+                    "LEFT JOIN immagine i ON p.id_prodotto = i.id_prodotto "
+                    "WHERE p.nome LIKE %s "
+                    "GROUP BY p.id_prodotto")
+
     search_name = f"%{nome}%"
 
     try:
@@ -61,10 +66,13 @@ def search_prodotto_by_name(nome):
         return None
 
 
-def view_products():
-    search_query = "SELECT p.*, MIN(i.id_immagine) AS first_image FROM prodotto p LEFT JOIN immagine i ON " \
-                   "p.id_prodotto = i.id_prodotto GROUP BY p.id_prodotto"
 
+def view_products():
+    search_query = ("SELECT p.*, MIN(i.id_immagine) AS first_image, "
+                    "TO_BASE64(MIN(i.immagine)) AS base64_image "
+                    "FROM prodotto p "
+                    "LEFT JOIN immagine i ON p.id_prodotto = i.id_prodotto "
+                    "GROUP BY p.id_prodotto")
     try:
         cursor.execute(search_query)
         results = cursor.fetchall()
@@ -114,8 +122,14 @@ def view_product(product_id):
 
 
 def view_products_by_category(category):
-    search_query = "SELECT * FROM prodotto WHERE categoria = %s"
-
+    search_query = ("SELECT p.*, ("
+                    "SELECT TO_BASE64(immagine) "
+                    "FROM immagine i "
+                    "WHERE i.id_prodotto = p.id_prodotto "
+                    "LIMIT 1 "
+                    ") AS base64_immagine "
+                    "FROM prodotto p "
+                    "WHERE p.categoria = %s")
     try:
         cursor.execute(search_query, (category,))
         result = cursor.fetchall()
