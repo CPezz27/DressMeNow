@@ -102,8 +102,7 @@ def visualizza_ordine(order_id):
                     'marca': row[18]
                 }
                 order_dict['prodotti'].append(product)
-
-            print(str(order_dict))
+            
             return order_dict
         else:
             return None
