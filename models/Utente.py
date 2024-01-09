@@ -51,18 +51,12 @@ def get_addresses(id):
 
 def delete_account(user_id):
     try:
-        conn.start_transaction()
-
-        delete_address_query = "DELETE FROM indirizzo WHERE id_utente = %s"
-        cursor.execute(delete_address_query, (user_id,))
-
-        delete_user_query = "DELETE FROM utente WHERE id_utente = %s"
-        cursor.execute(delete_user_query, (user_id,))
+        soft_delete_user_query = "UPDATE utente SET is_deleted = 1 WHERE id_utente = %s"
+        cursor.execute(soft_delete_user_query, (user_id,))
 
         conn.commit()
         return True
     except mysql.connector.Error as err:
-        conn.rollback()
         return False
 
 

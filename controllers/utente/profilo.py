@@ -90,10 +90,8 @@ def delete_account():
         return redirect(url_for('user_login.login_page'))
 
     try:
-        user_id = session['id']
-        success = Utente.delete_account(user_id)
-
-        print(success)
+        user_id = session.get('id')
+        Utente.delete_account(user_id)
 
         session.pop('id', None)
         session.pop('logged_in', None)
@@ -117,13 +115,11 @@ def modifica_profilo():
             user = Utente.get_user(id=user_id)
 
             if user:
-                # Pagina per la modifica
-                return render_template('modifica_profilo.html', user=user)
+                return redirect(url_for('user_profile.profilo', message="Utente modificato."))
             else:
-                return render_template('profilo.html', message="Utente non trovato.")
+                return redirect(url_for('user_profile.profilo', message="Utente non trovato."))
         else:
-            return render_template('/login')
-
+            return redirect(url_for('user_login.login_page'))
     elif request.method == 'POST':
         user_id = session.get('id')
         if user_id:

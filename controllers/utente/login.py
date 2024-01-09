@@ -25,6 +25,9 @@ def login():
             user = Utente.login(email, password)
 
             if user:
+                if user[8] == 1:
+                    return render_template('utente/login.html', message="Account non esistente.")
+
                 session['logged_in'] = True
                 session['id'] = user[0]
                 return redirect('p/profilo')
