@@ -15,6 +15,21 @@
       href="{{ url_for('static', filename='css/profilo.css') }}"
     />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+    <style>
+       @media screen and (min-width: 555px){
+        button{
+          margin-top: 20px;
+          margin-left: 123px;
+        }
+       }
+      button{
+        background-color: #e0e0e0; /* Colore di sfondo grigio */
+      border: 1px solid #e0e0e0; /* Bordo grigio con spessore 1px */
+      border-radius: 5px; /* Bordo arrotondato con raggio 5px */
+      padding: 5px 5px; /* Spaziatura interna del pulsante */
+      cursor: pointer; /* Cambia il cursore quando passi sopra il pulsante */
+      }
+    </style>
   </head>
 
   <body>
@@ -102,13 +117,14 @@
             <div class="orders-info">
               {% for product in order['products'] %}
               <h2 class="orders-infotext-name">Nome:</h2>
-              <h2 class="orders-infotext-value">{{ product['nome_prodotto'] }}</h2>
+              <h2 class="orders-infotext-value" style="color:black">{{ product['nome_prodotto'] }}</h2>
               <h2 class="orders-infotext-name">Quantity:</h2>
-              <h2 class="orders-infotext-value">RAGAZZI SI DEVE AGGIUNGERE</h2>
+              <h2 class="orders-infotext-value" style="color:black">RAGAZZI SI DEVE AGGIUNGERE</h2>
               <h2 class="orders-infotext-name">prezzo unitario:</h2>
-              <h2 class="orders-infotext-value">{{ product['prezzo_individuale'] }}</h2>
+              <h2 class="orders-infotext-value" style="color:black">{{ product['prezzo_individuale'] }}</h2>
               {% endfor %}
             </div>
+            <button>Effettua reso</button>
             {% endfor %}
             {% else %}
           <p>Non sono stati effettuati ordini</p>
