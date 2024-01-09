@@ -88,9 +88,11 @@
       </div>
 
       <div class="rightbox">
+        
         <div class="addresses">
             {% if data %}
             {% for indirizzo in data %}
+            <form action="/indirizzo/modifica/{{indirizzo[0]}}" method="post">
             <div class="indirizzo indirizzo-attivo" id="indirizzo{{ loop.index0 }}">
               <h1>Indirizzo {{ loop.index }}</h1>
                 <h2>Provincia</h2>
@@ -164,6 +166,8 @@
                   </svg>
               </button>
               </div>
+              <button type="submit">ALE</button>
+            </form>
             {% endfor %}
           {% else %}
             <p>Nessun indirizzo trovato per questo utente.</p>
