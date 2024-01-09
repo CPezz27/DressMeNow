@@ -36,7 +36,7 @@ def get_user(id):
         return None
 
 
-def get_all_user():
+def get_all_users():
     try:
         query = "SELECT * FROM utente"
         cursor.execute(query)

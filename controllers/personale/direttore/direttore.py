@@ -1,17 +1,25 @@
 from flask import Blueprint, render_template, request, session, redirect, url_for
 
-from models import Personale, Ordine, ProdottoInOrdine
+from models import Personale, Ordine, ProdottoInOrdine, Utente
 from models.Personale import Personale, get_all_personale
+from models.Utente import Utente, get_all_users
 
 app_bp = Blueprint('direttore_controller', __name__)
 
 
-@app_bp.route("/direttore/")
-def dashboard():
-    return render_template('direttore/index.html')
+@app_bp.route("/d/visualizza_utenti")
+def visualizza_utenti():
+    if 'logged_in' not in session or not session['logged_in']:
+        return redirect(url_for('user_login.login_page'))
+
+    if session['ruolo'] != 'direttore':
+        return redirect(url_for('index'))
+
+    utente = get_all_users()
+    return render_template("direttore/index.html", data=utente)
 
 
-@app_bp.route("/direttore/")
+@app_bp.route("/d/dashboard")
 def visualizza_personale():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
@@ -20,6 +28,7 @@ def visualizza_personale():
         return redirect(url_for('index'))
 
     personale = get_all_personale()
+    print(personale)
     return render_template("direttore/index.html", data=personale)
 
 
@@ -58,15 +67,15 @@ def modifica_personale():
         return redirect(url_for('index'))
 
     if request.method == 'POST':
+        id_personale = request.form['id_personale']
         email = request.form['email']
         password = request.form['password']
         tipo_personale = request.form['tipo_personale']
-        flag = Personale.update_personale(email, password, tipo_personale)
+        flag = Personale.update_personale(id_personale, email, password, tipo_personale)
         if flag:
             return render_template("d/modifica_personale.html", message="Personale modificato correttamente.")
         else:
             return render_template("d/modifica_personale.html", message="Personale non modificato.")
-
     return render_template("direttore/modifica_personale.html")
 
 
