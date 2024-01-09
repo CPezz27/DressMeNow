@@ -6,12 +6,10 @@
 <body>
     <h1>Modifica Personale</h1>
 
-    <form action="{{ url_for('/d/modifica_personale', id_personale=id_personale) }}" method="POST">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" value="{{ personale.email }}"><br><br>
-
-        <label for="tipo_personale">Tipo di Personale:</label>
-        <input type="text" id="tipo_personale" name="tipo_personale" value="{{ personale.tipo_personale }}"><br><br>
+    <form action="/d/modifica_personale" method="POST">
+        <input type="text" id="tipo_personale" name="tipo_personale" value="{{ personale['tipo_personale'] }}"><br><br>
+        <input type="text" id="cognome" name="cognome" value="{{ personale['cognome'] }}"><br><br>
+        <input type="email" id="email" name="email" value="{{ personale['email'] }}"><br><br>
 
         <input type="submit" value="Salva Modifiche">
     </form>
