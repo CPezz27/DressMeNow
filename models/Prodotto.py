@@ -147,11 +147,10 @@ def update_prodotto(product_id, **kwargs):
 
 
 def delete(product_id):
-    delete_query = "DELETE FROM prodotto WHERE id_prodotto=%s"
+    update_query = "UPDATE prodotto SET is_deleted = 1 WHERE id_prodotto=%s"
 
     try:
-        cursor.execute(delete_query, (product_id,))
-
+        cursor.execute(update_query, (product_id,))
         conn.commit()
         return True
     except mysql.connector.Error as err:
