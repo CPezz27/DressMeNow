@@ -36,6 +36,31 @@ def aggiungi_taglia():
             return render_template("errore.html")  # Mostra una pagina di errore
     else:
         return redirect("utente/index.html")  # Se non viene inviato un metodo POST, reindirizza alla pagina principale
+    
+
+    
+
+@app_bp.route("/gp/aggiungi_taglia_al_prodotto", methods=['POST'])
+def aggiungi_taglia_al_prodotto():
+    if 'logged_in' not in session or not session['logged_in']:
+        return redirect(url_for('user_login.login_page'))
+
+    if session['ruolo'] != 'gestore_prodotto':
+        return redirect(url_for('index'))
+
+    if request.method == 'POST':
+        quantita = request.form['qta']
+        id_taglia = request.form['taglia']
+        id_prodotto = request.form['id_prodotto']
+        #taglia = Taglia(nome_taglia=nome_taglia)
+        success = Taglia.inserisci_taglia_prodotto_nel_database(id_taglia, id_prodotto, quantita)
+
+        if success:
+            return redirect(url_for('taglia_controller.aggiunta_taglia', id_prodotto=id_prodotto))
+        else:
+            return render_template("errore.html")  # Mostra una pagina di errore
+    else:
+        return redirect("utente/index.html")  # Se non viene inviato un metodo POST, reindirizza alla pagina principale
 
 
 @app_bp.route("/gp/modifica_taglia", methods=['POST'])

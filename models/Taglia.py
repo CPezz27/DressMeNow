@@ -51,10 +51,26 @@ def get_taglia_by_id(id_taglia):
     else:
         return None
     
+def inserisci_taglia_prodotto_nel_database(id_taglia, id_prodotto, quantita):
+    insert_query = ("INSERT INTO taglia_prodotto "
+                        "(id_taglia, id_prodotto, quantita) "
+                        "VALUES (%s, %s, %s)")
+
+    product_data = (id_taglia, id_prodotto, quantita)
+
+    try:
+        cursor.execute(insert_query, product_data)
+        conn.commit()
+        return True
+    except mysql.connector.Error as err:
+        return False
+
+    
+    
 def get_taglie_quantita_by_id_prodotto(id_prodotto):
     #select_query ="SELECT taglia.id_taglia, taglia.nome_taglia, taglia_prodotto.quantita FROM taglia_prodotto INNER JOIN taglia ON taglia_prodotto.id_taglia = taglia.id_taglia WHERE taglia_prodotto.id_prodotto = %s"
     select_query = """
-        SELECT taglia.id_taglia, taglia_prodotto.quantita 
+        SELECT taglia.id_taglia, taglia.nometaglia, taglia_prodotto.quantita 
         FROM taglia_prodotto 
         INNER JOIN taglia ON taglia_prodotto.id_taglia = taglia.id_taglia 
         WHERE taglia_prodotto.id_prodotto = %s
