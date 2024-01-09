@@ -93,6 +93,11 @@ def visual_ordine():
 
 @app_bp.route('/go/dashboard')
 def dashboard():
+    if 'logged_in' not in session or not session['logged_in']:
+        return redirect(url_for('user_login.login_page'))
+
+    if session['ruolo'] != 'gestore_ordine':
+        return redirect(url_for('index'))
     orders_details = Ordine.get_all_orders_with_details()
     
     return render_template('gestoreOrdine.html', orders_details=orders_details)
