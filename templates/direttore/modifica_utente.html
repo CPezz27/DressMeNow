@@ -3,18 +3,20 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Gestisci Utente</title>
-    <!-- Link ai file CSS di Tailwind -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../static/css/direttore.css">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <title>Gestisci Utente</title>
 </head>
 
-<body class="bg-gray-100">
-
-    {% include 'components/headerDirettore.html' %}
+{% include 'components/headerDirettore.html' %}
+<body class="font-sans bg-green-300">
 
     <div class="container mx-auto p-8">
-        <h1 class="text-3xl font-bold mb-4">Modifica Utente</h1>
+        <h1 class="text-2xl font-bold mb-4">Modifica Utente</h1>
 
         {% if message %}
             <p class="mb-4 text-green-600">{{ message }}</p>
@@ -26,39 +28,34 @@
             <!-- Campi per la modifica dell'utente -->
             <div class="mb-4">
                 <label for="nome" class="block text-gray-700 font-bold mb-2">Nome:</label>
-                <input type="text" id="nome" name="nome" class="w-full rounded-md border-gray-300 px-3 py-2 focus:outline-none focus:border-blue-500">
+                <input type="text" id="nome" name="nome" value="{{utente.nome}}" class="w-full rounded-md border-gray-300 px-3 py-2 focus:outline-none focus:border-blue-500">
             </div>
 
             <div class="mb-4">
                 <label for="cognome" class="block text-gray-700 font-bold mb-2">Cognome:</label>
-                <input type="text" id="cognome" name="cognome" class="w-full rounded-md border-gray-300 px-3 py-2 focus:outline-none focus:border-blue-500">
+                <input type="text" id="cognome" name="cognome" value="{{utente.cognome}}" class="w-full rounded-md border-gray-300 px-3 py-2 focus:outline-none focus:border-blue-500">
             </div>
 
             <div class="mb-4">
                 <label for="email" class="block text-gray-700 font-bold mb-2">Email:</label>
-                <input type="email" id="email" name="email" class="w-full rounded-md border-gray-300 px-3 py-2 focus:outline-none focus:border-blue-500">
-            </div>
-
-            <div class="mb-4">
-                <label for="password" class="block text-gray-700 font-bold mb-2">Password:</label>
-                <input type="password" id="password" name="password" class="w-full rounded-md border-gray-300 px-3 py-2 focus:outline-none focus:border-blue-500">
+                <input type="email" id="email" name="email" value="{{utente.email}}" class="w-full rounded-md border-gray-300 px-3 py-2 focus:outline-none focus:border-blue-500">
             </div>
 
             <div class="mb-4">
                 <label for="data_nascita" class="block text-gray-700 font-bold mb-2">Data di nascita:</label>
-                <input type="date" id="data_nascita" name="data_nascita" class="w-full rounded-md border-gray-300 px-3 py-2 focus:outline-none focus:border-blue-500">
+                <input type="date" id="data_nascita" name="data_nascita" value="{{utente.data_nascita}}" class="w-full rounded-md border-gray-300 px-3 py-2 focus:outline-none focus:border-blue-500">
             </div>
 
             <div class="mb-4">
                 <label for="telefono" class="block text-gray-700 font-bold mb-2">Telefono:</label>
-                <input type="tel" id="telefono" name="telefono" class="w-full rounded-md border-gray-300 px-3 py-2 focus:outline-none focus:border-blue-500">
+                <input type="tel" id="telefono" name="telefono" value="{{utente.telefono}}" class="w-full rounded-md border-gray-300 px-3 py-2 focus:outline-none focus:border-blue-500">
             </div>
 
             <div class="mb-4">
                 <label for="sesso" class="block text-gray-700 font-bold mb-2">Sesso:</label>
                 <select id="sesso" name="sesso" class="w-full rounded-md border-gray-300 px-3 py-2 focus:outline-none focus:border-blue-500">
-                    <option value="uomo">Uomo</option>
-                    <option value="donna">Donna</option>
+                    <option value="uomo" {% if utente.sesso == 'uomo' %} selected {% endif %}>Uomo</option>
+                    <option value="donna" {% if utente.sesso == 'donna' %} selected {% endif %}>Donna</option>
                 </select>
             </div>
 

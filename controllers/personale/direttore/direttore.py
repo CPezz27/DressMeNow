@@ -101,9 +101,11 @@ def mostra_utente():
     if session['ruolo'] != 'direttore':
         return redirect(url_for('index'))
 
-    id_utente = request.args.get('user_id')
+    id_utente = request.args.get('id_user')
 
     utente = view_utente(int(id_utente))
+
+    print(utente)
 
     return render_template('direttore/modifica_utente.html', utente=utente)
 
