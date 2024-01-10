@@ -32,20 +32,20 @@ def mostra_info_prodotto():
 
 
 def get_sizes_for_product(prodotto_id):
-        try:
-            query = (
+    try:
+        query = (
             "SELECT t.id_taglia, t.nometaglia, tp.quantita "
             "FROM taglia t "
             "JOIN taglia_prodotto tp ON t.id_taglia = tp.id_taglia "
             "WHERE tp.id_prodotto = %s"
         )
-            cursor.execute(query, (prodotto_id,))
-            sizes = cursor.fetchall()
-            #print(sizes)
-            return sizes
-        except mysql.connector.Error as err:
-            print(f"Errore durante il recupero delle taglie per il prodotto {prodotto_id}: {err}")
-            return None
+        cursor.execute(query, (prodotto_id,))
+        sizes = cursor.fetchall()
+        # print(sizes)
+        return sizes
+    except mysql.connector.Error as err:
+        print(f"Errore durante il recupero delle taglie per il prodotto {prodotto_id}: {err}")
+        return None
 
 
 def search_prodotto_by_name(nome):
@@ -53,7 +53,7 @@ def search_prodotto_by_name(nome):
                     "TO_BASE64(MIN(i.immagine)) AS base64_image "
                     "FROM prodotto p "
                     "LEFT JOIN immagine i ON p.id_prodotto = i.id_prodotto "
-                    "WHERE p.nome LIKE %s "
+                    "WHERE p.nome LIKE %s AND p.is_deleted = 0 "
                     "GROUP BY p.id_prodotto")
 
     search_name = f"%{nome}%"
@@ -71,6 +71,7 @@ def view_products():
                     "TO_BASE64(MIN(i.immagine)) AS base64_image "
                     "FROM prodotto p "
                     "LEFT JOIN immagine i ON p.id_prodotto = i.id_prodotto "
+                    "WHERE p.is_deleted = 0 "
                     "GROUP BY p.id_prodotto")
     try:
         cursor.execute(search_query)
@@ -81,7 +82,7 @@ def view_products():
 
 
 def view_product(product_id):
-    search_query = "SELECT * FROM prodotto WHERE id_prodotto = %s"
+    search_query = "SELECT * FROM prodotto WHERE id_prodotto = %s AND p.is_deleted = 0"
     image_query = "SELECT * FROM immagine WHERE id_prodotto = %s"
     size_query = (
         "SELECT t.nometaglia, tp.quantita "
@@ -128,7 +129,7 @@ def view_products_by_category(category):
                     "LIMIT 1 "
                     ") AS base64_immagine "
                     "FROM prodotto p "
-                    "WHERE p.categoria = %s")
+                    "WHERE p.categoria = %s AND p.is_deleted = 0")
     try:
         cursor.execute(search_query, (category,))
         result = cursor.fetchall()
@@ -180,8 +181,8 @@ class Prodotto:
         self.prezzo = prezzo
         self.colore = colore
         self.materiale = materiale
-        #self.id_taglia = id_taglia
-        #self.quantita = quantita
+        # self.id_taglia = id_taglia
+        # self.quantita = quantita
 
     def save(self):
         insert_query = ("INSERT INTO prodotto "
@@ -195,7 +196,7 @@ class Prodotto:
             cursor.execute(insert_query, product_data)
             conn.commit()
 
-             # Ottieni l'ID dell'ultimo prodotto inserito
+            # Ottieni l'ID dell'ultimo prodotto inserito
             cursor.execute("SELECT LAST_INSERT_ID()")
             last_inserted_id = cursor.fetchone()[0]
 
