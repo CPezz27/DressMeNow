@@ -13,6 +13,16 @@ def visualizza_immagini():
         return immagini
     except mysql.connector.Error as err:
         return None
+    
+
+def visualizza_immagini_prodotto(id_prodotto):
+    query = "SELECT * FROM immagine WHERE id_prodotto=%s"
+    try:
+        cursor.execute(query, (id_prodotto,))
+        immagini = cursor.fetchall()
+        return immagini
+    except mysql.connector.Error as err:
+        return None
 
 
 def rimuovi_immagine(id_immagine):

@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, redirect, session, url_fo
 
 from models import Immagine
 from models.Immagine import Immagine
+from models.Immagine import visualizza_immagini_prodotto
 
 app_bp = Blueprint('image_controller', __name__)
 
@@ -58,3 +59,17 @@ def visualizza_immagini():
     immagini = Immagine.visualizza_immagini()
 
     return render_template("gestore_prodotti/immagini.html", data=immagini)
+
+
+@app_bp.route("/gp/visualizza_immagini_prodotto/<int:id_prodotto>", methods=['GET', 'POST'])
+def visualizza_immagini_prodotto(id_prodotto):
+    if 'logged_in' not in session or not session['logged_in']:
+        return redirect(url_for('user_login.login_page'))
+
+    if session['ruolo'] is not 'gestore_prodotto':
+        return redirect(url_for('index'))
+
+    print("\n\nSonoQUI\n\n")
+    immagini = visualizza_immagini_prodotto(id_prodotto)
+
+    return render_template("aggiungiImgProdotto.html", data=immagini)

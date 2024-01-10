@@ -40,7 +40,8 @@
               <th>Prezzo</th>
               <th>Taglia</th>
               <th>Disponibilità</th>
-              <th></th>
+              <th>Modifica dati prodotto</th>
+              <th>Aggiungi immagine</th>
             </tr>
           </thead>
           <tbody>
@@ -57,6 +58,11 @@
                           Modifica
                       </a>
                   </td>
+                  <td>
+                    <a href="/gp/visualizza_immagini_prodotto/{{ prodotto['id_prodotto'] }}">
+                      Aggiungi immagine
+                  </a>                  
+                </td>
                 </tr>
                 {% endfor %}
             {% endfor %}

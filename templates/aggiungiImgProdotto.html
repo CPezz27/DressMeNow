@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizza Immagini Prodotto</title>
+</head>
+<body>
+    {% include 'components/headerGestoreProdotto.html' %}
+    <h1>Immagini Prodotto</h1>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    {% if data %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Immagine</th>
+                    <th>Tipo</th>
+                    <!-- Altre colonne secondo la tua struttura di tabella -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for immagine in data %}
+                    <tr>
+                        <td>{{ immagine.id_immagine }}</td>
+                        <td>{{ immagine.tipo }}</td>
+                        <!-- Altri campi della tabella -->
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Nessuna immagine disponibile per questo prodotto.</p>
+    {% endif %}
+</body>
+</html>

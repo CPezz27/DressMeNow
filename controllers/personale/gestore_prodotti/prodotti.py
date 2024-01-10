@@ -98,7 +98,7 @@ def modifica_prodotto(product_id):
 
     return render_template('modificaProdotto.html', product=product)
 
-
+#in teoria si può eliminare secondo PL7 sium calabrese
 @app_bp.route('/gp/elimina_prodotto/<int:product_id>', methods=['GET', 'POST'])
 def elimina_prodotto(product_id):
     if 'logged_in' not in session or not session['logged_in']:
