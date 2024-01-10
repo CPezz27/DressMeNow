@@ -3,6 +3,7 @@ from flask import Blueprint, render_template, request, redirect, session, url_fo
 from models import Immagine
 from models.Immagine import Immagine
 from models.Immagine import visualizza_immagini_prodotto
+from base64 import b64encode
 
 app_bp = Blueprint('image_controller', __name__)
 
@@ -12,11 +13,11 @@ def aggiungi_immagine():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
 
-    if session['ruolo'] is not 'gestore_prodotto':
+    if session['ruolo'] != 'gestore_prodotto':
         return redirect(url_for('index'))
 
     if request.method == 'POST':
-        id_prodotto = request.form['id_prodotto']
+        id_prodotto = int(request.form['id_prodotto'])
         tipo = request.form['tipo_immagine']
         image_file = request.files['immagine']
 
@@ -25,9 +26,13 @@ def aggiungi_immagine():
         success = immagine.save()
 
         if success:
-            return render_template("gestore_prodotti/immagini.html")
+            immagini = visualizza_immagini_prodotto(id_prodotto)
+
+            return render_template("aggiungiImgProdotto.html", data=immagini, message="Immagine inserita correttamente")
         else:
-            return render_template("gestore_prodotti/immagini.html")
+            immagini = visualizza_immagini_prodotto(id_prodotto)
+
+            return render_template("aggiungiImgProdotto.html", data=immagini, message="Errore nell'inserimento dell'immagine")
 
     return render_template("gestore_prodotti/aggiungi_immagine.html")
 
@@ -37,7 +42,7 @@ def rimuovi_immagine(id_immagine):
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
 
-    if session['ruolo'] is not 'gestore_prodotto':
+    if session['ruolo'] != 'gestore_prodotto':
         return redirect(url_for('index'))
 
     success = Immagine.rimuovi_immagine(id_immagine)
@@ -53,7 +58,7 @@ def visualizza_immagini():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
 
-    if session['ruolo'] is not 'gestore_prodotto':
+    if session['ruolo'] != 'gestore_prodotto':
         return redirect(url_for('index'))
 
     immagini = Immagine.visualizza_immagini()
@@ -62,11 +67,11 @@ def visualizza_immagini():
 
 
 @app_bp.route("/gp/visualizza_immagini_prodotto/<int:id_prodotto>", methods=['GET', 'POST'])
-def visualizza_immagini_prodotto(id_prodotto):
+def visualizza_immagini_prodott(id_prodotto):
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
 
-    if session['ruolo'] is not 'gestore_prodotto':
+    if session['ruolo'] != 'gestore_prodotto':
         return redirect(url_for('index'))
 
     print("\n\nSonoQUI\n\n")

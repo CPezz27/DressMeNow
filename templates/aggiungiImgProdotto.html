@@ -9,37 +9,38 @@
     {% include 'components/headerGestoreProdotto.html' %}
     <h1>Immagini Prodotto</h1>
 
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <ul class="flashes">
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
+    {% if message %}
+          <div class="mb-4"></div>
+                <p class="success-message">{{ message }}</p>
+        </div>
+    {% endif %}
 
     {% if data %}
-        <table>
-            <thead>
-                <tr>
-                    <th>ID Immagine</th>
-                    <th>Tipo</th>
-                    <!-- Altre colonne secondo la tua struttura di tabella -->
-                </tr>
-            </thead>
-            <tbody>
-                {% for immagine in data %}
-                    <tr>
-                        <td>{{ immagine.id_immagine }}</td>
-                        <td>{{ immagine.tipo }}</td>
-                        <!-- Altri campi della tabella -->
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p>Nessuna immagine disponibile per questo prodotto.</p>
-    {% endif %}
+    {% for immagine in data %}
+    <p>{{ immagine[0] }}</p>
+        <img class="w-70 h-80 mb-4 md:mr-5" src="data:image/jpeg;base64,{{ immagine[2] }}" alt="Immagine Prodotto">
+    {% endfor %}
+{% else %}
+    <p>Nessuna immagine disponibile per questo prodotto.</p>
+{% endif %}
+
+    <form action="/gp/aggiungi_immagine" method="POST" enctype="multipart/form-data">
+        <label for="fileInput">Carica un'immagine:</label>
+        <input type="file" id="fileInput" name="immagine" accept="image/*" required>
+
+        <!-- Campo nascosto -->
+        <input type="hidden" name="id_prodotto" value="{% if data and data[0] %}{{ data[0][1] }}{% endif %}" required>
+
+        <!-- Radio button -->
+        <label>
+            <input type="radio" name="tipo_immagine" value="avatar" required> Immagine avatar
+        </label>
+        <label>
+            <input type="radio" name="tipo_immagine" value="pagina_prodotto" required> Immagine pagina prodotto
+        </label>
+        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md">Salva Modifiche</button>
+        <a href="/gestore_prodotto" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md">Torna Indietro</a>
+    </form>
+
 </body>
 </html>
