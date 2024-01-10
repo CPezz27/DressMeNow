@@ -1,27 +1,31 @@
 import mysql.connector
 from utils import mysql_config
+from PIL import Image
+from io import BytesIO
 
 conn = mysql_config.get_database_connection()
 cursor = conn.cursor()
 
 
 def visualizza_immagini():
-    query = "SELECT * FROM immagine"
+    query = "SELECT id_immagine, id_prodotto, TO_BASE64(immagine) as immagine, tipo FROM immagine"
     try:
         cursor.execute(query)
         immagini = cursor.fetchall()
         return immagini
     except mysql.connector.Error as err:
+        print(f"Errore durante il salvataggio dell'immagine: {err}")
         return None
     
 
 def visualizza_immagini_prodotto(id_prodotto):
-    query = "SELECT * FROM immagine WHERE id_prodotto=%s"
+    query = "SELECT id_immagine, id_prodotto, TO_BASE64(immagine) as immagine, tipo FROM immagine WHERE id_prodotto=%s"
     try:
         cursor.execute(query, (id_prodotto,))
         immagini = cursor.fetchall()
         return immagini
     except mysql.connector.Error as err:
+        print(f"Errore durante il salvataggio dell'immagine: {err}")
         return None
 
 
@@ -50,10 +54,12 @@ class Immagine:
                         "VALUES (%s, %s, %s)")
 
         try:
-            cursor.execute(insert_query, (self.id_prodotto, self.immagine, self.tipo))
+            image_bytes = BytesIO(self.immagine.read()).getvalue()
+            cursor.execute(insert_query, (self.id_prodotto, image_bytes, self.tipo))
             conn.commit()
             return True
         except mysql.connector.Error as err:
+            print(f"Errore durante il salvataggio dell'immagine: {err}")
             return False
         finally:
             cursor.close()
