@@ -20,39 +20,34 @@
                 <p class="text-green-500">{{ message }}</p>
             {% endif %}
 
-            <form method="post" action="/d/modifica_personale" class="space-y-4">
+            <form method="post" action="{{ url_for('/d/modifica_personale', id_personale=personale['id_personale']) }}" class="space-y-4">
+
                 <!-- Campi del formulario precaricati con i dati correnti del personale -->
-                <div>
-                    <label for="id_personale" class="block font-semibold">ID Personale:</label>
-                    <input type="text" id="id_personale" name="id_personale" required
-                        class="border border-gray-300 rounded-md px-3 py-2 w-full mt-1">
-                </div>
+                {% if personale %}
 
-                <div>
-                    <label for="email" class="block font-semibold">Email:</label>
-                    <input type="email" id="email" name="email" required
-                        class="border border-gray-300 rounded-md px-3 py-2 w-full mt-1">
-                </div>
+                    <div>
+                        <label for="email" class="block font-semibold">Email:</label>
+                        <input type="email" id="email" name="email" required
+                            class="border border-gray-300 rounded-md px-3 py-2 w-full mt-1"
+                            value="{{ personale.email }}">
+                    </div>
 
-                <div>
-                    <label for="password" class="block font-semibold">Password:</label>
-                    <input type="password" id="password" name="password" required
-                        class="border border-gray-300 rounded-md px-3 py-2 w-full mt-1">
-                </div>
+                    <div>
+                        <label for="tipo_personale" class="block font-semibold">Tipo Personale:</label>
+                        <select id="tipo_personale" name="tipo_personale" required
+                            class="border border-gray-300 rounded-md px-3 py-2 w-full mt-1">
+                            <option value="gestore_prodotto" {% if personale.tipo_personale = 'gestore_prodotto' %} selected {% endif %}>Gestore Prodotto</option>
+                            <option value="gestore_ordine" {% if personale.tipo_personale = 'gestore_ordine' %} selected {% endif %}>Gestore Ordine</option>
+                        </select>
+                    </div>
 
-                <div>
-                    <label for="tipo_personale" class="block font-semibold">Tipo Personale:</label>
-                    <select id="tipo_personale" name="tipo_personale" required
-                        class="border border-gray-300 rounded-md px-3 py-2 w-full mt-1">
-                        <option value="gestore_prodotto">Gestore Prodotto</option>
-                        <option value="gestore_ordine">Gestore Ordine</option>
-                    </select>
-                </div>
-
-                <div>
-                    <input type="submit" value="Salva Modifiche"
-                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">
-                </div>
+                    <div>
+                        <input type="submit" value="Salva Modifiche"
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">
+                    </div>
+                {% else %}
+                    <p>Personale non trovato.</p>
+                {% endif %}
             </form>
         </section>
     </main>
@@ -60,3 +55,4 @@
 </body>
 
 </html>
+

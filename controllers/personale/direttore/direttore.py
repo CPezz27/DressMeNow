@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, session, redirect, url_for
 
 from models import Personale, Ordine, ProdottoInOrdine, Utente
-from models.Personale import Personale, get_all_personale, update_personale
+from models.Personale import Personale, get_all_personale, update_personale, view_personale
 from models.Utente import Utente, get_all_users, modifica_account
 
 app_bp = Blueprint('direttore_controller', __name__)
@@ -58,61 +58,35 @@ def aggiungi_personale():
     return render_template("direttore/aggiunta_personale.html")
 
 
-@app_bp.route("/d/modifica_personale", methods=['GET', 'POST'])
-def modifica_personale():
+@app_bp.route("/d/modifica_personale/<int:id_personale>", methods=['GET', 'POST'])
+def modifica_personale(id_personale):
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
 
-    if session['ruolo'] != 'direttore':
+    if session.get('ruolo') != 'direttore':
         return redirect(url_for('index'))
 
-    if request.method == 'POST':
-        id_personale = request.form['id_personale']
-        email = request.form['email']
-        password = request.form['password']
-        tipo_personale = request.form['tipo_personale']
-        flag = update_personale(id_personale, email, password, tipo_personale)
-        if flag:
-            return render_template("direttore/modifica_personale.html", message="Personale modificato correttamente.")
-        else:
-            return render_template("direttore/modifica_personale.html", message="Personale non modificato.")
-    return render_template("direttore/modifica_personale.html")
-
-
-@app_bp.route("/d/gestisci_utente", methods=['GET', 'POST'])
-def gestisci_utente():
-    if 'logged_in' not in session or not session['logged_in']:
-        return redirect(url_for('user_login.login_page'))
-
-    if session['ruolo'] != 'direttore':
-        return redirect(url_for('index'))
+    personale = view_personale(int(id_personale))
+    print(personale)
 
     if request.method == 'POST':
-        id_utente = request.form['id_utente']
-        nome = request.form['nome']
-        cognome = request.form['cognome']
-        email = request.form['email']
-        password = request.form['password']
-        data_nascita = request.form['data_nascita']
-        telefono = request.form['telefono']
-        sesso = request.form['sesso']
+        try:
+            updated_data = {
+                'id_personale': request.form['password'],
+                'email': request.form['email'],
+                'password': request.form['password'],
+                'tipo_personale': request.form['tipo_personale']
+            }
 
-        newUtente = {
-            'nome': nome,
-            'cognome': cognome,
-            'email': email,
-            'password': password,
-            'data_nascita': data_nascita,
-            'telefono': telefono,
-            'sesso': sesso
-        }
+            update_personale(id_personale, **updated_data)
 
-        flag = modifica_account(id_utente, **newUtente)
-        if flag:
-            return render_template("direttore/modifica_utente.html", message="Utente modificato correttamente.")
-        else:
-            return render_template("direttore/modifica_utente.html", message="Utente non modificato.")
-    return render_template("direttore/modifica_utente.html")
+            personale = view_personale(int(id_personale))
+            return render_template('direttore/modifica_personale.html', personale=personale, message="Prodotto modificato")
+
+        except Exception as err:
+            return render_template('direttore/modifica_personale.html', message="Errore durante la modifica")
+
+    return render_template('direttore/modifica_personale.html', personale=personale)
 
 
 @app_bp.route("/d/rimuovi_personale", methods=['POST'])

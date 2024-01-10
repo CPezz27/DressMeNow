@@ -30,33 +30,43 @@ def add_personale(email, password, tipo_personale):
         return False
 
 
-def update_personale(personale_id, email=None, password=None, tipo_personale=None):
+def view_personale(id_personale):
+    search_query = "SELECT * FROM personale WHERE id_personale = %s"
     try:
-        update_query = "UPDATE personale SET "
-        update_data = []
+        cursor.execute(search_query, (id_personale,))
+        result = cursor.fetchone()
+        if result:
+            result_dict = {
+                'id_personale': result[0],
+                'email': result[1],
+                'password': result[2],
+                'tipo_personale': result[3]
+            }
+            return result_dict
+        else:
+            return None
+    except mysql.connector.Error as err:
+        return None
 
-        if email:
-            update_query += "email=%s, "
-            update_data.append(email)
 
-        if password:
-            hashed_password = hash_password(password)
-            update_query += "password=%s, "
-            update_data.append(hashed_password)
+def update_personale(id_personale, **kwargs):
+    update_query = "UPDATE personale SET "
+    update_data = []
 
-        if tipo_personale:
-            update_query += "tipo_personale=%s, "
-            update_data.append(tipo_personale)
+    for key, value in kwargs.items():
+        update_query += f"{key}=%s, "
+        update_data.append(value)
 
         update_query = update_query.rstrip(', ')
-        update_query += " WHERE id_personale=%s"
-        update_data.append(personale_id)
+        update_query += " WHERE id_personale = %s"
+        update_data.append(id_personale)
 
-        cursor.execute(update_query, update_data)
-        conn.commit()
-        return True
-    except mysql.connector.Error as err:
-        return False
+        try:
+            cursor.execute(update_query, update_data)
+            conn.commit()
+            return True
+        except mysql.connector.Error as err:
+            return False
 
 
 def delete_personale(personale_id):

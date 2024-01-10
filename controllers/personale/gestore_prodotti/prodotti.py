@@ -6,7 +6,6 @@ from models.Prodotto import update_prodotto
 from models.Prodotto import delete
 
 from models.Prodotto import Prodotto
-from controllers.personale.gestore_prodotti import taglia
 
 app_bp = Blueprint('gestore_prodotti', __name__)
 
@@ -98,7 +97,9 @@ def modifica_prodotto(product_id):
 
     return render_template('modificaProdotto.html', product=product)
 
-#in teoria si può eliminare secondo PL7 sium calabrese
+# in teoria si può eliminare secondo PL7 sium calabrese
+
+
 @app_bp.route('/gp/elimina_prodotto/<int:product_id>', methods=['GET', 'POST'])
 def elimina_prodotto(product_id):
     if 'logged_in' not in session or not session['logged_in']:

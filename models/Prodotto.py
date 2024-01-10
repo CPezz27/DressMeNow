@@ -66,7 +66,6 @@ def search_prodotto_by_name(nome):
         return None
 
 
-
 def view_products():
     search_query = ("SELECT p.*, MIN(i.id_immagine) AS first_image, "
                     "TO_BASE64(MIN(i.immagine)) AS base64_image "
