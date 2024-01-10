@@ -96,7 +96,6 @@ def gestisci_utente():
         data_nascita = request.form['data_nascita']
         telefono = request.form['telefono']
         sesso = request.form['sesso']
-        is_deleted = request.form.get('is_deleted', False)
 
         newUtente = {
             'nome': nome,
@@ -105,8 +104,7 @@ def gestisci_utente():
             'password': password,
             'data_nascita': data_nascita,
             'telefono': telefono,
-            'sesso': sesso,
-            'is_deleted': is_deleted
+            'sesso': sesso
         }
 
         flag = modifica_account(id_utente, **newUtente)

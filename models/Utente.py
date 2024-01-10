@@ -74,10 +74,11 @@ def modifica_account(id_utente, **kwargs):
     update_query = "UPDATE utente SET "
     update_values = []
 
-    # Estrarre tutti gli elementi tranne l'ultimo
-    items = list(kwargs.items())[:-1]
+    kwargs.pop('is_deleted', None)
 
-    for campo, valore in items:
+    items = list(kwargs.items())
+
+    for index, (campo, valore) in enumerate(items):
         update_query += f"{campo} = %s, "
         update_values.append(valore)
 
@@ -90,6 +91,7 @@ def modifica_account(id_utente, **kwargs):
         return True
     except mysql.connector.Error as err:
         return False
+
 
 class Utente:
     def __init__(self, nome, cognome, email, password, sesso, numero_telefono, data_nascita):

@@ -5,40 +5,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Modifica Personale</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../static/css/gestore_ordine.css">
 </head>
 
-<body>
+<body class="bg-gray-100">
 
     {% include 'components/headerDirettore.html' %}
 
-    <main>
-        <section>
-            <h2>Dettagli Personale</h2>
+    <main class="max-w-4xl mx-auto p-8">
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4">Dettagli Personale</h2>
             {% if message %}
-                <p class="success-message">{{ message }}</p>
+                <p class="text-green-500">{{ message }}</p>
             {% endif %}
 
-            <form method="post" action="/d/modifica_personale">
-
+            <form method="post" action="/d/modifica_personale" class="space-y-4">
                 <!-- Campi del formulario precaricati con i dati correnti del personale -->
-                <label for="id_personale">ID Personale:</label>
-                <input type="text" id="id_personale" name="id_personale" required><br><br>
+                <div>
+                    <label for="id_personale" class="block font-semibold">ID Personale:</label>
+                    <input type="text" id="id_personale" name="id_personale" required
+                        class="border border-gray-300 rounded-md px-3 py-2 w-full mt-1">
+                </div>
 
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required><br><br>
+                <div>
+                    <label for="email" class="block font-semibold">Email:</label>
+                    <input type="email" id="email" name="email" required
+                        class="border border-gray-300 rounded-md px-3 py-2 w-full mt-1">
+                </div>
 
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required><br><br>
+                <div>
+                    <label for="password" class="block font-semibold">Password:</label>
+                    <input type="password" id="password" name="password" required
+                        class="border border-gray-300 rounded-md px-3 py-2 w-full mt-1">
+                </div>
 
-                <label for="tipo_personale">Tipo Personale:</label>
-                <select id="tipo_personale" name="tipo_personale" required>
-                    <option value="gestore_prodotto">Gestore Prodotto</option>
-                    <option value="gestore_ordine">Gestore Ordine</option>
-                </select>
-                <br><br>
+                <div>
+                    <label for="tipo_personale" class="block font-semibold">Tipo Personale:</label>
+                    <select id="tipo_personale" name="tipo_personale" required
+                        class="border border-gray-300 rounded-md px-3 py-2 w-full mt-1">
+                        <option value="gestore_prodotto">Gestore Prodotto</option>
+                        <option value="gestore_ordine">Gestore Ordine</option>
+                    </select>
+                </div>
 
-                <input type="submit" value="Salva Modifiche">
+                <div>
+                    <input type="submit" value="Salva Modifiche"
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">
+                </div>
             </form>
         </section>
     </main>
