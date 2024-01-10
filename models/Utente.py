@@ -127,16 +127,16 @@ def update_utente(id_utente, **kwargs):
         update_query += f"{key}=%s, "
         update_data.append(value)
 
-        update_query = update_query.rstrip(', ')
-        update_query += " WHERE id_utente = %s"
-        update_data.append(id_utente)
+    update_query = update_query.rstrip(', ')
+    update_query += " WHERE id_utente = %s"
+    update_data.append(id_utente)
 
-        try:
-            cursor.execute(update_query, update_data)
-            conn.commit()
-            return True
-        except mysql.connector.Error as err:
-            return False
+    try:
+        cursor.execute(update_query, update_data)
+        conn.commit()
+        return True
+    except mysql.connector.Error as err:
+        return False
 
 
 

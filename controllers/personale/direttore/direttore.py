@@ -110,13 +110,15 @@ def mostra_utente():
     return render_template('direttore/modifica_utente.html', utente=utente)
 
 
-@app_bp.route('/d/modifica_utente', methods=['GET'])
-def modifica_utente(id_utente):
+@app_bp.route('/d/modifica_utente', methods=['GET', 'POST'])
+def modifica_utente():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
 
     if session.get('ruolo') != 'direttore':
         return redirect(url_for('index'))
+
+    id_utente = request.args.get('id_user')
 
     utente = view_utente(int(id_utente))
     print(utente)
@@ -125,13 +127,12 @@ def modifica_utente(id_utente):
         try:
             update_utente(id_utente, **request.form)
 
-            utente = view_utente(int(id_utente))
-            return render_template('direttore/modifica_utente.html', utente=utente, message="Personale modificato")
+            return redirect(url_for('direttore_controller.mostra_utente', id_user=id_utente,
+                                    message="Utente modificato"))
 
         except Exception as err:
-            return render_template('direttore/modifica_utente.html', message="Errore durante la modifica")
-
-    return render_template('direttore/modifica_utente.html', utente=utente)
+            return redirect(url_for('direttore_controller.mostra_utente', id_user=id_utente,
+                                    message="Errore durante la modifica"))
 
 
 @app_bp.route("/d/rimuovi_personale", methods=['POST'])
