@@ -36,16 +36,14 @@ document.querySelectorAll('.nav-profilo a').forEach((link, index) => {
 
 function abilitaModifica(button, e) {
   e.preventDefault();
-  var input = button.previousElementSibling;
-  input.readOnly = false;
-  input.focus();
-  button.style.display = 'none';
-}
-
-function abilitaModificaselect(button, e) {
-  e.preventDefault();
-  var input = button.previousElementSibling;
-  input.disabled = false;
-  input.focus();
+  var form = button.closest('form');
+  var inputs = form.querySelectorAll('.input-text');
+  inputs.forEach(function (input) {
+    input.readOnly = false;
+  });
+  var selects = form.querySelectorAll('select');
+  selects.forEach(function (select) {
+    select.disabled = false;
+  });
   button.style.display = 'none';
 }
