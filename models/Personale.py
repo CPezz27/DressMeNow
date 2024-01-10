@@ -59,16 +59,16 @@ def update_personale(id_personale, **kwargs):
         update_query += f"{key}=%s, "
         update_data.append(value)
 
-        update_query = update_query.rstrip(', ')
-        update_query += " WHERE id_personale = %s"
-        update_data.append(id_personale)
+    update_query = update_query.rstrip(', ')
+    update_query += " WHERE id_personale = %s"
+    update_data.append(id_personale)
 
-        try:
-            cursor.execute(update_query, update_data)
-            conn.commit()
-            return True
-        except mysql.connector.Error as err:
-            return False
+    try:
+        cursor.execute(update_query, update_data)
+        conn.commit()
+        return True
+    except mysql.connector.Error as err:
+        return False
 
 
 def delete_personale(personale_id):

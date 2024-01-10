@@ -66,19 +66,14 @@ def modifica_personale(id_personale):
     if session.get('ruolo') != 'direttore':
         return redirect(url_for('index'))
 
-    personale = view_personale(int(id_personale))
-
     if request.method == 'POST':
         try:
             update_personale(id_personale, **request.form)
 
-            personale = view_personale(int(id_personale))
-            return render_template('direttore/modifica_personale.html', personale=personale, message="Personale modificato")
+            return redirect(url_for('direttore_controller.mostra_personale', personal_id=id_personale, message="Personale modificato"))
 
         except Exception as err:
-            return render_template('direttore/modifica_personale.html', message="Errore durante la modifica")
-
-    return render_template('direttore/modifica_personale.html', personale=personale)
+            return redirect(url_for('direttore_controller.mostra_personale', personal_id=id_personale, message="Errore durante la modifica"))
 
 
 @app_bp.route('/d/mostra_personale', methods=['GET'])
