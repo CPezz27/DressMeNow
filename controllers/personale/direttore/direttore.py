@@ -67,7 +67,6 @@ def modifica_personale(id_personale):
         return redirect(url_for('index'))
 
     personale = view_personale(int(id_personale))
-    print(personale)
 
     if request.method == 'POST':
         try:

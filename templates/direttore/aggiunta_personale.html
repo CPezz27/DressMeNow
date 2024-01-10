@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aggiunta Personale</title>
+    <title>Pagina del Direttore</title>
+    <link rel="stylesheet" href="../../static/css/direttore.css">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <title>Personale</title>
 </head>
 
-
-
-<body class="font-sans bg-gray-100 p-8">
-
 {% include 'components/headerDirettore.html' %}
+<body class="font-sans bg-green-300">
 
-    <div class="max-w-md mx-auto bg-white rounded p-6 shadow-md">
+    <div class="max-w-md mx-auto bg-white rounded p-6 shadow-md mt-9">
         <h2 class="text-2xl font-semibold mb-4">Inserisci Dati Personale</h2>
 
         <form method="POST" action="/d/aggiungi_personale">
@@ -37,5 +40,5 @@
     </div>
 
 </body>
-</html>
 
+</html>

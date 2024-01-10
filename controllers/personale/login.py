@@ -35,7 +35,7 @@ def login():
 
                     if tipo_personale == 'direttore':
                         session['ruolo'] = 'direttore'
-                        return redirect(url_for('direttore_login.direttore'))
+                        return redirect(url_for('direttore_controller.visualizza_personale'))
                     elif tipo_personale == 'gestore_ordine':
                         session['ruolo'] = 'gestore_ordine'
                         return redirect(url_for('direttore_login.gestore_ordine'))
@@ -97,9 +97,3 @@ def gestore_prodotto():
         print(err)
         return render_template('/direttore/login.html', messaggio="Errore durante la visualizzazione")
 
-
-
-
-@app_bp.route('/direttore/')
-def direttore():
-    return render_template('direttore/index.html')

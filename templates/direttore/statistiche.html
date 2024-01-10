@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../static/css/direttore.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
   <title>Statistiche per il Direttore</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="../../static/css/direttore.css">
 </head>
 
-<body class="bg-gray-100">
-    {% include 'components/headerDirettore.html' %}
+{% include 'components/headerDirettore.html' %}
+<body class="font-sans bg-green-300">
 
-<div class="container mx-auto py-8">
+<div class="container mx-auto mt-9">
     <div class="bg-white p-6 rounded-md shadow-md">
     <h2 class="text-xl font-bold mb-4">Dati Statistici</h2>
     <div class="grid grid-cols-2 gap-4">
