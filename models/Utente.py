@@ -78,6 +78,8 @@ def modifica_account(id_utente, **kwargs):
 
     items = list(kwargs.items())
 
+    print(items)
+
     for index, (campo, valore) in enumerate(items):
         update_query += f"{campo} = %s, "
         update_values.append(valore)

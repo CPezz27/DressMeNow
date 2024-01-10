@@ -108,19 +108,7 @@ def modifica_profilo():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
 
-    if request.method == 'GET':
-        user_id = session.get('id')
-
-        if user_id:
-            user = Utente.get_user(id=user_id)
-
-            if user:
-                return redirect(url_for('user_profile.profilo', message="Utente modificato."))
-            else:
-                return redirect(url_for('user_profile.profilo', message="Utente non trovato."))
-        else:
-            return redirect(url_for('user_login.login_page'))
-    elif request.method == 'POST':
+    if request.method == 'POST':
         user_id = session.get('id')
         if user_id:
             nuovi_valori = {
@@ -131,18 +119,6 @@ def modifica_profilo():
                 'sesso': request.form.get('sesso')
             }
 
-            pattern_n = r'^[A-Za-z ]+$'
-            pattern_data = r'^\d{4}-\d{2}-\d{2}$'
-            pattern_telefono = r'^[0-9]+$'
-
-            if not all([
-                validate_input(nuovi_valori['nome'], pattern_n),
-                validate_input(nuovi_valori['cognome'], pattern_n),
-                validate_input(nuovi_valori['data_nascita'], pattern_data),
-                validate_input(nuovi_valori['telefono'], pattern_telefono),
-            ]):
-                return render_template('profilo.html', message="Dati inseriti non validi. Controlla i campi e riprova.")
-
             try:
                 utente = Utente.get_user(user_id)
                 if utente:
@@ -150,7 +126,7 @@ def modifica_profilo():
                         'nome': nuovi_valori['nome'],
                         'cognome': nuovi_valori['cognome'],
                         'sesso': nuovi_valori['sesso'],
-                        'numero_telefono': nuovi_valori['telefono'],
+                        'telefono': nuovi_valori['telefono'],
                         'data_nascita': nuovi_valori['data_nascita']
                     }
                     Utente.modifica_account(user_id, **utente_mod)
@@ -158,9 +134,9 @@ def modifica_profilo():
                 else:
                     return render_template('404.html', message="Utente non trovato.")
             except mysql.connector.Error as err:
-                return None
+                return redirect(url_for('user_login.login_page'))
         else:
-            return render_template('/login')
+            return redirect(url_for('user_login.login_page'))
 
 
 @app_bp.route("/p/configura_avatar", methods=['POST'])
