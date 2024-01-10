@@ -95,6 +95,51 @@ def modifica_account(id_utente, **kwargs):
         return False
 
 
+def view_utente(id_utente):
+    search_query = "SELECT * FROM utente WHERE id_utente = %s"
+    try:
+        cursor.execute(search_query, (id_utente,))
+        result = cursor.fetchone()
+        if result:
+            result_dict = {
+                'id_utente': result[0],
+                'nome': result[1],
+                'cognome': result[2],
+                'email': result[3],
+                'password': result[4],
+                'data_nascita': result[5],
+                'telefono': result[6],
+                'sesso': result[7],
+                'is_deleted': result[8]
+            }
+            return result_dict
+        else:
+            return None
+    except mysql.connector.Error as err:
+        return None
+
+
+def update_utente(id_utente, **kwargs):
+    update_query = "UPDATE utente SET "
+    update_data = []
+
+    for key, value in kwargs.items():
+        update_query += f"{key}=%s, "
+        update_data.append(value)
+
+        update_query = update_query.rstrip(', ')
+        update_query += " WHERE id_utente = %s"
+        update_data.append(id_utente)
+
+        try:
+            cursor.execute(update_query, update_data)
+            conn.commit()
+            return True
+        except mysql.connector.Error as err:
+            return False
+
+
+
 class Utente:
     def __init__(self, nome, cognome, email, password, sesso, numero_telefono, data_nascita):
         self.nome = nome

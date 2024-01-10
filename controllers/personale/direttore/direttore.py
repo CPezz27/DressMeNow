@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, session, redirect, url_fo
 
 from models import Personale, Ordine, ProdottoInOrdine, Utente
 from models.Personale import Personale, get_all_personale, update_personale, view_personale
-from models.Utente import Utente, get_all_users, modifica_account
+from models.Utente import Utente, get_all_users, modifica_account, view_utente, update_utente
 
 app_bp = Blueprint('direttore_controller', __name__)
 
@@ -97,6 +97,45 @@ def mostra_personale():
     print(personale)
 
     return render_template('direttore/modifica_personale.html', personale=personale)
+
+
+@app_bp.route('/d/mostra_utente', methods=['GET'])
+def mostra_utente():
+    if 'logged_in' not in session or not session['logged_in']:
+        return redirect(url_for('user_login.login_page'))
+
+    if session['ruolo'] != 'direttore':
+        return redirect(url_for('index'))
+
+    id_utente = request.args.get('user_id')
+
+    utente = view_utente(int(id_utente))
+
+    return render_template('direttore/modifica_utente.html', utente=utente)
+
+
+@app_bp.route('/d/modifica_utente', methods=['GET'])
+def modifica_utente(id_utente):
+    if 'logged_in' not in session or not session['logged_in']:
+        return redirect(url_for('user_login.login_page'))
+
+    if session.get('ruolo') != 'direttore':
+        return redirect(url_for('index'))
+
+    utente = view_utente(int(id_utente))
+    print(utente)
+
+    if request.method == 'POST':
+        try:
+            update_utente(id_utente, **request.form)
+
+            utente = view_utente(int(id_utente))
+            return render_template('direttore/modifica_utente.html', utente=utente, message="Personale modificato")
+
+        except Exception as err:
+            return render_template('direttore/modifica_utente.html', message="Errore durante la modifica")
+
+    return render_template('direttore/modifica_utente.html', utente=utente)
 
 
 @app_bp.route("/d/rimuovi_personale", methods=['POST'])
