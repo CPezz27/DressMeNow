@@ -13,7 +13,7 @@
   <body class="font-poppins bg-gray-100">
     {% include 'components/header.html' %}
     {% if data %}
-    <div class="container mx-auto py-8">
+    <div class="min-h-screen bg-gray-100">
       <div class="shadow-lg bg-white p-8">
       <div class="text-center mb-8">
         <h2 class="text-3xl font-semibold">Dettagli Prodotto</h2>
@@ -47,8 +47,8 @@
               </div>
               <div class="product-price-discount">
                 <span class="text-lg font-semibold text-green-600"
-                  >{{ data.product_details[6] }}€</span
-                >
+                  >{{ data.product_details[6] }}€
+                  </span>
               </div>
             </div>
 
@@ -116,8 +116,8 @@
     </div>
     </div>
     {% else %}
-    <div class="container mx-auto py-8">
-      <div class="rounded-lg shadow-lg bg-white p-4">
+    <div class="min-h-screen bg-gray-100 flex items-center justify-center">
+      <div class="shadow-lg bg-white p-4">
         <div class="text-center mb-4">
           <h2 class="text-2xl font-semibold">Prodotto non trovato</h2>
         </div>
@@ -142,7 +142,7 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
-
+    {% include 'components/footer.html' %}
     <script>
       function incrementQty() {
         var quantityInput = document.getElementById("quantity");
@@ -155,7 +155,6 @@
           quantityInput.value = parseInt(quantityInput.value) - 1;
         }
       }
-    </script>
-    {% include 'components/footer.html' %}
-  </body>
+        </script>
+      </body>
 </html>
