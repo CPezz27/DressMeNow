@@ -37,7 +37,10 @@ def update(provincia, cap, via, tipo, citta, id_indirizzo):
     try:
         cursor.execute(update_query, data)
         conn.commit()
-        return True
+        if cursor.rowcount > 0:
+            return True
+        else:
+            return False
     except mysql.connector.Error as err:
         return False
 

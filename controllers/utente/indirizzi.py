@@ -34,7 +34,7 @@ def aggiungi_indirizzo():
     return render_template('aggiungi_indirizzo.html')
 
 
-@app_bp.route('/indirizzo/modifica/<int:address_id>', methods=['GET', 'POST'])
+@app_bp.route('/indirizzo/modifica/<int:address_id>', methods=['POST'])
 def modifica_indirizzo(address_id):
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
@@ -42,11 +42,11 @@ def modifica_indirizzo(address_id):
     if request.method == 'POST':
         user_id = session.get('id')
         if user_id:
-            provincia = request.form['provincia']
-            cap = request.form['cap']
-            via = request.form['via']
-            tipo = request.form['tipo']
-            citta = request.form['citta']
+            provincia = request.form.get('provincia')
+            cap = request.form.get('cap')
+            via = request.form.get('via')
+            tipo = request.form.get('tipo')
+            citta = request.form.get('citta')
 
             address = get_address(address_id)
             if address and address[1] == user_id:
@@ -58,13 +58,7 @@ def modifica_indirizzo(address_id):
             else:
                 return render_template('404.html', message="Indirizzo non trovato o non autorizzato.")
         else:
-            return render_template('/login')
-
-    address = Indirizzo.get_address(address_id)
-    if address:
-        return render_template('modifica_indirizzo.html', address=address)
-    else:
-        return render_template('404.html', message="Indirizzo non trovato.")
+            return redirect(url_for('user_login.login_page'))
 
 
 @app_bp.route('/indirizzo/elimina/<int:address_id>', methods=['GET'])
