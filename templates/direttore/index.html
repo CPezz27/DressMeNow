@@ -43,8 +43,12 @@
             <td class="px-4 py-3 whitespace-nowrap text-black text-color: black">{{ personale[1] }}</td>
             <td class="px-4 py-3 whitespace-nowrap text-black text-color: black">{{ personale[3] }}</td>
             <td class="px-4 py-3 whitespace-nowrap">
-                <a href="/d/modifica_personale?id_personale=={{ personale[0] }}">Modifica</a>
+                <form action="/d/mostra_personale" method="GET">
+                    <input type="hidden" name="personal_id" value="{{ personale[0] }}">
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Modifica</button>
+                </form>
             </td>
+
         </tr>
         {% endfor %}
     </tbody>

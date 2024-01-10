@@ -71,20 +71,30 @@ def modifica_personale(id_personale):
 
     if request.method == 'POST':
         try:
-            updated_data = {
-                'id_personale': request.form['password'],
-                'email': request.form['email'],
-                'password': request.form['password'],
-                'tipo_personale': request.form['tipo_personale']
-            }
-
-            update_personale(id_personale, **updated_data)
+            update_personale(id_personale, **request.form)
 
             personale = view_personale(int(id_personale))
-            return render_template('direttore/modifica_personale.html', personale=personale, message="Prodotto modificato")
+            return render_template('direttore/modifica_personale.html', personale=personale, message="Personale modificato")
 
         except Exception as err:
             return render_template('direttore/modifica_personale.html', message="Errore durante la modifica")
+
+    return render_template('direttore/modifica_personale.html', personale=personale)
+
+
+@app_bp.route('/d/mostra_personale', methods=['GET'])
+def mostra_personale():
+    if 'logged_in' not in session or not session['logged_in']:
+        return redirect(url_for('user_login.login_page'))
+
+    if session['ruolo'] != 'direttore':
+        return redirect(url_for('index'))
+
+    id_personale = request.args.get('personal_id')
+
+    personale = view_personale(int(id_personale))
+
+    print(personale)
 
     return render_template('direttore/modifica_personale.html', personale=personale)
 

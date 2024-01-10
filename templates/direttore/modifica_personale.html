@@ -20,7 +20,8 @@
                 <p class="text-green-500">{{ message }}</p>
             {% endif %}
 
-            <form method="post" action="{{ url_for('/d/modifica_personale', id_personale=personale['id_personale']) }}" class="space-y-4">
+            <form method="post" action="{{ url_for('direttore_controller.modifica_personale', id_personale=personale['id_personale']) }}" class="space-y-4">
+
 
                 <!-- Campi del formulario precaricati con i dati correnti del personale -->
                 {% if personale %}
@@ -36,8 +37,8 @@
                         <label for="tipo_personale" class="block font-semibold">Tipo Personale:</label>
                         <select id="tipo_personale" name="tipo_personale" required
                             class="border border-gray-300 rounded-md px-3 py-2 w-full mt-1">
-                            <option value="gestore_prodotto" {% if personale.tipo_personale = 'gestore_prodotto' %} selected {% endif %}>Gestore Prodotto</option>
-                            <option value="gestore_ordine" {% if personale.tipo_personale = 'gestore_ordine' %} selected {% endif %}>Gestore Ordine</option>
+                            <option value="gestore_prodotto" {% if personale.tipo_personale == 'gestore_prodotto' %} selected {% endif %}>Gestore Prodotto</option>
+                            <option value="gestore_ordine" {% if personale.tipo_personale == 'gestore_ordine' %} selected {% endif %}>Gestore Ordine</option>
                         </select>
                     </div>
 
