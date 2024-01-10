@@ -30,7 +30,7 @@ def login():
 
                 session['logged_in'] = True
                 session['id'] = user[0]
-                return redirect('p/profilo')
+                return redirect('/')
             else:
                 return render_template('utente/login.html', message="Credenziali non valide. Riprova.")
         except mysql.connector.Error as err:
