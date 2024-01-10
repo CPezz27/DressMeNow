@@ -60,8 +60,16 @@
                 <label for="product-category" class="block text-gray-700 font-medium">Categoria</label>
                 <input type="text" id="product-category" name="categoria" class="mt-1 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:border-blue-500" placeholder="Inserisci la categoria" value="{{ product['product_details'][2] }}" required>
             </div>
-            
             <!-- Altri campi del prodotto precompilati -->
+
+            <div class="mb-4">
+              <label for="is_deleted" class="block text-gray-700 font-medium">Visibile al pubblico</label>
+              <input type="radio" id="visible" name="is_deleted" value="0" {% if product['product_details'][9] == 0 %}checked{% endif %}>
+              <label for="visible">Sì</label>
+
+              <input type="radio" id="invisible" name="is_deleted" value="1" {% if product['product_details'][9] == 1 %}checked{% endif %}>
+              <label for="invisible">No</label>
+            </div>
 
             <div class="flex justify-between">
               <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md">Salva Modifiche</button>

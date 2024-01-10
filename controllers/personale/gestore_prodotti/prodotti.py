@@ -3,6 +3,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, sessio
 from models import Prodotto
 from models.Prodotto import view_product
 from models.Prodotto import update_prodotto
+from models.Prodotto import delete
 
 from models.Prodotto import Prodotto
 from controllers.personale.gestore_prodotti import taglia
@@ -98,19 +99,19 @@ def modifica_prodotto(product_id):
     return render_template('modificaProdotto.html', product=product)
 
 
-@app_bp.route('/gp/elimina_prodotto/<int:product_id>', methods=['POST'])
+@app_bp.route('/gp/elimina_prodotto/<int:product_id>', methods=['GET', 'POST'])
 def elimina_prodotto(product_id):
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
 
     if session['ruolo'] != 'gestore_prodotto':
         return redirect(url_for('index'))
-
+    print("\n\nSONOQUI\n\n")
     try:
-        Prodotto.delete(product_id)
+        delete(int(product_id))
         return redirect(url_for('gestione_prodotto.prodotti', message="Prodotto eliminato con successo"))
     except Exception as err:
-        return render_template('/gestore_prodotti/modifica_prodotto.html', messaggio="Errore durante l'eliminazione")
+        return render_template('modificaProdotto.html', message="Errore durante l'eliminazione")
 
 
 @app_bp.route('/gp/mostra_prodotto', methods=['GET'])
