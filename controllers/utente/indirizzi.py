@@ -15,9 +15,9 @@ def visualizza_indirizzi():
     user_id = session.get('id')
     if user_id:
         addresses = get_addresses(user_id)
-        return render_template('indirizzi.html', addresses=addresses)
+        return render_template('utente/indirizzi.html', addresses=addresses)
     else:
-        return render_template('/login')
+        return redirect(url_for('user_login.login_page'))
 
 
 @app_bp.route('/indirizzo/aggiungi', methods=['GET', 'POST'])
@@ -33,21 +33,6 @@ def aggiungi_indirizzo():
             via = request.form['via']
             tipo = request.form['tipo']
             citta = request.form['citta']
-
-            pattern_provincia = r'^[A-Za-z ]+$'
-            pattern_cap = r'^\d{5}$'
-            pattern_via = r'^[A-Za-z0-9 ]+$'
-            pattern_tipo = r'^(Spedizione|Fatturazione)$'
-            pattern_citta = r'^[A-Za-z ]+$'
-
-            if not all([
-                validate_input(provincia, pattern_provincia),
-                validate_input(cap, pattern_cap),
-                validate_input(via, pattern_via),
-                validate_input(tipo, pattern_tipo),
-                validate_input(citta, pattern_citta)
-            ]):
-                return "Dati inseriti non validi. Controlla i campi e riprova."
 
             new_address = Indirizzo(
                 id_utente=user_id, provincia=provincia, cap=cap, via=via, tipo=tipo, citta=citta)
@@ -75,21 +60,6 @@ def modifica_indirizzo(address_id):
             via = request.form['via']
             tipo = request.form['tipo']
             citta = request.form['citta']
-
-            pattern_provincia = r'^[A-Za-z ]+$'
-            pattern_cap = r'^\d{5}$'
-            pattern_via = r'^[A-Za-z0-9 ]+$'
-            pattern_tipo = r'^(Spedizione|Fatturazione)$'
-            pattern_citta = r'^[A-Za-z ]+$'
-
-            if not all([
-                validate_input(provincia, pattern_provincia),
-                validate_input(cap, pattern_cap),
-                validate_input(via, pattern_via),
-                validate_input(tipo, pattern_tipo),
-                validate_input(citta, pattern_citta)
-            ]):
-                return "Dati inseriti non validi. Controlla i campi e riprova."
 
             address = get_address(address_id)
             if address and address[1] == user_id:
