@@ -55,9 +55,9 @@ def register():
                 data_nascita=data_nascita)
 
             user.save()
+            return redirect('login')
+
         except mysql.connector.Error as err:
             return render_template('utente/registrazione.html', message="Errore nel server. Riprova più tardi.")
-
-        return redirect('utente/login')
 
     return render_template('utente/registrazione.html')
