@@ -1,82 +1,49 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
-    <style>
-            .conteiner img{
-                display: flex;
-                justify-content: center;
-            }
-    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ricerca NLP</title>
+    <title>Chatbot Simulator</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
-    
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+<body class="bg-gray-100 font-sans">
 
-    <div class="conteiner bg-white p-8 md:p-10 max-w-md mx-auto rounded-md shadow-md w-full">
+<div class="container mx-auto p-8 max-w-md">
+    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <!-- Chat container -->
+        <div id="chat-container" class="h-80 overflow-y-auto px-4 py-6"></div>
 
-        <img src="../../static/assets/Logo.png" alt="Immagine di esempio" width="35px" height="25px">
-
-        <h1 class="text-3xl font-semibold mb-6 text-blue-700">Ricerca NLP </h1>
-
-        <form id="nlpSearchForm">
-            <div class="mb-4">
-                <label for="search-query" class="block text-gray-700 font-medium"></label>
-                <input type="text" id="search-query" class="mt-1 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:border-blue-500" placeholder="Cerca il capo che ti interessa" required>
-            </div>
-
-            <div class="flex justify-end">
-                <button type="button" onclick="searchNLP()" class="px-4 py-2 bg-blue-500 text-white rounded-md">cerca</button>
-            </div>
+        <!-- User input -->
+        <form id="chat-form" action="/ricerca" method="post" class="p-4 bg-gray-200 flex items-center">
+            <input type="text" id="user-input" name="user_input" placeholder="Scrivi qualcosa..." class="flex-grow px-2 py-1 border rounded-md focus:outline-none focus:ring focus:border-blue-500">
+            <button type="submit" class="ml-2 bg-blue-500 text-white px-4 py-1 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300">Invia</button>
         </form>
-
-        <div class="mt-8" id="search-results">
-            <!-- I risultati della ricerca verranno visualizzati qui -->
-        </div>
-        
-        
-        
-
     </div>
+</div>
+<!--
+<script>
+    // Aggiungi questo script per simulare il chatbot
+    document.getElementById('chat-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const userInput = document.getElementById('user-input').value;
+        const chatContainer = document.getElementById('chat-container');
 
-    <script>
-        function searchNLP() {
-            var searchQuery = document.getElementById('search-query').value;
+        // Aggiungi il messaggio dell'utente
+        chatContainer.innerHTML += `<div class="mb-2"><strong>Utente:</strong> ${userInput}</div>`;
 
-            // Esempio di visualizzazione di risultati di ricerca simulati
-            var simulatedResults = [
-                'Risultato 1',
-                'Risultato 2',
-               
-            ];
+        // Simula la risposta del chatbot (puoi personalizzare questa parte)
+        const chatbotResponse = "Grazie per il tuo messaggio! Sto elaborando la tua richiesta.";
 
-            // Simula la visualizzazione dei risultati
-            displaySearchResults(simulatedResults);
-        }
+        // Aggiungi la risposta del chatbot
+        chatContainer.innerHTML += `<div class="mb-2"><strong>Chatbot:</strong> ${chatbotResponse}</div>`;
 
-        function displaySearchResults(results) {
-            var resultsContainer = document.getElementById('search-results');
-            resultsContainer.innerHTML = "";
+        // Pulisci l'input dell'utente
+        document.getElementById('user-input').value = '';
 
-            if (results.length > 0) {
-                var resultList = document.createElement('ul');
-                resultList.className = 'list-disc';
-
-                results.forEach(result => {
-                    var listItem = document.createElement('li');
-                    listItem.textContent = result;
-                    resultList.appendChild(listItem);
-                });
-
-                resultsContainer.appendChild(resultList);
-            } else {
-                resultsContainer.textContent = 'Nessun risultato trovato.';
-            }
-        }
-    </script>
-
+        // Puoi anche aggiungere una chiamata AJAX per inviare l'input dell'utente al server Flask
+    });
+</script>
+-->
 </body>
 </html>
 
