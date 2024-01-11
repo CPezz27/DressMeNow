@@ -142,7 +142,7 @@ def modifica_profilo():
             return redirect(url_for('user_login.login_page'))
 
 
-@app_bp.route("/p/configura_avatar", methods=['POST'])
+@app_bp.route("/p/configura_avatar", methods=['GET', 'POST'])
 def configura_avatar():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect('utente/login')
@@ -155,11 +155,13 @@ def configura_avatar():
             success = ConfigurazioneAvatar.update_configurazione_avatar(
                 user_id, **data)
             if success:
-                return render_template("utente/avatar.html", message="Avatar aggiornato correttamente.")
+                return render_template("utente/personalizzazioneAvatar.html", message="Avatar aggiornato correttamente.")
             else:
-                return render_template("utente/avatar.html", message="Avatar non aggiornato.")
+                return render_template("utente/personalizzazioneAvatar.html", message="Avatar non aggiornato.")
         else:
-            return render_template("utente/avatar.html", message="Parametri mancanti.")
+            return render_template("utente/personalizzazioneAvatar.html", message="Parametri mancanti.")
+
+    return render_template("utente/personalizzazioneAvatar.html")
 
 
 @app_bp.route('/logout')
