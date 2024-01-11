@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Avatar con Snap.svg</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.5.1/snap.svg-min.js"></script>
+</head>
+
+<body>
+    <script>
+        var s = Snap(400, 900);
+
+        // Testa
+        var head = s.circle(200, 100, 40).attr({
+            fill: '#f0beaf',
+            stroke: 'none'
+        });
+
+        
+        // Sopracciglio sinistro
+        var leftEyebrow = s.line(180, 82, 190, 82).attr({
+            stroke: '#424b54',
+            strokeWidth: 2
+        });
+        
+        // Sopracciglio destro
+        var rightEyebrow = s.line(220, 82, 210, 82).attr({
+            stroke: '#424b54',
+            strokeWidth: 2
+        });
+
+        // Esempio di occhio sinistro
+        var leftEye = s.circle(185, 90, 5).attr({
+            fill: '#424b54',
+            stroke: 'none'
+        });
+
+        // Esempio di occhio destro
+        var rightEye = s.circle(215, 90, 5).attr({
+            fill: '#424b54',
+            stroke: 'none'
+        });
+
+        // Bocca (Sorridente - stretta, alta verso il basso e distante dagli occhi)
+        var mouth = s.path("M180 110 C185 128, 215 128, 220 110").attr({
+            fill: 'black',
+            stroke: 'none'
+        });
+
+        // Denti (Linea bianca sopra la bocca)
+        var teeth = s.line(185, 111, 215, 111).attr({
+            stroke: 'white',
+            strokeWidth: 2
+        });
+
+        // Lingua (Cerchio rosso nella parte inferiore della bocca)
+        var tongue = s.ellipse(200, 118, 10, 5).attr({
+            fill: 'red',
+            stroke: 'none'
+        });
+
+        // Aggiungi altri elementi come la bocca, capelli, ecc.
+
+    </script>
+</body>
+
+</html>
