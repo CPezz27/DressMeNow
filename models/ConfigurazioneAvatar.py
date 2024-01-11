@@ -5,6 +5,16 @@ conn = mysql_config.get_database_connection()
 cursor = conn.cursor()
 
 
+def view_avatar(id_utente):
+    search_query = "SELECT * FROM configurazione_avatar WHERE id_utente = %s"
+    try:
+        cursor.execute(search_query, (id_utente,))
+        results = cursor.fetchone()
+        return results
+    except mysql.connector.Error as err:
+        return None
+
+
 def update_configurazione_avatar(id_utente, **kwargs):
     try:
         update_query = "UPDATE configurazione_avatar SET "

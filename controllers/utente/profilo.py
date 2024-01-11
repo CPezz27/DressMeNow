@@ -149,19 +149,21 @@ def configura_avatar():
 
     user_id = session['id']
 
+    avatar = ConfigurazioneAvatar.view_avatar(user_id)
+
     if request.method == 'POST':
         data = request.json
         if data:
             success = ConfigurazioneAvatar.update_configurazione_avatar(
                 user_id, **data)
             if success:
-                return render_template("utente/personalizzazioneAvatar.html", message="Avatar aggiornato correttamente.")
+                return render_template("utente/personalizzazioneAvatar.html", data=avatar, message="Avatar aggiornato correttamente.")
             else:
-                return render_template("utente/personalizzazioneAvatar.html", message="Avatar non aggiornato.")
+                return render_template("utente/personalizzazioneAvatar.html", data=avatar, message="Avatar non aggiornato.")
         else:
-            return render_template("utente/personalizzazioneAvatar.html", message="Parametri mancanti.")
+            return render_template("utente/personalizzazioneAvatar.html", data=avatar, message="Parametri mancanti.")
 
-    return render_template("utente/personalizzazioneAvatar.html")
+    return render_template("utente/personalizzazioneAvatar.html", data=avatar)
 
 
 @app_bp.route('/logout')
