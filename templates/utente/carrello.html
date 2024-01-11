@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping Cart - Clothing Store</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID"></script>
     <style>
         /* Aggiunta di stili personalizzati */
         .custom-background {
@@ -85,7 +86,8 @@
                         {% endif %}
                     </span>
                 </div>
-                <button class="mt-4 bg-blue-500 text-white py-2 px-4 rounded-full">Proceed to Checkout</button>
+                <!--<button class="mt-4 bg-blue-500 text-white py-2 px-4 rounded-full">Proceed to Checkout</button>-->
+                <div id="paypal-button-container"></div>
             </div>
 
                     <!-- Sezione "Prova i prodotti sull'avatar" -->
@@ -101,10 +103,73 @@
     </div>
 
 </body>
-
     <script>
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            {% if totale %}
+                                value: {{ totale + 5 }},
+                            {% else %}
+                                value: 0,
+                            {% endif %}
+                        },
+                        items: [
+                        {% for prodotto in data %}
+                        {
+                            id_prodotto: {{ prodotto[0] }},
+                            name: {{ prodotto[3] }},
+                            description: {{ prodotto[6] }},
+                            quantity: 1,
+                            category: {{ prodotto[4] }},
+                            unit_amount: {
+                                currency_code: 'EUR',
+                                value: {{ prodotto[8] }},
+                            },
+                        }
+                        {% endfor %}
+                        ],
+                        custom: {
+                            id_utente: {{session['id']}},
+                        },
+                    }],
+                    application_context: {
+                        shipping_preference: 'NO_SHIPPING',
+                    },
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    console.log(details);
+                    fetch('/verifica_pagamento', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            id: details.id,
+                        }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        if (data.success) {
+                            window.location.href = '/conferma_ordine';
+                        } else {
+                            window.location.href = '/errore_ordine';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Errore durante la verifica del pagamento:', error);
+                        window.location.href = '/errore_ordine';
+                    });
+                });
+            },
+        }).render('#paypal-button-container');
+
         function tornaIndietro() {
-        window.history.back();
+            window.history.back();
         }
     </script>
     <div class="fixed bottom-0 left-0 m-4">

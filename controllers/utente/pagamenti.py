@@ -40,7 +40,7 @@ def verifica_pagamento():
             transazione.save()
 
             for item in paypal_order_details['purchase_units'][0]['items']:
-                id_prodotto = item['custom']['id_prodotto']
+                id_prodotto = item['id_prodotto']
 
                 prodotto_in_ordine = ProdottoInOrdine(id_ordine=id_ordine, id_prodotto=id_prodotto, reso=0,
                                                       stato_reso=None, note_reso=None)
