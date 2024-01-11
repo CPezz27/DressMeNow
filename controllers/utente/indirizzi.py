@@ -1,7 +1,8 @@
 from flask import Blueprint, render_template, request, session, redirect, url_for
 
 from models import Indirizzo
-from models.Indirizzo import Indirizzo, get_address, get_addresses, update
+from models.Indirizzo import Indirizzo, get_address, get_addresses, update, delete
+from controllers.utente.profilo import indirizzi
 from utils.utils import validate_input
 
 app_bp = Blueprint('gestione_indirizzi', __name__)
@@ -67,11 +68,19 @@ def elimina_indirizzo(address_id):
         return redirect(url_for('user_login.login_page'))
 
     user_id = session.get('id')
+    print("\n\n\nid indirizzo: ", address_id)
+    print("\n\n\nid utente: ", user_id)
+    address_id = int(address_id)
     if user_id:
-        address = Indirizzo.get_address(address_id)
-        if address and address.id_utente == user_id:
-            success = Indirizzo.delete(address_id)
+        print("Ho superato il 1 if:", address_id, user_id)
+        address = get_address(address_id)
+        print("\n\n\n\n oliooooo", str(address))
+        if address and address[1] == user_id:
+            success = delete(address_id)
+            print(success)
             if success:
+                print("Sono nel successo!!!!")
+                print(url_for('user_profile.indirizzi'))
                 return redirect(url_for('user_profile.indirizzi'))
             else:
                 return render_template('errore.html', message="Errore durante l'eliminazione dell'indirizzo.")

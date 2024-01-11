@@ -23,6 +23,7 @@ def get_addresses(id_utente):
     try:
         cursor.execute(query, (id_utente,))
         addresses = cursor.fetchall()
+        print(str(addresses))
         return addresses
     except mysql.connector.Error as err:
         return None

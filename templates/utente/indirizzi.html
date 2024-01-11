@@ -99,8 +99,8 @@
         <div class="addresses">
             {% if data %}
             {% for indirizzo in data %}
+            <div class="indirizzo-attivo" id="indirizzo{{ loop.index0 }}">
             <form action="/indirizzo/modifica/{{indirizzo[0]}}" method="post">
-            <div class="indirizzo indirizzo-attivo" id="indirizzo{{ loop.index0 }}">
               <h1>Indirizzo {{ loop.index }}
                 <button onclick="abilitaModifica(this,event)">
                   <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"
@@ -152,21 +152,19 @@
                   value="{{indirizzo[6]}}"
                   readonly
                 />
-              </div>
+              
               <h1><button type="submit">Salva</button></h1>
             </form>
-            {% endfor %}
+            <button class="delete-button" onclick="window.location.href='/indirizzo/elimina/{{indirizzo[0]}}'">Cancella</button>
+            </div>{% endfor %}</div>
           {% else %}
             <p>Nessun indirizzo trovato per questo utente.</p>
           {% endif %}
+      </div>
         </div>
         </div>
           <button id="aggiungiIndirizzo" style="background-color: #3498db; color: #fff;" onclick="location.href='/indirizzo/aggiungi'">
             Aggiungi Indirizzo
-          </button>
-
-          <button id="rimuoviIndirizzo" style="background-color: #e74c3c; color: #fff;" onclick="location.href='/indirizzo/rimuovi'">
-            Rimuovi Indirizzo
           </button>
       </div>
     </div>

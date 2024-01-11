@@ -3,6 +3,7 @@ from flask import Blueprint, render_template, session, redirect, url_for, reques
 
 from models import Ordine
 from models import Utente, ConfigurazioneAvatar
+from models.Indirizzo import get_addresses
 from utils.utils import validate_input, is_valid_password
 
 app_bp = Blueprint('user_profile', __name__)
@@ -37,9 +38,11 @@ def indirizzi():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
 
+    print("Sono prima nell'altro modulo")
     user_id = session['id']
+    print("Sono nell'altro modulo", user_id)
 
-    addresses = Utente.get_addresses(user_id)
+    addresses = get_addresses(int(user_id))
 
     print(addresses)
 
