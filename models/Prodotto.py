@@ -82,7 +82,7 @@ def view_products():
 
 
 def view_product(product_id):
-    search_query = "SELECT * FROM prodotto WHERE id_prodotto = %s AND p.is_deleted = 0"
+    search_query = "SELECT * FROM prodotto WHERE id_prodotto = %s AND is_deleted = 0"
     image_query = "SELECT * FROM immagine WHERE id_prodotto = %s"
     size_query = (
         "SELECT t.nometaglia, tp.quantita "
