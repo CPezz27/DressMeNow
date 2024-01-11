@@ -15,7 +15,7 @@
         <nav class="navGestoreOrdine">
             <ul>
                 <li><a href="/go/dashboard">Dashboard</a></li>
-                <li><a href="#">Logout</a></li>
+                <li><a href="/logout">Logout</a></li>
             </ul>
         </nav>
     </header>
@@ -42,8 +42,6 @@
                     <option value="annullato" {% if order_details['stato_ordine'] == 'annullato' %}selected{% endif %}>Annullato</option>
                     <option value="richiesta_reso" {% if order_details['stato_ordine'] == 'richiesta_reso' %}selected{% endif %}>Richiesta Reso</option>
                 </select>
-                <br>
-                <br>
                 <input type="submit" value="Salva Modifiche">
             </form>
 

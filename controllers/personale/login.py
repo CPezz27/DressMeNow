@@ -38,7 +38,7 @@ def login():
                         return redirect(url_for('direttore_controller.visualizza_personale'))
                     elif tipo_personale == 'gestore_ordine':
                         session['ruolo'] = 'gestore_ordine'
-                        return redirect(url_for('direttore_login.gestore_ordine'))
+                        return redirect(url_for('order_controller.dashboard'))
                     elif tipo_personale == 'gestore_prodotto':
                         session['ruolo'] = 'gestore_prodotto'
                         return redirect(url_for('direttore_login.gestore_prodotto'))
