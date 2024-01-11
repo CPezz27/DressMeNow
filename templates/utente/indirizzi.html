@@ -161,10 +161,17 @@
           {% endif %}
         </div>
         </div>
+          <button id="aggiungiIndirizzo" style="background-color: #3498db; color: #fff;" onclick="location.href='/indirizzo/aggiungi'">
+            Aggiungi Indirizzo
+          </button>
+
+          <button id="rimuoviIndirizzo" style="background-color: #e74c3c; color: #fff;" onclick="location.href='/indirizzo/rimuovi'">
+            Rimuovi Indirizzo
+          </button>
       </div>
     </div>
-    <script src="../../static/js/profilo.js"></script>
-    {% include 'components/footer.html' %}
+  <script src="../../static/js/profilo.js"></script>
+  {% include 'components/footer.html' %}
 
   </body>
 </html>

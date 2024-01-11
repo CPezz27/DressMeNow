@@ -31,7 +31,7 @@ def aggiungi_indirizzo():
         else:
             return render_template('/login')
 
-    return render_template('aggiungi_indirizzo.html')
+    return render_template('utente/aggiungi_indirizzo.html')
 
 
 @app_bp.route('/indirizzo/modifica/<int:address_id>', methods=['POST'])
