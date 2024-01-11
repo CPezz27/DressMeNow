@@ -32,6 +32,17 @@ def percentuale_prodotti_resi():
         return None
 
 
+def get_products_in_order(order_id):
+    query = "SELECT * FROM prodotto_in_ordine WHERE id_ordine = %s"
+
+    try:
+        cursor.execute(query, (order_id,))
+        products_in_order = cursor.fetchall()
+        return products_in_order
+    except mysql.connector.Error as err:
+        return None
+
+
 class ProdottoInOrdine:
     def __init__(self, id_ordine, id_prodotto, reso, stato_reso, note_reso):
         self.id_ordine = id_ordine
@@ -39,20 +50,6 @@ class ProdottoInOrdine:
         self.reso = reso
         self.stato_reso = stato_reso
         self.note_reso = note_reso
-
-    @staticmethod
-    def get_products_in_order(order_id):
-        query = "SELECT * FROM prodotto_in_ordine WHERE id_ordine = %s"
-
-        try:
-            cursor.execute(query, (order_id,))
-            products_in_order = cursor.fetchall()
-            return products_in_order
-        except mysql.connector.Error as err:
-            print(f"Errore durante la lettura dei prodotti in ordine: {err}")
-        finally:
-            cursor.close()
-            conn.close()
 
     def save(self):
         insert_query = ("INSERT INTO prodotto_in_ordine "
@@ -64,13 +61,9 @@ class ProdottoInOrdine:
         try:
             cursor.execute(insert_query, data)
             conn.commit()
-            print("Prodotto in ordine salvato correttamente nel database.")
+            return True
         except mysql.connector.Error as err:
-            conn.rollback()
-            print(f"Errore durante l'inserimento del prodotto in ordine: {err}")
-        finally:
-            cursor.close()
-            conn.close()
+            return False
 
     def update(self):
         update_query = ("UPDATE prodotto_in_ordine SET reso = %s, stato_reso = %s, note_reso = %s "
@@ -81,13 +74,9 @@ class ProdottoInOrdine:
         try:
             cursor.execute(update_query, data)
             conn.commit()
-            print("Prodotto in ordine aggiornato correttamente nel database.")
+            return True
         except mysql.connector.Error as err:
-            conn.rollback()
-            print(f"Errore durante l'aggiornamento del prodotto in ordine: {err}")
-        finally:
-            cursor.close()
-            conn.close()
+            return False
 
     def delete(self):
         delete_query = "DELETE FROM prodotto_in_ordine WHERE id_ordine = %s AND id_prodotto = %s"
@@ -95,10 +84,6 @@ class ProdottoInOrdine:
         try:
             cursor.execute(delete_query, (self.id_ordine, self.id_prodotto))
             conn.commit()
-            print("Prodotto in ordine eliminato correttamente dal database.")
+            return True
         except mysql.connector.Error as err:
-            conn.rollback()
-            print(f"Errore durante l'eliminazione del prodotto in ordine: {err}")
-        finally:
-            cursor.close()
-            conn.close()
+            return False

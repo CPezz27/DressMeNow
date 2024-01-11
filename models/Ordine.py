@@ -175,7 +175,7 @@ class Ordine:
         try:
             cursor.execute(insert_query, order_data)
             conn.commit()
-            return True
+            return cursor.lastrowid
         except mysql.connector.Error as err:
-            return False
+            return None
     
