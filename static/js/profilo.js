@@ -19,7 +19,7 @@ document.querySelectorAll('.nav-profilo a').forEach((link, index) => {
           window.location.href = '/p/ordini';
           break;
         case 3:
-          window.location.href = '/p/personalizzazioneAvatar';
+          window.location.href = '/p/configura_avatar';
           break;
         case 4:
           window.location.href = '/p/impostazioni';
