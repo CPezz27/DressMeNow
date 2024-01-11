@@ -13,171 +13,470 @@
     input[type="radio"]:checked + label div.selected-border {
       opacity: 1;
     }
+/* Start Variables */ 
+:root {
 
-    /* Start Variables */
-    :root {
-      --hair-color: #424b54;
-      --skin-color: #f0beaf;
-    }
-    /* End Variables */
+    /* variabili selezionabili */
+    --hair-color: #424b54;
+    --skin-color: #fecaca;
+    --eye-color: #000000;
 
-    /* Start Global Rules */
-    body {
-      background-color: #ebd8d0;
-    }
-    .human {
-      margin: auto;
-      background-color: #f0beaf;
-      width: 220px;
-      height: 220px;
-      border: 3px solid #fff;
-      border-radius: 50%;
-      position: relative;
-      overflow: hidden;
-    }
-    .hair {
-      background-color: var(--hair-color);
-      width: 120px;
-      height: 180px;
-      position: absolute;
-      top: 40px;
-      left: 110px;
-      transform: translateX(-50%);
-      border-top-right-radius: 80px;
-      border-top-left-radius: 80px;
-      z-index: 1;
-    }
-    .face {
-      background-color: var(--skin-color);
-      width: 70px;
-      height: 80px;
-      position: absolute;
-      top: 80px;
-      left: 50px;
-      transform: translateX(35%);
-      z-index: 3;
-      border-radius: 0 0 80px 80px;
-    }
-    .napkin {
-      content: "";
-      background-color: var(--hair-color);
-      width: 60px;
-      height: 40px;
-      position: absolute;
-      top: -24px;
-      left: -5px;
-      box-shadow: 40px 10px 0 -8px var(--hair-color);
-      border-radius: 50%;
-    }
-    .eye {
-      background-color: var(--hair-color);
-      width: 10px;
-      height: 10px;
-      position: absolute;
-      top: 27px;
-      left: 8px;
-      box-shadow: 42px 0 0 var(--hair-color);
-      border-radius: 50%;
-    }
-    .brow {
-      position: absolute;
-      top: -5px;
-      left: -1px;
-      width: 12px;
-      height: 2px;
-      background: #626f7d;
-      box-shadow: 42px 0 0 #626f7d;
-      border-radius: 10px;
-    }
-    .nose {
-      background-color: #db9b99;
-      width: 8px;
-      height: 16px;
-      position: absolute;
-      top: 28px;
-      left: 50%;
-      transform: translateX(-50%);
-      border-radius: 12px;
-    }
-    .mouth {
-      position: absolute;
-      top: 52px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 28px;
-      height: 14px;
-      background-color: var(--hair-color);
-      border-radius: 0 0 20px 20px;
-      overflow: hidden;
-    }
-    .teeth {
-      background-color: #fff;
-      width: 25px;
-      height: 2px;
-      position: absolute;
-      top: 0px;
-      left: 50%;
-      transform: translateX(-50%);
-      border-radius: 10px;
-    }
-    .tongue {
-      background-color: red;
-      width: 18px;
-      height: 8px;
-      position: absolute;
-      bottom: 0px;
-      left: 50%;
-      transform: translateX(-50%);
-      border-radius: 10px;
-    }
-    .neck {
-      background-color: var(--skin-color);
-      width: 27px;
-      height: 25px;
-      position: absolute;
-      bottom: -12px;
-      left: 50%;
-      transform: translateX(-50%);
-      border-radius: 50px;
-    }
-    .body {
-      background-color: #bb004f;
-      width: 98px;
-      height: 80px;
-      position: absolute;
-      bottom: -22px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 2;
-      border-top-left-radius: 50px;
-      border-top-right-radius: 50px;
-    }
-    /* End Drawing */
+    /* costanti */
+    --body-top-starting-point: 157px; 
+    --clothing-top-color: #b1b1b1;
+    --clothing-bottom-color: rgb(148, 148, 148);
+    --shoes-color: rgb(77, 77, 77);
+
+    /* variabili modificabili da slider */
+    --avatar_height: 160px; /* min: 140, max: 200 */
+    --avatar_width: 150px;  /* min: 145, max: 184 */
+    --hair-length: 1px;     /*min: 1, max: 20 */
+
+    /* variabili varie*/
+    --height-body-top: calc((var(--avatar_height) / 100) * 30); 
+
+    --hair-lenght-female: calc((var(--hair-length)*2) + 99px); /* 1 = 100,  - 140 */
+    --hair-lenght-male: calc(var(--hair-length) + 89px); /* 90 - 110 */
+
+    --height-arm-body-center-bottom: calc((var(--avatar_height) / 100) * 55);
+    --height-body-center-top: calc((var(--avatar_height) / 100) * 45);
+    --height-bottom-top: calc((var(--avatar_height) / 100) * 15);
+    --height-body-center-top: calc((var(--avatar_height) / 100) * 25);
+    --height-body-center-bottom: var(--height-arm-body-center-bottom); 
+    --height-body-center-full: var(--height-body-center-bottom);
+    
+    --height-legs: calc((var(--avatar_height) / 100) * 70);
+
+    --whitespace: calc((var(--width-body-top) - var(--width-arms) - var(--width-arms)) / 2);
+    --width-body-top: var(--avatar_width);
+    --half-body-top: calc(var(--width-body-top) / 2);
+
+    --width-arms: calc((var(--width-body-top) / 100) * 20);
+    --width-body-center: calc(var(--width-body-top) - var(--width-arms) - var(--width-arms) - 4px);
+    --width-legs: calc(((var(--width-body-center) / 100) * 40.7));
+    --left-body-center: calc(var(--left-body-top) - var(--half-body-top) + var(--width-arms) + 2px);
+
+    --left-body-top: 110px;
+    --half-left-body-top: calc(var(--left-body-top) / 2);
+
+
+  }
+/* End Variables */ 
+
+/* Start Global Rules */
+body {
+    background-color: #ffffff;
+}
+.human-body-top {
+    /*background-color: #bb004f;*/
+    margin: auto;
+    width: 220px;
+    position: relative;
+}
+.hair-female {
+    background-color: var(--hair-color);
+    width: 120px;
+    height: var(--hair-lenght-female);/* lunghezza capelli donna */
+    position: absolute;
+    top: 40px;
+    left: 110px;
+    transform: translateX(-50%);
+    border-top-right-radius: 80px;
+    border-top-left-radius: 80px;
+    z-index: 1;
+}
+.hair-male {
+    background-color: var(--hair-color);
+    width: calc((var(--hair-lenght-male) - 15px) * 1);
+    height: var(--hair-lenght-male);    /* lunghezza capelli uomo */
+    position: absolute;
+    top: calc(50px + (var(--hair-lenght-male) / 100));
+    left: 110px;
+    transform: translateX(-50%);
+    border-top-right-radius: 70px;
+    border-top-left-radius: 100px;
+    border-bottom-right-radius: 100px;
+    border-bottom-left-radius: 100px;
+    z-index: 1;
+}
+.face {
+    background-color: var(--skin-color);
+    width: 70px;
+    height: 80px;
+    position: absolute;
+    top: 80px;
+    left: 50px;
+    transform: translateX(35%);
+    z-index: 3;
+    border-radius: 0 0 80px 80px;
+}
+.napkin {
+    background-color: var(--hair-color);
+    width: 60px;
+    height: 40px;
+    position: absolute;
+    top: -24px;
+    left: -5px;
+    box-shadow: 40px 10px 0 -8px var(--hair-color);
+    border-radius: 50%;
+}
+.eye1 {
+    background-color: var(--eye-color);
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    top: 27px;
+    left: 8px;
+    /*box-shadow: 42px 0 0 var(--hair-color);*/
+    border-radius: 50%;
+    border: 1px solid white;
+}
+.brow1 {
+    position: absolute;
+    top: -5px;
+    left: -1px;
+    width: 12px;
+    height: 2px;
+    background: #000000;
+    /*box-shadow: 42px 0 0 #000000;*/
+    border-radius: 10px;
+}
+.eye2 {
+    background-color: var(--eye-color);
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    top: 27px;
+    left: 50px;
+    /*box-shadow: 42px 0 0 var(--hair-color);*/
+    border-radius: 50%;
+    border: 1px solid white;
+}
+.brow2 {
+    position: absolute;
+    top: -5px;
+    left: -1px;
+    width: 12px;
+    height: 2px;
+    background: #000000;
+    /*box-shadow: 42px 0 0 #000000;*/
+    border-radius: 10px;
+}
+.nose {
+    background-color: transparent; /* naso inutile */
+    width: 8px;
+    height: 16px;
+    position: absolute;
+    top: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 12px;
+}
+.mouth {
+    position: absolute;
+    top: 52px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 28px;
+    height: 14px;
+    background-color: black;
+    border-radius: 0 0 20px 20px;
+    overflow: hidden;
+    z-index: 4;
+}
+.teeth {
+    background-color: #fff;
+    width: 25px;
+    height: 2px;
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 10px;
+    z-index: 5;
+}
+.tongue{
+    background-color: red;
+    width: 18px;
+    height: 8px;
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 10px;
+    z-index: 5;
+}
+.neck {
+    background-color: var(--skin-color);
+    width: 27px;
+    height: 25px;
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50px;
+}
+.beard{
+    background-color: var(--hair-color);
+    width: 70px;
+    height: 35px;
+    position: absolute;
+    top: 49px;
+    left: -24.5px;
+    transform: translateX(35%);
+    z-index: 3;
+    border-radius: 0 0 80px 80px;
+}
+.beard::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  top: -2px;
+  height: 20px;
+  background-color: var(--skin-color); /* Colore della parte concava, potresti anche usare il colore di sfondo della pagina */
+  border-bottom-right-radius: 24px;
+  border-bottom-left-radius: 24px;
+  left: 0%;
+}
+
+.human-body{
+    /*background-color: #ebebeb;*/
+    z-index: 1;
+    margin-left: 35px;
+    width: var(--width-body-top);       /* 150: width dell'intero avatar base*/
+    height: 400px;      
+}
+.body-top {
+    background-color: var(--clothing-top-color);
+    width: var(--width-body-top);   
+    height: var(--height-body-top);
+    position: absolute;
+    top: var(--body-top-starting-point);
+    left: var(--left-body-top);
+    transform: translateX(-50%);
+    z-index: 2;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+}
+.arm-left{
+    background-color: var(--clothing-top-color);
+    position: absolute;
+    left: calc(var(--left-body-top) - var(--half-body-top));
+    width: var(--width-arms);   
+    height: var(--height-arm-body-center-bottom);
+    z-index: 3;
+    top: calc(var(--body-top-starting-point) + var(--height-body-top));
+}
+.hand-left{
+    background-color: var(--skin-color);
+    position: absolute;
+    width: var(--width-arms);
+    height: 15px;
+    top: var(--height-arm-body-center-bottom);
+    z-index: 1;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+
+}
+.arm-right{
+    background-color: var(--clothing-top-color);
+    position: absolute;
+    left: calc(var(--half-body-top) + var(--left-body-top) - var(--width-arms));
+    width: var(--width-arms);   
+    height: var(--height-arm-body-center-bottom);
+    z-index: 3;
+    top: calc(var(--body-top-starting-point) + var(--height-body-top));;
+}
+.hand-right{
+    background-color: var(--skin-color);
+    position: absolute;
+    width: var(--width-arms);
+    height: 15px;
+    z-index: 1;
+    top: var(--height-arm-body-center-bottom);
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+
+.body-center-top{
+    background-color: var(--clothing-top-color);
+    position: absolute;
+    left: var(--left-body-center);  
+    width: var(--width-body-center);   
+    height: var(--height-body-center-top);
+    top: calc(var(--body-top-starting-point) + var(--height-body-top));;
+    z-index: 2;
+    border-bottom-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+}
+.body-center-bottom{
+    background-color: var(--clothing-top-color);
+    position: absolute;
+    left: var(--left-body-center);
+    width: var(--width-body-center);   
+    height: var(--height-body-center-bottom);
+    top: calc(var(--body-top-starting-point) + var(--height-body-top));;
+    z-index: 2;
+    border-top-right-radius: 80px;
+    border-top-left-radius: 80px;
+}
+.body-center-full{
+    background-color: var(--clothing-top-color);
+    position: absolute;
+    left: var(--left-body-center);
+    width: var(--width-body-center);   
+    height: var(--height-body-center-full);
+    top: calc(var(--body-top-starting-point) + var(--height-body-top));;
+    z-index: 2;
+}
+
+.bottom-top{
+    background-color: var(--clothing-bottom-color);
+    position: absolute;
+    left: var(--left-body-center);
+    width: var(--width-body-center);
+    height: var(--height-bottom-top);
+    max-width: 190px;
+    z-index: 1;
+    top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top));
+
+}
+.leg-left{
+    background-color: var(--clothing-bottom-color);
+    position: absolute;
+    left: var(--left-body-center);
+    width: var(--width-legs);
+    max-width: 43px;
+    height: var(--height-legs);
+    z-index: 1;
+    top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top));
+}
+.leg-right{
+    background-color: var(--clothing-bottom-color);
+    position: absolute;
+    left: calc(var(--left-body-center) + var(--width-body-center) - var(--width-legs));
+    width: var(--width-legs);
+    max-width: 43px;
+    height: var(--height-legs);
+    z-index: 1;
+    top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top));
+}
+.midtriangle-left{
+    width: 0; 
+    height: 0; 
+    position: absolute;
+    left: 100px;
+    top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top));
+    z-index: 1;
+    border-top: 5px solid var(--clothing-bottom-color);
+    border-bottom: var(--height-legs) solid transparent;
+    border-left: 10px solid var(--clothing-bottom-color);
+}
+.midtriangle-right{
+    width: 0; 
+    height: 0; 
+    position: absolute;
+    left: 110px;
+    top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top));
+    z-index: 1;
+    border-top: 5px solid var(--clothing-bottom-color);
+    border-bottom: var(--height-legs) solid transparent;
+    border-right: 10px solid var(--clothing-bottom-color);
+}
+.shoeleg-left{
+    background-color: var(--shoes-color);
+    position: absolute;
+    left: 69px;
+    width: 31px;
+    height: 20px;
+    z-index: 1;
+    top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top) + var(--height-legs));
+}
+.shoe-left{
+    background-color: var(--shoes-color);
+    position: absolute;
+    left: 45px;
+    width: 55px;
+    height: 23px;
+    z-index: 1;
+    top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top) + var(--height-legs) + 10px);
+    border-top-left-radius: 30px;
+}
+.shoeleg-right{
+    background-color: var(--shoes-color);
+    position: absolute;
+    left: 120px;
+    width: 31px;
+    height: 20px;
+    z-index: 1;
+    top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top) + var(--height-legs));
+}
+.shoe-right{
+    background-color: var(--shoes-color);
+    position: absolute;
+    left: 120px;
+    width: 55px;
+    height: 23px;
+    z-index: 1;
+    top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top) + var(--height-legs) + 10px);
+    border-top-right-radius: 30px;
+}
+/* End Drawing */
   </style>
 
   <body class="bg-gray-100">
     <div class="flex">
-      <div class="w-2/3 p-6">
-        <div class="relative w-40 h-40 mx-auto">
-          <div class="human">
-            <div class="hair"></div>
-            <div class="face">
-              <div class="napkin"></div>
-              <div class="eye">
-                <div class="brow"></div>
-              </div>
-              <div class="nose"></div>
-              <div class="cheek"></div>
-              <div class="mouth">
-                <div class="teeth"></div>
-                <div class="tongue"></div>
-              </div>
-              <div class="neck"></div>
+
+        <!-- AVATAR -->
+        <div class="w-2/3 p-6">
+            <div class="relative w-40 h-40 mx-auto">
+                <div class="human-body-top">
+                    <div class="hair-female" style="display: hidden;"></div>
+                    <div class="hair-male" style="display: none;"></div>                                        <!-- visible se MASCHIO-->                   
+                        <div class="face" style="border-top-right-radius: 0px; border-top-left-radius: 0px;"> <!-- 50px per uomo, 0 per donna-->
+                            <div class="napkin" style="height: 40px;" ></div>                                    <!-- 0 per uomo, 40 per donna-->
+                            <div class="eye1">
+                                <div class="brow1"></div>
+                            </div>
+                            <div class="eye2">
+                                <div class="brow2"></div>
+                            </div>
+                            <div class="nose"></div>
+                            <div class="cheek"></div>
+                            <div class="mouth">
+                                <div class="teeth"></div>
+                                <div class="tongue"></div>
+                            </div>
+                            <div class="beard" id="beard" style="display: none"></div>
+                            <div class="neck"></div>
+                        </div>
+                        <div class="human-body">
+                            <div class="body-top"></div>
+                            <div class="arm-left">
+                                <div class="hand-left"></div>
+                            </div>
+                            <div class="arm-right">
+                                <div class="hand-right"></div>
+                            </div>
+                            <div class="body-center-top"></div>
+                            <div class="body-center-bottom"></div>
+                            <div class="body-center-full" style="display: none;"></div>      <!-- hidden per uomo -->                   <!-- visible se MASCHIO-->
+    
+                            <div class="bottom-top"></div>
+                            <div class="leg-left"></div>
+                            <div class="leg-right"></div>
+    
+                            <div class="midtriangle-left"></div>
+                            <div class="midtriangle-right"></div>
+    
+                            <div class="shoeleg-left"></div>
+                            <div class="shoe-left"></div>
+                            <div class="shoeleg-right"></div>
+                            <div class="shoe-right"></div>
+                        </div>
+                    </div>
             </div>
-            <div class="body"></div>
-          </div>
         </div>
-      </div>
 
       <div class="w-1/3 p-6 bg-gray-200 m-9 max-w-xl">
         <h2 class="text-2xl font-bold mb-4">Modifica Avatar</h2>
@@ -224,7 +523,7 @@
                 class="flex items-center relative cursor-pointer"
               >
                 <div
-                  class="w-8 h-8 rounded-full bg-yellow-700 border border-gray-300"
+                  class="w-8 h-8 rounded-full bg-yellow-600 border border-gray-300"
                 ></div>
                 <div
                   class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"
@@ -282,7 +581,7 @@
                 ></div>
               </label>
               <input type="radio" id="coloreOcchi2" name="coloreOcchi"
-              value="blu scuro " class="opacity-0 absolute sr-only" {% if
+              value="blu scuro" class="opacity-0 absolute sr-only" {% if
               data[2]=='blu scuro' %}checked{% endif %} />
               <label
                 for="coloreOcchi2"
@@ -429,7 +728,7 @@
               id="lunghezzaCapelli"
               name="lunghezzaCapelli"
               min="1"
-              max="100"
+              max="20"
               class="w-full rounded-md border-gray-300"
               value="{{data[4]}}"
             />
@@ -442,8 +741,8 @@
               type="range"
               id="altezza"
               name="altezza"
-              min="100"
-              max="300"
+              min="140"
+              max="200"
               class="w-full rounded-md border-gray-300"
               value="{{data[5]}}"
             />
@@ -456,8 +755,8 @@
               type="range"
               id="peso"
               name="peso"
-              min="30"
-              max="200"
+              min="145"
+              max="183"
               class="w-full rounded-md border-gray-300"
               value="{{data[6]}}"
             />
@@ -544,7 +843,164 @@
     </div>
 
     <script>
-      // Aggiungi qui il codice JavaScript per gestire la logica di salvataggio e annullamento delle modifiche
+      document.addEventListener('DOMContentLoaded', function () {
+        var radioButtonsPelle = document.querySelectorAll('input[name="colorePelle"]');
+    
+        // Mappa dei nomi di colore di Tailwind a colori HEX
+        var colorMap = {
+            'Rosa pallido': '#fecaca',
+            'Rosa': '#fca5a5',
+            'marrone chiaro': '#d97706',
+            'mulatto': '#854d0e',
+            'marrone scuro': '#713f12'
+            };
+
+        // Aggiungi un listener a ciascun radio button
+        radioButtonsPelle.forEach(function (radioButton) {
+            radioButton.addEventListener('change', function () {
+                // Recupera il valore associato al radio button selezionato
+                var selectedColor = radioButton.value;
+
+                // Modifica il colore della pelle in base al valore selezionato
+                document.documentElement.style.setProperty('--skin-color', colorMap[selectedColor]);
+                });
+            });
+        
+        });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var radioButtonsOcchi = document.querySelectorAll('input[name="coloreOcchi"]');
+    
+        // Mappa dei nomi di colore di Tailwind a colori HEX
+        var colorMap = {
+            'blu chiaro': '#60a5fa',
+            'blu scuro': '#1d4ed8',
+            'verde chiaro': '#16a34a',
+            'verde scuro': '#166534',
+            'marrone': '#713f12'
+            };
+
+        // Aggiungi un listener a ciascun radio button
+        radioButtonsOcchi.forEach(function (radioButton) {
+            radioButton.addEventListener('change', function () {
+                // Recupera il valore associato al radio button selezionato
+                var selectedColor = radioButton.value;
+
+                // Modifica il colore della pelle in base al valore selezionato
+                document.documentElement.style.setProperty('--eye-color', colorMap[selectedColor]);
+                });
+            });
+        
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+        var radioButtonsCapelli = document.querySelectorAll('input[name="coloreCapelli"]');
+    
+        // Mappa dei nomi di colore di Tailwind a colori HEX
+        var colorMap = {
+            'bianco': '#e5e7eb',
+            'nero': '#030712',
+            'marrone chiaro': '#a16207',
+            'marrone scuro': '#422006',
+            'biondo': '#facc15'
+            };
+
+        // Aggiungi un listener a ciascun radio button
+        radioButtonsCapelli.forEach(function (radioButton) {
+            radioButton.addEventListener('change', function () {
+                // Recupera il valore associato al radio button selezionato
+                var selectedColor = radioButton.value;
+
+                // Modifica il colore della pelle in base al valore selezionato
+                document.documentElement.style.setProperty('--hair-color', colorMap[selectedColor]);
+                });
+            });
+        
+        });
+
+        // Funzione per impostare la lunghezza dei capelli
+        function setHairLength(length) {
+            const cappedLength = Math.min(Math.max(length, 1), 20); // Limita il valore tra 1 e 20
+            document.documentElement.style.setProperty('--hair-length', `${cappedLength}px`);
+        }
+
+        // Aggiungi un event listener per l'input di tipo "range"
+        const rangeInput1 = document.getElementById('lunghezzaCapelli');
+        rangeInput1.addEventListener('input', (event) => {
+            const selectedLength = event.target.value;
+            setHairLength(selectedLength);
+         });
+
+        // Funzione per impostare l'altezza dell'avatar
+        function setHeight(height) {
+            const cappedHeight = Math.min(Math.max(height, 140), 200); // Limita il valore tra 1 e 20
+            document.documentElement.style.setProperty('--avatar_height', `${cappedHeight}px`);
+        }
+
+        // Aggiungi un event listener per l'input di tipo "range"
+        const rangeInput2 = document.getElementById('altezza');
+        rangeInput2.addEventListener('input', (event) => {
+            const selectedHeight = event.target.value;
+            setHeight(selectedHeight);
+         });
+
+        // Funzione per impostare il peso dell'avatar
+        function setWidth(width) {
+            const cappedWidth = Math.min(Math.max(width, 145), 183); // Limita il valore tra 1 e 20
+            document.documentElement.style.setProperty('--avatar_width', `${cappedWidth}px`);
+        }
+
+        // Aggiungi un event listener per l'input di tipo "range"
+        const rangeInput3 = document.getElementById('peso');
+        rangeInput3.addEventListener('input', (event) => {
+            const selectedWidth = event.target.value;
+            setWidth(selectedWidth);
+         });
+
+        const checkbox = document.getElementById('barba');
+        const beardElement = document.getElementById('beard');
+
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+            beardElement.style.display = 'block'; // Nascondi la barba
+            } else {
+            beardElement.style.display = 'none'; // Mostra la barba
+            }
+        });
+
+        // Funzione per gestire le modifiche in base al sesso selezionato
+         function handleSessoChange() {
+            const sessoSelect = document.getElementById('sesso');
+            const hairMale = document.querySelector('.hair-male');
+            const hairFemale = document.querySelector('.hair-female');
+            const face = document.querySelector('.face');
+            const napkin = document.querySelector('.napkin');
+            const bodyCenterFull = document.querySelector('.body-center-full');
+
+            if (sessoSelect.value === 'uomo') {
+            // Uomo
+            hairMale.style.display = 'block';
+            hairFemale.style.display = 'none';
+            face.style.borderTopRightRadius = '50px';
+            face.style.borderTopLeftRadius = '50px';
+            napkin.style.height = '0';
+            bodyCenterFull.style.display = 'block';
+            } else if (sessoSelect.value === 'donna') {
+            // Donna
+            hairMale.style.display = 'none';
+            hairFemale.style.display = 'block';
+            face.style.borderTopRightRadius = '0';
+            face.style.borderTopLeftRadius = '0';
+            napkin.style.height = '40px';
+            bodyCenterFull.style.display = 'none';
+            }
+        }
+
+        // Aggiungi un event listener per l'input della selezione del sesso
+        const sessoSelect = document.getElementById('sesso');
+        sessoSelect.addEventListener('change', handleSessoChange);
+
+        // Esegui la funzione all'avvio per impostare lo stato iniziale
+        handleSessoChange();
     </script>
   </body>
 </html>
