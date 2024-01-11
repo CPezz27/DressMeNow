@@ -11,7 +11,7 @@ from models.Transazione import Transazione
 app_bp = Blueprint('user_payments', __name__)
 
 
-@app_bp.route('/verifica_pagamento', methods=['POST'])
+@app_bp.route('/verifica_pagamento', methods=['GET', 'POST'])
 def verifica_pagamento():
     transaction_details = request.get_json()
 
