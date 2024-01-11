@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, redirect, session, url_fo
 
 from models import Immagine
 from models.Immagine import Immagine
+from models.Immagine import rimuovi_immagine
 from models.Immagine import visualizza_immagini_prodotto
 from base64 import b64encode
 
@@ -37,20 +38,20 @@ def aggiungi_immagine():
     return render_template("gestore_prodotti/aggiungi_immagine.html")
 
 
-@app_bp.route("/gp/rimuovi_immagine/<int:id_immagine>", methods=['POST'])
-def rimuovi_immagine(id_immagine):
+@app_bp.route("/gp/rimuovi_immagine/<int:id_immagine>/<int:id_prodotto>", methods=['GET', 'POST'])
+def rimuovi_img(id_immagine, id_prodotto):
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
 
     if session['ruolo'] != 'gestore_prodotto':
         return redirect(url_for('index'))
 
-    success = Immagine.rimuovi_immagine(id_immagine)
+    success = rimuovi_immagine(id_immagine)
 
     if success:
-        return render_template("gestore_prodotti/immagini.html")  # mess. successo
+        return redirect(url_for('image_controller.visualizza_immagini_prodott', id_prodotto=id_prodotto, message="Immagine cancellata correttamente"))
     else:
-        return render_template("gestore_prodotti/immagini.html")  # mess. errore
+        return redirect(url_for('image_controller.visualizza_immagini_prodott', id_prodotto=id_prodotto, message="Errore nella rimozione dell'immagine"))
 
 
 @app_bp.route("/gp/visualizza_immagini", methods=['POST'])
@@ -76,5 +77,6 @@ def visualizza_immagini_prodott(id_prodotto):
 
     print("\n\nSonoQUI\n\n")
     immagini = visualizza_immagini_prodotto(id_prodotto)
+    message = request.args.get('message', None)
 
-    return render_template("aggiungiImgProdotto.html", data=immagini)
+    return render_template("aggiungiImgProdotto.html", data=immagini, message=message)
