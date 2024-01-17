@@ -1,0 +1,46 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    padding: 20px;
+}
+
+.image-container {
+    position: relative;
+}
+
+.delete-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    margin: 3px;
+    background-color: #e53935;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 14px;
+    display: none; /* Inizialmente nascosto */
+}
+
+.delete-button:hover {
+    background-color: #c62828;
+    cursor: pointer;
+}
+
+.image-container:hover .delete-button {
+    display: block; /* Mostra il pulsante al passaggio del mouse */
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    display: block;
+}

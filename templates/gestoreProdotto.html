@@ -25,10 +25,8 @@
       src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"
     ></script>
   </head>
-
   <body>
     {% include 'components/headerGestoreProdotto.html' %}
-
 
     <div>
       <div class="container mx-auto my-8 max-w-md">
@@ -46,35 +44,33 @@
           </thead>
           <tbody>
             <!-- Inserisci qui le righe della tabella con i dati dei prodotti -->
-            {% for prodotto in prodotti_da_mostrare %}
-                {% for taglia in prodotto['taglie'] %}
-                <tr>
-                    <td>{{ prodotto['nome'] }}</td>
-                    <td>{{ prodotto['prezzo'] }}</td>
-                    <td>{{ taglia['nometaglia'] }}</td>
-                    <td>{{ taglia['quantita'] }}</td>
-                    <td>
-                      <a href="/gp/mostra_prodotto?product_id={{ prodotto['id_prodotto'] }}">
-                          Modifica
-                      </a>
-                  </td>
-                  <td>
-                    <a href="/gp/visualizza_immagini_prodotto/{{ prodotto['id_prodotto'] }}">
-                      Aggiungi immagine
-                  </a>                  
-                </td>
-                </tr>
-                {% endfor %}
-            {% endfor %}
-
+            {% for prodotto in prodotti_da_mostrare %} {% for taglia in
+            prodotto['taglie'] %}
+            <tr>
+              <td>{{ prodotto['nome'] }}</td>
+              <td>{{ prodotto['prezzo'] }}</td>
+              <td>{{ taglia['nometaglia'] }}</td>
+              <td>{{ taglia['quantita'] }}</td>
+              <td>
+                <a
+                  href="/gp/mostra_prodotto?product_id={{ prodotto['id_prodotto'] }}"
+                >
+                  Modifica
+                </a>
+              </td>
+              <td>
+                <a
+                  href="/gp/visualizza_immagini_prodotto/{{ prodotto['id_prodotto'] }}"
+                >
+                  Aggiungi immagine
+                </a>
+              </td>
+            </tr>
+            {% endfor %} {% endfor %}
           </tbody>
         </table>
       </div>
     </div>
-
-    <footer>
-      <p>&copy; 2023 DressMeNow. Tutti i diritti riservati.</p>
-    </footer>
 
     <script>
       $(document).ready(function () {
