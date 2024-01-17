@@ -23,15 +23,15 @@
         <div class="w-full md:w-1/2 mb-8 flex justify-center md:justify-end">
           <div id="slider" class="owl-carousel product-slider owl-theme flex flex-col md:flex-row md:flex-row-reverse items-center md:items-start">
               <!-- Prima immagine grande -->
-              <img class="w-70 h-80 mb-4 md:mr-5" src="data:image/jpeg;base64,{{ data.images[0].immagine }}" alt="{{ data.images[0].tipo }}" />
+              <img class="w-70 h-60 mb-4 md:mr-5" src="data:image/jpeg;base64,{{ data.images[0].immagine }}" alt="{{ data.images[0].tipo }}" />
               
               <!-- Altre immagini in una colonna sulla sinistra -->
               <div class="flex flex-col md:ml-5">
                   {% for image in data.images[1:] %}
                   <img class="md:w-12 md:h-12 w-64 h-64 mb-2 md:mr-3" src="data:image/jpeg;base64,{{ image.immagine }}" alt="{{ image.tipo }}" />
                   {% endfor %}
-              </div>
-          </div>
+              </div>              
+          </div>          
           <div id="thumb" class="owl-carousel product-thumb owl-theme">
               <!-- Thumbnail images go here -->
           </div>
@@ -156,6 +156,6 @@
           quantityInput.value = parseInt(quantityInput.value) - 1;
         }
       }
-        </script>
+        </script>        
       </body>
 </html>
