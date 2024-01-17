@@ -28,9 +28,13 @@
           <a href="/c?category=uomo">Uomo</a>
           <a href="/c?category=donna">Donna</a>
           <a href="/c?category=bambino">Bambino</a>
+          {% if session['logged_in'] == True %}
+          <a href="/p/profilo">Bentornato, {{ session['Nome'] }}</a>
+          {% endif %}
         </div>
+
         <div class="icons">
-          <a href='/ricerca'>
+          <a href="/ricerca">
             <svg
               width="25"
               height="25"

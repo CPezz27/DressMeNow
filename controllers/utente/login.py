@@ -30,6 +30,7 @@ def login():
 
                 session['logged_in'] = True
                 session['id'] = user[0]
+                session['Nome'] = user[1]
                 return redirect('/')
             else:
                 return render_template('utente/login.html', message="Credenziali non valide. Riprova.")
