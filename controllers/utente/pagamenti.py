@@ -1,9 +1,10 @@
 import decimal
 from datetime import date
 
-from flask import Blueprint, request, redirect, url_for
+from flask import Blueprint, request, redirect, url_for, session, render_template
 import requests
 
+from models import Carrello
 from models.Ordine import Ordine
 from models.ProdottoInOrdine import ProdottoInOrdine
 from models.Transazione import Transazione
@@ -11,43 +12,59 @@ from models.Transazione import Transazione
 app_bp = Blueprint('user_payments', __name__)
 
 
-@app_bp.route('/verifica_pagamento', methods=['GET', 'POST'])
-def verifica_pagamento():
-    transaction_details = request.get_json()
-
-    order_id = transaction_details['id']
-
-    paypal_api_url = f'https://api-m.sandbox.paypal.com/v2/checkout/orders/{order_id}'
-    headers = {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer YOUR_PAYPAL_ACCESS_TOKEN'
-    }
+@app_bp.route('/conferma_ordine', methods=['GET'])
+def conferma_ordine():
+    if 'logged_in' not in session or not session['logged_in']:
+        return redirect(url_for('user_login.login_page'))
 
     try:
-        response = requests.get(paypal_api_url, headers=headers)
-        if response.status_code == 200:
-            paypal_order_details = response.json()
+        return render_template('/confermaOrdine.html')
+    except Exception as e:
+        return render_template('/confermaOrdine.html')
 
-            id_utente = paypal_order_details['custom']['id_utente']
-            data_transazione = date.today()
-            totale_transazione = decimal.Decimal(paypal_order_details['purchase_units'][0]['amount']['value'])
-            stato_transazione = 'Confermato'
 
-            ordine = Ordine(id_utente=id_utente, stato=stato_transazione, data=data_transazione)
-            id_ordine = ordine.save()
+@app_bp.route('/pagamento', methods=['GET'])
+def pagamento():
+    if 'logged_in' not in session or not session['logged_in']:
+        return redirect(url_for('user_login.login_page'))
 
-            transazione = Transazione(id_utente=id_utente, id_ordine=id_ordine, data=data_transazione, totale=totale_transazione, stato=stato_transazione)
-            transazione.save()
+    try:
+        user_id = session.get('id')
 
-            for item in paypal_order_details['purchase_units'][0]['items']:
-                id_prodotto = item['id_prodotto']
+        prodotti, totale = Carrello.contenuto_carrello(user_id)
 
-                prodotto_in_ordine = ProdottoInOrdine(id_ordine=id_ordine, id_prodotto=id_prodotto, reso=0,
-                                                      stato_reso=None, note_reso=None)
-                prodotto_in_ordine.save()
+        return render_template('/utente/pagamento.html', data=prodotti, totale=totale)
 
-            return redirect(url_for('conferma_ordine'))
-        else:
-            return redirect(url_for('errore_ordine'))
+    except Exception as e:
+        return render_template('/utente/pagamento.html', message='Errore con il server')
+
+
+@app_bp.route('/verifica_pagamento', methods=['GET', 'POST'])
+def verifica_pagamento():
+    total_price = request.form.get('price')
+    items = request.form.get('items')
+    try:
+        id_utente = session['id']
+        data_transazione = date.today()
+        totale_transazione = total_price
+        stato_transazione = 'Confermato'
+
+        ordine = Ordine(id_utente=id_utente, stato=stato_transazione, data=data_transazione)
+        id_ordine = ordine.save()
+
+        transazione = Transazione(id_utente=id_utente, id_ordine=id_ordine, data=data_transazione,
+                                  totale=totale_transazione, stato=stato_transazione)
+        transazione.save()
+
+        for item in items:
+            id_prodotto = item
+
+            prodotto_in_ordine = ProdottoInOrdine(id_ordine=id_ordine, id_prodotto=id_prodotto, reso=0,
+                                                  stato_reso=None, note_reso=None)
+            prodotto_in_ordine.save()
+
+            Carrello.rimuovi_dal_carrello(id_utente, id_prodotto)
+
+        return redirect(url_for('user_payments.conferma_ordine'))
     except requests.RequestException as e:
-        return redirect(url_for('errore_ordine'))
+        return redirect(url_for('user_login.login_page'))
