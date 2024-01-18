@@ -68,7 +68,7 @@ def contenuto_carrello(id_utente):
         if cart_id:
             query = (
                 "SELECT pc.*, p.nome, p.categoria, p.marca, p.descrizione, p.vestibilità, "
-                "p.prezzo, p.colore, p.materiale, i.immagine "
+                "p.prezzo, p.colore, p.materiale, TO_BASE64(i.immagine) as immagine "
                 "FROM prodotto_in_carrello pc "
                 "JOIN prodotto p ON pc.id_prodotto = p.id_prodotto "
                 "LEFT JOIN (SELECT id_prodotto, immagine FROM immagine WHERE tipo = 'pagina_prodotto' GROUP BY id_prodotto) i "
@@ -77,12 +77,6 @@ def contenuto_carrello(id_utente):
             )
             cursor.execute(query, (cart_id[0],))
             cart_contents = cursor.fetchall()
-
-            for idx, row in enumerate(cart_contents):
-                image = row[11]
-                if image:
-                    encoded_image = base64.b64encode(image).decode('utf-8')
-                    cart_contents[idx] = (*row[:11], encoded_image, *row[12:])
 
             query_total_price = (
                 "SELECT SUM(p.prezzo) as totale_prezzo "
