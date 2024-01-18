@@ -21,7 +21,7 @@ from happytransformer import TTSettings
 app_bp = Blueprint('user_register', __name__)
 
 
-@app_bp.route('/ricerca', methods=["GET", "POST"])
+@app_bp.route('/ricerca', methods=["GET", "POST"]) 
 def ricercaNLP():
 
     if request.method == 'POST':
