@@ -92,9 +92,11 @@
           </a>
         </nav>
       </div>
-
+      
       <div class="rightbox">
-        
+        <button id="aggiungiIndirizzo" class="mx-auto block text-center" style="background-color: #5cea14; color: #fff;" onclick="location.href='/indirizzo/aggiungi'">
+          Aggiungi Indirizzo
+        </button> 
         <div class="addresses">
             {% if data %}
             {% for indirizzo in data %}
@@ -162,9 +164,6 @@
       </div>
         </div>
         </div>
-          <button id="aggiungiIndirizzo" style="background-color: #3498db; color: #fff;" onclick="location.href='/indirizzo/aggiungi'">
-            Aggiungi Indirizzo
-          </button>
       </div>
     </div>
   <script src="../../static/js/profilo.js"></script>
