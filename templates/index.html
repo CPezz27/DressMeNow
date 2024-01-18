@@ -128,7 +128,6 @@
           {% if res_u %} {% for prodotto in res_u %}
           <!-- Prodotto 1 -->
           <div class="bg-white rounded-lg shadow-md overflow-hidden">
-            <form action="/aggiungi_al_carrello" method="post">
               <a href="/pd?product_id={{prodotto[0]}}"
                 ><div class="aspect-w-1 aspect-h-1">
                   <img
@@ -155,13 +154,13 @@
                   {{prodotto[6]}}€
                 </p>
                 <button
-                  type="submit"
+                  type="button"
+                  onclick="location.href='/pd?product_id={{prodotto[0]}}'"
                   class="px-4 py-2 bg-green-500 text-white rounded-md mr-2"
                 >
-                  Aggiungi al carrello
+                  Visualizza
                 </button>
               </div>
-            </form>
           </div>
           {% endfor %}{% else %}
           <h1>Non abbiamo trovato nessun prodotto in questa Categoria</h1>
@@ -201,7 +200,6 @@
           {% if res_d %} {% for prodotto in res_d %}
           <!-- Prodotto 1 -->
           <div class="bg-white rounded-lg shadow-md overflow-hidden">
-            <form action="/aggiungi_al_carrello" method="post">
               <a href="/pd?product_id={{prodotto[0]}}"
                 ><div class="aspect-w-1 aspect-h-1">
                   <img
@@ -228,13 +226,13 @@
                   {{prodotto[6]}}€
                 </p>
                 <button
-                  type="submit"
+                  type="button"
+                  onclick="location.href='/pd?product_id={{prodotto[0]}}'"
                   class="px-4 py-2 bg-green-500 text-white rounded-md mr-2"
                 >
-                  Aggiungi al carrello
+                  Visualizza
                 </button>
               </div>
-            </form>
           </div>
           {% endfor %}{% else %}
           <h1>Non abbiamo trovato nessun prodotto in questa Categoria</h1>
@@ -274,7 +272,6 @@
           {% if res_b %} {% for prodotto in res_b %}
           <!-- Prodotto 1 -->
           <div class="bg-white rounded-lg shadow-md overflow-hidden">
-            <form action="/aggiungi_al_carrello" method="post">
               <a href="/pd?product_id={{prodotto[0]}}"
                 ><div class="aspect-w-1 aspect-h-1">
                   <img
@@ -303,13 +300,13 @@
                 </p>
 
                 <button
-                  type="submit"
+                  type="button"
+                  onclick="location.href='/pd?product_id={{prodotto[0]}}'"
                   class="px-4 py-2 bg-green-500 text-white rounded-md mr-2"
                 >
-                  Aggiungi al carrello
+                  Visualizza
                 </button>
               </div>
-            </form>
           </div>
           {% endfor %}{% else %}
           <h1>Non abbiamo trovato nessun prodotto in questa Categoria</h1>
