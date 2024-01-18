@@ -480,7 +480,7 @@ body {
 
       <div class="w-1/3 p-6 bg-gray-200 m-9 max-w-xl">
         <h2 class="text-2xl font-bold mb-4">Modifica Avatar</h2>
-        <form id="avatarForm" action="#" method="post" class="space-y-4">
+        <form id="avatarForm" action="/modifica_avatar" method="post" class="space-y-4">
           <!-- COLORI PELLE -->
           <div class="mb-4">
             <label for="colorePelle" class="block font-medium mb-2"
@@ -832,9 +832,8 @@ body {
             Annulla
           </button>
           <button
-            type="button"
+            type="submit"
             class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-            onclick="salvaModifiche()"
           >
             Salva Modifiche
           </button>
@@ -843,6 +842,12 @@ body {
     </div>
 
     <script>
+      //funzione per annullare le modifiche del form
+      function annullaModifiche() {
+    var modulo = document.getElementById("avatarForm");
+    modulo.reset();
+    location.reload();
+}
       document.addEventListener('DOMContentLoaded', function () {
         var radioButtonsPelle = document.querySelectorAll('input[name="colorePelle"]');
     
