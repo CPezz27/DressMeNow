@@ -1,5 +1,6 @@
 import string
 
+import nltk
 from flask import Blueprint, render_template, request, redirect
 
 import spacy
@@ -14,11 +15,11 @@ from happytransformer import TTSettings
 
 
 # Scarica i dati necessari per NLTK
-# nltk.download('punkt')
-# nltk.download('averaged_perceptron_tagger')
+#nltk.download('punkt')
+#nltk.download('averaged_perceptron_tagger')
 
 
-app_bp = Blueprint('user_register', __name__)
+app_bp = Blueprint('user_NLP', __name__)
 
 
 @app_bp.route('/ricerca', methods=["GET", "POST"]) 
@@ -37,6 +38,8 @@ def ricercaNLP():
             translated_text = translator.translate(text)
         else:
             translated_text = text
+
+        print(translated_text)
 
         model = HappyTextToText("T5", "vennify/t5-base-grammar-correction")
 
