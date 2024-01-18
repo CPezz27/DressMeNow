@@ -139,6 +139,20 @@ def view_products_by_category(category):
         return None
 
 
+def ricerca_prodotto_nlp(nome, colore):
+
+    search_query = f"SELECT * FROM prodotto WHERE nome = '{nome}' AND colore = '{colore}'"
+    cursor.execute(search_query)
+
+    try:
+        cursor.execute(search_query, (nome, colore,))
+        risultati = cursor.fetchall()
+
+        return risultati
+    except mysql.connector.Error as err:
+        return None
+
+
 def update_prodotto(product_id, **kwargs):
     update_query = "UPDATE prodotto SET "
 

@@ -13,6 +13,7 @@ from transformers import T5ForConditionalGeneration, T5Tokenizer
 from happytransformer import HappyTextToText
 from happytransformer import TTSettings
 
+from models.Prodotto import ricerca_prodotto_nlp
 
 # Scarica i dati necessari per NLTK
 #nltk.download('punkt')
@@ -83,7 +84,12 @@ def ricercaNLP():
                 if aggettivi:
                     capi_abbigliamento[token.text.lower()] = aggettivi
 
-        print(capi_abbigliamento)
+        risultati = {}
+        for capo, aggettivi in capi_abbigliamento.items():
+            for aggettivo in aggettivi:
+                risultati[capo] = ricerca_prodotto_nlp(nome=capo, colore=aggettivo)
+
+        print(risultati)
 
         return render_template('/utente/ricerca_NLP.html', data="test")
 
