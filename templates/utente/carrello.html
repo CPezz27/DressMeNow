@@ -30,19 +30,19 @@
                     <div class="bg-gray-200 p-4 rounded-lg shadow-md flex items-center justify-between">
                         <div class="flex items-center">
                             <div class="flex-shrink-0 mr-4">
-                                {% if prodotto[7] %}
+                                {% if prodotto[12] %}
                                 <!-- Immagine del prodotto -->
-                                <img src="data:image/jpeg;base64,{{ prodotto[11] }}" alt="Product" class="w-24 h-24 object-cover">
+                                <img src="data:image/jpeg;base64,{{ prodotto[12] }}" alt="Product" class="w-24 h-24 object-cover">
                                 {% else %}
                                 <!-- Immagine di fallback -->
                                 <img src="https://lorenzograssia.com/wp-content/uploads/2014/01/prodotto.jpg" alt="Product" class="w-24 h-24 object-cover">
                                 {% endif %}
                             </div>
                             <div>
-                                <h2 class="text-lg font-semibold">{{ prodotto[3] }}</h2>
-                                <p class="text-gray-600">Size: {{ prodotto[7] }}</p>
+                                <h2 class="text-lg font-semibold">{{ prodotto[4] }}</h2>
+                                <p class="text-gray-600">Size: {{ prodotto[8] }}</p>
                                 <p class="text-gray-600">Quantity: {{ prodotto[2] }}</p>
-                                <p class="text-gray-600">Price: {{ prodotto[8] }}€</p>
+                                <p class="text-gray-600">Price: {{ prodotto[9] }}€</p>
                             </div>
                         </div>
                         <form action="/rimuovi_dal_carrello" method="post">
