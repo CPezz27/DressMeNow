@@ -1,60 +1,78 @@
 <!DOCTYPE html>
 <html lang="it">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Pagina del Gestore Ordine</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="../static/css/gestore_ordine.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pagina del Gestore Ordine</title>
+  <link rel="stylesheet" href="../static/css/gestore_ordine.css" />
+  <link
+    href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css"
+  />
+  <script
+    type="text/javascript"
+    charset="utf8"
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+  ></script>
+  <script
+    type="text/javascript"
+    charset="utf8"
+    src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"
+  ></script>
 </head>
-<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
 <body>
+  {% include 'components/headerGestoreOrdine.html' %}
 
-    <header>
-        <h1>Pagina del Gestore Ordine</h1>
-        <nav class="navGestoreOrdine">
-            <ul>
-                <li><a href="/go/dashboard">Dashboard</a></li>
-                <li><a href="/logout">Logout</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main>
-        <section>
-            <h2>Dashboard</h2>
-            <p>Benvenuto nella tua area riservata, Gestore Ordine!</p>
-            <table id="myTable" class="display">
+  <div>
+    <div class="container mx-auto my-8 max-w-md">
+      <!-- TABELLA -->
+      <table id="example" class="display">
                 <thead>
-                    <tr>
-                        <th>ID Ordine</th>
-                        <th>Email utente</th>
-                        <th>Stato ordine</th>
-                        <th>Data ordine</th>
-                        <th>Modifica ordine</th>
-                    </tr>
+                  <tr>
+                    <th>ID Ordine</th>
+                    <th>Email utente</th>
+                    <th>Stato ordine</th>
+                    <th>Data ordine</th>
+                    <th>Modifica ordine</th>
+                  </tr>
                 </thead>
                 <tbody>
-                    {% for order in orders_details %}
-                        <tr>
-                            <td>{{ order[0] }}</td>
-                            <td>{{ order[1] }}</td>
-                            <td>{{ order[2] }}</td>
-                            <td>{{ order[3] }}</td>
-                            <td><a href="/go/visualizza_ordine?id_ordine={{ order[0] }}">Modifica ordine</a></td>
-                        </tr>
-                    {% endfor %}
+                  <!-- Inserisci qui le righe della tabella con i dati dei prodotti -->
+                 {% for ordine in ordine %} {% for taglia in
+            prodotto['taglie'] %}
+                  <tr>
+                    <td>{{ order[0] }}</td>
+                    <td>{{ order[1] }}</td>
+                    <td>{{ order[2] }}</td>
+                    <td>{{ order[3] }}</td>
+                    <td>
+                      <a
+                      href="/go/visualizza_ordine?id_ordine={{ order[0] }}">Modifica ordine</a></td>
+                      >
+                        Modifica
+                      </a>
+                    </td>
+                    
+                  </tr>
+                  {% endfor %} {% endfor %}
                 </tbody>
-                
-            </table>
+              </table>
         
         </section>
     </main>
 
-<script src="../../static/js/gestore_ordine.js"></script>
+<script src="../../static/js/gestore_ordine.js">
+  $(document).ready(function () {
+        $("#example").DataTable();
+      });
+
+
+</script>
 </body>
 
 </html>
