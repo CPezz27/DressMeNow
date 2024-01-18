@@ -43,18 +43,18 @@
                 </thead>
                 <tbody>
                   <!-- Inserisci qui le righe della tabella con i dati dei prodotti -->
-                 {% for ordine in ordine %} {% for taglia in
-            prodotto['taglie'] %}
+                 {% for id_ordine in ordine %} {% for email in utente['email']%}
+                   
                   <tr>
-                    <td>{{ order[0] }}</td>
-                    <td>{{ order[1] }}</td>
-                    <td>{{ order[2] }}</td>
-                    <td>{{ order[3] }}</td>
+                    <td>{{ ordine['id_ordine'] }}</td>
+                    <td>{{ utente['email'] }}</td>
+                    <td>{{ ordine['stato'] }}</td>
+                    <td>{{ ordine['data'] }}</td>
                     <td>
                       <a
-                      href="/go/visualizza_ordine?id_ordine={{ order[0] }}">Modifica ordine</a></td>
-                      >
-                        Modifica
+                      href="/go/visualizza_ordine?id_ordine={{ ordine['id_ordine'] }}">
+                      
+                  
                       </a>
                     </td>
                     
@@ -67,11 +67,11 @@
     </main>
 
 <script src="../../static/js/gestore_ordine.js">
+</script>
+<script>
   $(document).ready(function () {
         $("#example").DataTable();
-      });
-
-
+  });
 </script>
 </body>
 
