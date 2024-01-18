@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Pagina del Gestore Ordine</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="../static/css/gestore_ordine.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
 </head>
 <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
-<body>
 
+<body>
     <header>
         <h1>Pagina del Gestore Ordine</h1>
         <nav class="navGestoreOrdine">
@@ -24,39 +24,42 @@
     </header>
 
     <main>
-        <section>
-            <h2>Dashboard</h2>
-            <p>Benvenuto nella tua area riservata, Gestore Ordine!</p>
+        <div class="container mx-auto my-8 max-w-md">
+            <!-- TABELLA -->
             <table id="example" class="display">
-          <thead>
-            <tr>
-              <th>Nome Prodotto</th>
-              <th>Prezzo</th>
-              <th>Taglia</th>
-              <th>Disponibilità</th>
-              <th>Modifica dati prodotto</th>
-              <th>Aggiungi immagine</th>
-            </tr>
-          </thead>
-          <tbody>
+                <thead>
+                    <tr>
+                        <th>Nome Prodotto</th>
+                        <th>Prezzo</th>
+                        <th>Taglia</th>
+                        <th>Disponibilità</th>
+                        <th>Modifica dati prodotto</th>
+                        <th>Aggiungi immagine</th>
+                    </tr>
+                </thead>
+                <tbody>
                     {% for order in orders_details %}
-                        <tr>
-                            <td>{{ order[0] }}</td>
-                            <td>{{ order[1] }}</td>
-                            <td>{{ order[2] }}</td>
-                            <td>{{ order[3] }}</td>
-                            <td><a href="/go/visualizza_ordine?id_ordine={{ order[0] }}">Modifica ordine</a></td>
-                        </tr>
+                        {% for product in order['products'] %}
+                            <tr>
+                                <td>{{ product['nome'] }}</td>
+                                <td>{{ product['prezzo'] }}</td>
+                                <td>{{ product['taglia'] }}</td>
+                                <td>{{ product['disponibilita'] }}</td>
+                                <td><a href="/go/visualizza_ordine?id_ordine={{ order['id'] }}">Modifica ordine</a></td>
+                                <td><a href="/go/aggiungi_immagine_prodotto/{{ product['id_prodotto'] }}">Aggiungi immagine</a></td>
+                            </tr>
+                        {% endfor %}
                     {% endfor %}
                 </tbody>
-                
             </table>
-        
-        </section>
+        </div>
     </main>
 
-<script src="../../static/js/gestore_ordine.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#example").DataTable();
+        });
+    </script>
 </body>
 
 </html>
-
