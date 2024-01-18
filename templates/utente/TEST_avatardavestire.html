@@ -32,6 +32,10 @@
     --avatar_width: 150px;  /* min: 145, max: 184 */
     --hair-length: 1px;     /*min: 1, max: 20 */
 
+    /* variabili da sostituire a quelle scelte precedentemente */
+    --selected_width_legs: 0px;
+    --selected_width_top: 0px;
+
     /* variabili varie*/
     --height-body-top: calc((var(--avatar_height) / 100) * 30); 
 
@@ -53,11 +57,29 @@
 
     --width-arms: calc((var(--width-body-top) / 100) * 20);
     --width-body-center: calc(var(--width-body-top) - var(--width-arms) - var(--width-arms) - 4px);
+  
     --width-legs: calc(((var(--width-body-center) / 100) * 40.7));
     --left-body-center: calc(var(--left-body-top) - var(--half-body-top) + var(--width-arms) + 2px);
 
     --left-body-top: 110px;
     --half-left-body-top: calc(var(--left-body-top) / 2);
+
+    /* variabili per i vestiti */
+    --c-clothing-top-color: #ffffff;
+    --c-clothing-bottom-color: rgb(0, 0, 0);
+
+    --c-whitespace: calc((var(--selected_width_top) - var(--c-width-arms) - var(--c-width-arms)) / 2);
+    --c-half-body-top: calc(var(--selected_width_top) / 2);
+    --c-width-arms: calc((var(--selected_width_top) / 100) * 20);
+    --c-width-body-center: calc(var(--selected_width_top) - var(--c-width-arms) - var(--c-width-arms) - 4px);
+    --c-left-body-center: calc(var(--left-body-top) - var(--half-body-top) + var(--c-width-arms) + 2px);
+
+    --c-width-arms-but-legs: calc((var(--selected_width_legs) / 100) * 20);
+    --c-width-body-center-but-legs: calc(var(--selected_width_legs) - var(--c-width-arms-but-legs) - var(--c-width-arms-but-legs) - 4px);
+    --c-width-legs: calc(( (var(--c-width-body-center-but-legs) / 100) * 40.7));
+    --c-half-body-top-but-legs: calc(var(--selected_width_legs) / 2);
+    --c-left-body-center-but-legs: calc(var(--left-body-top) - var(--c-half-body-top-but-legs) + var(--c-width-arms-but-legs) + 2px);
+
 
 
   }
@@ -344,8 +366,8 @@ body {
 .leg-left{
     background-color: var(--clothing-bottom-color);
     position: absolute;
-    left: var(--left-body-center);
-    width: var(--width-legs);
+    left: calc(var(--left-body-center));
+    width: calc(var(--width-legs));
     max-width: 43px;
     height: var(--height-legs);
     z-index: 1;
@@ -423,17 +445,111 @@ body {
 }
 /* End Drawing */
 
-/* Start vestiti */
-.v1{
-    width: 30px;
-    height: 88px;
-    stroke-width: 2px;
-    stroke: #000;
-    z-index: 99;
+/* vestiti */
+.c-arm-left{
+    background-color: var(--c-clothing-top-color);
     position: absolute;
+    left: calc(var(--left-body-top) - var(--half-body-top));  /* non le ho modificate perchè costanti */
+    width: var(--c-width-arms);   
+    height: var(--height-arm-body-center-bottom);
+    z-index: 53;
     top: calc(var(--body-top-starting-point) + var(--height-body-top));
 }
-/* End Vestiti*/
+.c-arm-right{
+    background-color: var(--c-clothing-top-color);
+    position: absolute;
+    left: calc(var(--half-body-top) + var(--left-body-top) - var(--c-width-arms));
+    width: var(--c-width-arms);   
+    height: var(--height-arm-body-center-bottom);
+    z-index: 53;
+    top: calc(var(--body-top-starting-point) + var(--height-body-top));
+}
+.c-body-center-top{
+    background-color: var(--c-clothing-top-color);
+    position: absolute;
+    left: var(--c-left-body-center);  
+    width: var(--c-width-body-center);   
+    height: var(--height-body-center-top);
+    top: calc(var(--body-top-starting-point) + var(--height-body-top));
+    z-index: 53;
+    border-bottom-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+}
+.c-body-center-bottom{
+    background-color: var(--c-clothing-top-color);
+    position: absolute;
+    left: var(--c-left-body-center);
+    width: var(--c-width-body-center);   
+    height: var(--height-body-center-bottom);
+    top: calc(var(--body-top-starting-point) + var(--height-body-top));
+    z-index: 53;
+    border-top-right-radius: 80px;
+    border-top-left-radius: 80px;
+}
+.c-body-center-full{
+    background-color: var(--c-clothing-top-color);
+    position: absolute;
+    left: var(--c-left-body-center);
+    width: var(--c-width-body-center);   
+    height: var(--height-body-center-full);
+    top: calc(var(--body-top-starting-point) + var(--height-body-top));
+    z-index: 53;
+}
+.c-bottom-top{
+    background-color: var(--c-clothing-bottom-color);
+    position: absolute;
+    left: var(--c-left-body-center-but-legs);
+    width: var(--c-width-body-center-but-legs);
+    height: var(--height-bottom-top);
+    max-width: 190px;
+    z-index: 52;
+    top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top));
+
+}
+.c-leg-left{
+    background-color: var(--c-clothing-bottom-color);
+    position: absolute;
+    left: var(--c-left-body-center-but-legs);
+    width: var(--c-width-legs);
+    max-width: 43px;
+    height: var(--height-legs);
+    z-index: 52;
+    top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top));
+}
+.c-leg-right{
+    background-color: var(--c-clothing-bottom-color);
+    position: absolute;
+    left: calc(var(--c-left-body-center-but-legs) + var(--c-width-body-center-but-legs) - var(--c-width-legs));
+    width: var(--c-width-legs);
+    max-width: 43px;
+    height: var(--height-legs);
+    z-index: 52;
+    top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top));
+}
+.c-midtriangle-left{
+    width: 0; 
+    height: 0; 
+    position: absolute;
+    left: 100px;
+    top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top));
+    z-index: 52;
+    border-top: 5px solid var(--c-clothing-bottom-color);
+    border-bottom: var(--height-legs) solid transparent;
+    border-left: 10px solid var(--c-clothing-bottom-color);
+}
+.c-midtriangle-right{
+    width: 0; 
+    height: 0; 
+    position: absolute;
+    left: 110px;
+    top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top));
+    z-index: 52;
+    border-top: 5px solid var(--c-clothing-bottom-color);
+    border-bottom: var(--height-legs) solid transparent;
+    border-right: 10px solid var(--c-clothing-bottom-color);
+}
+/* fine vestiti */
+
   </style>
 
   <body class="bg-gray-100">
@@ -462,6 +578,7 @@ body {
                             <div class="beard" id="beard" style="display: none"></div>
                             <div class="neck"></div>
                         </div>
+
                         <div class="human-body">
                             <div class="body-top"></div>
                             <div class="arm-left">
@@ -486,22 +603,19 @@ body {
                             <div class="shoeleg-right"></div>
                             <div class="shoe-right"></div>
 
-                            <!-- vestiti -->
-                            <svg class="v0" xmlns="http://www.w3.org/2000/svg" width="150" height="49" viewBox="0 0 150 49" fill="none">
-                                <path d="M48 0.5C9.99789 0.5 0.5 32 0.5 48H149.5C149.5 9.6 118 0.5 102 0.5H88.5C88.5 10.9 80.1667 13.5 76 13.5C64.4 13.5 61.5 4.66667 61.5 0.5H48Z" stroke="black"/>
-                            </svg>
+                            <!-- elementi dei vestiti da sopra l'avatar -->
+                            <div class="c-arm-left"></div>
+                            <div class="c-arm-right"></div>
 
-                            <svg class="v1" xmlns="http://www.w3.org/2000/svg" width="30" height="90" viewBox="0 0 30 90" fill="black">
-                                <path d="M0.5 89V1H29.5V89H0.5Z" stroke="black"/>
-                            </svg>
-                                
-                            <svg class="v2" xmlns="http://www.w3.org/2000/svg" width="30" height="90" viewBox="0 0 30 90" fill="none">
-                                <path d="M0.5 89V1H29.5V89H0.5Z" stroke="black"/>
-                            </svg>
+                            <div class="c-body-center-top"></div>
+                            <div class="c-body-center-bottom"></div>
+                            <div class="c-body-center-full" style="display: none;"></div>
 
-                            <svg class="v3" xmlns="http://www.w3.org/2000/svg" width="88" height="90" viewBox="0 0 88 90" fill="none">
-                                <path d="M1 89V1L87 1V89H1Z" stroke="black"/>
-                            </svg>
+                            <div class="c-bottom-top"></div>
+                            <div class="c-leg-left"></div>
+                            <div class="c-leg-right"></div>
+                            <div class="c-midtriangle-left"></div>
+                            <div class="c-midtriangle-right"></div>
                         </div>
                     </div>
             </div>
@@ -511,7 +625,7 @@ body {
         <h2 class="text-2xl font-bold mb-4">Modifica Avatar</h2>
         <form id="avatarForm" action="#" method="post" class="space-y-4">
           <!-- COLORI PELLE -->
-          <div class="mb-4">
+          <div class="mb-4" style="display: none;">
             <label for="colorePelle" class="block font-medium mb-2"
               >Colore Pelle:</label
             >
@@ -590,7 +704,7 @@ body {
           </div>
 
           <!-- COLORI OCCHI -->
-          <div class="mb-4">
+          <div class="mb-4" style="display: none;">
             <label for="coloreOcchi" class="block font-medium"
               >Colore Occhi:</label
             >
@@ -669,7 +783,7 @@ body {
           </div>
 
           <!-- COLORI CAPELLI -->
-          <div class="mb-4">
+          <div class="mb-4" style="display: none;">
             <label for="coloreCapelli" class="block font-medium"
               >Colore Capelli:</label
             >
@@ -792,14 +906,14 @@ body {
           </div>
 
           <!-- BARBA SI/NO -->
-          <div>
+          <div style="display: none;">
             <label for="barba" class="block font-medium">Barba:</label>
             <input type="checkbox" id="barba" name="barba" {% if data[7]==1
             %}checked{% endif %}/>
           </div>
 
           <!-- ETA' -->
-          <div>
+          <div style="display: none;">
             <label for="eta" class="block font-medium">Età:</label>
             <input
               type="number"
@@ -814,7 +928,7 @@ body {
           </div>
 
           <!-- DIMENSIONI CORPO -->
-          <div>
+          <div style="display: none;">
             <label for="dimensioniCorpo" class="block font-medium"
               >Dimensioni del Corpo:</label
             >
@@ -857,6 +971,7 @@ body {
             type="button"
             class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400"
             onclick="annullaModifiche()"
+            style="display: none;"
           >
             Annulla
           </button>
@@ -864,12 +979,35 @@ body {
             type="button"
             class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
             onclick="salvaModifiche()"
+            style="display: none;"
           >
             Salva Modifiche
           </button>
         </form>
       </div>
-    </div>
+
+      <!-- fine scelta prodotti presenti nel DB; inizio momentaneo della scelta della taglia -->
+        <div>
+          <label for="legWidth">Seleziona larghezza pants:</label>
+          <select id="legWidth" onchange="updateLegWidth()">
+            <option value="145">taglia XS</option>
+            <option value="158">taglia S</option>
+            <option value="170">taglia M</option>
+            <option value="183">taglia L</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="topWidth">Seleziona larghezza maglia:</label>
+          <select id="topWidth" onchange="updateTopWidth()">
+            <option value="145">taglia XS</option>
+            <option value="158">taglia S</option>
+            <option value="170">taglia M</option>
+            <option value="183">taglia L</option>
+          </select>
+        </div>
+
+  </div>
 
     <script>
       document.addEventListener('DOMContentLoaded', function () {
@@ -1004,6 +1142,7 @@ body {
             const face = document.querySelector('.face');
             const napkin = document.querySelector('.napkin');
             const bodyCenterFull = document.querySelector('.body-center-full');
+            const cbodycenterfull = document.querySelector('.c-body-center-full');
 
             if (sessoSelect.value === 'uomo') {
             // Uomo
@@ -1013,6 +1152,7 @@ body {
             face.style.borderTopLeftRadius = '50px';
             napkin.style.height = '0';
             bodyCenterFull.style.display = 'block';
+            cbodycenterfull.style.display= 'block';
             } else if (sessoSelect.value === 'donna') {
             // Donna
             hairMale.style.display = 'none';
@@ -1021,6 +1161,7 @@ body {
             face.style.borderTopLeftRadius = '0';
             napkin.style.height = '40px';
             bodyCenterFull.style.display = 'none';
+            cbodycenterfull.style.display = 'none';
             }
         }
 
@@ -1030,6 +1171,36 @@ body {
 
         // Esegui la funzione all'avvio per impostare lo stato iniziale
         handleSessoChange();
+
+
+        function updateLegWidth() {
+
+          // Ottieni il nuovo valore selezionato
+          var newlegWidth = parseFloat(document.getElementById('legWidth').value);
+
+          var root = document.documentElement;
+          root.style.setProperty('--selected_width_legs', newlegWidth + 'px');
+
+          document.querySelector('.c-midtriangle-left').style.display = 'block';
+          document.querySelector('.c-midtriangle-right').style.display = 'block';
+
+        }
+
+        function updateTopWidth() {
+
+          // Ottieni il nuovo valore selezionato
+          var newtopWidth = parseFloat(document.getElementById('topWidth').value);
+
+          var root = document.documentElement;
+          root.style.setProperty('--selected_width_top', newtopWidth + 'px');
+
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+          // Imposta border-bottom a 0 per i due elementi
+          document.querySelector('.c-midtriangle-left').style.display = 'none';
+          document.querySelector('.c-midtriangle-right').style.display = 'none';
+        });
     </script>
   </body>
 </html>
