@@ -74,7 +74,7 @@ def contenuto_carrello(id_utente):
                 "LEFT JOIN (SELECT id_prodotto, immagine FROM immagine WHERE tipo = 'pagina_prodotto') i "
                 "ON pc.id_prodotto = i.id_prodotto "
                 "WHERE pc.id_carrello = %s "
-                "GROUP BY pc.id_prodotto, p.nome, p.categoria, p.marca, p.descrizione, p.vestibilità, pc.quantità, "
+                "GROUP BY pc.id_prodotto, pc.id_taglia, p.nome, p.categoria, p.marca, p.descrizione, p.vestibilità, pc.quantità, "
                 "p.prezzo, p.colore, p.materiale"
             )
 
