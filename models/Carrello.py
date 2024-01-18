@@ -1,7 +1,6 @@
 import base64
 
 import mysql.connector
-import mysql.connector
 from utils import mysql_config
 
 conn = mysql_config.get_database_connection()
@@ -10,13 +9,27 @@ cursor = conn.cursor()
 
 def aggiungi_al_carrello(id_utente, id_prodotto, quantita=1):
     try:
+        # Verifica se il carrello dell'utente esiste
         query_get_cart_id = "SELECT id FROM carrello WHERE id_utente = %s"
         cursor.execute(query_get_cart_id, (id_utente,))
         cart_id = cursor.fetchone()
 
         if cart_id:
-            query = "INSERT INTO prodotto_in_carrello (id_carrello, id_prodotto, quantità) VALUES (%s, %s, %s)"
-            cursor.execute(query, (cart_id[0], id_prodotto, quantita))
+            # Verifica se il prodotto è già presente nel carrello
+            query_check_product = "SELECT id_prodotto, quantità FROM prodotto_in_carrello WHERE id_carrello = %s AND id_prodotto = %s"
+            cursor.execute(query_check_product, (cart_id[0], id_prodotto))
+            existing_product = cursor.fetchone()
+
+            if existing_product:
+                # Se il prodotto è già presente, incrementa la quantità
+                nuova_quantita = existing_product[1] + quantita
+                query_update_quantity = "UPDATE prodotto_in_carrello SET quantità = %s WHERE id_carrello = %s AND id_prodotto = %s"
+                cursor.execute(query_update_quantity, (nuova_quantita, cart_id[0], id_prodotto))
+            else:
+                # Se il prodotto non è presente, aggiungilo al carrello
+                query_insert_product = "INSERT INTO prodotto_in_carrello (id_carrello, id_prodotto, quantità) VALUES (%s, %s, %s)"
+                cursor.execute(query_insert_product, (cart_id[0], id_prodotto, quantita))
+
             conn.commit()
             return True
         else:
