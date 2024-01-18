@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reso del prodotto</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .custom-background {
+            background-color: #6EE7B7;
+        }
+        textarea {
+            border: 2px solid #3498db;
+            padding: 8px;
+            resize: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto my-8 p-4 flex flex-wrap">
+        {% if message %}
+    <div class="mb-4">
+      <p class="success-message">{{ message }}</p>
+    </div>
+    {% endif %}
+        <!-- Carrello a sinistra -->
+        <div class="w-full md:w-1/2 mb-6 md:mb-0 md:pr-4">
+            <div class="bg-white p-4 rounded-lg shadow-md">
+                <div class="flex justify-between items-center mb-4">
+                    <h1 class="text-3xl font-semibold">Dettagli dell'ordine</h1>
+                </div>
+                <div>
+                    <!-- Informazioni sull'ordine -->
+                    <p class="text-gray-600">Ordine ID: {{ data.id_ordine }}</p>
+                    <p class="text-gray-600">Stato ordine: {{ data.stato_ordine }}</p>
+                    <p class="text-gray-600">Data ordine: {{ data.data_ordine }}</p>
+                    <p class="text-gray-600">ID Transazione: {{ data.id_transazione }}</p>
+                    <p class="text-gray-600">Data Transazione: {{ data.data_transazione }}</p>
+                    <p class="text-gray-600">Totale: {{ data.totale }}€</p>
+                </div>
+                <div class="mt-4">
+                    <!-- Informazioni sull'utente -->
+                    <h2 class="text-lg font-semibold">Informazioni Utente</h2>
+                    <p class="text-gray-600">Nome: {{ data.utente.nome_utente }}</p>
+                    <p class="text-gray-600">Cognome: {{ data.utente.cognome_utente }}</p>
+                    <p class="text-gray-600">Email: {{ data.utente.email_utente }}</p>
+                    <p class="text-gray-600">Telefono: {{ data.utente.telefono_utente }}</p>
+                </div>
+                <div class="mt-4">
+                    <!-- Prodotti nell'ordine -->
+                    <h2 class="text-lg font-semibold">Prodotti nell'ordine</h2>
+                    <div id="cartItems" class="grid grid-cols-1 gap-4">
+                        <!-- Ciclo sugli elementi del carrello -->
+                        {% for prodotto in data.prodotti %}
+                            <div class="bg-gray-200 p-4 rounded-lg shadow-md flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 mr-4">
+                                        {% if prodotto.immagine %}
+                                            <!-- Immagine del prodotto -->
+                                            <img src="data:image/jpeg;base64,{{ prodotto.immagine }}" alt="Product" class="w-24 h-24 object-cover">
+                                        {% else %}
+                                            <!-- Immagine di fallback -->
+                                            <img src="https://lorenzograssia.com/wp-content/uploads/2014/01/prodotto.jpg" alt="Product" class="w-24 h-24 object-cover">
+                                        {% endif %}
+                                    </div>
+                                    <div>
+                                        <h2 class="text-lg font-semibold">{{ prodotto.nome_prodotto }}</h2>
+                                        <p class="text-gray-600">Prezzo: {{ prodotto.prezzo }}€</p>
+                                        <p class="text-gray-600">Quantità: {{ prodotto.quantita }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <br>
+                <form action="/o/effettua_reso" method="post"><br>
+                    <label for="note_reso">Note del reso</label><br>
+                <textarea id="note_reso" name="note_reso" rows="4" cols="50"></textarea><br>
+                <input type="hidden" name="id_ordine" value="{{ data.id_ordine }}">
+                <button type="submit" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-700">
+            Invia
+        </button>
+            </form>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

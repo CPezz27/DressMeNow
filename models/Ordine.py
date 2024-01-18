@@ -59,7 +59,7 @@ def calcola_guadagno():
 
 def visualizza_ordine(order_id):
         query = (
-            "SELECT o.id_ordine, o.stato AS stato_ordine, o.data AS data_ordine, t.id_transazione, t.data AS data_transazione, t.totale, t.stato AS stato_transazione, p.id_prodotto, p.nome AS nome_prodotto, pio.reso, p.prezzo, iu.id_utente AS id_utente, iu.nome AS nome_utente, iu.cognome AS cognome_utente, iu.email AS email_utente, iu.telefono, i.id_indirizzo, i.provincia AS provincia_indirizzo, i.cap AS cap_indirizzo, i.via AS via_indirizzo, i.tipo AS tipo_indirizzo, i.città AS città_indirizzo, p.marca FROM ordine o JOIN transazione t ON o.id_ordine = t.id_ordine JOIN prodotto_in_ordine pio ON o.id_ordine = pio.id_ordine JOIN prodotto p ON pio.id_prodotto = p.id_prodotto JOIN utente iu ON o.id_utente = iu.id_utente JOIN indirizzo i ON iu.id_utente = i.id_utente WHERE o.id_ordine = %s;"
+            "SELECT o.id_ordine, o.stato AS stato_ordine, o.data AS data_ordine, t.id_transazione, t.data AS data_transazione, t.totale, t.stato AS stato_transazione, p.id_prodotto, p.nome AS nome_prodotto, o.reso, p.prezzo, iu.id_utente AS id_utente, iu.nome AS nome_utente, iu.cognome AS cognome_utente, iu.email AS email_utente, iu.telefono, i.id_indirizzo, i.provincia AS provincia_indirizzo, i.cap AS cap_indirizzo, i.via AS via_indirizzo, i.tipo AS tipo_indirizzo, i.città AS città_indirizzo, p.marca FROM ordine o JOIN transazione t ON o.id_ordine = t.id_ordine JOIN prodotto_in_ordine pio ON o.id_ordine = pio.id_ordine JOIN prodotto p ON pio.id_prodotto = p.id_prodotto JOIN utente iu ON o.id_utente = iu.id_utente JOIN indirizzo i ON iu.id_utente = i.id_utente WHERE o.id_ordine = %s;"
         )
 
         cursor.execute(query, (order_id,))
@@ -108,13 +108,66 @@ def visualizza_ordine(order_id):
             return None
 
 
+def visualizza_ordine_conimg(order_id):
+    query = (
+        "SELECT o.id_ordine, o.stato AS stato_ordine, o.data AS data_ordine, t.id_transazione, t.data AS data_transazione, t.totale, t.stato AS stato_transazione, "
+        "pio.quantita, p.id_prodotto, p.nome AS nome_prodotto, o.reso, p.prezzo, p.materiale, iu.id_utente AS id_utente, iu.nome AS nome_utente, iu.cognome AS cognome_utente, "
+        "iu.email AS email_utente, iu.telefono, p.marca, TO_BASE64(img.immagine) "
+        "FROM ordine o "
+        "JOIN transazione t ON o.id_ordine = t.id_ordine "
+        "JOIN prodotto_in_ordine pio ON o.id_ordine = pio.id_ordine "
+        "JOIN prodotto p ON pio.id_prodotto = p.id_prodotto "
+        "JOIN utente iu ON o.id_utente = iu.id_utente "
+        "LEFT JOIN immagine img ON p.id_prodotto = img.id_prodotto AND img.tipo = 'pagina_prodotto' "
+        "WHERE o.id_ordine = %s;"
+    )
+
+    cursor.execute(query, (order_id,))
+    order_details = cursor.fetchall()
+
+    if order_details:
+        order_dict = {
+            'id_ordine': order_details[0][0],
+            'stato_ordine': order_details[0][1],
+            'data_ordine': order_details[0][2],
+            'id_transazione': order_details[0][3],
+            'data_transazione': order_details[0][4],
+            'totale': order_details[0][5],
+            'stato_transazione': order_details[0][6],
+            'utente': {
+                'id_utente': order_details[0][13],  # Modificato l'indice per l'id_utente
+                'nome_utente': order_details[0][14],  # Modificato l'indice per il nome_utente
+                'cognome_utente': order_details[0][15],  # Modificato l'indice per il cognome_utente
+                'email_utente': order_details[0][16],  # Modificato l'indice per l'email_utente
+                'telefono_utente': order_details[0][17]  # Modificato l'indice per il telefono_utente
+            },
+            'prodotti': []
+        }
+
+        for row in order_details:
+            product = {
+                'id_prodotto': row[8],
+                'nome_prodotto': row[9],
+                'reso': row[10],
+                'prezzo': row[11],
+                'materiale': row[12],
+                'quantita': row[7],
+                'marca': row[18],
+                'immagine': row[19]  # Aggiunto l'indice per l'immagine
+            }
+            order_dict['prodotti'].append(product)
+
+        return order_dict
+    else:
+        return None
+
 
 def get_user_orders(user_id):
     try:
         query = (
             "SELECT o.id_ordine, o.stato AS stato_ordine, o.data AS data_ordine, "
             "t.id_transazione, t.data AS data_transazione, t.totale, t.stato AS stato_transazione, "
-            "p.id_prodotto, p.nome AS nome_prodotto, pio.reso, p.prezzo "
+            "p.id_prodotto, p.nome AS nome_prodotto, o.reso, p.prezzo "
             "FROM ordine o "
             "JOIN transazione t ON o.id_ordine = t.id_ordine "
             "JOIN prodotto_in_ordine pio ON o.id_ordine = pio.id_ordine "
@@ -130,12 +183,12 @@ def get_user_orders(user_id):
         return None
     
 
-def modifica_reso(id_prodotto, stato_reso, note_reso, id_ordine):
-    update_query = ("UPDATE prodotto_in_ordine "
-                    "SET reso = 1, stato_reso = %s, note_reso = %s "
-                    "WHERE id_ordine = %s AND id_prodotto = %s")
+def modifica_reso(stato, note_reso, id_ordine):
+    update_query = ("UPDATE ordine "
+                    "SET reso = 1, stato = %s, note_reso = %s "
+                    "WHERE id_ordine = %s")
 
-    reso_data = (stato_reso, note_reso, id_ordine, id_prodotto)
+    reso_data = (stato, note_reso, id_ordine)
 
     try:
         cursor.execute(update_query, reso_data)
