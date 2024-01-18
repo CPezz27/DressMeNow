@@ -68,13 +68,16 @@ def contenuto_carrello(id_utente):
         if cart_id:
             query = (
                 "SELECT pc.*, p.nome, p.categoria, p.marca, p.descrizione, p.vestibilità, "
-                "p.prezzo, p.colore, p.materiale, TO_BASE64(i.immagine) as immagine "
+                "p.prezzo, p.colore, p.materiale, TO_BASE64(MAX(i.immagine)) as immagine "
                 "FROM prodotto_in_carrello pc "
                 "JOIN prodotto p ON pc.id_prodotto = p.id_prodotto "
-                "LEFT JOIN (SELECT id_prodotto, immagine FROM immagine WHERE tipo = 'pagina_prodotto' GROUP BY id_prodotto) i "
+                "LEFT JOIN (SELECT id_prodotto, immagine FROM immagine WHERE tipo = 'pagina_prodotto') i "
                 "ON pc.id_prodotto = i.id_prodotto "
-                "WHERE pc.id_carrello = %s"
+                "WHERE pc.id_carrello = %s "
+                "GROUP BY pc.id_prodotto, p.nome, p.categoria, p.marca, p.descrizione, p.vestibilità, "
+                "p.prezzo, p.colore, p.materiale"
             )
+
             cursor.execute(query, (cart_id[0],))
             cart_contents = cursor.fetchall()
 
