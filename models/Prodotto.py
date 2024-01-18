@@ -85,7 +85,7 @@ def view_product(product_id):
     search_query = "SELECT * FROM prodotto WHERE id_prodotto = %s AND is_deleted = 0"
     image_query = "SELECT * FROM immagine WHERE id_prodotto = %s"
     size_query = (
-        "SELECT t.nometaglia, tp.quantita "
+        "SELECT t.id_taglia, t.nometaglia, tp.quantita "
         "FROM taglia t "
         "JOIN taglia_prodotto tp ON t.id_taglia = tp.id_taglia "
         "WHERE tp.id_prodotto = %s"
@@ -110,7 +110,7 @@ def view_product(product_id):
                     for img in image_result
                 ],
                 'sizes': [
-                    {'nome_taglia': size[0], 'qta': size[1]}
+                    {'id_taglia': size[0], 'nome_taglia': size[1], 'qta': size[2]}
                     for size in size_result
                 ]
             }

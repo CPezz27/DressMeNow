@@ -48,4 +48,6 @@ def view_product():
 
     product = Prodotto.view_product(product_id)
 
+    print(product)
+
     return render_template("utente/dettagliProdotto.html", data=product)

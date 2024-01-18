@@ -33,8 +33,10 @@ def aggiungi_al_carrello():
             user_id = session.get('id')
 
             id_prodotto = request.form.get('id_prodotto')
+            size = request.form.get('size')
+            quantity = request.form.get('quantity')
 
-            flag = Carrello.aggiungi_al_carrello(user_id, id_prodotto, 1)
+            flag = Carrello.aggiungi_al_carrello(user_id, id_prodotto, size, quantity)
 
             if flag:
                 message = 'Prodotto aggiunto al carrello correttamente'

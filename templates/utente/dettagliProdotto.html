@@ -60,56 +60,58 @@
             <p class="text-gray-700 text-base leading-6 mt-4">
               {{ data.product_details[7] }}
             </p>
-
-            <div class="flex flex-wrap mt-4">
-              <div class="w-full md:w-1/2 mb-4 md:mb-0">
-                <label
-                  for="size"
-                  class="block text-sm font-semibold text-gray-600 mb-1"
-                  >Dimensioni</label
-                >
-                <select
-                  id="size"
-                  name="size"
-                  class="form-select block w-full bg-white border border-gray-300 rounded p-2"
-                >
-                  {% for size in data.sizes %}
-                  <option>{{ size.nome_taglia }}</option>
-                  {% endfor %}
-                </select>
+            <form action="/aggiungi_al_carrello" method="post">
+              <input type="hidden" name="id_prodotto" value="{{ data.product_details[0] }}" />
+              <div class="flex flex-wrap mt-4">
+                <div class="w-full md:w-1/2 mb-4 md:mb-0">
+                  <label
+                    for="size"
+                    class="block text-sm font-semibold text-gray-600 mb-1"
+                    >Dimensioni</label
+                  >
+                  <select
+                    id="size"
+                    name="size"
+                    class="form-select block w-full bg-white border border-gray-300 rounded p-2"
+                  >
+                    {% for size in data.sizes %}
+                    <option value="{{ size.id_taglia }}">{{ size.nome_taglia }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
               </div>
-            </div>
 
-            <div class="flex items-center mt-4">
-              <label for="quantity" class="mr-2">Quantità</label>
-              <div class="flex items-center">
-                <button
-                  class="qty-btn qtyminus bg-gray-800 text-white w-8 h-8 hover:bg-blue-500"
-                  onclick="decrementQty()"
-                >
-                  -
-                </button>
-                <input
-                  type="text"
-                  id="quantity"
-                  name="quantity"
-                  value="1"
-                  class="qty-input border-t border-b border-gray-300 py-1 px-2 w-16 text-center "
-                  readonly
-                />
-                <button
-                  class="qty-btn qtyplus bg-gray-800 text-white w-8 h-8 hover:bg-blue-500"
-                  onclick="incrementQty()"
-                >
-                  +
-                </button>
+              <div class="flex items-center mt-4">
+                <label for="quantity" class="mr-2">Quantità</label>
+                <div class="flex items-center">
+                  <button
+                    class="qty-btn qtyminus bg-gray-800 text-white w-8 h-8 hover:bg-blue-500"
+                    onclick="decrementQty(event)"
+                  >
+                    -
+                  </button>
+                  <input
+                    type="text"
+                    id="quantity"
+                    name="quantity"
+                    value="1"
+                    class="qty-input border-t border-b border-gray-300 py-1 px-2 w-16 text-center "
+                    readonly
+                  />
+                  <button
+                    class="qty-btn qtyplus bg-gray-800 text-white w-8 h-8 hover:bg-blue-500"
+                    onclick="incrementQty(event)"
+                  >
+                    +
+                  </button>
+                </div>
               </div>
-            </div>
 
-            <a href="#"
-            class="mt-6 inline-block bg-green-500 text-white py-2 px-6 rounded-full transition duration-300 hover:bg-green-400 md:ml-auto md:mr-auto ">
-           Aggiungi al carrello
-            </a>
+              <button type="submit"
+              class="mt-6 inline-block bg-green-500 text-white py-2 px-6 rounded-full transition duration-300 hover:bg-green-400 md:ml-auto md:mr-auto ">
+             Aggiungi al carrello
+              </button>
+          </form>
           </div>
         </div>
       </div>
@@ -145,12 +147,14 @@
     ></script>
 
     <script>
-      function incrementQty() {
+      function incrementQty(e) {
+        e.preventDefault();
         var quantityInput = document.getElementById("quantity");
         quantityInput.value = parseInt(quantityInput.value) + 1;
       }
 
       function decrementQty() {
+        e.preventDefault();
         var quantityInput = document.getElementById("quantity");
         if (parseInt(quantityInput.value) > 1) {
           quantityInput.value = parseInt(quantityInput.value) - 1;
