@@ -4,7 +4,6 @@ from models import Immagine
 from models.Immagine import Immagine
 from models.Immagine import rimuovi_immagine
 from models.Immagine import visualizza_immagini_prodotto
-from base64 import b64encode
 
 app_bp = Blueprint('image_controller', __name__)
 

@@ -1,6 +1,5 @@
 import mysql.connector
 from utils import mysql_config
-from PIL import Image
 from io import BytesIO
 
 conn = mysql_config.get_database_connection()
