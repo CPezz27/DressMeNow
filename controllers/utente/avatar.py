@@ -37,7 +37,7 @@ def modifica_avatar():
         'sesso': nuovi_valori['sesso'],
     }
     update_configurazione_avatar(user_id, **config_avatar)
-    return redirect(url_for('user_profile.configura_avatar', message="Modifiche avvenute con successo"))
+    return redirect(url_for('user_profile.configura_avatar', message="Modifiche all'avatar avvenute con successo!"))
 
 
 @app_bp.route('/prova_su_avatar')

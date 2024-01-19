@@ -835,16 +835,99 @@ body {
           >
             Salva Modifiche
           </button>
+          <div id="messaggio" class="fixed top-0 left-1/2 transform -translate-x-1/2 p-4 bg-green-500 text-white rounded-md hidden">
+            <p></p>
+        </div>
         </form>
       </div>
     </div>
 
     <script>
-      //funzione per annullare le modifiche del form
-      function annullaModifiche() {
+
+var initialFormData;
+
+function saveInitialFormData() {
+    var modulo = document.getElementById("avatarForm");
+    initialFormData = new FormData(modulo);
+}
+
+function isFormDataChanged() {
+    var modulo = document.getElementById("avatarForm");
+    var currentFormData = new FormData(modulo);
+
+    // Confronta gli stati iniziali e attuali
+    for (var pair of initialFormData.entries()) {
+        if (pair[1] !== currentFormData.get(pair[0])) {
+            return true; // I dati sono stati modificati
+        }
+    }
+
+    return false; // I dati sono rimasti invariati
+}
+
+saveInitialFormData();
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Recupera il messaggio dalla query string dell'URL
+    var urlParams = new URLSearchParams(window.location.search);
+    var message = urlParams.get('message');
+
+    // Mostra il messaggio se presente
+    if (message) {
+        showMessage(message);
+    }
+});
+
+function showMessage(message) {
+  console.log(isFormDataChanged());
+  if (isFormDataChanged()) {
+        var customMessage = document.getElementById('messaggio');
+        customMessage.innerHTML = '<p>' + message + '</p>';
+        customMessage.style.display = 'block';
+        
+        // Mostra il messaggio per solo 3 secondi
+        setTimeout(function() {
+            customMessage.style.display = 'none';
+        }, 3000);
+    } else {
+        // Nessuna modifica effettuata
+        var customMessage = document.getElementById('messaggio');
+        customMessage.innerHTML = '<p>' + "Non sono state effettuate modifiche al form" + '</p>';
+        customMessage.style.display = 'block';
+        setTimeout(function() {
+            customMessage.style.display = 'none';
+        }, 3000);
+    }
+}
+
+// Funzione per annullare le modifiche
+function annullaModifiche() {
+  console.log(isFormDataChanged());
+  if (isFormDataChanged()) {
     var modulo = document.getElementById("avatarForm");
     modulo.reset();
-    location.reload();
+   
+    // Nasconde il messaggio
+    var mess = document.getElementById('messaggio');
+    mess.style.display = 'none';
+    if (mess.style.display !== 'none') {
+        location.reload();
+    }
+    var customMessage = document.getElementById('messaggio');
+        customMessage.innerHTML = '<p>' + "modifiche annullate" + '</p>';
+        customMessage.style.display = 'block';
+        setTimeout(function() {
+            customMessage.style.display = 'none';
+        }, 3000);
+}else {
+        // Nessuna modifica effettuata
+        var customMessage = document.getElementById('messaggio');
+        customMessage.innerHTML = '<p>' + "Non sono state effettuate modifiche al form" + '</p>';
+        customMessage.style.display = 'block';
+        setTimeout(function() {
+            customMessage.style.display = 'none';
+        }, 3000);
+    }
 }
       document.addEventListener('DOMContentLoaded', function () {
         var radioButtonsPelle = document.querySelectorAll('input[name="colorePelle"]');
