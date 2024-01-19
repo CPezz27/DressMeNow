@@ -46,10 +46,22 @@ def rimuovi_dal_carrello(id_utente, id_prodotto):
         cart_id = cursor.fetchone()
 
         if cart_id:
-            query = "DELETE FROM prodotto_in_carrello WHERE id_carrello = %s AND id_prodotto = %s"
-            cursor.execute(query, (cart_id[0], id_prodotto))
-            conn.commit()
-            return True
+            query_check_product = "SELECT quantità FROM prodotto_in_carrello WHERE id_carrello = %s AND id_prodotto = %s"
+            cursor.execute(query_check_product, (cart_id[0], id_prodotto))
+            existing_quantity = cursor.fetchone()
+
+            if existing_quantity:
+                if existing_quantity[0] > 1:
+                    query_update_quantity = "UPDATE prodotto_in_carrello SET quantità = quantità - 1 WHERE id_carrello = %s AND id_prodotto = %s"
+                    cursor.execute(query_update_quantity, (cart_id[0], id_prodotto))
+                else:
+                    query_remove_product = "DELETE FROM prodotto_in_carrello WHERE id_carrello = %s AND id_prodotto = %s"
+                    cursor.execute(query_remove_product, (cart_id[0], id_prodotto))
+
+                conn.commit()
+                return True
+            else:
+                return False
         else:
             return False
     except mysql.connector.Error as err:
