@@ -79,8 +79,6 @@ def get_taglie_quantita_by_id_prodotto(id_prodotto):
     cursor.execute(select_query, (id_prodotto,))
     results = cursor.fetchall()
 
-    print(results)
-
     taglie_quantita = []
     for row in results:
         id_taglia, nome_taglia, quantita = row

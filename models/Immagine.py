@@ -13,7 +13,6 @@ def visualizza_immagini():
         immagini = cursor.fetchall()
         return immagini
     except mysql.connector.Error as err:
-        print(f"Errore durante il salvataggio dell'immagine: {err}")
         return None
     
 
@@ -24,7 +23,6 @@ def visualizza_immagini_prodotto(id_prodotto):
         immagini = cursor.fetchall()
         return immagini
     except mysql.connector.Error as err:
-        print(f"Errore durante il salvataggio dell'immagine: {err}")
         return None
 
 
@@ -58,7 +56,6 @@ class Immagine:
             conn.commit()
             return True
         except mysql.connector.Error as err:
-            print(f"Errore durante il salvataggio dell'immagine: {err}")
             return False
         finally:
             cursor.close()

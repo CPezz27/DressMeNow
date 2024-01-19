@@ -19,12 +19,9 @@ def search():
             # Utilizza il modello per cercare i prodotti nel database
             products = search_products(query)
 
-            print("I prodotti(?):", products)
-
             if products:
                 return render_template('/utente/ricerca_NLP.html', data="test")
             else:
-                print("Non dovrei essere qui")
                 return render_template('/utente/ricerca_NLP.html')
     except Exception as e:
         return render_template('/utente/ricerca_NLP.html', message='Errore con il server')
