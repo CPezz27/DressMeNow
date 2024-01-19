@@ -16,14 +16,16 @@ def effettua_reso():
             note_reso = request.form.get('note_reso')
 
             if Ordine.modifica_reso( 'Reso richiesto', note_reso, order_id):
-                return redirect(url_for('effettua_reso.reso_ordine', order_id=order_id, message='Reso richiesto con successo'))
+                data = Ordine.visualizza_ordine_conimg(order_id)
+                return render_template('/utente/resoOrdine.html', data=data, message='Reso richiesto con successo')
             else:
-                return redirect(url_for('effettua_reso.reso_ordine'), order_id=order_id, message='Errore durante la richiesta del reso')
+                data = Ordine.visualizza_ordine_conimg(order_id)
+                return render_template('/utente/resoOrdine.html', data=data, message='Errore durante la richiesta del reso')
 
         except Exception as err:
-            return redirect(url_for('effettua_reso.reso_ordine'), order_id=order_id, message=f'Errore durante il reso: {err}')
+            return redirect(url_for('user_profile.orders', message=f'Errore durante il reso: {err}'))
 
-    return redirect(url_for('effettua_reso.reso_ordine'), order_id=order_id, message='Il metodo non è accessibile')
+    return redirect(url_for('user_profile.orders', message='Il metodo non è accessibile'))
 
 
 @app_bp.route('/o/reso_ordine/<int:order_id>', methods=['GET', 'POST'])
@@ -31,11 +33,8 @@ def reso_ordine(order_id):
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
 
-    print("\n\nECCOMI\n\n")
     try:
-        print("OOOOOOO")
         data = Ordine.visualizza_ordine_conimg(order_id)
-        print(str(data))
 
         if data:
             return render_template('/utente/resoOrdine.html', data=data)

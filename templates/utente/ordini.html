@@ -122,7 +122,7 @@
               <h2 class="orders-infotext-name">prezzo unitario:</h2>
               <h2 class="orders-infotext-value" style="color:black">{{ product['prezzo_individuale'] }}</h2>
             </div>
-            <button id="resoButton" onclick="window.location.href='/o/reso_ordine/{{order['order_details']['id_ordine']}}'">Effettua reso</button>
+            <button id="resoButton" onclick="window.location.href='/o/reso_ordine/{{order['order_details']['id_ordine']}}'">Dettagli ordine</button>
             {% endfor %}
             {% endfor %}
             {% else %}

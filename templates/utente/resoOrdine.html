@@ -14,22 +14,22 @@
             padding: 8px;
             resize: none;
         }
+        body {
+	        background: linear-gradient(to right, #3fb6a8, #7ed386);
+        }
     </style>
 </head>
 <body>
-    <div class="container mx-auto my-8 p-4 flex flex-wrap">
-        {% if message %}
-    <div class="mb-4">
-      <p class="success-message">{{ message }}</p>
-    </div>
-    {% endif %}
-        <!-- Carrello a sinistra -->
-        <div class="w-full md:w-1/2 mb-6 md:mb-0 md:pr-4">
+{% include 'components/header.html' %}
+        <div class="w-full md:w-1/2 mb-6 md:mb-0 md:pr-4 mx-auto mt-8 mb-8">
             <div class="bg-white p-4 rounded-lg shadow-md">
                 <div class="flex justify-between items-center mb-4">
                     <h1 class="text-3xl font-semibold">Dettagli dell'ordine</h1>
                 </div>
                 <div>
+                    {% if message %}
+                    <p align="center" class="success-message">{{ message }}</p>
+                    {% endif %}
                     <!-- Informazioni sull'ordine -->
                     <p class="text-gray-600">Ordine ID: {{ data.id_ordine }}</p>
                     <p class="text-gray-600">Stato ordine: {{ data.stato_ordine }}</p>
@@ -74,17 +74,24 @@
                     </div>
                 </div>
                 <br>
+                {% if not data.reso_ordine: %}
                 <form action="/o/effettua_reso" method="post"><br>
                     <label for="note_reso">Note del reso</label><br>
-                <textarea id="note_reso" name="note_reso" rows="4" cols="50"></textarea><br>
+                <textarea id="note_reso" name="note_reso" rows="4" cols="50" required></textarea><br>
                 <input type="hidden" name="id_ordine" value="{{ data.id_ordine }}">
                 <button type="submit" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-700">
-            Invia
+            Effettua reso
         </button>
             </form>
+                {% else: %}
+                <p>Note reso: {{ data.note_reso }}</p>
+                {% endif %}
+                <button class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-700" onclick="window.location.href='/p/ordini'">
+            Indietro
+        </button>
             </div>
 
         </div>
-    </div>
+{% include 'components/footer.html' %}
 </body>
 </html>

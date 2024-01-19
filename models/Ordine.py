@@ -112,7 +112,7 @@ def visualizza_ordine_conimg(order_id):
     query = (
         "SELECT o.id_ordine, o.stato AS stato_ordine, o.data AS data_ordine, t.id_transazione, t.data AS data_transazione, t.totale, t.stato AS stato_transazione, "
         "pio.quantita, p.id_prodotto, p.nome AS nome_prodotto, o.reso, p.prezzo, p.materiale, iu.id_utente AS id_utente, iu.nome AS nome_utente, iu.cognome AS cognome_utente, "
-        "iu.email AS email_utente, iu.telefono, p.marca, TO_BASE64(img.immagine) "
+        "iu.email AS email_utente, iu.telefono, p.marca, TO_BASE64(img.immagine), o.note_reso "
         "FROM ordine o "
         "JOIN transazione t ON o.id_ordine = t.id_ordine "
         "JOIN prodotto_in_ordine pio ON o.id_ordine = pio.id_ordine "
@@ -134,6 +134,8 @@ def visualizza_ordine_conimg(order_id):
             'data_transazione': order_details[0][4],
             'totale': order_details[0][5],
             'stato_transazione': order_details[0][6],
+            'reso_ordine': order_details[0][10],
+            'note_reso': order_details[0][20],
             'utente': {
                 'id_utente': order_details[0][13],  # Modificato l'indice per l'id_utente
                 'nome_utente': order_details[0][14],  # Modificato l'indice per il nome_utente
