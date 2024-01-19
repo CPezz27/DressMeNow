@@ -94,7 +94,7 @@
       </div>
       
       <div class="rightbox">
-        <button id="aggiungiIndirizzo" class="mx-auto block text-center" style="background-color: #3498db; color: #fff;" onclick="location.href='/indirizzo/aggiungi'">
+        <button id="aggiungiIndirizzo" class="mx-auto block text-center" style="background-color: #8c8c8c; color: #fff; border-radius: 5px;" onclick="location.href='/indirizzo/aggiungi'">
           Aggiungi Indirizzo
         </button> 
         <div class="addresses">
@@ -110,7 +110,9 @@
                   </svg>
                 </button>
               </h1>
-                <h2>Provincia</h2>
+              <div>
+                <label>Provincia</label>
+                <div>
                 <input
                   type="text"
                   class="input-text"
@@ -118,7 +120,11 @@
                   value="{{indirizzo[2]}}"
                   readonly
                 />
-                <h2>Cap</h2>
+              </div>
+                </div>
+                <div>
+                <label>Cap</label>
+                <div>
                 <input
                   type="text"
                   class="input-text"
@@ -126,7 +132,11 @@
                   value="{{indirizzo[3]}}"
                   readonly
                 />
-                <h2>via</h2>
+              </div>
+              </div>
+              <div>
+                <label>Via</label>
+                <div>
                 <input
                   type="text"
                   class="input-text"
@@ -134,7 +144,11 @@
                   value="{{indirizzo[4]}}"
                   readonly
                 />
-                <h2>tipo </h2>
+              </div>
+              </div>
+              <div>
+                <label>Tipo </label>
+                <div>
                 <select
                         class="input-text"
                         name="tipo"
@@ -145,7 +159,11 @@
                     <option value="Fatturazione" {% if indirizzo[5]==
                     'Fatturazione' %}selected{% endif %}>Fatturazione</option>
                 </select>
-                <h2>città</h2>
+              </div>
+              </div>
+              <div>
+                <label>Città</label>
+                <div>
                 <input
                   type="text"
                   class="input-text"
@@ -153,10 +171,12 @@
                   value="{{indirizzo[6]}}"
                   readonly
                 />
+              </div>
+              </div>
               
-              <h1><button type="submit">Salva</button></h1>
-              <button class="delete-button" onclick="window.location.href='/indirizzo/elimina/{{indirizzo[0]}}'">Cancella</button>
             </form>
+            <h1><button type="submit" style="background-color: #2af938; color: #fff; border-radius: 5px;">Salva</button></h1>
+            <button class="delete-button" style="background-color: #ea2b2b; color: #fff; border-radius: 5px;" onclick="window.location.href='/indirizzo/elimina/{{indirizzo[0]}}'">Cancella</button>
             </div>{% endfor %}</div>
           {% else %}
             <p>Nessun indirizzo trovato per questo utente.</p>
