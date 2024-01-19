@@ -4,16 +4,57 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ricerca Prodotti</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/typed.js@2.0.12@/css/typed.min.css"
+    />
     <link rel="stylesheet" href="/static/css/header.css" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
     />
+    <style>
+      h1 {
+        margin-bottom: 10px;
+      }
+      .typewriter {
+        overflow: hidden;
+        white-space: nowrap;
+        margin: 0 auto;
+        letter-spacing: 0.15em;
+        animation: typing 5s steps(70);
+      }
+
+      @keyframes typing {
+        from {
+          width: 0;
+        }
+        to {
+          width: 60%;
+        }
+      }
+
+      @keyframes blink {
+        to {
+          visibility: hidden;
+        }
+      }
+      .back {
+        position: fixed;
+        top: 70%;
+        left: 5%;
+        margin-top: 5%;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
   </head>
   <body class="bg-gray-100">
     {% include 'components/header.html' %}
 
     <div class="w-full mx-auto px-6 py-12">
+      <h1 class="typewriter" style="text-align: center">
+        Ecco una selezione di prodotti che potrebbe piacerti:
+      </h1>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
         <div class="bg-white rounded-lg shadow-md overflow-hidden">
           <a href="#"
@@ -56,29 +97,24 @@
           Non abbiamo trovato nessun prodotto con questo nome
         </h1>
       </div>
-      <form
-        id="chat-form"
-        action="/risultatiNLP"
-        method="post"
-        class="p-4 bg-gray-200 flex items-center"
-      >
-        <input
-          type="text"
-          id="user-input"
-          name="text"
-          placeholder="Scrivi qualcosa..."
-          class="flex-grow px-2 py-1 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
-        />
-        <button
-          type="submit"
-          class="ml-2 bg-blue-500 text-white px-4 py-1 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+      <a href="/ricercaNLP">
+        <svg
+          class="back"
+          id="back"
+          width: 100px;
+        height: 100px;
+          fill="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          Invia
-        </button>
-      </form>
+          <path
+            d="M21 20.623a.75.75 0 0 1-.592-.289c-1.071-1.372-2.065-2.43-3.436-3.14-1.27-.655-2.863-.997-4.973-1.06v3.739a.75.75 0 0 1-1.265.542l-8.25-7.875a.75.75 0 0 1 0-1.085l8.25-7.875a.75.75 0 0 1 1.265.543V7.89c3.476.16 6.065 1.448 7.704 3.837 1.358 1.979 2.047 4.72 2.047 8.146a.75.75 0 0 1-.75.75Z"
+          ></path>
+        </svg>
+      </a>
     </div>
-    {% include 'components/footer.html' %}
   </body>
+  {% include 'components/footer.html' %}
 </html>
 
 <script>

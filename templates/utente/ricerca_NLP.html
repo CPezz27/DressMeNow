@@ -8,15 +8,31 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
     />
+    <style>
+      h1,
+      h2 {
+        text-align: center;
+        margin: 10px;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+      h1 {
+        font-size: 30px;
+      }
+    </style>
   </head>
   <body class="bg-gray-100 font-sans">
     {% include 'components/header.html' %}
     <div class="container mx-auto p-8 max-w-md">
+      <h1>Comprendi il mio stile</h1>
+      <h2>Come piace vestirti?</h2>
       <div class="bg-white rounded-lg shadow-md overflow-hidden">
         <!-- Chat container -->
-        <div id="chat-container" class="h-80 overflow-y-auto px-4 py-6"></div>
-
         <!-- User input -->
+
+        <img src="{{ url_for('static', filename='assets/ricerca.gif') }}" />
         <form
           id="chat-form"
           action="/risultatiNLP"
@@ -27,7 +43,7 @@
             type="text"
             id="user-input"
             name="text"
-            placeholder="Scrivi qualcosa..."
+            placeholder="Mi piacciono i colori chiari"
             class="flex-grow px-2 py-1 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
           />
           <button
