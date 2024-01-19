@@ -23,7 +23,7 @@ def prodotti():
         return redirect(url_for('user_login.login_page'))
 
     if session['ruolo'] != 'gestore_prodotto':
-        return redirect(url_for('index'))
+        return redirect(url_for('index.homepage'))
 
     return render_template('/gestore_prodotti/prodotti.html')
 
@@ -34,7 +34,7 @@ def aggiungi_prodotto():
         return redirect(url_for('user_login.login_page'))
 
     if session['ruolo'] != 'gestore_prodotto':
-        return redirect(url_for('index'))
+        return redirect(url_for('index.homepage'))
 
     if request.method == 'POST':
         nome = request.form['nome']
@@ -83,7 +83,7 @@ def modifica_prodotto(product_id):
         return redirect(url_for('user_login.login_page'))
 
     if session['ruolo'] != 'gestore_prodotto':
-        return redirect(url_for('index'))
+        return redirect(url_for('index.homepage'))
 
     product = view_product(int(product_id))
 
@@ -106,7 +106,7 @@ def elimina_prodotto(product_id):
         return redirect(url_for('user_login.login_page'))
 
     if session['ruolo'] != 'gestore_prodotto':
-        return redirect(url_for('index'))
+        return redirect(url_for('index.homepage'))
     print("\n\nSONOQUI\n\n")
     try:
         delete(int(product_id))
@@ -121,7 +121,7 @@ def mostra_prodotto():
         return redirect(url_for('user_login.login_page'))
 
     if session['ruolo'] != 'gestore_prodotto':
-        return redirect(url_for('index'))
+        return redirect(url_for('index.homepage'))
 
     product_id=request.args.get('product_id')
     product = view_product(int(product_id))
@@ -135,7 +135,7 @@ def mostra_info_prodotto():
         return redirect(url_for('user_login.login_page'))
 
     if session['ruolo'] != 'gestore_prodotto':
-        return redirect(url_for('index'))
+        return redirect(url_for('index.homepage'))
     try:
         prodotti = mostra_info_prodotto()
     except Exception as err:
