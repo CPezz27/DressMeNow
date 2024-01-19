@@ -173,7 +173,7 @@ class Utente:
                                   "altezza, peso, barba, eta, dimensioni_corpo, sesso, id_utente) "
                                   "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
 
-            avatar_data = ("white", "brown", "brown", "standard", 170, 65, 0, 25, "normal", self.sesso, user_id)
+            avatar_data = ("rosa pallido", "marrone", "nero", "9", 170, 163, 0, 25, "normale", self.sesso, user_id)
 
             cursor.execute(insert_avatar_query, avatar_data)
 
