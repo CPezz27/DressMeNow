@@ -2,6 +2,8 @@ from flask import Blueprint, redirect, render_template, request, session, url_fo
 from models.Carrello import Carrello
 
 from models.ConfigurazioneAvatar import ConfigurazioneAvatar, update_configurazione_avatar
+from models import ConfigurazioneAvatar as CFGAvatar
+from models import Carrello
 
 app_bp = Blueprint('user_avatar', __name__)
 
@@ -53,7 +55,7 @@ def prova_su_avatar():
         return redirect('utente/login')
 
     user_id = session['id']
-    avatar_data = ConfigurazioneAvatar.view_avatar(user_id)
+    avatar_data = CFGAvatar.view_avatar(user_id)
 
     dati_prodotti = Carrello.contenuto_carrello(user_id)
-    return render_template("/provaSuAvatar.html", avatar=avatar_data, prodotti=dati_prodotti)
+    return render_template("utente/provaSuAvatar.html", avatar=avatar_data, prodotti=dati_prodotti)

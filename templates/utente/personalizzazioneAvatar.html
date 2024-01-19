@@ -920,16 +920,14 @@ function annullaModifiche() {
 
 document.addEventListener('DOMContentLoaded', function () {
     // Chiamata alle funzioni di inizializzazione dei colori
-    initializeSkinColor();
-    initializeEyeColor();
-    initializeHairColor();
-
-    // Chiamata alla funzione per impostare lo stato iniziale
-    setInitialState();
+    console.log("sto per fare la funzione");
+    initializeColors();
+    aggiornaAvatar();
 });
 
 // Funzione per gestire il cambio di colore della pelle
 function initializeSkinColor() {
+
     var radioButtonsPelle = document.querySelectorAll('input[name="colorePelle"]');
     var skinColorMap = {
         'rosa pallido': '#fecaca',
@@ -939,9 +937,13 @@ function initializeSkinColor() {
         'marrone scuro': '#713f12'
     };
 
+    
+
     radioButtonsPelle.forEach(function (radioButton) {
         radioButton.addEventListener('change', function () {
             document.documentElement.style.setProperty('--skin-color', skinColorMap[radioButton.value]);
+            console.log(skinColorMap[radioButton.value]);
+            console.log("skin color modified");
         });
     });
 }
@@ -960,6 +962,7 @@ function initializeEyeColor() {
     radioButtonsOcchi.forEach(function (radioButton) {
         radioButton.addEventListener('change', function () {
             document.documentElement.style.setProperty('--eye-color', eyeColorMap[radioButton.value]);
+            console.log("eye color modified");
         });
     });
 }
@@ -978,8 +981,20 @@ function initializeHairColor() {
     radioButtonsCapelli.forEach(function (radioButton) {
         radioButton.addEventListener('change', function () {
             document.documentElement.style.setProperty('--hair-color', hairColorMap[radioButton.value]);
+            console.log("hair color modified");
         });
     });
+}
+
+// Funzione per inizializzare tutti i colori
+function initializeColors() {
+
+initializeSkinColor();
+
+initializeEyeColor();
+
+initializeHairColor();
+
 }
 
         // Funzione per impostare la lunghezza dei capelli
