@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, request
+from flask import Blueprint, render_template, redirect, request, url_for
 
 from models import Prodotto
 
@@ -20,7 +20,7 @@ def products_category():
         print(products)
         return render_template("utente/categoria.html", data=products)
     else:
-        return redirect("utente/index.html")
+        return redirect(url_for('index.homepage'))
 
 
 
@@ -32,7 +32,7 @@ def search_products():
         products = Prodotto.search_prodotto_by_name(product_name)
         return render_template("utente/ricercaProdotto.html", data=products)
     else:
-        return redirect("utente/index.html")
+        return redirect(url_for('index.homepage'))
 
 
 @app_bp.route("/")
