@@ -99,11 +99,11 @@ def delete_account():
         session.pop('id', None)
         session.pop('logged_in', None)
 
-        return redirect(url_for('user_login.login_page'))
+        return redirect(url_for('user_register.register'))
 
     except mysql.connector.Error as err:
         print(f"Errore durante la cancellazione dell'account: {err}")
-        return redirect(url_for('profilo', message='Si è verificato un errore'))
+        return redirect(url_for('user_profile.profilo', message='Si è verificato un errore'))
 
 
 @app_bp.route('/p/modifica_account', methods=['GET', 'POST'])
