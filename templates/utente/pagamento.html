@@ -488,11 +488,7 @@
     <div class="form-container">
         <form action="/verifica_pagamento" method="POST">
             <input type="hidden" name="price" value="{{ totale + 5 }}" />
-            <input type="hidden" name="items" value="[
-                        {% for prodotto in data %}
-                            {{ prodotto[1] }},
-                        {% endfor %}
-                        ]" />
+            <input type="hidden" name="items" value="[{% for prodotto in data %}[{{ prodotto[1] }}, {{ prodotto[2] }}, {{ prodotto[3] }}],{% endfor %}]" />
             <div class="field-container">
                 <label for="name">Name</label>
                 <input id="name" maxlength="20" type="text">

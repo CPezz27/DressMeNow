@@ -1,4 +1,5 @@
 import decimal
+import json
 from datetime import date
 
 from flask import Blueprint, request, redirect, url_for, session, render_template
@@ -33,7 +34,7 @@ def pagamento():
 
         prodotti, totale = Carrello.contenuto_carrello(user_id)
 
-        return render_template('/utente/pagamento.html', data=prodotti, totale=totale)
+        return render_template('/utente/pagamento.html', data=prodotti[:3], totale=totale)
 
     except Exception as e:
         return render_template('/utente/pagamento.html', message='Errore con il server')
@@ -43,6 +44,9 @@ def pagamento():
 def verifica_pagamento():
     total_price = request.form.get('price')
     items = request.form.get('items')
+    items = items.replace('\r', '').replace('\n', '')
+    items = eval(items)
+
     try:
         id_utente = session['id']
         data_transazione = date.today()
@@ -57,9 +61,11 @@ def verifica_pagamento():
         transazione.save()
 
         for item in items:
-            id_prodotto = item
+            id_prodotto = item[0]
+            quantita = item[1]
+            id_taglia = item[2]
 
-            prodotto_in_ordine = ProdottoInOrdine(id_ordine=id_ordine, id_prodotto=id_prodotto, reso=0,
+            prodotto_in_ordine = ProdottoInOrdine(id_ordine=id_ordine, id_prodotto=id_prodotto, id_taglia=id_taglia, quantita=quantita, reso=0,
                                                   stato_reso=None, note_reso=None)
             prodotto_in_ordine.save()
 

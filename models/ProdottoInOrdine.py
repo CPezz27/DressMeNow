@@ -44,19 +44,21 @@ def get_products_in_order(order_id):
 
 
 class ProdottoInOrdine:
-    def __init__(self, id_ordine, id_prodotto, reso, stato_reso, note_reso):
+    def __init__(self, id_ordine, id_prodotto, id_taglia, quantita, reso, stato_reso, note_reso):
         self.id_ordine = id_ordine
         self.id_prodotto = id_prodotto
+        self.id_taglia = id_taglia
+        self.quantita = quantita
         self.reso = reso
         self.stato_reso = stato_reso
         self.note_reso = note_reso
 
     def save(self):
         insert_query = ("INSERT INTO prodotto_in_ordine "
-                        "(id_ordine, id_prodotto, reso, stato_reso, note_reso) "
-                        "VALUES (%s, %s, %s, %s, %s)")
+                        "(id_ordine, id_prodotto, id_taglia, quantita, reso, stato_reso, note_reso) "
+                        "VALUES (%s, %s, %s, %s, %s, %s, %s)")
 
-        data = (self.id_ordine, self.id_prodotto, self.reso, self.stato_reso, self.note_reso)
+        data = (self.id_ordine, self.id_prodotto, self.id_taglia, self.quantita, self.reso, self.stato_reso, self.note_reso)
 
         try:
             cursor.execute(insert_query, data)
