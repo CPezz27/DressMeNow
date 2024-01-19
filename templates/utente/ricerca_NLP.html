@@ -14,36 +14,12 @@
         <div id="chat-container" class="h-80 overflow-y-auto px-4 py-6"></div>
 
         <!-- User input -->
-        <form id="chat-form" action="/ricerca" method="post" class="p-4 bg-gray-200 flex items-center">
+        <form id="chat-form" action="/ricercaNLP" method="post" class="p-4 bg-gray-200 flex items-center">
             <input type="text" id="user-input" name="text" placeholder="Scrivi qualcosa..." class="flex-grow px-2 py-1 border rounded-md focus:outline-none focus:ring focus:border-blue-500">
             <button type="submit" class="ml-2 bg-blue-500 text-white px-4 py-1 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300">Invia</button>
         </form>
     </div>
 </div>
-<!--
-<script>
-    // Aggiungi questo script per simulare il chatbot
-    document.getElementById('chat-form').addEventListener('submit', function (event) {
-        event.preventDefault();
-        const userInput = document.getElementById('user-input').value;
-        const chatContainer = document.getElementById('chat-container');
-
-        // Aggiungi il messaggio dell'utente
-        chatContainer.innerHTML += `<div class="mb-2"><strong>Utente:</strong> ${userInput}</div>`;
-
-        // Simula la risposta del chatbot (puoi personalizzare questa parte)
-        const chatbotResponse = "Grazie per il tuo messaggio! Sto elaborando la tua richiesta.";
-
-        // Aggiungi la risposta del chatbot
-        chatContainer.innerHTML += `<div class="mb-2"><strong>Chatbot:</strong> ${chatbotResponse}</div>`;
-
-        // Pulisci l'input dell'utente
-        document.getElementById('user-input').value = '';
-
-        // Puoi anche aggiungere una chiamata AJAX per inviare l'input dell'utente al server Flask
-    });
-</script>
--->
 </body>
 </html>
 

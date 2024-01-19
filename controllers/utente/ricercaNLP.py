@@ -6,17 +6,22 @@ from models.Prodotto import search_products
 app_bp = Blueprint('user_NLP', __name__)
 
 
-@app_bp.route('/ricerca', methods=['GET', 'POST'])
+@app_bp.route('/ricercaNLP', methods=['GET', 'POST'])
 def search():
     # if 'logged_in' not in session or not session['logged_in']:
     #    return redirect(url_for('user_login.login_page'))
 
     try:
         if request.method == 'POST':
+
             query = request.form['query']
+
+            print("La query è: ", query)
 
             # Utilizza il modello per cercare i prodotti nel database
             products = search_products(query)
+
+            print("I prodotti(?):", products)
 
             if products:
                 return render_template('/utente/ricerca_NLP.html', data="test")
@@ -25,4 +30,4 @@ def search():
     except Exception as e:
         return render_template('/utente/ricerca_NLP.html', message='Errore con il server')
 
-    return redirect('/')
+    return render_template('/utente/ricerca_NLP.html')
