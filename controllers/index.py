@@ -5,17 +5,17 @@ app_bp = Blueprint('index', __name__)
 
 
 @app_bp.errorhandler(403)
-def page_not_found(error):
+def page_403(error):
     return render_template('403.html'), 403
 
 
 @app_bp.errorhandler(404)
-def page_not_found(error):
+def page_404(error):
     return render_template('404.html'), 404
 
 
 @app_bp.errorhandler(500)
-def page_not_found(error):
+def page_500(error):
     return render_template('500.html'), 500
 
 
