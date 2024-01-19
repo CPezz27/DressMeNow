@@ -6,7 +6,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../.
 from app import app
 
 
-class SearchProductsTest(unittest.TestCase):
+class SearchProductTest(unittest.TestCase):
 
     def setUp(self):
         app.config['TESTING'] = True
@@ -17,7 +17,7 @@ class SearchProductsTest(unittest.TestCase):
 
         self.assertNotIn(b'Non abbiamo trovato nessun prodotto con questo nome', response.data)
 
-        if b"Non abbiamo trovato nessun prodotto con questo nome" in response.data:
+        if b"Non abbiamo trovato nessun prodotto con questo nome" not in response.data:
             print("Test 'test_search_products_with_valid_input' PASSATO")
         else:
             print("Test 'test_search_products_with_valid_input' FALLITO")

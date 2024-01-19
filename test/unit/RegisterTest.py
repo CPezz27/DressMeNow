@@ -6,7 +6,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../.
 from app import app
 
 
-class RegistrationTest(unittest.TestCase):
+class RegisterTest(unittest.TestCase):
 
     def setUp(self):
         app.config['TESTING'] = True
