@@ -1,108 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Shopping Cart - Clothing Store</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
     <style>
-        .custom-background {
-            background-color: #6EE7B7;
-        }
+      .custom-background {
+        background-color: #6ee7b7;
+      }
     </style>
-</head>
-{% include 'components/header.html' %}
-<body class="font-sans custom-background">
+  </head>
+  {% include 'components/header.html' %}
+  <body class="font-sans custom-background">
     <div class="container mx-auto my-8 p-4 flex flex-wrap">
-        <!-- Carrello a sinistra -->
-        <div class="w-full md:w-1/2 mb-6 md:mb-0 md:pr-4">
-            <div class="bg-white p-4 rounded-lg shadow-md">
-                <div class="flex justify-between items-center mb-4">
-                    <h1 class="text-3xl font-semibold">Carrello</h1>
-                    <form method="post" action="/svuota_carrello">
-                        <button class="bg-red-500 text-white py-2 px-4 rounded-full">Remove All from Cart</button>
-                    </form>
+      <!-- Carrello a sinistra -->
+      <div class="w-full md:w-1/2 mb-6 md:mb-0 md:pr-4">
+        <div class="bg-white p-4 rounded-lg shadow-md">
+          <div class="flex justify-between items-center mb-4">
+            <h1 class="text-3xl font-semibold">Carrello</h1>
+            <form method="post" action="/svuota_carrello">
+              <button class="bg-red-500 text-white py-2 px-4 rounded-full">
+                Remove All from Cart
+              </button>
+            </form>
+          </div>
+          <div id="cartItems" class="grid grid-cols-1 gap-4">
+            <!-- Ciclo sugli elementi del carrello -->
+            {% for prodotto in data %}
+            <div
+              class="bg-gray-200 p-4 rounded-lg shadow-md flex items-center justify-between"
+            >
+              <div class="flex items-center">
+                <div class="flex-shrink-0 mr-4">
+                  {% if prodotto[12] %}
+                  <!-- Immagine del prodotto -->
+                  <img
+                    src="data:image/jpeg;base64,{{ prodotto[12] }}"
+                    alt="Product"
+                    class="w-24 h-24 object-cover"
+                  />
+                  {% else %}
+                  <!-- Immagine di fallback -->
+                  <img
+                    src="https://lorenzograssia.com/wp-content/uploads/2014/01/prodotto.jpg"
+                    alt="Product"
+                    class="w-24 h-24 object-cover"
+                  />
+                  {% endif %}
                 </div>
-            <div id="cartItems" class="grid grid-cols-1 gap-4">
-                <!-- Ciclo sugli elementi del carrello -->
-                {% for prodotto in data %}
-                    <div class="bg-gray-200 p-4 rounded-lg shadow-md flex items-center justify-between">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 mr-4">
-                                {% if prodotto[12] %}
-                                <!-- Immagine del prodotto -->
-                                <img src="data:image/jpeg;base64,{{ prodotto[12] }}" alt="Product" class="w-24 h-24 object-cover">
-                                {% else %}
-                                <!-- Immagine di fallback -->
-                                <img src="https://lorenzograssia.com/wp-content/uploads/2014/01/prodotto.jpg" alt="Product" class="w-24 h-24 object-cover">
-                                {% endif %}
-                            </div>
-                            <div>
-                                <h2 class="text-lg font-semibold">{{ prodotto[4] }}</h2>
-                                <p class="text-gray-600">Size: {{ prodotto[8] }}</p>
-                                <p class="text-gray-600">Quantity: {{ prodotto[2] }}</p>
-                                <p class="text-gray-600">Price: {{ prodotto[9] }}€</p>
-                            </div>
-                        </div>
-                        <form action="/rimuovi_dal_carrello" method="post">
-                            <input type="hidden" name="id_prodotto" value="{{ prodotto[1] }}" />
-                            <button class="bg-red-500 text-white py-2 px-4 rounded-full">Remove</button>
-                        </form>
-                    </div>
-                {% endfor %}
+                <div>
+                  <h2 class="text-lg font-semibold">{{ prodotto[4] }}</h2>
+                  <p class="text-gray-600">Size: {{ prodotto[8] }}</p>
+                  <p class="text-gray-600">Quantity: {{ prodotto[2] }}</p>
+                  <p class="text-gray-600">Price: {{ prodotto[9] }}€</p>
+                </div>
+              </div>
+              <form action="/rimuovi_dal_carrello" method="post">
+                <input
+                  type="hidden"
+                  name="id_prodotto"
+                  value="{{ prodotto[1] }}"
+                />
+                <button class="bg-red-500 text-white py-2 px-4 rounded-full">
+                  Remove
+                </button>
+              </form>
             </div>
-            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Riepilogo dell'ordine a destra -->
+      <div class="w-full md:w-1/2">
+        <div class="bg-white p-4 rounded-lg shadow-md">
+          <h1 class="text-3xl font-semibold mb-4 text-center">Order Summary</h1>
+          <div class="flex justify-between items-center mb-2">
+            <span class="text-gray-600">Total Products:</span>
+            <span
+              id="totalProducts"
+              class="font-semibold"
+              style="color: #000000"
+            >
+              {% if totale %} {{ totale }}€ {% else %} 0.00€ {% endif %}
+            </span>
+          </div>
+          <div class="flex justify-between items-center mb-2">
+            <span class="text-gray-600">Shipping:</span>
+            <span class="font-semibold" style="color: #000000">5.00€</span>
+          </div>
+          <hr class="my-2 border-gray-300" />
+          <div class="flex justify-between items-center">
+            <span class="text-lg font-semibold" style="color: #000000"
+              >Total:</span
+            >
+            <span
+              id="orderTotal"
+              class="text-lg font-semibold"
+              style="color: #000000"
+            >
+              {% if totale %} {{ totale + 5 }}€ {% else %} 0.00€ {% endif %}
+            </span>
+          </div>
+          <!--<button class="mt-4 bg-blue-500 text-white py-2 px-4 rounded-full">Proceed to Checkout</button>-->
+          <div id="paypal-button-container"></div>
+          <button
+            class="block bg-blue-500 text-white py-2 px-6 rounded-full mt-3"
+            onclick="location.href='/pagamento'"
+          >
+            Completa l'acquisto
+          </button>
         </div>
 
-        <!-- Riepilogo dell'ordine a destra -->
-        <div class="w-full md:w-1/2">
-            <div class="bg-white p-4 rounded-lg shadow-md">
-                <h1 class="text-3xl font-semibold mb-4 text-center">Order Summary</h1>
-                <div class="flex justify-between items-center mb-2">
-                    <span class="text-gray-600">Total Products:</span>
-                    <span id="totalProducts" class="font-semibold" style="color: #000000;">
-                        {% if totale %}
-                            {{ totale }}€
-                        {% else %}
-                            0.00€
-                        {% endif %}
-                    </span>
-                </div>
-                <div class="flex justify-between items-center mb-2">
-                    <span class="text-gray-600">Shipping:</span>
-                    <span class="font-semibold" style="color: #000000;">5.00€</span>
-                </div>
-                <hr class="my-2 border-gray-300">
-                <div class="flex justify-between items-center">
-                    <span class="text-lg font-semibold" style="color: #000000;">Total:</span>
-                    <span id="orderTotal" class="text-lg font-semibold" style="color: #000000;">
-                        {% if totale %}
-                            {{ totale + 5 }}€
-                        {% else %}
-                            0.00€
-                        {% endif %}
-                    </span>
-                </div>
-                <!--<button class="mt-4 bg-blue-500 text-white py-2 px-4 rounded-full">Proceed to Checkout</button>-->
-                <div id="paypal-button-container"></div>
-                <button class="block bg-blue-500 text-white py-2 px-6 rounded-full mt-3" onclick="location.href='/pagamento'">Completa l'acquisto</button>
-            </div>
-
-                    <!-- Sezione "Prova i prodotti sull'avatar" -->
-            <div class="w-full md:w-1/2 mt-8">
-                <div class="bg-white p-4 rounded-lg shadow-md">
-                    <h1 class="text-3xl font-semibold mb-4 text-center">Prova i prodotti sull'avatar!</h1>
-                    <button class="mx-auto block bg-blue-500 text-white py-2 px-6 rounded-full">Prova ora</button>
-                </div>
-            </div>
+        <!-- Sezione "Prova i prodotti sull'avatar" -->
+        <div class="w-full md:w-1/2 mt-8">
+          <div class="bg-white p-4 rounded-lg shadow-md">
+            <h1 class="text-3xl font-semibold mb-4 text-center">
+              Prova i prodotti sull'avatar!
+            </h1>
+            <a href="/prova_su_avatar"
+              ><button
+                class="mx-auto block bg-blue-500 text-white py-2 px-6 rounded-full"
+              >
+                Prova ora
+              </button></a
+            >
+          </div>
         </div>
-
-
+      </div>
     </div>
-
-</body>
-    <div class="fixed bottom-0 left-0 m-4">
-    <button onclick="tornaIndietro()" class="bg-gray-500 text-white py-2 px-4 rounded-full">Torna Indietro</button>
-    </div>
+  </body>
+  <div class="fixed bottom-0 left-0 m-4">
+    <button
+      onclick="tornaIndietro()"
+      class="bg-gray-500 text-white py-2 px-4 rounded-full"
+    >
+      Torna Indietro
+    </button>
+  </div>
 </html>
