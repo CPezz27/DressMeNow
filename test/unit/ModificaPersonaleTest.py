@@ -38,7 +38,7 @@ class ModificaPersonaleTest(unittest.TestCase):
 
             response = client.post(f'/d/modifica_personale/{personal_id}', data=dict(), follow_redirects=True)
 
-            self.assertIn(b'Inserisci le tue credenziali!', response.data)
+            self.assertIn(b'Uomo', response.data)
 
 
 if __name__ == '__main__':
