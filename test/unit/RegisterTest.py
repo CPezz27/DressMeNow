@@ -4,7 +4,6 @@ import unittest
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 from app import app
-from flask import session
 
 
 class RegistrationTest(unittest.TestCase):

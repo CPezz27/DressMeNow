@@ -4,8 +4,6 @@ import unittest
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 from app import app
-from flask import session
-from urllib.parse import urlparse, parse_qs
 
 
 class EliminaAccountTest(unittest.TestCase):
