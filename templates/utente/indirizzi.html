@@ -173,10 +173,38 @@
                 />
               </div>
               </div>
-              
+              <h1><button type="submit" class="save-button">Salva</button></h1>
             </form>
-            <h1><button type="submit" style="background-color: #7ed386; color: #fff; border-radius: 5px;">Salva</button></h1>
-            <button class="delete-button" style="background-color: #e52828; color: #fff; border-radius: 5px;" onclick="window.location.href='/indirizzo/elimina/{{indirizzo[0]}}'">Cancella</button>
+            <style>
+              .save-button {
+                  background-color: #7ed386;
+                  color: #fff;
+                  border-radius: 5px;
+                  padding: 4px 10px;
+                  transition: background-color 0.3s ease; 
+                  margin-top: 20px;
+                  margin-block-start: auto;
+              }
+          
+              .save-button:hover {
+                  background-color: #5aa963; 
+              }
+          
+              .delete-button {
+                  background-color: #d63030;
+                  color: #fff;
+                  border-radius: 5px;
+                  padding: 4px 10px;
+                  transition: background-color 0.3s ease;
+                  margin-top: 5px;
+                  margin-block-end: auto;
+              }
+          
+              .delete-button:hover {
+                  background-color: #a52020; 
+              }
+          </style>
+            <button class="delete-button" onclick="window.location.href='/indirizzo/elimina/{{indirizzo[0]}}'">Cancella</button>
             </div>{% endfor %}</div>
           {% else %}
             <p>Nessun indirizzo trovato per questo utente.</p>
