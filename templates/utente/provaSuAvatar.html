@@ -287,7 +287,7 @@ body {
     left: calc(var(--left-body-top) - var(--half-body-top));
     width: var(--width-arms);   
     height: var(--height-arm-body-center-bottom);
-    z-index: 3;
+    z-index: 53;
     top: calc(var(--body-top-starting-point) + var(--height-body-top));
 }
 .hand-left{
@@ -296,7 +296,7 @@ body {
     width: var(--width-arms);
     height: 15px;
     top: var(--height-arm-body-center-bottom);
-    z-index: 1;
+    z-index: 54;
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
 
@@ -307,7 +307,7 @@ body {
     left: calc(var(--half-body-top) + var(--left-body-top) - var(--width-arms));
     width: var(--width-arms);   
     height: var(--height-arm-body-center-bottom);
-    z-index: 3;
+    z-index: 53;
     top: calc(var(--body-top-starting-point) + var(--height-body-top));;
 }
 .hand-right{
@@ -315,7 +315,7 @@ body {
     position: absolute;
     width: var(--width-arms);
     height: 15px;
-    z-index: 1;
+    z-index: 54;
     top: var(--height-arm-body-center-bottom);
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
@@ -591,7 +591,7 @@ body {
     <div class="flex">
 
         <!-- AVATAR -->
-        <div class="w-2/3 p-6">
+        <div class="w-1/3 p-2 ">
             <div class="relative w-40 h-40 mx-auto">
                 <div class="human-body-top">
                     <div class="hair-female" style="display: hidden;"></div>
@@ -661,8 +661,8 @@ body {
             </div>
         </div>
 
-      <div class="w-1/3 p-6 bg-gray-200 m-9 max-w-xl">
-        <h2 class="text-2xl font-bold mb-4">Modifica Avatar</h2>
+      <div class=" p-6 bg-gray-200 m-9 max-w-xl ml-auto">
+        <h2 class="text-2xl font-bold mb-4">Vesti il tuo avatar</h2>
         <form id="avatarForm" action="#" method="post" class="space-y-4">
           <!-- COLORI PELLE -->
           <div class="mb-4" style="display: none;">
@@ -902,7 +902,7 @@ body {
           </div>
 
           <!-- LUNGHEZZA CAPELLI -->
-          <div>
+          <div style="display: none;">
             <label for="lunghezzaCapelli" class="block font-medium"
               >Lunghezza Capelli:</label
             >
@@ -918,7 +918,7 @@ body {
           </div>
 
           <!-- ALTEZZA AVATAR -->
-          <div>
+          <div style="display: none;">
             <label for="altezza" class="block font-medium">Altezza:</label>
             <input
               type="range"
@@ -932,7 +932,7 @@ body {
           </div>
 
           <!-- PESO AVATAR -->
-          <div>
+          <div style="display: none;">
             <label for="peso" class="block font-medium">Peso:</label>
             <input
               type="range"
@@ -992,7 +992,7 @@ body {
           </div>
 
           <!-- SESSO -->
-          <div>
+          <div style="display: none;">
             <label for="sesso" class="block font-medium">Sesso:</label>
             <select
               id="sesso"
@@ -1024,9 +1024,8 @@ body {
             Salva Modifiche
           </button>
         </form>
-      </div>
 
-      <!-- fine scelta prodotti presenti nel DB; inizio momentaneo della scelta della taglia -->
+        <!-- Da qui inizia la scelta dei vestiti da far mettere all'avatar sulla base del carrello -->
         <div>
           <label for="legWidth">Seleziona larghezza pants:</label>
           <select id="legWidth" onchange="updateLegWidth()">
@@ -1047,6 +1046,11 @@ body {
           </select>
         </div>
 
+      </div>
+
+      <!-- fine scelta prodotti presenti nel DB; inizio momentaneo della scelta della taglia -->
+        
+
         <!--
             a prescindere, questi sono i valori:
             145 - taglia S
@@ -1064,6 +1068,93 @@ body {
           document.querySelector('.c-midtriangle-left').style.display = 'none';
           document.querySelector('.c-midtriangle-right').style.display = 'none';
         });
+
+        document.addEventListener('DOMContentLoaded', function () {
+        var radioButtonsPelle = document.querySelectorAll('input[name="colorePelle"]');
+    
+        // Mappa dei nomi di colore di Tailwind a colori HEX
+        var colorMap = {
+            'Rosa pallido': '#fecaca',
+            'Rosa': '#fca5a5',
+            'marrone chiaro': '#d97706',
+            'mulatto': '#854d0e',
+            'marrone scuro': '#713f12'
+            };
+
+        // Aggiungi un listener a ciascun radio button
+        radioButtonsPelle.forEach(function (radioButton) {
+            radioButton.addEventListener('change', function () {
+                // Recupera il valore associato al radio button selezionato
+                var selectedColor = radioButton.value;
+
+                // Modifica il colore della pelle in base al valore selezionato
+                document.documentElement.style.setProperty('--skin-color', colorMap[selectedColor]);
+                });
+            });
+        
+        });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var radioButtonsOcchi = document.querySelectorAll('input[name="coloreOcchi"]');
+    
+        // Mappa dei nomi di colore di Tailwind a colori HEX
+        var colorMap = {
+            'blu chiaro': '#60a5fa',
+            'blu scuro': '#1d4ed8',
+            'verde chiaro': '#16a34a',
+            'verde scuro': '#166534',
+            'marrone': '#713f12'
+            };
+
+        // Aggiungi un listener a ciascun radio button
+        radioButtonsOcchi.forEach(function (radioButton) {
+            radioButton.addEventListener('change', function () {
+                // Recupera il valore associato al radio button selezionato
+                var selectedColor = radioButton.value;
+
+                // Modifica il colore della pelle in base al valore selezionato
+                document.documentElement.style.setProperty('--eye-color', colorMap[selectedColor]);
+                });
+            });
+        
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+        var radioButtonsCapelli = document.querySelectorAll('input[name="coloreCapelli"]');
+    
+        // Mappa dei nomi di colore di Tailwind a colori HEX
+        var colorMap = {
+            'bianco': '#e5e7eb',
+            'nero': '#030712',
+            'marrone chiaro': '#a16207',
+            'marrone scuro': '#422006',
+            'biondo': '#facc15'
+            };
+
+        // Aggiungi un listener a ciascun radio button
+        radioButtonsCapelli.forEach(function (radioButton) {
+            radioButton.addEventListener('change', function () {
+                // Recupera il valore associato al radio button selezionato
+                var selectedColor = radioButton.value;
+
+                // Modifica il colore della pelle in base al valore selezionato
+                document.documentElement.style.setProperty('--hair-color', colorMap[selectedColor]);
+                });
+            });
+        
+        });
+
+        // Funzione per impostare la lunghezza dei capelli
+        function setHairLength(length) {
+            const cappedLength = Math.min(Math.max(length, 1), 20); // Limita il valore tra 1 e 20
+            document.documentElement.style.setProperty('--hair-length', `${cappedLength}px`);
+        }
+
+        // Aggiungi un event listener per l'input di tipo "range"
+        const rangeInput1 = document.getElementById('lunghezzaCapelli');
+        rangeInput1.addEventListener('input', (event) => {
+            const selectedLength = event.target.value;
+            setHairLength(selectedLength);
+         });
 
         // Funzione per impostare l'altezza dell'avatar
         function setHeight(height) {
@@ -1140,6 +1231,10 @@ body {
 
           document.querySelector('.c-midtriangle-left').style.display = 'block';
           document.querySelector('.c-midtriangle-right').style.display = 'block';
+
+          document.querySelector('.bottom-top').style.display = 'block';
+          document.querySelector('.leg-left').style.display = 'none';
+          document.querySelector('.leg-right').style.display = 'none';
 
         }
 
