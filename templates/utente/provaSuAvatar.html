@@ -585,8 +585,13 @@ body {
 }
 /* fine vestiti */
 
-  </style>
+.non-vestibile {
+    opacity: 0.5; /* Opacità ridotta per indicare che non è disponibile */
+    pointer-events: none; /* Non è cliccabile */
+}
 
+  </style>
+    {% include 'components/header.html' %}
   <body class="bg-gray-100">
     <div class="flex">
 
@@ -979,16 +984,14 @@ body {
               required
               class="w-full rounded-md border-gray-300"
             >
-              <option value="molto esile" {% if
-                avatar[9]=='molto esile' %}selected{% endif %}>Molto esile</option>
-              <option value="esile" {% if
-                avatar[9]=='esile' %}selected{% endif %}>Esile</option>
-              <option value="normale" {% if
-                avatar[9]=='normale' %}selected{% endif %}>Normale</option>
-              <option value="medio" {% if
-                avatar[9]=='medio' %}selected{% endif %}>Medio</option>
-              <option value="grande" {% if
-                avatar[9]=='grande' %}selected{% endif %}>Grande</option>
+            <option value="esile" {% if
+              avatar[9]=='esile' %}selected{% endif %}>Esile (S)</option>
+            <option value="normale" {% if
+              avatar[9]=='normale' %}selected{% endif %}>Medio (M)</option>
+            <option value="grande" {% if
+              avatar[9]=='grande' %}selected{% endif %}>Grande (L)</option>
+            <option value="xgrande" {% if
+              avatar[9]=='xgrande' %}selected{% endif %}>Più grande (XL)</option>
             </select>
           </div>
 
@@ -1031,50 +1034,72 @@ body {
 
               per ogni maglietta/pantalone, prende i valori di nome, colore e taglia.
               il value è dato da nomeColore-TAGLIA
+
+              questo è prodotto:
+              [0]id_prodotto_in_carrello: l'identificativo unico del prodotto nel carrello.
+              [1]id_prodotto: l'identificativo unico del prodotto.
+              [2]quantità: la quantità del prodotto nel carrello.
+              [3]taglia: la taglia del prodotto nel carrello.
+              [4]nome: il nome del prodotto.
+              [5]categoria: la categoria del prodotto.
+              [6]marca: la marca del prodotto.
+              [7]descrizione: la descrizione del prodotto.
+              [8]vestibilità: la vestibilità del prodotto.
+              [9]prezzo: il prezzo unitario del prodotto.
+              [10]colore: il colore del prodotto.
+              [11]materiale: il materiale del prodotto.
+              [12]immagine: l'immagine del prodotto codificata in base64.
         
         -->
 
+
         <div class="mb-4"> <!-- MAGLIETTE -->
           <label for="maglietta" class="block font-medium">Magliette:</label>
-
-           <!-- Radio button personalizzato per la maglietta "Nome Maglietta 1" con colore, taglia e nome -->
-          <label class="flex flex-col items-center space-y-2 cursor-pointer border p-4 rounded transition duration-300 ease-in-out hover:border-gray-700 focus-within:border-black">
-            <input type="radio" name="maglietta" value="bianco-S" class="hidden">
-            <span class="text-gray-700">Nome Maglietta 1</span>
-            <span>Taglia: S</span>
-            <span>Colore: Bianco</span>
-          </label>
-
-          <!-- Radio button personalizzato per la maglietta "Nome Maglietta 2" con colore, taglia e nome -->
-          <label class="flex flex-col items-center space-y-2 cursor-pointer border p-4 rounded transition duration-300 ease-in-out hover:border-gray-700 focus-within:border-black mt-4">
-            <input type="radio" name="maglietta" value="verdeChiaro-M" class="hidden">
-            <span class="text-gray-700">Nome Maglietta 2</span>
-            <span>Taglia: M</span>
-            <span>Colore: Verde</span>
-          </label>
-          
-        </div>
-
-        <div class="mb-4"> <!-- PANTALONI -->
-          <label for="maglietta" class="block font-medium">Pantaloni:</label>
-
-           <!-- Radio button personalizzato per la maglietta "Nome Maglietta 1" con colore, taglia e nome -->
-          <label class="flex flex-col items-center space-y-2 cursor-pointer border p-4 rounded transition duration-300 ease-in-out hover:border-gray-700 focus-within:border-black">
-            <input type="radio" name="pantalone" value="bianco-S" class="hidden">
-            <span class="text-gray-700">Nome Pantalone 1</span>
-            <span>Taglia: S</span>
-            <span>Colore: Bianco</span>
-          </label>
-
-          <!-- Radio button personalizzato per la maglietta "Nome Maglietta 2" con colore, taglia e nome -->
-          <label class="flex flex-col items-center space-y-2 cursor-pointer border p-4 rounded transition duration-300 ease-in-out hover:border-gray-700 focus-within:border-black mt-4">
-            <input type="radio" name="pantalone" value="verdeChiaro-M" class="hidden">
-            <span class="text-gray-700">Nome Pantalone 2</span>
-            <span>Taglia: M</span>
-            <span>Colore: Verde</span>
-          </label>
-          
-        </div>
+      
+          {% set magliettePresenti = false %}
+      
+          {% for prodotto in prodotti %}
+              {% if 'maglia' in prodotto[4] or 'maglietta' in prodotto[4] %}
+                  {% set magliettePresenti = true %}
+      
+                  <!-- Radio button personalizzato per la maglietta con colore, taglia e nome -->
+                  <label class="flex flex-col items-center space-y-2 cursor-pointer border p-4 rounded transition duration-300 ease-in-out hover:border-gray-700 focus-within:border-black {% if not checkIfVestibile(prodotto[3]) %}non-vestibile{% endif %}">
+                      <input type="radio" name="maglietta" value="{{ prodotto[10] }}-{{ prodotto[3] }}" class="hidden" {% if checkIfVestibile(prodotto[3]) %}checked{% endif %} {% if not checkIfVestibile(prodotto[3]) %}disabled{% endif %}>
+                      <span class="text-gray-700">{{ prodotto[4] }}</span>
+                      <span>Taglia: {{ prodotto[3] }}</span>
+                      <span>Colore: {{ prodotto[10] }}</span>
+                  </label>
+              {% endif %}
+          {% endfor %}
+      
+          {% if not magliettePresenti %}
+              <p>Il carrello non ha prodotti di tipo "Magliette".</p>
+          {% endif %}
+      </div>
+      
+      <div class="mb-4"> <!-- PANTALONI -->
+          <label for="pantalone" class="block font-medium">Pantaloni:</label>
+      
+          {% set pantaloniPresenti = false %}
+      
+          {% for prodotto in prodotti %}
+              {% if 'jeans' in prodotto[4] or 'pantaloni' in prodotto[4] or 'pantalone' in prodotto[4] %}
+                  {% set pantaloniPresenti = true %}
+      
+                  <!-- Radio button personalizzato per il pantalone con colore, taglia e nome -->
+                  <label class="flex flex-col items-center space-y-2 cursor-pointer border p-4 rounded transition duration-300 ease-in-out hover:border-gray-700 focus-within:border-black  {% if not checkIfVestibile(prodotto[3]) %}non-vestibile{% endif %}">
+                      <input type="radio" name="pantalone" value="{{ prodotto[10] }}-{{ prodotto[3] }}" class="hidden" {% if checkIfVestibile(prodotto[3]) %}checked{% endif %}  {% if not checkIfVestibile(prodotto[3]) %}disabled{% endif %}>
+                      <span class="text-gray-700">{{ prodotto[4] }}</span>
+                      <span>Taglia: {{ prodotto[3] }}</span>
+                      <span>Colore: {{ prodotto[10] }}</span>
+                  </label>
+              {% endif %}
+          {% endfor %}
+      
+          {% if not pantaloniPresenti %}
+              <p>Il carrello non ha prodotti di tipo "Pantaloni".</p>
+          {% endif %}
+      </div>
 
       </div> <!-- terminazione intero rettangolo a sinistra dell'avatar -->
 
@@ -1107,8 +1132,6 @@ body {
             ...
 
         -->
-
-        
 
   </div>
 
@@ -1320,14 +1343,30 @@ initializeHairColor();
         console.log("aggiornaAvatar eseguita")
     });
 
-        function checkIfVestibile(){
-            //l'idea è che per ogni elemento si esegue questa funzione:
-            //se l'elemento è >= alla taglia dell'avatar allora ok; altrimenti
-            //l'elemento non è più selezionabile.
+    //okk questa funzione dovrebbe funzionare. Se non funziona allora piango
+    function checkIfVestibile(taglia) {
+    // Mappa dei valori di taglia
+    const tagliaMap = {
+        'esile': 145,
+        'normale': 158,
+        'grande': 170,
+        'xgrande': 183
+    };
 
-            //posso prendere la taglia dell'avatar dal robo della vestibilità.
-            //TODO
-        }
+    // Mappa il valore di taglia passato come argomento
+    const tagliaNumerica = tagliaMap[taglia];
+
+    // Recupera il valore di taglia_avatar dall'elemento select
+    const selectElement = document.getElementById('dimensioniCorpo');
+    const tagliaAvatar = tagliaMap[selectElement.value];
+
+    // Confronta le taglie
+    if (tagliaNumerica >= tagliaAvatar) {
+        return true; // L'elemento è vestibile
+    } else {
+        return false; // L'elemento non è vestibile
+    }
+}
 
 
         function updateLegWidth() {
