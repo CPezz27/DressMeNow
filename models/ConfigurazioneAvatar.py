@@ -29,10 +29,11 @@ def update_configurazione_avatar(id_utente, **kwargs):
         update_data.append(id_utente)
 
         cursor.execute(update_query, update_data)
+        num_rows_affected = cursor.rowcount
         conn.commit()
-        return True
+        return True, num_rows_affected
     except mysql.connector.Error as err:
-        return False
+        return False, 0
 
 
 class ConfigurazioneAvatar:

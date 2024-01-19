@@ -838,12 +838,21 @@ body {
           <div id="messaggio" class="fixed top-0 left-1/2 transform -translate-x-1/2 p-4 bg-green-500 text-white rounded-md hidden">
             <p></p>
         </div>
+        {% if (message) %}
+        <div id="messaggioSuccesso" class="fixed top-0 left-1/2 transform -translate-x-1/2 p-4 bg-green-500 text-white rounded-md">
+          <p>{{ message }}</p>
+      </div>
+      {% endif %}
+
         </form>
       </div>
     </div>
 
     <script>
-
+      messaggioSuccesso = document.getElementById('messaggioSuccesso');
+setTimeout(function() {
+            messaggioSuccesso.style.display = 'none';
+        }, 3000);
 var initialFormData;
 
 function saveInitialFormData() {
@@ -877,28 +886,6 @@ document.addEventListener('DOMContentLoaded', function () {
         showMessage(message);
     }
 });
-
-function showMessage(message) {
-  console.log(isFormDataChanged());
-  if (isFormDataChanged()) {
-        var customMessage = document.getElementById('messaggio');
-        customMessage.innerHTML = '<p>' + message + '</p>';
-        customMessage.style.display = 'block';
-        
-        // Mostra il messaggio per solo 3 secondi
-        setTimeout(function() {
-            customMessage.style.display = 'none';
-        }, 3000);
-    } else {
-        // Nessuna modifica effettuata
-        var customMessage = document.getElementById('messaggio');
-        customMessage.innerHTML = '<p>' + "Non sono state effettuate modifiche al form" + '</p>';
-        customMessage.style.display = 'block';
-        setTimeout(function() {
-            customMessage.style.display = 'none';
-        }, 3000);
-    }
-}
 
 // Funzione per annullare le modifiche
 function annullaModifiche() {

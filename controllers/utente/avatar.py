@@ -36,8 +36,15 @@ def modifica_avatar():
         'dimensioni_corpo': nuovi_valori['dimensioniCorpo'],
         'sesso': nuovi_valori['sesso'],
     }
-    update_configurazione_avatar(user_id, **config_avatar)
-    return redirect(url_for('user_profile.configura_avatar', message="Modifiche all'avatar avvenute con successo!"))
+
+    success, rowsAffected = update_configurazione_avatar(
+        user_id, **config_avatar)
+    if success and rowsAffected > 0:
+        return redirect(url_for('user_profile.configura_avatar', message="Modifiche avvenute con successo"))
+    elif success and rowsAffected == 0:
+        return redirect(url_for('user_profile.configura_avatar', message="Nessuna modifica effettuata"))
+    else:
+        return redirect(url_for('user_profile.configura_avatar', message="Errore nel salvataggio della modifica"))
 
 
 @app_bp.route('/prova_su_avatar')

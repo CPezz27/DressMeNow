@@ -1,25 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chatbot Simulator</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
-</head>
-<body class="bg-gray-100 font-sans">
-
-<div class="container mx-auto p-8 max-w-md">
-    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    />
+  </head>
+  <body class="bg-gray-100 font-sans">
+    <div class="container mx-auto p-8 max-w-md">
+      <div class="bg-white rounded-lg shadow-md overflow-hidden">
         <!-- Chat container -->
         <div id="chat-container" class="h-80 overflow-y-auto px-4 py-6"></div>
 
         <!-- User input -->
-        <form id="chat-form" action="/ricercaNLP" method="post" class="p-4 bg-gray-200 flex items-center">
-            <input type="text" id="user-input" name="text" placeholder="Scrivi qualcosa..." class="flex-grow px-2 py-1 border rounded-md focus:outline-none focus:ring focus:border-blue-500">
-            <button type="submit" class="ml-2 bg-blue-500 text-white px-4 py-1 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300">Invia</button>
+        <form
+          id="chat-form"
+          action="/ricercaNLP"
+          method="post"
+          class="p-4 bg-gray-200 flex items-center"
+        >
+          <input
+            type="text"
+            id="user-input"
+            name="text"
+            placeholder="Scrivi qualcosa..."
+            class="flex-grow px-2 py-1 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+          />
+          <button
+            type="submit"
+            class="ml-2 bg-blue-500 text-white px-4 py-1 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+          >
+            Invia
+          </button>
         </form>
+      </div>
     </div>
-</div>
-</body>
+  </body>
 </html>
-
