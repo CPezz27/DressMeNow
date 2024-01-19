@@ -19,7 +19,7 @@ class RegistrationTest(unittest.TestCase):
             dataNascita='1990-01-01',
             NumeroTelefonico='1234567890',
             sesso='uomo',
-            email='john.doe@example3.com',
+            email='john.doe@example55.com',
             confirmPassword='Password1234!'
         ), follow_redirects=True)
 
