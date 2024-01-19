@@ -94,27 +94,30 @@
       <div class="max-w-6xl mx-auto grid grid-cols-3 gap-2">
         <!-- Modello 1 -->
         <div class="border border-gray-300 rounded-lg overflow-hidden">
-          <img
-            src="https://img01.ztat.net/article/spp-media-p1/3985a41b8d8748d5b11c9fef3e1260e0/1d6b54fae2344dc18a6968ce4b60a3a2.jpg?imwidth=1800"
-            alt="Modello 1"
-            class="w-full h-auto"
-          />
+          <a href="/c?category=donna"
+            ><img
+              src="https://img01.ztat.net/article/spp-media-p1/3985a41b8d8748d5b11c9fef3e1260e0/1d6b54fae2344dc18a6968ce4b60a3a2.jpg?imwidth=1800"
+              alt="Modello 1"
+              class="w-full h-auto"
+          /></a>
         </div>
         <!-- Modello 2 -->
         <div class="border border-gray-300 rounded-lg overflow-hidden">
-          <img
-            src="https://img01.ztat.net/article/spp-media-p1/81eccce9e55644a986a3e62336788e8d/df0a9a69fa6644c48b03d96470f5bee0.jpg?imwidth=1800"
-            alt="Modello 2"
-            class="w-full h-88 object-cover"
-          />
+          <a href="/c?category=uomo"
+            ><img
+              src="https://img01.ztat.net/article/spp-media-p1/81eccce9e55644a986a3e62336788e8d/df0a9a69fa6644c48b03d96470f5bee0.jpg?imwidth=1800"
+              alt="Modello 2"
+              class="w-full h-88 object-cover"
+          /></a>
         </div>
         <!-- Modello 3 -->
         <div class="border border-gray-300 rounded-lg overflow-hidden">
-          <img
-            src="https://img01.ztat.net/article/spp-media-p1/e6dd613f6ba04e24a63be651f3b41a1f/20c03e63085649dfb3465386c6223b49.jpg?imwidth=1800"
-            alt="Modello 3"
-            class="w-full h-auto"
-          />
+          <a href="/c?category=bambino"
+            ><img
+              src="https://img01.ztat.net/article/spp-media-p1/e6dd613f6ba04e24a63be651f3b41a1f/20c03e63085649dfb3465386c6223b49.jpg?imwidth=1800"
+              alt="Modello 3"
+              class="w-full h-auto"
+          /></a>
         </div>
       </div>
     </section>
@@ -128,39 +131,39 @@
           {% if res_u %} {% for prodotto in res_u %}
           <!-- Prodotto 1 -->
           <div class="bg-white rounded-lg shadow-md overflow-hidden">
-              <a href="/pd?product_id={{prodotto[0]}}"
-                ><div class="aspect-w-1 aspect-h-1">
-                  <img
-                    src="data:image/jpeg;base64,{{ prodotto[10] }}"
-                    alt="Prodotto 1"
-                    class="w-full h-48 object-cover object-center"
-                  /></div
-              ></a>
-              <div class="p-4">
-                <h2 class="text-xl font-semibold mb-2">{{prodotto[1]}}</h2>
-                <input
-                  type="hidden"
-                  name="id_prodotto"
-                  value="{{prodotto['id_prodotto']}}"
-                />
-                <p
-                  class="text-gray-600 mb-2 overflow-hidden whitespace-nowrap"
-                  id="product-description"
-                >
-                  {{prodotto[4]}}
-                </p>
-                <p class="text-gray-600 mb-2">Taglia: {{prodotto[5]}}</p>
-                <p class="text-gray-900 font-semibold text-lg mb-2">
-                  {{prodotto[6]}}€
-                </p>
-                <button
-                  type="button"
-                  onclick="location.href='/pd?product_id={{prodotto[0]}}'"
-                  class="px-4 py-2 bg-green-500 text-white rounded-md mr-2"
-                >
-                  Visualizza
-                </button>
-              </div>
+            <a href="/pd?product_id={{prodotto[0]}}"
+              ><div class="aspect-w-1 aspect-h-1">
+                <img
+                  src="data:image/jpeg;base64,{{ prodotto[10] }}"
+                  alt="Prodotto 1"
+                  class="w-full h-48 object-cover object-center"
+                /></div
+            ></a>
+            <div class="p-4">
+              <h2 class="text-xl font-semibold mb-2">{{prodotto[1]}}</h2>
+              <input
+                type="hidden"
+                name="id_prodotto"
+                value="{{prodotto['id_prodotto']}}"
+              />
+              <p
+                class="text-gray-600 mb-2 overflow-hidden whitespace-nowrap"
+                id="product-description"
+              >
+                {{prodotto[4]}}
+              </p>
+              <p class="text-gray-600 mb-2">Taglia: {{prodotto[5]}}</p>
+              <p class="text-gray-900 font-semibold text-lg mb-2">
+                {{prodotto[6]}}€
+              </p>
+              <button
+                type="button"
+                onclick="location.href='/pd?product_id={{prodotto[0]}}'"
+                class="px-4 py-2 bg-green-500 text-white rounded-md mr-2"
+              >
+                Visualizza
+              </button>
+            </div>
           </div>
           {% endfor %}{% else %}
           <h1>Non abbiamo trovato nessun prodotto in questa Categoria</h1>
@@ -200,39 +203,39 @@
           {% if res_d %} {% for prodotto in res_d %}
           <!-- Prodotto 1 -->
           <div class="bg-white rounded-lg shadow-md overflow-hidden">
-              <a href="/pd?product_id={{prodotto[0]}}"
-                ><div class="aspect-w-1 aspect-h-1">
-                  <img
-                    src="data:image/jpeg;base64,{{ prodotto[9] }}"
-                    alt="Prodotto 1"
-                    class="w-full h-48 object-cover object-center"
-                  /></div
-              ></a>
-              <div class="p-4">
-                <h2 class="text-xl font-semibold mb-2">{{prodotto[1]}}</h2>
-                <input
-                  type="hidden"
-                  name="id_prodotto"
-                  value="{{prodotto['id_prodotto']}}"
-                />
-                <p
-                  class="text-gray-600 mb-2 overflow-hidden whitespace-nowrap"
-                  id="product-description"
-                >
-                  {{prodotto[4]}}
-                </p>
-                <p class="text-gray-600 mb-2">Taglia: {{prodotto[5]}}</p>
-                <p class="text-gray-900 font-semibold text-lg mb-2">
-                  {{prodotto[6]}}€
-                </p>
-                <button
-                  type="button"
-                  onclick="location.href='/pd?product_id={{prodotto[0]}}'"
-                  class="px-4 py-2 bg-green-500 text-white rounded-md mr-2"
-                >
-                  Visualizza
-                </button>
-              </div>
+            <a href="/pd?product_id={{prodotto[0]}}"
+              ><div class="aspect-w-1 aspect-h-1">
+                <img
+                  src="data:image/jpeg;base64,{{ prodotto[9] }}"
+                  alt="Prodotto 1"
+                  class="w-full h-48 object-cover object-center"
+                /></div
+            ></a>
+            <div class="p-4">
+              <h2 class="text-xl font-semibold mb-2">{{prodotto[1]}}</h2>
+              <input
+                type="hidden"
+                name="id_prodotto"
+                value="{{prodotto['id_prodotto']}}"
+              />
+              <p
+                class="text-gray-600 mb-2 overflow-hidden whitespace-nowrap"
+                id="product-description"
+              >
+                {{prodotto[4]}}
+              </p>
+              <p class="text-gray-600 mb-2">Taglia: {{prodotto[5]}}</p>
+              <p class="text-gray-900 font-semibold text-lg mb-2">
+                {{prodotto[6]}}€
+              </p>
+              <button
+                type="button"
+                onclick="location.href='/pd?product_id={{prodotto[0]}}'"
+                class="px-4 py-2 bg-green-500 text-white rounded-md mr-2"
+              >
+                Visualizza
+              </button>
+            </div>
           </div>
           {% endfor %}{% else %}
           <h1>Non abbiamo trovato nessun prodotto in questa Categoria</h1>
@@ -272,41 +275,41 @@
           {% if res_b %} {% for prodotto in res_b %}
           <!-- Prodotto 1 -->
           <div class="bg-white rounded-lg shadow-md overflow-hidden">
-              <a href="/pd?product_id={{prodotto[0]}}"
-                ><div class="aspect-w-1 aspect-h-1">
-                  <img
-                    src="data:image/jpeg;base64,{{ prodotto[9] }}"
-                    alt="Prodotto 1"
-                    class="w-full h-48 object-cover object-center"
-                  /></div
-              ></a>
-              <div class="p-4">
-                <!-- flex flex-col justify-between -->
-                <h2 class="text-xl font-semibold mb-2">{{prodotto[1]}}</h2>
-                <input
-                  type="hidden"
-                  name="id_prodotto"
-                  value="{{prodotto['id_prodotto']}}"
-                />
-                <p
-                  class="text-gray-600 mb-2 overflow-hidden whitespace-nowrap"
-                  id="product-description"
-                >
-                  {{prodotto[4]}}
-                </p>
-                <p class="text-gray-600 mb-2">Taglia: {{prodotto[5]}}</p>
-                <p class="text-gray-900 font-semibold text-lg mb-2">
-                  {{prodotto[6]}}€
-                </p>
+            <a href="/pd?product_id={{prodotto[0]}}"
+              ><div class="aspect-w-1 aspect-h-1">
+                <img
+                  src="data:image/jpeg;base64,{{ prodotto[9] }}"
+                  alt="Prodotto 1"
+                  class="w-full h-48 object-cover object-center"
+                /></div
+            ></a>
+            <div class="p-4">
+              <!-- flex flex-col justify-between -->
+              <h2 class="text-xl font-semibold mb-2">{{prodotto[1]}}</h2>
+              <input
+                type="hidden"
+                name="id_prodotto"
+                value="{{prodotto['id_prodotto']}}"
+              />
+              <p
+                class="text-gray-600 mb-2 overflow-hidden whitespace-nowrap"
+                id="product-description"
+              >
+                {{prodotto[4]}}
+              </p>
+              <p class="text-gray-600 mb-2">Taglia: {{prodotto[5]}}</p>
+              <p class="text-gray-900 font-semibold text-lg mb-2">
+                {{prodotto[6]}}€
+              </p>
 
-                <button
-                  type="button"
-                  onclick="location.href='/pd?product_id={{prodotto[0]}}'"
-                  class="px-4 py-2 bg-green-500 text-white rounded-md mr-2"
-                >
-                  Visualizza
-                </button>
-              </div>
+              <button
+                type="button"
+                onclick="location.href='/pd?product_id={{prodotto[0]}}'"
+                class="px-4 py-2 bg-green-500 text-white rounded-md mr-2"
+              >
+                Visualizza
+              </button>
+            </div>
           </div>
           {% endfor %}{% else %}
           <h1>Non abbiamo trovato nessun prodotto in questa Categoria</h1>
@@ -368,7 +371,7 @@
     <script>
       // Funzione per tornare in cima alla pagina
       function tornaSu() {
-        document.body.scrollTop = 0; 
+        document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
       }
 
