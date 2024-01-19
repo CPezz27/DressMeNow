@@ -35,15 +35,22 @@
                 <label for="stato">Stato dell'Ordine:</label>
                 <input type="hidden" name="id_ordine" value="{{ order_details['id_ordine'] }}">
                 <select id="nuovo_stato" name="nuovo_stato" required>
-                    <option value="in_elaborazione" {% if order_details['stato_ordine'] == 'in_elaborazione' %}selected{% endif %}>In Elaborazione</option>
-                    <option value="confermato" {% if order_details['stato_ordine'] == 'confermato' %}selected{% endif %}>Confermato</option>
-                    <option value="spedito" {% if order_details['stato_ordine'] == 'spedito' %}selected{% endif %}>Spedito</option>
-                    <option value="consegnato" {% if order_details['stato_ordine'] == 'consegnato' %}selected{% endif %}>Consegnato</option>
-                    <option value="annullato" {% if order_details['stato_ordine'] == 'annullato' %}selected{% endif %}>Annullato</option>
-                    <option value="richiesta_reso" {% if order_details['stato_ordine'] == 'richiesta_reso' %}selected{% endif %}>Richiesta Reso</option>
-                </select>
+
+                        <option value="In elaborazione" {% if order_details['stato_ordine'] == 'In elaborazione' %}selected{% endif %}>In Elaborazione</option>
+                        <option value="Confermato" {% if order_details['stato_ordine'] == 'Confermato' %}selected{% endif %}>Confermato</option>
+                        <option value="Spedito" {% if order_details['stato_ordine'] == 'Spedito' %}selected{% endif %}>Spedito</option>
+                        <option value="Consegnato" {% if order_details['stato_ordine'] == 'Consegnato' %}selected{% endif %}>Consegnato</option>
+                        <option value="Annullato" {% if order_details['stato_ordine'] == 'Annullato' %}selected{% endif %}>Annullato</option>
+                    {% if order_details['flag_reso']: %}
+                        <option value="Reso richiesto" {% if order_details['stato_ordine'] == 'Reso richiesto' %}selected{% endif %}>Reso richiesto</option>
+                        <option value="Reso accettato" {% if order_details['stato_ordine'] == 'Reso accettato' %}selected{% endif %}>Reso accettato</option>
+                    {% endif %}
+                    </select>
+
                 <input type="submit" value="Salva Modifiche">
             </form>
+
+            <p>Eventuali note reso: {{order_details['note_reso']}}</p>
 
             {% for product in order_details['prodotti'] %}
             <p>{{ product['nome_prodotto'] }} - {{ product['prezzo'] }}</p>

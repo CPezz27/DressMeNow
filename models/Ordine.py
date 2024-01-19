@@ -59,7 +59,7 @@ def calcola_guadagno():
 
 def visualizza_ordine(order_id):
         query = (
-            "SELECT o.id_ordine, o.stato AS stato_ordine, o.data AS data_ordine, t.id_transazione, t.data AS data_transazione, t.totale, t.stato AS stato_transazione, p.id_prodotto, p.nome AS nome_prodotto, o.reso, p.prezzo, iu.id_utente AS id_utente, iu.nome AS nome_utente, iu.cognome AS cognome_utente, iu.email AS email_utente, iu.telefono, i.id_indirizzo, i.provincia AS provincia_indirizzo, i.cap AS cap_indirizzo, i.via AS via_indirizzo, i.tipo AS tipo_indirizzo, i.città AS città_indirizzo, p.marca FROM ordine o JOIN transazione t ON o.id_ordine = t.id_ordine JOIN prodotto_in_ordine pio ON o.id_ordine = pio.id_ordine JOIN prodotto p ON pio.id_prodotto = p.id_prodotto JOIN utente iu ON o.id_utente = iu.id_utente JOIN indirizzo i ON iu.id_utente = i.id_utente WHERE o.id_ordine = %s;"
+            "SELECT o.id_ordine, o.stato AS stato_ordine, o.data AS data_ordine, t.id_transazione, t.data AS data_transazione, t.totale, t.stato AS stato_transazione, p.id_prodotto, p.nome AS nome_prodotto, o.reso, p.prezzo, iu.id_utente AS id_utente, iu.nome AS nome_utente, iu.cognome AS cognome_utente, iu.email AS email_utente, iu.telefono, i.id_indirizzo, i.provincia AS provincia_indirizzo, i.cap AS cap_indirizzo, i.via AS via_indirizzo, i.tipo AS tipo_indirizzo, i.città AS città_indirizzo, p.marca, o.note_reso, o.reso FROM ordine o JOIN transazione t ON o.id_ordine = t.id_ordine JOIN prodotto_in_ordine pio ON o.id_ordine = pio.id_ordine JOIN prodotto p ON pio.id_prodotto = p.id_prodotto JOIN utente iu ON o.id_utente = iu.id_utente JOIN indirizzo i ON iu.id_utente = i.id_utente WHERE o.id_ordine = %s;"
         )
 
         cursor.execute(query, (order_id,))
@@ -75,6 +75,8 @@ def visualizza_ordine(order_id):
                 'data_transazione': order_details[0][4],
                 'totale': order_details[0][5],
                 'stato_transazione': order_details[0][6],
+                'note_reso': order_details[0][23],
+                'flag_reso': order_details[0][24],
                 'utente': {
                     'id_utente': order_details[0][11],  # Modificato l'indice per l'id_utente
                     'nome_utente': order_details[0][12],  # Modificato l'indice per il nome_utente
