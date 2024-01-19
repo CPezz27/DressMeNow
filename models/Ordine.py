@@ -5,6 +5,34 @@ conn = mysql_config.get_database_connection()
 cursor = conn.cursor()
 
 
+
+def conta_ordini_resi():
+    try:
+        cursor.execute("SELECT COUNT(*) FROM ordine WHERE reso = 1")
+        result = cursor.fetchone()
+        if result:
+            return result[0]
+        return 0
+    except mysql.connector.Error as err:
+        return None
+
+
+def percentuale_ordini_resi():
+    try:
+        cursor.execute("SELECT COUNT(*) FROM ordine")
+        total_products = cursor.fetchone()[0]
+
+        cursor.execute("SELECT COUNT(*) FROM ordine WHERE reso = 1")
+        returned_products = cursor.fetchone()[0]
+
+        if total_products > 0:
+            return (returned_products / total_products) * 100
+        return 0
+    except mysql.connector.Error as err:
+        return None
+
+
+
 def modifica_ordine(id_ordine, nuovo_stato):
     try:
         update_query = "UPDATE ordine SET stato = %s WHERE id_ordine = %s"

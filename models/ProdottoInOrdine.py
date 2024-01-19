@@ -6,32 +6,6 @@ conn = mysql_config.get_database_connection()
 cursor = conn.cursor()
 
 
-def conta_prodotti_resi():
-    try:
-        cursor.execute("SELECT COUNT(*) FROM prodotto_in_ordine WHERE reso = 1")
-        result = cursor.fetchone()
-        if result:
-            return result[0]
-        return 0
-    except mysql.connector.Error as err:
-        return None
-
-
-def percentuale_prodotti_resi():
-    try:
-        cursor.execute("SELECT COUNT(*) FROM prodotto_in_ordine")
-        total_products = cursor.fetchone()[0]
-
-        cursor.execute("SELECT COUNT(*) FROM prodotto_in_ordine WHERE reso = 1")
-        returned_products = cursor.fetchone()[0]
-
-        if total_products > 0:
-            return (returned_products / total_products) * 100
-        return 0
-    except mysql.connector.Error as err:
-        return None
-
-
 def get_products_in_order(order_id):
     query = "SELECT * FROM prodotto_in_ordine WHERE id_ordine = %s"
 
