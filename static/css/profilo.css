@@ -3,14 +3,16 @@ body {
 	 background: linear-gradient(to right, #3fb6a8, #7ed386);
 }
 .container {
-	 background: #fff;
-	 width: 540px;
-	 height: 420px;
-	 margin: 0 auto;
-	 position: relative;
-	 margin-top: 10%;
-	 box-shadow: 2px 5px 20px rgba(119, 119, 119, .5);
+	background: #fff;
+	width: 540px;
+	height: 420px;
+	margin: 0 auto;
+	position: relative;
+	margin-top: 10%;
+	box-shadow: 2px 5px 20px rgba(119, 119, 119, .5);
 }
+
+
 .logo {
 	 float: right;
 	 margin-right: 12px;
@@ -53,10 +55,10 @@ body {
  .active {
 	 color: #3fb6a8;
 }
- .rightbox {
-	 float: right;
-	 width: 65%;
-	 height: 100%;
+.rightbox {
+	float: right;
+	width: 65%;
+	height: 100%;
 }
  .profile, .addresses, .orders, .avatar, .settings {
 	 transition: opacity 0.5s ease-in;
@@ -259,10 +261,11 @@ div .addresses{
 	}
   
 	.rightbox {
+	
 	  width: calc(100% - 20px); /* Si restringe un po' in larghezza */
 	  height: auto; /* Altezza automatica */
-	  margin-top: 20px;
 	}
+
   
 	.orders {
 	  max-height: none;
@@ -298,5 +301,8 @@ button[type="submit"] {
 button[type="submit"]:hover {
     background-color: #45a049; /* Cambia il colore di sfondo al passaggio del mouse */
 }
+ 
+
+  
 
   }
