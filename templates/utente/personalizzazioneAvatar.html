@@ -10,6 +10,33 @@
   </head>
 
   <style>
+    ::-webkit-scrollbar {
+	width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+	background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+	background: #888;
+	border-radius: 5px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+	background: #555;
+  }
+
+    #avatarForm {
+    width: 460px; /* Imposta la larghezza fissa desiderata */
+    height: 400px; /* Imposta l'altezza fissa desiderata */
+    overflow-y: auto; /* Aggiunge una barra di scorrimento verticale quando necessario */
+    overflow-x: hidden; /* Nasconde la barra di scorrimento orizzontale */
+    padding-right: 15px; /* Compensa la larghezza della barra di scorrimento per evitare sovrapposizioni */
+  }
     input[type="radio"]:checked + label div.selected-border {
       opacity: 1;
     }
@@ -65,7 +92,7 @@
 
 /* Start Global Rules */
 body {
-    background-color: #ffffff;
+  background: linear-gradient(to right, #3fb6a8, #7ed386);
 }
 .human-body-top {
     /*background-color: #bb004f;*/
