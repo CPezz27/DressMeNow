@@ -2,7 +2,7 @@
 <html lang="it">
   <head>
     <meta charset="UTF-8" />
-    <title>Modifica Avatar</title>
+    <title>Prova prodotti su Avatar</title>
     <link
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
       rel="stylesheet"
@@ -661,6 +661,7 @@ body {
             </div>
         </div>
 
+        <!-- INIZIO colonna a destra per selezionare robe -->
       <div class=" p-6 bg-gray-200 m-9 max-w-xl ml-auto">
         <h2 class="text-2xl font-bold mb-4">Vesti il tuo avatar</h2>
         <form id="avatarForm" action="#" method="post" class="space-y-4">
@@ -1025,39 +1026,89 @@ body {
           </button>
         </form>
 
-        <!-- Da qui inizia la scelta dei vestiti da far mettere all'avatar sulla base del carrello -->
-        <div>
-          <label for="legWidth">Seleziona larghezza pants:</label>
-          <select id="legWidth" onchange="updateLegWidth()">
-            <option value="145">taglia S</option>
-            <option value="158">taglia M</option>
-            <option value="170">taglia L</option>
-            <option value="183">taglia XL</option>
-          </select>
+        <!-- Per ogni indumento: se è una maglia/maglietta allora 
+              lo mette nella categoira maglietta; altrimenti in quella pantaloni.
+
+              per ogni maglietta/pantalone, prende i valori di nome, colore e taglia.
+              il value è dato da nomeColore-TAGLIA
+        
+        -->
+
+        <div class="mb-4"> <!-- MAGLIETTE -->
+          <label for="maglietta" class="block font-medium">Magliette:</label>
+
+           <!-- Radio button personalizzato per la maglietta "Nome Maglietta 1" con colore, taglia e nome -->
+          <label class="flex flex-col items-center space-y-2 cursor-pointer border p-4 rounded transition duration-300 ease-in-out hover:border-gray-700 focus-within:border-black">
+            <input type="radio" name="maglietta" value="bianco-S" class="hidden">
+            <span class="text-gray-700">Nome Maglietta 1</span>
+            <span>Taglia: S</span>
+            <span>Colore: Bianco</span>
+          </label>
+
+          <!-- Radio button personalizzato per la maglietta "Nome Maglietta 2" con colore, taglia e nome -->
+          <label class="flex flex-col items-center space-y-2 cursor-pointer border p-4 rounded transition duration-300 ease-in-out hover:border-gray-700 focus-within:border-black mt-4">
+            <input type="radio" name="maglietta" value="verdeChiaro-M" class="hidden">
+            <span class="text-gray-700">Nome Maglietta 2</span>
+            <span>Taglia: M</span>
+            <span>Colore: Verde</span>
+          </label>
+          
         </div>
 
-        <div>
-          <label for="topWidth">Seleziona larghezza maglia:</label>
-          <select id="topWidth" onchange="updateTopWidth()">
-            <option value="145">taglia S</option>
-            <option value="158">taglia M</option>
-            <option value="170">taglia L</option>
-            <option value="183">taglia XL</option>
-          </select>
+        <div class="mb-4"> <!-- PANTALONI -->
+          <label for="maglietta" class="block font-medium">Pantaloni:</label>
+
+           <!-- Radio button personalizzato per la maglietta "Nome Maglietta 1" con colore, taglia e nome -->
+          <label class="flex flex-col items-center space-y-2 cursor-pointer border p-4 rounded transition duration-300 ease-in-out hover:border-gray-700 focus-within:border-black">
+            <input type="radio" name="pantalone" value="bianco-S" class="hidden">
+            <span class="text-gray-700">Nome Pantalone 1</span>
+            <span>Taglia: S</span>
+            <span>Colore: Bianco</span>
+          </label>
+
+          <!-- Radio button personalizzato per la maglietta "Nome Maglietta 2" con colore, taglia e nome -->
+          <label class="flex flex-col items-center space-y-2 cursor-pointer border p-4 rounded transition duration-300 ease-in-out hover:border-gray-700 focus-within:border-black mt-4">
+            <input type="radio" name="pantalone" value="verdeChiaro-M" class="hidden">
+            <span class="text-gray-700">Nome Pantalone 2</span>
+            <span>Taglia: M</span>
+            <span>Colore: Verde</span>
+          </label>
+          
         </div>
 
-      </div>
+      </div> <!-- terminazione intero rettangolo a sinistra dell'avatar -->
 
       <!-- fine scelta prodotti presenti nel DB; inizio momentaneo della scelta della taglia -->
         
 
         <!--
-            a prescindere, questi sono i valori:
+            a prescindere, questi sono i valori taglia:
             145 - taglia S
             158 - taglia M
             170 - taglia L
             183 - taglia XL
+
+            questi sono i colori dei vari indumenti: (camelCase)
+            bianco - #e4dcdc
+            grigio chiaro - #acacac
+            grigio scuro - #616161
+            nero - #202020
+            blu chiaro - #567dca
+            blu scuro - #274889
+            verde chiaro - #74d151
+            verde scuro - #2b9933
+            rosa - #f2b8b8
+            rosso - #f44444
+            bordeaux - #b13419
+            giallo - #edd940
+            arancione - #f9af5c
+            marrone chiaro - #c6935b
+            marrone scuro - #8c5920
+            ...
+
         -->
+
+        
 
   </div>
 
@@ -1220,47 +1271,207 @@ body {
         // Esegui la funzione all'avvio per impostare lo stato iniziale
         handleSessoChange();
 
+        function checkIfVestibile(){
+            //l'idea è che per ogni elemento si esegue questa funzione:
+            //se l'elemento è >= alla taglia dell'avatar allora ok; altrimenti
+            //l'elemento non è più selezionabile.
+
+            //posso prendere la taglia dell'avatar dal robo della vestibilità.
+            //TODO
+        }
+
 
         function updateLegWidth() {
 
           // Ottieni il nuovo valore selezionato
-          var newlegWidth = parseFloat(document.getElementById('legWidth').value);
+          var selectedPantalone = document.querySelector('input[name="pantalone"]:checked');
 
-          var root = document.documentElement;
-          root.style.setProperty('--selected_width_legs', newlegWidth + 'px');
+          // Verifica se un radio button è selezionato
+          if (selectedPantalone) {
+            // Estrai il valore dall'attributo "value"
+            var selectedValue = selectedPantalone.value;
+
+            // Dividi il valore in colore e taglia
+            var valuesArray = selectedValue.split("-");
+            var colore = valuesArray[0];
+            var taglia = valuesArray[1];
+
+            // Associa il nome del colore ad una serie di colori predefiniti:
+            var colorMap = {
+              bianco: '#e4dcdc',
+              'grigioChiaro': '#acacac',
+              'grigioScuro': '#616161',
+              nero: '#202020',
+              'bluChiaro': '#567dca',
+              'bluScuro': '#274889',
+              'verdeChiaro': '#74d151',
+              'verdeScuro': '#2b9933',
+              rosa: '#f2b8b8',
+              rosso: '#f44444',
+              bordeaux: '#b13419',
+              giallo: '#edd940',
+              arancione: '#f9af5c',
+              'marroneChiaro': '#c6935b',
+              'marroneScuro': '#8c5920'
+            };
+
+            // Ottieni il colore associato al nome del colore
+            var coloreHex = colorMap[colore];
+
+            // Aggiorna la variabile CSS con il colore associato
+            var root = document.documentElement;
+            root.style.setProperty('--c-clothing-bottom-color', coloreHex);
+
+            // Associa i valori numerici in base alla taglia
+            var tagliaValue = 0;
+            switch (taglia) {
+              case "S":
+                tagliaValue = 145;
+                break;
+              case "M":
+                tagliaValue = 158;
+                break;
+              case "L":
+                tagliaValue = 170;
+                break;
+              case "XL":
+                tagliaValue = 183;
+                break;
+              default:
+                // Se la taglia non è riconosciuta, assegna un valore di default
+                tagliaValue = 0;
+            }
+          }
 
           document.querySelector('.c-midtriangle-left').style.display = 'block';
           document.querySelector('.c-midtriangle-right').style.display = 'block';
-
           document.querySelector('.bottom-top').style.display = 'block';
           document.querySelector('.leg-left').style.display = 'none';
           document.querySelector('.leg-right').style.display = 'none';
+          document.querySelector('.bottom-top').style.display = 'none';
+          
+          var root = document.documentElement;
+          root.style.setProperty('--selected_width_legs', tagliaValue + 'px');
 
         }
 
         function updateTopWidth() {
+          // Ottieni l'elemento radio button selezionato
+          var selectedMaglietta = document.querySelector('input[name="maglietta"]:checked');
 
-          // Ottieni il nuovo valore selezionato
-          var newtopWidth = parseFloat(document.getElementById('topWidth').value);
+          // Verifica se un radio button è selezionato
+          if (selectedMaglietta) {
+            // Estrai il valore dall'attributo "value"
+            var selectedValue = selectedMaglietta.value;
 
-          document.querySelector('.arm-left').style.display = 'none';
-          document.querySelector('.arm-right').style.display = 'none';
+            // Dividi il valore in colore e taglia
+            var valuesArray = selectedValue.split("-");
+            var colore = valuesArray[0];
+            var taglia = valuesArray[1];
 
-          document.querySelector('.hand-left').style.display = 'none';
-          document.querySelector('.hand-right').style.display = 'none';
+            // Associa il nome del colore ad una serie di colori predefiniti:
+            var colorMap = {
+              bianco: '#e4dcdc',
+              'grigioChiaro': '#acacac',
+              'grigioScuro': '#616161',
+              nero: '#202020',
+              'bluChiaro': '#567dca',
+              'bluScuro': '#274889',
+              'verdeChiaro': '#74d151',
+              'verdeScuro': '#2b9933',
+              rosa: '#f2b8b8',
+              rosso: '#f44444',
+              bordeaux: '#b13419',
+              giallo: '#edd940',
+              arancione: '#f9af5c',
+              'marroneChiaro': '#c6935b',
+              'marroneScuro': '#8c5920'
+            };
 
-          document.querySelector('.c-hand-left').style.display = 'block';
-          document.querySelector('.c-hand-right').style.display = 'block';
+            // Ottieni il colore associato al nome del colore
+            var coloreHex = colorMap[colore];
 
-          document.querySelector('.body-top').style.display = 'none';
-          document.querySelector('.body-center-top').style.display = 'none';
-          document.querySelector('.body-center-bottom').style.display = 'none';
-          document.querySelector('.body-center-full').style.display = 'none';
+            // Aggiorna la variabile CSS con il colore associato
+            var root = document.documentElement;
+            root.style.setProperty('--c-clothing-top-color', coloreHex);
 
-          var root = document.documentElement;
-          root.style.setProperty('--selected_width_top', newtopWidth + 'px');
+            // Associa i valori numerici in base alla taglia
+            var tagliaValue = 0;
+            switch (taglia) {
+              case "S":
+                tagliaValue = 145;
+                break;
+              case "M":
+                tagliaValue = 158;
+                break;
+              case "L":
+                tagliaValue = 170;
+                break;
+              case "XL":
+                tagliaValue = 183;
+                break;
+              default:
+                // Se la taglia non è riconosciuta, assegna un valore di default
+                tagliaValue = 0;
+            }
 
+            // Aggiorna il layout o le proprietà CSS in base ai valori estratti
+            document.querySelector('.arm-left').style.display = 'none';
+            document.querySelector('.arm-right').style.display = 'none';
+            document.querySelector('.hand-left').style.display = 'none';
+            document.querySelector('.hand-right').style.display = 'none';
+            document.querySelector('.c-hand-left').style.display = 'block';
+            document.querySelector('.c-hand-right').style.display = 'block';
+            document.querySelector('.body-top').style.display = 'none';
+            document.querySelector('.body-center-top').style.display = 'none';
+            document.querySelector('.body-center-bottom').style.display = 'none';
+            document.querySelector('.body-center-full').style.display = 'none';
+
+            // Aggiorna la variabile CSS con il valore numerico associato alla taglia
+            var root = document.documentElement;
+            root.style.setProperty('--selected_width_top', tagliaValue + 'px');
+          }
         }
+
+        // Aggiungi JavaScript per gestire la persistenza della selezione
+        document.addEventListener("DOMContentLoaded", function () {
+            var radioButtons = document.querySelectorAll('input[name="maglietta"]');
+
+            radioButtons.forEach(function (radioButton) {
+                radioButton.addEventListener("change", function () {
+                    radioButtons.forEach(function (otherRadioButton) {
+                        // Rimuovi la classe "border-black" da tutti gli altri radio button
+                        otherRadioButton.parentNode.classList.remove("border-black");
+                    });
+
+                    // Aggiungi la classe "border-black" al radio button selezionato
+                    this.parentNode.classList.add("border-black");
+
+                    //effettua modifiche all'avatar
+                    updateTopWidth()
+
+                });
+            });
+        });
+
+        // Aggiungi JavaScript per gestire la persistenza della selezione
+        document.addEventListener("DOMContentLoaded", function () {
+            var radioButtons = document.querySelectorAll('input[name="pantalone"]');
+
+            radioButtons.forEach(function (radioButton) {
+                radioButton.addEventListener("change", function () {
+                    radioButtons.forEach(function (otherRadioButton) {
+                        // Rimuovi la classe "border-black" da tutti gli altri radio button
+                        otherRadioButton.parentNode.classList.remove("border-black");
+                    });
+
+                    // Aggiungi la classe "border-black" al radio button selezionato
+                    this.parentNode.classList.add("border-black");
+
+                    updateLegWidth()
+                });
+            });
+        });
 
     </script>
   </body>
