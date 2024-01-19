@@ -104,28 +104,30 @@
       <div class="rightbox">
         <h1>Lista Ordini</h1>
         <div class="orders">
-
-            <div class="ordine" id="ordine">
               {% if data %}
-              {% for order in data %}
-                <h2>data ordine</h2>
-                <h2 class="orders_data">{{ order['order_details']['data_ordine'] }}</h2>
-                <h2>Totale</h2>
-                <h2 class="orders_data">{{ order['transaction_details']['totale'] }}</h2>          
-            </div>
-            <div class="orders-info">
-              {% for product in order['products'] %}
-              <h2 class="orders-infotext-name">Nome:</h2>
-              <h2 class="orders-infotext-value" style="color:black">{{ product['nome_prodotto'] }}</h2>
-              <h2 class="orders-infotext-name">Quantity:</h2>
-              <h2 class="orders-infotext-value" style="color:black">RAGAZZI SI DEVE AGGIUNGERE</h2>
-              <h2 class="orders-infotext-name">prezzo unitario:</h2>
-              <h2 class="orders-infotext-value" style="color:black">{{ product['prezzo_individuale'] }}</h2>
-            </div>
-            <button id="resoButton" onclick="window.location.href='/o/reso_ordine/{{order['order_details']['id_ordine']}}'">Dettagli ordine</button>
-            {% endfor %}
-            {% endfor %}
-            {% else %}
+                {% for order in data %}
+                  <div class="ordine" id="ordine">
+                    <div class="order-details">
+                      <h2>Numero ordine</h2>
+                      <h2 class="orders_data">{{ order['order_details']['id_ordine'] }}</h2>
+                    </div>
+
+                    <div class="order-details">
+                      <h2>Data ordine</h2>
+                      <h2 class="orders_data">{{ order['order_details']['data_ordine'] }}</h2>
+                    </div>
+
+                    <div class="order-details">
+                      <h2>Totale</h2>
+                      <h2 class="orders_data">{{ order['transaction_details']['totale'] }}</h2>
+                    </div>
+
+                    <div class="order-details">
+                      <button id="resoButton" onclick="window.location.href='/o/reso_ordine/{{order['order_details']['id_ordine']}}'">Dettagli ordine</button>
+                    </div>
+                  </div>
+                {% endfor %}
+              {% else %}
           <p>Non sono stati effettuati ordini</p>
       {% endif %}
 

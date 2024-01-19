@@ -1,6 +1,6 @@
 from flask import Flask
 from controllers import index
-from controllers.utente import login, profilo, registrati, effettua_ordine, carrello, prodotti, indirizzi, pagamenti, avatar #, ricercaNLP
+from controllers.utente import login, profilo, registrati, effettua_ordine, carrello, prodotti, indirizzi, pagamenti, avatar, effettua_reso #, ricercaNLP
 from controllers.personale import login as login_personale
 from controllers.personale.direttore import direttore
 from controllers.personale.gestore_prodotti import prodotti as prodotti_gestore, taglia, immagini
@@ -28,6 +28,7 @@ app.register_blueprint(immagini.app_bp)
 #app.register_blueprint(ricercaNLP.app_bp)
 app.register_blueprint(pagamenti.app_bp)
 app.register_blueprint(avatar.app_bp)
+app.register_blueprint(effettua_reso.app_bp)
 
 
 if __name__ == '__main__':
