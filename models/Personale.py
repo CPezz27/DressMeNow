@@ -53,8 +53,6 @@ def update_personale(id_personale, **kwargs):
     update_query = "UPDATE personale SET "
     update_data = []
 
-    print(kwargs.items())
-
     for key, value in kwargs.items():
         update_query += f"{key}=%s, "
         update_data.append(value)

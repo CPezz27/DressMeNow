@@ -74,7 +74,6 @@ def visualizza_immagini_prodott(id_prodotto):
     if session['ruolo'] != 'gestore_prodotto':
         return redirect(url_for('index'))
 
-    print("\n\nSonoQUI\n\n")
     immagini = visualizza_immagini_prodotto(id_prodotto)
     message = request.args.get('message', None)
 

@@ -64,12 +64,8 @@ def aggiungi_prodotto():
 
             #dopo aver inserito il prodotto mi prendo l'id generato 
             successo, id_prodotto = nuovo_prodotto.save()
-            print(successo, id_prodotto)
-            print("STOQUI")
             return redirect_to_aggiunta_taglia(id_prodotto)
         except Exception as err:
-            print("ERRORE:")
-            print(err)
             return render_template('aggiungiProdotto.html', messaggio="Errore")
 
 
@@ -107,7 +103,6 @@ def elimina_prodotto(product_id):
 
     if session['ruolo'] != 'gestore_prodotto':
         return redirect(url_for('index.homepage'))
-    print("\n\nSONOQUI\n\n")
     try:
         delete(int(product_id))
         return redirect(url_for('gestione_prodotto.prodotti', message="Prodotto eliminato con successo"))

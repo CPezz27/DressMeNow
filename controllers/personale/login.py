@@ -91,9 +91,7 @@ def gestore_prodotto():
                     'quantita': taglia[2]
                 })
         prodotti_finali = list(prodotti_dict.values())
-        print("test1")        
         return render_template('gestoreProdotto.html', prodotti_da_mostrare=prodotti_finali)
     except Exception as err:
-        print(err)
         return render_template('/direttore/login.html', messaggio="Errore durante la visualizzazione")
 

@@ -25,7 +25,6 @@ def mostra_info_prodotto():
             prezzo = row[1]
             taglia = row[2]
             quantita = row[3]
-            print(f"{nome_prodotto}, {prezzo}€, {taglia}, {quantita}")
 
     except mysql.connector.Error as err:
         return False
@@ -41,10 +40,8 @@ def get_sizes_for_product(prodotto_id):
         )
         cursor.execute(query, (prodotto_id,))
         sizes = cursor.fetchall()
-        # print(sizes)
         return sizes
     except mysql.connector.Error as err:
-        print(f"Errore durante il recupero delle taglie per il prodotto {prodotto_id}: {err}")
         return None
 
 
@@ -145,28 +142,20 @@ def search_products(query, categoria=None, colore=None):
         search_query = "SELECT * FROM prodotti WHERE LOWER(descrizione) LIKE %s"
         params = ('%' + ' '.join(preprocess_text(query)) + '%',)
 
-        print("E arrivo qua!")
 
         if colore:
-            print("Qui non entro")
             search_query += " AND colore = %s"
             params += (colore,)
         if categoria:
-            print("Nemmeno qui entro aaaaaa")
             search_query += " AND categoria = %s"
             params += (categoria,)
 
-        print("Query completa:", search_query, "Parametri:", params)
-
         cursor.execute(search_query, params)
 
-        print("Quaaaaaaa")
         products = cursor.fetchall()
 
-        print("Oppure.....")
         return products
     except mysql.connector.Error as err:
-        print("Ma finisco qui")
         return None
 
 

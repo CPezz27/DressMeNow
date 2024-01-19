@@ -28,7 +28,7 @@ def visualizza_personale():
         return redirect(url_for('index.homepage'))
 
     personale = get_all_personale()
-    print(personale)
+
     return render_template("direttore/index.html", data=personale)
 
 
@@ -90,7 +90,6 @@ def mostra_personale():
 
     personale = view_personale(int(id_personale))
 
-    print(personale)
 
     return render_template('direttore/modifica_personale.html', personale=personale, message=message)
 
@@ -109,7 +108,6 @@ def mostra_utente():
 
     utente = view_utente(int(id_utente))
 
-    print(utente)
 
     return render_template('direttore/modifica_utente.html', utente=utente, message=message)
 
@@ -125,7 +123,6 @@ def modifica_utente():
     id_utente = request.args.get('id_user')
 
     utente = view_utente(int(id_utente))
-    print(utente)
 
     if request.method == 'POST':
         try:
@@ -166,13 +163,9 @@ def visualizza_statistiche_ordini():
 
     try:
         vendite_totali = Ordine.calcola_vendite_totali()
-        print("vendite totali", vendite_totali)
         guadagno = Ordine.calcola_guadagno()
-        print("calcolo guadagno:", guadagno)
         prodotti_resi = Ordine.conta_ordini_resi()
-        print("conta prodotti resi:", prodotti_resi)
         percentuale_resi = Ordine.percentuale_ordini_resi()
-        print("perc prodotti resi:", percentuale_resi)
         return render_template("/direttore/statistiche.html",
                                vendite_totali=vendite_totali,
                                guadagno=guadagno,
