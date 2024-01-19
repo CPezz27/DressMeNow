@@ -279,4 +279,24 @@ div .addresses{
 	  width: 100%;
 	  display: block;
 	}
+	/* Stili per migliorare l'estetica del bottone SALVA e posizionarlo correttamente */
+.button-container {
+    margin-top: 20px; /* Regola la distanza dal contenuto precedente */
+}
+
+button[type="submit"] {
+    background-color: #4CAF50; /* Colore di sfondo */
+    color: white; /* Colore del testo */
+    padding: 10px 20px; /* Spaziatura interna */
+    font-size: 16px; /* Dimensione del testo */
+    border: none; /* Rimuovi il bordo */
+    border-radius: 4px; /* Angoli arrotondati */
+    cursor: pointer;
+    transition: background-color 0.3s; /* Animazione di transizione */
+}
+
+button[type="submit"]:hover {
+    background-color: #45a049; /* Cambia il colore di sfondo al passaggio del mouse */
+}
+
   }
