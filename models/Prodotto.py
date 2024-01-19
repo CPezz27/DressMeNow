@@ -1,11 +1,17 @@
 import base64
 
 import mysql.connector
+import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
 
 from utils import mysql_config
 
 conn = mysql_config.get_database_connection()
 cursor = conn.cursor()
+
+nltk.download('stopwords')
+stop_words = set(stopwords.words('italian'))
 
 
 def mostra_info_prodotto():
@@ -139,16 +145,20 @@ def view_products_by_category(category):
         return None
 
 
-def ricerca_prodotto_nlp(nome, colore):
+def preprocess_text(text):
+    # Tokenizzazione e rimozione delle stop words
+    words = word_tokenize(text)
+    filtered_words = [word.lower() for word in words if word.isalnum() and word.lower() not in stop_words]
+    return filtered_words
 
-    search_query = f"SELECT * FROM prodotto WHERE nome = '{nome}' AND colore = '{colore}'"
-    cursor.execute(search_query)
 
+def search_products(query):
     try:
-        cursor.execute(search_query, (nome, colore,))
-        risultati = cursor.fetchall()
-
-        return risultati
+        # Query per cercare prodotti nel database in base al testo di input
+        search_query = "SELECT * FROM prodotti WHERE LOWER(descrizione) LIKE %s"
+        cursor.execute(search_query, ('%' + ' '.join(preprocess_text(query)) + '%',))
+        products = cursor.fetchall()
+        return products
     except mysql.connector.Error as err:
         return None
 
