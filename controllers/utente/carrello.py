@@ -15,8 +15,6 @@ def visualizza_carrello():
 
         prodotti, totale = Carrello.contenuto_carrello(user_id)
 
-        print(prodotti)
-
         return render_template('/utente/carrello.html', data=prodotti, totale=totale)
 
     except Exception as e:

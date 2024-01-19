@@ -14,11 +14,6 @@ def aggiungi_al_carrello(id_utente, id_prodotto, size, quantita=1):
         cursor.execute(query_get_cart_id, (id_utente,))
         cart_id = cursor.fetchone()
 
-        print(id_utente)
-        print(id_prodotto)
-        print(size)
-        print(quantita)
-
         if cart_id:
             # Verifica se il prodotto è già presente nel carrello
             query_check_product = "SELECT id_prodotto, quantità FROM prodotto_in_carrello WHERE id_carrello = %s AND id_prodotto = %s AND id_taglia = %s"
@@ -26,8 +21,9 @@ def aggiungi_al_carrello(id_utente, id_prodotto, size, quantita=1):
             existing_product = cursor.fetchone()
 
             if existing_product:
-                # Se il prodotto è già presente, incrementa la quantità
-                nuova_quantita = existing_product[1] + quantita
+                quantita_esistente = int(existing_product[1])
+                quantita = int(quantita)
+                nuova_quantita = quantita_esistente + quantita
                 query_update_quantity = "UPDATE prodotto_in_carrello SET quantità = %s WHERE id_carrello = %s AND id_prodotto = %s AND id_taglia = %s"
                 cursor.execute(query_update_quantity, (nuova_quantita, cart_id[0], id_prodotto, size))
             else:
