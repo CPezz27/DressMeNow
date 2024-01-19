@@ -28,13 +28,12 @@
           <a href="/c?category=uomo">Uomo</a>
           <a href="/c?category=donna">Donna</a>
           <a href="/c?category=bambino">Bambino</a>
+          {% if session['logged_in'] == True %}
+          <a href="/p/profilo">Bentornato, {{ session['Nome'] }}</a>
+          {% endif %}
         </div>
 
         <div class="icons">
-          {% if session['logged_in'] == True %}
-            <a href="/p/profilo">Bentornato, {{ session['Nome'] }}</a>
-          {% endif %}
-
           <a href="/ricercaNLP">
             <svg
               width="25"
