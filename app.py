@@ -1,6 +1,6 @@
 from flask import Flask
 from controllers import index
-from controllers.utente import login, profilo, registrati, effettua_ordine, carrello, prodotti, indirizzi, pagamenti, avatar#, ricercaNLP
+from controllers.utente import login, profilo, registrati, effettua_ordine, carrello, prodotti, indirizzi, pagamenti, avatar #, ricercaNLP
 from controllers.personale import login as login_personale
 from controllers.personale.direttore import direttore
 from controllers.personale.gestore_prodotti import prodotti as prodotti_gestore, taglia, immagini

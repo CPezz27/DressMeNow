@@ -1,7 +1,6 @@
 import base64
-
+from flask import request
 import mysql.connector
-
 from utils import mysql_config
 # from utils.nlp import preprocess_text
 
@@ -140,14 +139,34 @@ def view_products_by_category(category):
         return None
 
 
-def search_products(query):
+def search_products(query, categoria=None, colore=None):
     try:
         # Query per cercare prodotti nel database in base al testo di input
         search_query = "SELECT * FROM prodotti WHERE LOWER(descrizione) LIKE %s"
-        cursor.execute(search_query, ('%' + ' '.join(preprocess_text(query)) + '%',))
+        params = ('%' + ' '.join(preprocess_text(query)) + '%',)
+
+        print("E arrivo qua!")
+
+        if colore:
+            print("Qui non entro")
+            search_query += " AND colore = %s"
+            params += (colore,)
+        if categoria:
+            print("Nemmeno qui entro aaaaaa")
+            search_query += " AND categoria = %s"
+            params += (categoria,)
+
+        print("Query completa:", search_query, "Parametri:", params)
+
+        cursor.execute(search_query, params)
+
+        print("Quaaaaaaa")
         products = cursor.fetchall()
+
+        print("Oppure.....")
         return products
     except mysql.connector.Error as err:
+        print("Ma finisco qui")
         return None
 
 

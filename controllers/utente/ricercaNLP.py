@@ -14,9 +14,7 @@ def search():
     try:
         if request.method == 'POST':
 
-            query = request.form['query']
-
-            print("La query è: ", query)
+            query = request.form['text']
 
             # Utilizza il modello per cercare i prodotti nel database
             products = search_products(query)
@@ -26,6 +24,7 @@ def search():
             if products:
                 return render_template('/utente/ricerca_NLP.html', data="test")
             else:
+                print("Non dovrei essere qui")
                 return render_template('/utente/ricerca_NLP.html')
     except Exception as e:
         return render_template('/utente/ricerca_NLP.html', message='Errore con il server')
