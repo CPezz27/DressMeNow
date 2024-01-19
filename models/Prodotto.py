@@ -3,7 +3,7 @@ import base64
 import mysql.connector
 
 from utils import mysql_config
-from utils.nlp import preprocess_text
+# from utils.nlp import preprocess_text
 
 conn = mysql_config.get_database_connection()
 cursor = conn.cursor()
