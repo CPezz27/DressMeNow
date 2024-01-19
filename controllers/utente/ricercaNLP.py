@@ -6,6 +6,7 @@ from models.Prodotto import search_products
 app_bp = Blueprint('user_NLP', __name__)
 
 
+
 @app_bp.route('/ricerca', methods=['GET', 'POST'])
 def search():
     # if 'logged_in' not in session or not session['logged_in']:
