@@ -17,7 +17,6 @@ def products_category():
 
     if category and (category == 'uomo' or category == 'donna' or category == 'bambino'):
         products = Prodotto.view_products_by_category(category)
-        print(products)
         return render_template("utente/categoria.html", data=products)
     else:
         return redirect(url_for('index.homepage'))
@@ -48,6 +47,5 @@ def view_product():
 
     product = Prodotto.view_product(product_id)
 
-    print(product)
 
     return render_template("utente/dettagliProdotto.html", data=product)
