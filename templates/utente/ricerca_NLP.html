@@ -10,6 +10,7 @@
     />
   </head>
   <body class="bg-gray-100 font-sans">
+    {% include 'components/header.html' %}
     <div class="container mx-auto p-8 max-w-md">
       <div class="bg-white rounded-lg shadow-md overflow-hidden">
         <!-- Chat container -->
@@ -18,7 +19,7 @@
         <!-- User input -->
         <form
           id="chat-form"
-          action="/ricercaNLP"
+          action="/risultatiNLP"
           method="post"
           class="p-4 bg-gray-200 flex items-center"
         >
@@ -38,5 +39,6 @@
         </form>
       </div>
     </div>
+    {% include 'components/footer.html' %}
   </body>
 </html>

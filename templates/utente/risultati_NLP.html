@@ -14,46 +14,36 @@
     {% include 'components/header.html' %}
 
     <div class="w-full mx-auto px-6 py-12">
-      <h1 class="text-4xl font-semibold mb-8 text-center">Prodotti</h1>
-
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-        {% if data %} {% for prodotto in data %}
         <div class="bg-white rounded-lg shadow-md overflow-hidden">
-          <a href="/pd?product_id={{prodotto[0]}}"
+          <a href="#"
             ><div class="aspect-w-1 aspect-h-1">
               <img
-                src="data:image/jpeg;base64,{{ prodotto[11] }}"
+                src=""
                 alt="Prodotto 1"
                 class="w-full h-48 object-cover object-center"
               /></div
           ></a>
           <div class="p-4">
-            <h2 class="text-xl font-semibold mb-2">{{prodotto[1]}}</h2>
-            <input
-              type="hidden"
-              name="id_prodotto"
-              value="{{prodotto['id_prodotto']}}"
-            />
+            <h2 class="text-xl font-semibold mb-2">prodotto[1]</h2>
+            <input type="hidden" name="id_prodotto" value="prodotto" />
             <p
               class="text-gray-600 mb-2 overflow-hidden whitespace-nowrap"
               id="product-description"
             >
-              {{prodotto[4]}}
+              prodotto[4]
             </p>
-            <p class="text-gray-600 mb-2">Taglia: {{prodotto[5]}}</p>
-            <p class="text-gray-900 font-semibold text-lg mb-2">
-              {{prodotto[6]}}€
-            </p>
+            <p class="text-gray-600 mb-2">Taglia: prodotto[5]</p>
+            <p class="text-gray-900 font-semibold text-lg mb-2">prodotto[6]€</p>
             <button
               type="button"
-              onclick="location.href='/pd?product_id={{prodotto[0]}}'"
+              onclick="location.href='#'"
               class="px-4 py-2 bg-green-500 text-white rounded-md mr-2"
             >
               Visualizza
             </button>
           </div>
         </div>
-        {% endfor %} {% else %}
         <h1
           style="
             position: absolute;
@@ -65,8 +55,27 @@
         >
           Non abbiamo trovato nessun prodotto con questo nome
         </h1>
-        {% endif %}
       </div>
+      <form
+        id="chat-form"
+        action="/risultatiNLP"
+        method="post"
+        class="p-4 bg-gray-200 flex items-center"
+      >
+        <input
+          type="text"
+          id="user-input"
+          name="text"
+          placeholder="Scrivi qualcosa..."
+          class="flex-grow px-2 py-1 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+        />
+        <button
+          type="submit"
+          class="ml-2 bg-blue-500 text-white px-4 py-1 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+        >
+          Invia
+        </button>
+      </form>
     </div>
     {% include 'components/footer.html' %}
   </body>
