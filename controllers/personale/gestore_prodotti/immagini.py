@@ -78,4 +78,4 @@ def visualizza_immagini_prodott(id_prodotto):
     immagini = visualizza_immagini_prodotto(id_prodotto)
     message = request.args.get('message', None)
 
-    return render_template("aggiungiImgProdotto.html", data=immagini, message=message)
+    return render_template("aggiungiImgProdotto.html", data=immagini, message=message, id_prodotto=id_prodotto)
