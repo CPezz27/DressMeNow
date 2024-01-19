@@ -132,15 +132,48 @@
           </a>
         </nav>
       </div>
+      <style>
+        .save-button {
+            background-color: #7ed386;
+            color: #fff;
+            border-radius: 5px;
+            padding: 4px 10px;
+            transition: background-color 0.3s ease; 
+            margin-top: 20px;
+            margin-block-start: auto;
+        }
+    
+        .save-button:hover {
+            background-color: #5aa963; 
+        }
+    
+        .delete-button {
+            background-color: #d63030;
+            color: #fff;
+            border-radius: 5px;
+            padding: 4px 10px;
+            transition: background-color 0.3s ease;
+            margin-top: 5px;
+            margin-block-end: auto;
+        }
+    
+        .delete-button:hover {
+            background-color: #a52020; 
+        }
+    </style>
 
       <div class="rightbox2">
         <div class="impostazioni" id="impostazioni">
           <h2>Effettua il logout:</h2>
-          <a href="/logout"><button>Esci</button></a>
+          <a href="/logout"><button type="submit" class="save-button">Esci</button></a>
 
           <h2>Cancella il tuo account</h2>
           <form action="/p/cancella_account" method="post">
-            <button type="submit">Elimina</button>
+
+           
+            <button type="submit" class="delete-button">Elimina</button>
+
+
           </form>
         </div>
       </div>
