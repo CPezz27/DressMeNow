@@ -13,7 +13,7 @@ def visualizza_utenti():
         return redirect(url_for('user_login.login_page'))
 
     if session['ruolo'] != 'direttore':
-        return redirect(url_for('index'))
+        return redirect(url_for('index.homepage'))
 
     utente = get_all_users()
     return render_template("direttore/gestione_utenti.html", data=utente)
@@ -25,7 +25,7 @@ def visualizza_personale():
         return redirect(url_for('user_login.login_page'))
 
     if session['ruolo'] != 'direttore':
-        return redirect(url_for('index'))
+        return redirect(url_for('index.homepage'))
 
     personale = get_all_personale()
     print(personale)
@@ -38,7 +38,7 @@ def aggiungi_personale():
         return redirect(url_for('user_login.login_page'))
 
     if session['ruolo'] != 'direttore':
-        return redirect(url_for('index'))
+        return redirect(url_for('index.homepage'))
 
     if request.method == 'POST':
         email = request.form['email']
@@ -64,7 +64,7 @@ def modifica_personale(id_personale):
         return redirect(url_for('user_login.login_page'))
 
     if session.get('ruolo') != 'direttore':
-        return redirect(url_for('index'))
+        return redirect(url_for('index.homepage'))
 
     if request.method == 'POST':
         try:
@@ -82,7 +82,9 @@ def mostra_personale():
         return redirect(url_for('user_login.login_page'))
 
     if session['ruolo'] != 'direttore':
-        return redirect(url_for('index'))
+        return redirect(url_for('index.homepage'))
+
+    message = request.args.get('message', '')
 
     id_personale = request.args.get('personal_id')
 
@@ -90,7 +92,7 @@ def mostra_personale():
 
     print(personale)
 
-    return render_template('direttore/modifica_personale.html', personale=personale)
+    return render_template('direttore/modifica_personale.html', personale=personale, message=message)
 
 
 @app_bp.route('/d/mostra_utente', methods=['GET'])
@@ -99,7 +101,7 @@ def mostra_utente():
         return redirect(url_for('user_login.login_page'))
 
     if session['ruolo'] != 'direttore':
-        return redirect(url_for('index'))
+        return redirect(url_for('index.homepage'))
 
     id_utente = request.args.get('id_user')
 
@@ -116,7 +118,7 @@ def modifica_utente():
         return redirect(url_for('user_login.login_page'))
 
     if session.get('ruolo') != 'direttore':
-        return redirect(url_for('index'))
+        return redirect(url_for('index.homepage'))
 
     id_utente = request.args.get('id_user')
 
@@ -141,7 +143,7 @@ def rimuovi_personale():
         return redirect(url_for('user_login.login_page'))
 
     if session['ruolo'] != 'direttore':
-        return redirect(url_for('index'))
+        return redirect(url_for('index.homepage'))
 
     if request.method == 'POST':
         id_personale = request.form['id_personale']
@@ -158,7 +160,7 @@ def visualizza_statistiche_ordini():
         return redirect(url_for('user_login.login_page'))
 
     if session['ruolo'] != 'direttore':
-        return redirect(url_for('index'))
+        return redirect(url_for('index.homepage'))
 
     try:
         vendite_totali = Ordine.calcola_vendite_totali()

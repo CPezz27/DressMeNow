@@ -151,6 +151,8 @@ def configura_avatar():
 
     avatar = ConfigurazioneAvatar.view_avatar(user_id)
 
+    message = request.args.get('message', '')
+
     if request.method == 'POST':
         data = request.json
         if data:
@@ -163,7 +165,7 @@ def configura_avatar():
         else:
             return render_template("utente/personalizzazioneAvatar.html", data=avatar, message="Parametri mancanti.")
 
-    return render_template("utente/personalizzazioneAvatar.html", data=avatar)
+    return render_template("utente/personalizzazioneAvatar.html", data=avatar, message=message)
 
 
 @app_bp.route('/logout')
