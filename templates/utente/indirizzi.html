@@ -93,11 +93,11 @@
         </nav>
       </div>
       
-      <div class="rightbox">
-        <button id="aggiungiIndirizzo" class="mx-auto block text-center" style="background-color: #5cea14; color: #fff;" onclick="location.href='/indirizzo/aggiungi'">
+      <div class="rightbox overflow-y-auto">
+        <button id="aggiungiIndirizzo" class="mx-auto block text-center" style="background-color: #3498db; color: #fff;" onclick="location.href='/indirizzo/aggiungi'">
           Aggiungi Indirizzo
         </button> 
-        <div class="addresses">
+        <div class="addresses flex space-x-4">
             {% if data %}
             {% for indirizzo in data %}
             <div class="indirizzo-attivo" id="indirizzo{{ loop.index0 }}">
