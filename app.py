@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from controllers import index
 from controllers.utente import login, profilo, registrati, effettua_ordine, carrello, prodotti, indirizzi, pagamenti, avatar, effettua_reso #, ricercaNLP
 from controllers.personale import login as login_personale
@@ -10,6 +10,21 @@ from controllers.personale.gestore_ordini import ordini
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'secret_key'
+
+
+@app.errorhandler(403)
+def page_403(error):
+    return render_template('403.html'), 403
+
+
+@app.errorhandler(404)
+def page_404(error):
+    return render_template('404.html'), 404
+
+
+@app.errorhandler(500)
+def page_500(error):
+    return render_template('500.html'), 500
 
 app.register_blueprint(index.app_bp)
 app.register_blueprint(login.app_bp)
