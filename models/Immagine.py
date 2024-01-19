@@ -34,9 +34,6 @@ def rimuovi_immagine(id_immagine):
         return True
     except mysql.connector.Error as err:
         return False
-    finally:
-        cursor.close()
-        conn.close()
 
 
 class Immagine:
@@ -57,6 +54,3 @@ class Immagine:
             return True
         except mysql.connector.Error as err:
             return False
-        finally:
-            cursor.close()
-            conn.close()
