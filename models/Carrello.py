@@ -107,14 +107,10 @@ def contenuto_carrello(id_utente):
             cursor.execute(query, (cart_id[0],))
             cart_contents = cursor.fetchall()
 
-            query_total_price = (
-                "SELECT SUM(p.prezzo) as totale_prezzo "
-                "FROM prodotto_in_carrello pc "
-                "JOIN prodotto p ON pc.id_prodotto = p.id_prodotto "
-                "WHERE pc.id_carrello = %s"
-            )
-            cursor.execute(query_total_price, (cart_id[0],))
-            total_price = cursor.fetchone()[0]
+            total_price = 0.0
+
+            for item in cart_contents:
+                total_price += float(item[9]) * float(item[2])
 
             return cart_contents, total_price
         else:
