@@ -22,12 +22,22 @@ class EliminaAccountTest(unittest.TestCase):
 
             self.assertIn(b'Crea un nuovo account!', response.data)
 
+            if b"Crea un nuovo account!" in response.data:
+                print("Test 'test_delete_account_with_valid_input' PASSATO")
+            else:
+                print("Test 'test_delete_account_with_valid_input' FALLITO")
+
     def test_delete_account_when_not_logged_in(self):
         with self.app as client:
 
             response = client.post('/p/cancella_account', follow_redirects=True)
 
             self.assertIn(b'Inserisci le tue credenziali!', response.data)
+
+            if b"Inserisci le tue credenziali!" in response.data:
+                print("Test 'test_delete_account_when_not_logged_in' PASSATO")
+            else:
+                print("Test 'test_delete_account_when_not_logged_in' FALLITO")
 
 
 if __name__ == '__main__':

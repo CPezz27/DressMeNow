@@ -27,6 +27,12 @@ class ModificaOrdineTest(unittest.TestCase):
 
             self.assertIn(b"Stato ordine modificato correttamente", response.data)
 
+            if b"Stato ordine modificato correttamente" in response.data:
+                print("Test 'test_modifica_ordine_with_valid_input' PASSATO")
+            else:
+                print("Test 'test_modifica_ordine_with_valid_input' FALLITO")
+
+
     def test_modifica_ordine_with_invalid_role(self):
         with self.app as client:
             with client.session_transaction() as sess:
@@ -41,6 +47,11 @@ class ModificaOrdineTest(unittest.TestCase):
             ), follow_redirects=True)
 
             self.assertIn(b'Uomo', response.data)
+
+            if b'Uomo' in response.data:
+                print("Test 'test_modifica_ordine_with_invalid_role' PASSATO")
+            else:
+                print("Test 'test_modifica_ordine_with_invalid_role' FALLITO")
 
 
 if __name__ == '__main__':

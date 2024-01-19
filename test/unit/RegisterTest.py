@@ -25,6 +25,11 @@ class RegistrationTest(unittest.TestCase):
 
         self.assertIn(b'Accedi', response.data)
 
+        if b"Accedi" in response.data:
+            print("Test 'test_registration_with_valid_data' PASSATO")
+        else:
+            print("Test 'test_registration_with_valid_data' FALLITO")
+
     def test_registration_with_invalid_data(self):
         response = self.app.post('/registrati', data=dict(
             firstName='John',
@@ -37,6 +42,11 @@ class RegistrationTest(unittest.TestCase):
         ), follow_redirects=True)
 
         self.assertIn(b'Dati inseriti non validi. Controlla i campi e riprova.', response.data)
+
+        if b"Dati inseriti non validi. Controlla i campi e riprova." in response.data:
+            print("Test 'test_registration_with_invalid_data' PASSATO")
+        else:
+            print("Test 'test_registration_with_invalid_data' FALLITO")
 
 
 if __name__ == '__main__':

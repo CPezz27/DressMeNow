@@ -26,6 +26,11 @@ class ModificaProdottoTest(unittest.TestCase):
 
             self.assertIn(b'Prodotto modificato correttamente', response.data)
 
+            if b"Prodotto modificato correttamente" in response.data:
+                print("Test 'test_modifica_prodotto_with_valid_input' PASSATO")
+            else:
+                print("Test 'test_modifica_prodotto_with_valid_input' FALLITO")
+
     def test_modifica_prodotto_with_invalid_role(self):
         with self.app as client:
             with client.session_transaction() as sess:
@@ -37,6 +42,11 @@ class ModificaProdottoTest(unittest.TestCase):
             response = client.post(f'/gp/modifica_prodotto/{product_id}', data=dict(), follow_redirects=True)
 
             self.assertIn(b'Uomo', response.data)
+
+            if b"Uomo" in response.data:
+                print("Test 'test_modifica_prodotto_with_invalid_role' PASSATO")
+            else:
+                print("Test 'test_modifica_prodotto_with_invalid_role' FALLITO")
 
 
 if __name__ == '__main__':

@@ -26,6 +26,11 @@ class ModificaPersonaleTest(unittest.TestCase):
 
             self.assertIn(b'Personale modificato', response.data)
 
+            if b"Personale modificato" in response.data:
+                print("Test 'test_modifica_personale_with_valid_input' PASSATO")
+            else:
+                print("Test 'test_modifica_personale_with_valid_input' FALLITO")
+
     def test_modifica_personale_with_invalid_role(self):
         with self.app as client:
             with client.session_transaction() as sess:
@@ -37,6 +42,11 @@ class ModificaPersonaleTest(unittest.TestCase):
             response = client.post(f'/d/modifica_personale/{personal_id}', data=dict(), follow_redirects=True)
 
             self.assertIn(b'Uomo', response.data)
+
+            if b"Uomo" in response.data:
+                print("Test 'test_modifica_personale_with_invalid_role' PASSATO")
+            else:
+                print("Test 'test_modifica_personale_with_invalid_role' FALLITO")
 
 
 if __name__ == '__main__':
