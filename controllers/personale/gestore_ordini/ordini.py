@@ -12,7 +12,7 @@ def cancella_ordine():
         return redirect(url_for('user_login.login_page'))
 
     if session['ruolo'] != 'gestore_ordine':
-        return redirect(url_for('index'))
+        return redirect(url_for('index.homepage'))
 
     if request.method == 'POST':
         id_ordine = request.form['id_ordine']
@@ -30,7 +30,7 @@ def modifica_stato_ordine():
         return redirect(url_for('user_login.login_page'))
 
     if session['ruolo'] != 'gestore_ordine':
-        return redirect(url_for('index'))
+        return redirect(url_for('index.homepage'))
 
     if request.method == 'POST':
         id_ordine = request.form['id_ordine']
@@ -49,7 +49,7 @@ def modifica_ordine():
         return redirect(url_for('user_login.login_page'))
 
     if session['ruolo'] != 'gestore_ordine':
-        return redirect(url_for('index'))
+        return redirect(url_for('index.homepage'))
 
     if request.method == 'POST':
         id_ordine = request.form['id_ordine']
@@ -58,7 +58,7 @@ def modifica_ordine():
         success = Ordine.modifica_ordine(id_ordine, nuovo_stato)
 
         if success:
-            return redirect(url_for('order_controller.visual_ordine', id_ordine=id_ordine, message="Stato dell'ordine modificato correttamente"))
+            return redirect(url_for('order_controller.visual_ordine', id_ordine=id_ordine, message="Stato ordine modificato correttamente"))
         else:
             return redirect(url_for('order_controller.visual_ordine', id_ordine=id_ordine, message="Errore durante la modifica dello stato dell'ordine"))
 
@@ -69,7 +69,7 @@ def visual_ordine():
         return redirect(url_for('user_login.login_page'))
 
     if session['ruolo'] != 'gestore_ordine':
-        return redirect(url_for('index'))
+        return redirect(url_for('index.homepage'))
 
     try:
         id_ordine = request.args.get('id_ordine')
@@ -97,7 +97,7 @@ def dashboard():
         return redirect(url_for('user_login.login_page'))
 
     if session['ruolo'] != 'gestore_ordine':
-        return redirect(url_for('index'))
+        return redirect(url_for('index.homepage'))
     orders_details = Ordine.get_all_orders_with_details()
     
     return render_template('gestoreOrdine.html', orders_details=orders_details)
