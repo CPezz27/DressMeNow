@@ -17,6 +17,9 @@
 <body class="font-sans bg-green-300">
 
     <div class="max-w-md mx-auto bg-white rounded p-6 shadow-md mt-9">
+        {% if message %}
+                <p>{{ message }}</p>
+            {% endif %}
         <h2 class="text-2xl font-semibold mb-4">Inserisci Dati Personale</h2>
 
         <form method="POST" action="/d/aggiungi_personale">
