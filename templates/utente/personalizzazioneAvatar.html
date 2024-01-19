@@ -488,8 +488,8 @@ body {
             >
             <div class="flex flex-wrap items-center space-x-1">
               <input type="radio" id="colorePelle1" name="colorePelle"
-              value="Rosa pallido" class="opacity-0 absolute sr-only"{% if
-              data[1]=='Rosa pallido' %}checked{% endif %} />
+              value="rosa pallido" class="opacity-0 absolute sr-only"{% if
+              data[1]=='rosa pallido' %}checked{% endif %} />
               <label
                 for="colorePelle1"
                 class="flex items-center relative cursor-pointer"
@@ -502,8 +502,8 @@ body {
                 ></div>
               </label>
               <input type="radio" id="colorePelle2" name="colorePelle"
-              value="Rosa" class="opacity-0 absolute sr-only" {% if
-              data[1]=='Rosa' %}checked{% endif %}/>
+              value="rosa" class="opacity-0 absolute sr-only" {% if
+              data[1]=='rosa' %}checked{% endif %}/>
               <label
                 for="colorePelle2"
                 class="flex items-center relative cursor-pointer"
@@ -838,21 +838,22 @@ body {
           <div id="messaggio" class="fixed top-0 left-1/2 transform -translate-x-1/2 p-4 bg-green-500 text-white rounded-md hidden">
             <p></p>
         </div>
-        {% if (message) %}
-        <div id="messaggioSuccesso" class="fixed top-0 left-1/2 transform -translate-x-1/2 p-4 bg-green-500 text-white rounded-md">
-          <p>{{ message }}</p>
-      </div>
-      {% endif %}
-
+        {% if (message) %}         
+        <div id="messaggioSuccesso" class="fixed top-0 left-1/2 transform -translate-x-1/2 p-4 bg-green-500 text-white rounded-md">           
+          <p>{{ message }}</p>       
+        </div>       
+        {% endif %}
         </form>
       </div>
     </div>
 
     <script>
-      messaggioSuccesso = document.getElementById('messaggioSuccesso');
-setTimeout(function() {
-            messaggioSuccesso.style.display = 'none';
-        }, 3000);
+
+messaggioSuccesso = document.getElementById('messaggioSuccesso'); 
+setTimeout(function() {             
+  messaggioSuccesso.style.display = 'none';         
+}, 3000);
+
 var initialFormData;
 
 function saveInitialFormData() {
@@ -916,79 +917,70 @@ function annullaModifiche() {
         }, 3000);
     }
 }
-      document.addEventListener('DOMContentLoaded', function () {
-        var radioButtonsPelle = document.querySelectorAll('input[name="colorePelle"]');
-    
-        // Mappa dei nomi di colore di Tailwind a colori HEX
-        var colorMap = {
-            'Rosa pallido': '#fecaca',
-            'Rosa': '#fca5a5',
-            'marrone chiaro': '#d97706',
-            'mulatto': '#854d0e',
-            'marrone scuro': '#713f12'
-            };
 
-        // Aggiungi un listener a ciascun radio button
-        radioButtonsPelle.forEach(function (radioButton) {
-            radioButton.addEventListener('change', function () {
-                // Recupera il valore associato al radio button selezionato
-                var selectedColor = radioButton.value;
+document.addEventListener('DOMContentLoaded', function () {
+    // Chiamata alle funzioni di inizializzazione dei colori
+    initializeSkinColor();
+    initializeEyeColor();
+    initializeHairColor();
 
-                // Modifica il colore della pelle in base al valore selezionato
-                document.documentElement.style.setProperty('--skin-color', colorMap[selectedColor]);
-                });
-            });
-        
+    // Chiamata alla funzione per impostare lo stato iniziale
+    setInitialState();
+});
+
+// Funzione per gestire il cambio di colore della pelle
+function initializeSkinColor() {
+    var radioButtonsPelle = document.querySelectorAll('input[name="colorePelle"]');
+    var skinColorMap = {
+        'rosa pallido': '#fecaca',
+        'rosa': '#fca5a5',
+        'marrone chiaro': '#d97706',
+        'mulatto': '#854d0e',
+        'marrone scuro': '#713f12'
+    };
+
+    radioButtonsPelle.forEach(function (radioButton) {
+        radioButton.addEventListener('change', function () {
+            document.documentElement.style.setProperty('--skin-color', skinColorMap[radioButton.value]);
         });
+    });
+}
 
-    document.addEventListener('DOMContentLoaded', function () {
-        var radioButtonsOcchi = document.querySelectorAll('input[name="coloreOcchi"]');
-    
-        // Mappa dei nomi di colore di Tailwind a colori HEX
-        var colorMap = {
-            'blu chiaro': '#60a5fa',
-            'blu scuro': '#1d4ed8',
-            'verde chiaro': '#16a34a',
-            'verde scuro': '#166534',
-            'marrone': '#713f12'
-            };
+// Funzione per gestire il cambio di colore degli occhi
+function initializeEyeColor() {
+    var radioButtonsOcchi = document.querySelectorAll('input[name="coloreOcchi"]');
+    var eyeColorMap = {
+        'blu chiaro': '#60a5fa',
+        'blu scuro': '#1d4ed8',
+        'verde chiaro': '#16a34a',
+        'verde scuro': '#166534',
+        'marrone': '#713f12'
+    };
 
-        // Aggiungi un listener a ciascun radio button
-        radioButtonsOcchi.forEach(function (radioButton) {
-            radioButton.addEventListener('change', function () {
-                // Recupera il valore associato al radio button selezionato
-                var selectedColor = radioButton.value;
-
-                // Modifica il colore della pelle in base al valore selezionato
-                document.documentElement.style.setProperty('--eye-color', colorMap[selectedColor]);
-                });
-            });
-        
+    radioButtonsOcchi.forEach(function (radioButton) {
+        radioButton.addEventListener('change', function () {
+            document.documentElement.style.setProperty('--eye-color', eyeColorMap[radioButton.value]);
         });
-        document.addEventListener('DOMContentLoaded', function () {
-        var radioButtonsCapelli = document.querySelectorAll('input[name="coloreCapelli"]');
-    
-        // Mappa dei nomi di colore di Tailwind a colori HEX
-        var colorMap = {
-            'bianco': '#e5e7eb',
-            'nero': '#030712',
-            'marrone chiaro': '#a16207',
-            'marrone scuro': '#422006',
-            'biondo': '#facc15'
-            };
+    });
+}
 
-        // Aggiungi un listener a ciascun radio button
-        radioButtonsCapelli.forEach(function (radioButton) {
-            radioButton.addEventListener('change', function () {
-                // Recupera il valore associato al radio button selezionato
-                var selectedColor = radioButton.value;
+// Funzione per gestire il cambio di colore dei capelli
+function initializeHairColor() {
+    var radioButtonsCapelli = document.querySelectorAll('input[name="coloreCapelli"]');
+    var hairColorMap = {
+        'bianco': '#e5e7eb',
+        'nero': '#030712',
+        'marrone chiaro': '#a16207',
+        'marrone scuro': '#422006',
+        'biondo': '#facc15'
+    };
 
-                // Modifica il colore della pelle in base al valore selezionato
-                document.documentElement.style.setProperty('--hair-color', colorMap[selectedColor]);
-                });
-            });
-        
+    radioButtonsCapelli.forEach(function (radioButton) {
+        radioButton.addEventListener('change', function () {
+            document.documentElement.style.setProperty('--hair-color', hairColorMap[radioButton.value]);
         });
+    });
+}
 
         // Funzione per impostare la lunghezza dei capelli
         function setHairLength(length) {
@@ -1074,6 +1066,42 @@ function annullaModifiche() {
 
         // Esegui la funzione all'avvio per impostare lo stato iniziale
         handleSessoChange();
+
+        //vediamo se questa cosa funziona:
+        function aggiornaAvatar() {
+        // Recupera i valori dal form
+        const colorePelle = document.querySelector('input[name="colorePelle"]:checked').value;
+        const coloreOcchi = document.querySelector('input[name="coloreOcchi"]:checked').value;
+        const coloreCapelli = document.querySelector('input[name="coloreCapelli"]:checked').value;
+        const lunghezzaCapelli = document.getElementById('lunghezzaCapelli').value;
+        const altezza = document.getElementById('altezza').value;
+        const peso = document.getElementById('peso').value;
+        const barba = document.getElementById('barba').checked;
+        const sesso = document.getElementById('sesso').value;
+
+        // Applica i valori all'avatar
+        setHairLength(lunghezzaCapelli);
+        setHeight(altezza);
+        setWidth(peso);
+        handleSessoChange();
+
+        initializeSkinColor();
+        initializeEyeColor();
+        initializeHairColor();
+
+
+        // Imposta l'altezza, la larghezza e i colori dell'avatar direttamente
+        document.documentElement.style.setProperty('--avatar_height', `${altezza}px`);
+        document.documentElement.style.setProperty('--avatar_width', `${peso}px`);
+
+        // Puoi aggiungere ulteriori impostazioni qui se necessario
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Chiamare la funzione di aggiornamento al caricamento della pagina
+        aggiornaAvatar();
+        console.log("aggiornaAvatar eseguita")
+    });
     </script>
   </body>
 </html>
