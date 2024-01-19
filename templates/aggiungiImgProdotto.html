@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Visualizza Immagini Prodotto</title>
     <link rel="stylesheet" href="../../static/css/aggiungiImg.css" />
+    <link rel="stylesheet" href="../static/css/gestore_prodotti.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
       rel="stylesheet"
@@ -68,6 +69,8 @@
         required
       />
 
+      <br><br>
+
       <input
         type="hidden"
         name="id_prodotto"
@@ -79,6 +82,7 @@
         <input type="radio" name="tipo_immagine" value="avatar" required />
         Immagine avatar
       </label>
+      <br><br>
       <label>
         <input
           type="radio"
@@ -88,9 +92,11 @@
         />
         Immagine pagina prodotto
       </label>
+      <br><br>
       <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md">
         Salva Modifiche
       </button>
+      <br><br>
       <a
         href="/gestore_prodotto"
         class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md"
