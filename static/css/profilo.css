@@ -210,7 +210,7 @@ div .addresses{
 	align-items: center;
 	flex-direction: column;
 	float: center;
-	width: 65%;
+	width: 50%;
 	height: 100%;
   }
 
@@ -225,84 +225,11 @@ div .addresses{
     margin: 0;
     cursor: pointer;
   }
-  @media screen and (max-width: 555px) {
-	.container {
-	  width: 100%;
-	  height: 1500px;
-	  display: flex;
-	  flex-direction: column;
-	  align-items: center;
-	}
+  @media screen and (max-width: 574px) {
   
 	#logo {
 	  text-align: center; /* Centra il logo */
-	  margin-top: 20px; /* Aggiunge spazio sopra il logo */
-	  margin-bottom: -15px;
+	 margin-right: 50px;
 	}
-  
-	.leftbox {
-	  position: static;
-	  display: flex;
-	  flex-direction: row; /* Mostra la nav bar in riga */
-	  width: 105%;
-	  height: auto;
-	  float: none;
-	  margin-bottom: 20px;
-	}
-  
-	.nav-profilo {
-	  order: -1; /* Imposta la nav sopra */
-	  width: 100%;
-	  display: flex;
-	  flex-direction: row;
-	  align-items: end;
-	  justify-content: space-between;
-	  align-self: auto;
-	}
-  
-	.rightbox {
-	
-	  width: calc(100% - 20px); /* Si restringe un po' in larghezza */
-	  height: auto; /* Altezza automatica */
-	}
-
-  
-	.orders {
-	  max-height: none;
-	  overflow-y: visible;
-	}
-  
-	.ordine {
-	  width: 100%;
-	  flex-direction: column;
-	  align-items: flex-start;
-	}
-  
-	.orders-info {
-	  width: 100%;
-	  display: block;
-	}
-	/* Stili per migliorare l'estetica del bottone SALVA e posizionarlo correttamente */
-.button-container {
-    margin-top: 20px; /* Regola la distanza dal contenuto precedente */
-}
-
-button[type="submit"] {
-    background-color: #4CAF50; /* Colore di sfondo */
-    color: white; /* Colore del testo */
-    padding: 10px 20px; /* Spaziatura interna */
-    font-size: 16px; /* Dimensione del testo */
-    border: none; /* Rimuovi il bordo */
-    border-radius: 4px; /* Angoli arrotondati */
-    cursor: pointer;
-    transition: background-color 0.3s; /* Animazione di transizione */
-}
-
-button[type="submit"]:hover {
-    background-color: #45a049; /* Cambia il colore di sfondo al passaggio del mouse */
-}
  
-
-  
-
   }
