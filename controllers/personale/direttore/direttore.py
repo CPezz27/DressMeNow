@@ -105,11 +105,13 @@ def mostra_utente():
 
     id_utente = request.args.get('id_user')
 
+    message = request.args.get('message', '')
+
     utente = view_utente(int(id_utente))
 
     print(utente)
 
-    return render_template('direttore/modifica_utente.html', utente=utente)
+    return render_template('direttore/modifica_utente.html', utente=utente, message=message)
 
 
 @app_bp.route('/d/modifica_utente', methods=['GET', 'POST'])
