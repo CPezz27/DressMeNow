@@ -1,6 +1,7 @@
-from flask import Blueprint, redirect, request, session, url_for
+from flask import Blueprint, redirect, render_template, request, session, url_for
+from models.Carrello import Carrello
 
-from models.ConfigurazioneAvatar import update_configurazione_avatar
+from models.ConfigurazioneAvatar import ConfigurazioneAvatar, update_configurazione_avatar
 
 app_bp = Blueprint('user_avatar', __name__)
 
@@ -37,3 +38,15 @@ def modifica_avatar():
     }
     update_configurazione_avatar(user_id, **config_avatar)
     return redirect(url_for('user_profile.configura_avatar'))
+
+
+@app_bp.route('/prova_su_avatar')
+def prova_su_avatar():
+    if 'logged_in' not in session or not session['logged_in']:
+        return redirect('utente/login')
+
+    user_id = session['id']
+    avatar_data = ConfigurazioneAvatar.view_avatar(user_id)
+
+    dati_prodotti = Carrello.contenuto_carrello(user_id)
+    return render_template("/provaSuAvatar.html", avatar=avatar_data, prodotti=dati_prodotti)
