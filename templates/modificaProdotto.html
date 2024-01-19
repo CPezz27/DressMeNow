@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Pagina del Gestore Prodotto</title>
-    <link rel="stylesheet" href="../static/css/gestore_prodotti.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/gestore_prodotti.css') }}">
     <link
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
       rel="stylesheet"
@@ -25,15 +25,18 @@
       src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"
     ></script>
   </head>
-  <body class="bg-gray-100 min-h-screen flex items-center justify-center">
-    {% include 'components/headerGestoreProdotto.html' %}
+
+  <body class="bg-gray-100">
+
+  {% include 'components/headerGestoreProdotto.html' %}
+
     <!-- Supponendo che tu stia passando l'immagine come byte nel template Flask -->
 {% if message %}
           <div class="mb-4"></div>
                 <p class="success-message">{{ message }}</p>
         </div>
             {% endif %}
-    <div class="bg-white p-8 md:p-10 max-w-md mx-auto rounded-md shadow-md w-full">
+    <div class="bg-white p-8 md:p-10 max-w-md mx-auto rounded-md shadow-md w-full mt-8">
         <h1 class="text-3xl font-semibold mb-6 text-blue-700">Modifica Prodotto</h1>
         
         <form id="editProductForm" action="/gp/modifica_prodotto/{{ product['product_details'][0] }}" method="POST">
