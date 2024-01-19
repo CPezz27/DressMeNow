@@ -61,7 +61,7 @@ def gestore_prodotto():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
     if session['ruolo'] != 'gestore_prodotto':
-        return redirect(url_for('index'))
+        return redirect(url_for('index.homepage'))
     try:
         prodotti_tutti = Prodotto.view_products()
         prodotti_dict = {}
