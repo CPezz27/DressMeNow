@@ -3,1033 +3,862 @@
   <head>
     <meta charset="UTF-8" />
     <title>Prova prodotti su Avatar</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   </head>
-
   <style>
-    input[type="radio"]:checked + label div.selected-border {
+    input[type="radio"]:checked+label div.selected-border {
       opacity: 1;
     }
-/* Start Variables */ 
-:root {
 
-    /* variabili selezionabili */
-    --hair-color: #424b54;
-    --skin-color: #fecaca;
-    --eye-color: #000000;
+    /* Start Variables */
+    :root {
+      /* variabili selezionabili */
+      --hair-color: #424b54;
+      --skin-color: #fecaca;
+      --eye-color: #000000;
+      /* costanti */
+      --body-top-starting-point: 157px;
+      --clothing-top-color: #b1b1b1;
+      --clothing-bottom-color: rgb(148, 148, 148);
+      --shoes-color: rgb(77, 77, 77);
+      /* variabili modificabili da slider */
+      --avatar_height: 160px;
+      /* min: 140, max: 200 */
+      --avatar_width: 150px;
+      /* min: 145, max: 184 */
+      --hair-length: 1px;
+      /*min: 1, max: 20 */
+      /* variabili da sostituire a quelle scelte precedentemente */
+      --selected_width_legs: 0px;
+      --selected_width_top: 0px;
+      /* variabili varie*/
+      --height-body-top: calc((var(--avatar_height) / 100) * 30);
+      --hair-lenght-female: calc((var(--hair-length)*2) + 99px);
+      /* 1 = 100,  - 140 */
+      --hair-lenght-male: calc(var(--hair-length) + 89px);
+      /* 90 - 110 */
+      --height-arm-body-center-bottom: calc((var(--avatar_height) / 100) * 55);
+      --height-body-center-top: calc((var(--avatar_height) / 100) * 45);
+      --height-bottom-top: calc((var(--avatar_height) / 100) * 15);
+      --height-body-center-top: calc((var(--avatar_height) / 100) * 25);
+      --height-body-center-bottom: var(--height-arm-body-center-bottom);
+      --height-body-center-full: var(--height-body-center-bottom);
+      --height-legs: calc((var(--avatar_height) / 100) * 70);
+      --whitespace: calc((var(--width-body-top) - var(--width-arms) - var(--width-arms)) / 2);
+      --width-body-top: var(--avatar_width);
+      --half-body-top: calc(var(--width-body-top) / 2);
+      --width-arms: calc((var(--width-body-top) / 100) * 20);
+      --width-body-center: calc(var(--width-body-top) - var(--width-arms) - var(--width-arms) - 4px);
+      --width-legs: calc(((var(--width-body-center) / 100) * 40.7));
+      --left-body-center: calc(var(--left-body-top) - var(--half-body-top) + var(--width-arms) + 2px);
+      --left-body-top: 110px;
+      --half-left-body-top: calc(var(--left-body-top) / 2);
+      /* variabili per i vestiti */
+      --c-clothing-top-color: #ff0000;
+      --c-clothing-bottom-color: rgb(17, 0, 255);
+      --c-whitespace: calc((var(--selected_width_top) - var(--c-width-arms) - var(--c-width-arms)) / 2);
+      --c-half-body-top: calc(var(--selected_width_top) / 2);
+      --c-width-arms: calc((var(--selected_width_top) / 100) * 20);
+      --c-width-body-center: calc(var(--selected_width_top) - var(--c-width-arms) - var(--c-width-arms) - 4px);
+      --c-left-body-center: calc(var(--left-body-top) - var(--c-half-body-top) + var(--c-width-arms) + 2px);
+      --c-width-arms-but-legs: calc((var(--selected_width_legs) / 100) * 20);
+      --c-width-body-center-but-legs: calc(var(--selected_width_legs) - var(--c-width-arms-but-legs) - var(--c-width-arms-but-legs) - 4px);
+      --c-width-legs: calc(((var(--c-width-body-center-but-legs) / 100) * 40.7));
+      --c-half-body-top-but-legs: calc(var(--selected_width_legs) / 2);
+      --c-left-body-center-but-legs: calc(var(--left-body-top) - var(--c-half-body-top-but-legs) + var(--c-width-arms-but-legs) + 2px);
+    }
 
-    /* costanti */
-    --body-top-starting-point: 157px; 
-    --clothing-top-color: #b1b1b1;
-    --clothing-bottom-color: rgb(148, 148, 148);
-    --shoes-color: rgb(77, 77, 77);
+    /* End Variables */
+    /* Start Global Rules */
+    body {
+      background-color: #ffffff;
+    }
 
-    /* variabili modificabili da slider */
-    --avatar_height: 160px; /* min: 140, max: 200 */
-    --avatar_width: 150px;  /* min: 145, max: 184 */
-    --hair-length: 1px;     /*min: 1, max: 20 */
+    .human-body-top {
+      /*background-color: #bb004f;*/
+      margin: auto;
+      width: 220px;
+      position: relative;
+    }
 
-    /* variabili da sostituire a quelle scelte precedentemente */
-    --selected_width_legs: 0px;
-    --selected_width_top: 0px;
+    .hair-female {
+      background-color: var(--hair-color);
+      width: 120px;
+      height: var(--hair-lenght-female);
+      /* lunghezza capelli donna */
+      position: absolute;
+      top: 40px;
+      left: 110px;
+      transform: translateX(-50%);
+      border-top-right-radius: 80px;
+      border-top-left-radius: 80px;
+      z-index: 1;
+    }
 
-    /* variabili varie*/
-    --height-body-top: calc((var(--avatar_height) / 100) * 30); 
+    .hair-male {
+      background-color: var(--hair-color);
+      width: calc((var(--hair-lenght-male) - 15px) * 1);
+      height: var(--hair-lenght-male);
+      /* lunghezza capelli uomo */
+      position: absolute;
+      top: calc(50px + (var(--hair-lenght-male) / 100));
+      left: 110px;
+      transform: translateX(-50%);
+      border-top-right-radius: 70px;
+      border-top-left-radius: 100px;
+      border-bottom-right-radius: 100px;
+      border-bottom-left-radius: 100px;
+      z-index: 1;
+    }
 
-    --hair-lenght-female: calc((var(--hair-length)*2) + 99px); /* 1 = 100,  - 140 */
-    --hair-lenght-male: calc(var(--hair-length) + 89px); /* 90 - 110 */
+    .face {
+      background-color: var(--skin-color);
+      width: 70px;
+      height: 80px;
+      position: absolute;
+      top: 80px;
+      left: 50px;
+      transform: translateX(35%);
+      z-index: 100;
+      border-radius: 0 0 80px 80px;
+    }
 
-    --height-arm-body-center-bottom: calc((var(--avatar_height) / 100) * 55);
-    --height-body-center-top: calc((var(--avatar_height) / 100) * 45);
-    --height-bottom-top: calc((var(--avatar_height) / 100) * 15);
-    --height-body-center-top: calc((var(--avatar_height) / 100) * 25);
-    --height-body-center-bottom: var(--height-arm-body-center-bottom); 
-    --height-body-center-full: var(--height-body-center-bottom);
-    
-    --height-legs: calc((var(--avatar_height) / 100) * 70);
+    .napkin {
+      background-color: var(--hair-color);
+      width: 60px;
+      height: 40px;
+      position: absolute;
+      top: -24px;
+      left: -5px;
+      box-shadow: 40px 10px 0 -8px var(--hair-color);
+      border-radius: 50%;
+    }
 
-    --whitespace: calc((var(--width-body-top) - var(--width-arms) - var(--width-arms)) / 2);
-    --width-body-top: var(--avatar_width);
-    --half-body-top: calc(var(--width-body-top) / 2);
+    .eye1 {
+      background-color: var(--eye-color);
+      width: 12px;
+      height: 12px;
+      position: absolute;
+      top: 27px;
+      left: 8px;
+      /*box-shadow: 42px 0 0 var(--hair-color);*/
+      border-radius: 50%;
+      border: 1px solid white;
+    }
 
-    --width-arms: calc((var(--width-body-top) / 100) * 20);
-    --width-body-center: calc(var(--width-body-top) - var(--width-arms) - var(--width-arms) - 4px);
-  
-    --width-legs: calc(((var(--width-body-center) / 100) * 40.7));
-    --left-body-center: calc(var(--left-body-top) - var(--half-body-top) + var(--width-arms) + 2px);
+    .brow1 {
+      position: absolute;
+      top: -5px;
+      left: -1px;
+      width: 12px;
+      height: 2px;
+      background: #000000;
+      /*box-shadow: 42px 0 0 #000000;*/
+      border-radius: 10px;
+    }
 
-    --left-body-top: 110px;
-    --half-left-body-top: calc(var(--left-body-top) / 2);
+    .eye2 {
+      background-color: var(--eye-color);
+      width: 12px;
+      height: 12px;
+      position: absolute;
+      top: 27px;
+      left: 50px;
+      /*box-shadow: 42px 0 0 var(--hair-color);*/
+      border-radius: 50%;
+      border: 1px solid white;
+    }
 
-    /* variabili per i vestiti */
-    --c-clothing-top-color: #ff0000;
-    --c-clothing-bottom-color: rgb(17, 0, 255);
+    .brow2 {
+      position: absolute;
+      top: -5px;
+      left: -1px;
+      width: 12px;
+      height: 2px;
+      background: #000000;
+      /*box-shadow: 42px 0 0 #000000;*/
+      border-radius: 10px;
+    }
 
-    --c-whitespace: calc((var(--selected_width_top) - var(--c-width-arms) - var(--c-width-arms)) / 2);
-    --c-half-body-top: calc(var(--selected_width_top) / 2);
-    --c-width-arms: calc((var(--selected_width_top) / 100) * 20);
-    --c-width-body-center: calc(var(--selected_width_top) - var(--c-width-arms) - var(--c-width-arms) - 4px);
-    --c-left-body-center: calc(var(--left-body-top) - var(--c-half-body-top) + var(--c-width-arms) + 2px);
+    .nose {
+      background-color: transparent;
+      /* naso inutile */
+      width: 8px;
+      height: 16px;
+      position: absolute;
+      top: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 12px;
+    }
 
-    --c-width-arms-but-legs: calc((var(--selected_width_legs) / 100) * 20);
-    --c-width-body-center-but-legs: calc(var(--selected_width_legs) - var(--c-width-arms-but-legs) - var(--c-width-arms-but-legs) - 4px);
-    --c-width-legs: calc(( (var(--c-width-body-center-but-legs) / 100) * 40.7));
-    --c-half-body-top-but-legs: calc(var(--selected_width_legs) / 2);
-    --c-left-body-center-but-legs: calc(var(--left-body-top) - var(--c-half-body-top-but-legs) + var(--c-width-arms-but-legs) + 2px);
+    .mouth {
+      position: absolute;
+      top: 52px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 28px;
+      height: 14px;
+      background-color: black;
+      border-radius: 0 0 20px 20px;
+      overflow: hidden;
+      z-index: 4;
+    }
 
+    .teeth {
+      background-color: #fff;
+      width: 25px;
+      height: 2px;
+      position: absolute;
+      top: 0px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 10px;
+      z-index: 5;
+    }
 
+    .tongue {
+      background-color: red;
+      width: 18px;
+      height: 8px;
+      position: absolute;
+      bottom: 0px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 10px;
+      z-index: 5;
+    }
 
-  }
-/* End Variables */ 
+    .neck {
+      background-color: var(--skin-color);
+      width: 27px;
+      height: 25px;
+      position: absolute;
+      bottom: -12px;
+      left: 50%;
+      z-index: 95;
+      transform: translateX(-50%);
+      border-radius: 50px;
+    }
 
-/* Start Global Rules */
-body {
-    background-color: #ffffff;
-}
-.human-body-top {
-    /*background-color: #bb004f;*/
-    margin: auto;
-    width: 220px;
-    position: relative;
-}
-.hair-female {
-    background-color: var(--hair-color);
-    width: 120px;
-    height: var(--hair-lenght-female);/* lunghezza capelli donna */
-    position: absolute;
-    top: 40px;
-    left: 110px;
-    transform: translateX(-50%);
-    border-top-right-radius: 80px;
-    border-top-left-radius: 80px;
-    z-index: 1;
-}
-.hair-male {
-    background-color: var(--hair-color);
-    width: calc((var(--hair-lenght-male) - 15px) * 1);
-    height: var(--hair-lenght-male);    /* lunghezza capelli uomo */
-    position: absolute;
-    top: calc(50px + (var(--hair-lenght-male) / 100));
-    left: 110px;
-    transform: translateX(-50%);
-    border-top-right-radius: 70px;
-    border-top-left-radius: 100px;
-    border-bottom-right-radius: 100px;
-    border-bottom-left-radius: 100px;
-    z-index: 1;
-}
-.face {
-    background-color: var(--skin-color);
-    width: 70px;
-    height: 80px;
-    position: absolute;
-    top: 80px;
-    left: 50px;
-    transform: translateX(35%);
-    z-index: 100;
-    border-radius: 0 0 80px 80px;
-}
-.napkin {
-    background-color: var(--hair-color);
-    width: 60px;
-    height: 40px;
-    position: absolute;
-    top: -24px;
-    left: -5px;
-    box-shadow: 40px 10px 0 -8px var(--hair-color);
-    border-radius: 50%;
-}
-.eye1 {
-    background-color: var(--eye-color);
-    width: 12px;
-    height: 12px;
-    position: absolute;
-    top: 27px;
-    left: 8px;
-    /*box-shadow: 42px 0 0 var(--hair-color);*/
-    border-radius: 50%;
-    border: 1px solid white;
-}
-.brow1 {
-    position: absolute;
-    top: -5px;
-    left: -1px;
-    width: 12px;
-    height: 2px;
-    background: #000000;
-    /*box-shadow: 42px 0 0 #000000;*/
-    border-radius: 10px;
-}
-.eye2 {
-    background-color: var(--eye-color);
-    width: 12px;
-    height: 12px;
-    position: absolute;
-    top: 27px;
-    left: 50px;
-    /*box-shadow: 42px 0 0 var(--hair-color);*/
-    border-radius: 50%;
-    border: 1px solid white;
-}
-.brow2 {
-    position: absolute;
-    top: -5px;
-    left: -1px;
-    width: 12px;
-    height: 2px;
-    background: #000000;
-    /*box-shadow: 42px 0 0 #000000;*/
-    border-radius: 10px;
-}
-.nose {
-    background-color: transparent; /* naso inutile */
-    width: 8px;
-    height: 16px;
-    position: absolute;
-    top: 28px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 12px;
-}
-.mouth {
-    position: absolute;
-    top: 52px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 28px;
-    height: 14px;
-    background-color: black;
-    border-radius: 0 0 20px 20px;
-    overflow: hidden;
-    z-index: 4;
-}
-.teeth {
-    background-color: #fff;
-    width: 25px;
-    height: 2px;
-    position: absolute;
-    top: 0px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 10px;
-    z-index: 5;
-}
-.tongue{
-    background-color: red;
-    width: 18px;
-    height: 8px;
-    position: absolute;
-    bottom: 0px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 10px;
-    z-index: 5;
-}
-.neck {
-    background-color: var(--skin-color);
-    width: 27px;
-    height: 25px;
-    position: absolute;
-    bottom: -12px;
-    left: 50%;
-    z-index: 95;
-    transform: translateX(-50%);
-    border-radius: 50px;
-}
-.beard{
-    background-color: var(--hair-color);
-    width: 70px;
-    height: 35px;
-    position: absolute;
-    top: 49px;
-    left: -24.5px;
-    transform: translateX(35%);
-    z-index: 99;
-    border-radius: 0 0 80px 80px;
-}
-.beard::before {
-  content: '';
-  position: absolute;
-  width: 100%;
-  top: -2px;
-  height: 20px;
-  background-color: var(--skin-color); 
-  border-bottom-right-radius: 24px;
-  border-bottom-left-radius: 24px;
-  left: 0%;
-}
+    .beard {
+      background-color: var(--hair-color);
+      width: 70px;
+      height: 35px;
+      position: absolute;
+      top: 49px;
+      left: -24.5px;
+      transform: translateX(35%);
+      z-index: 99;
+      border-radius: 0 0 80px 80px;
+    }
 
-.human-body{
-    /*background-color: #ebebeb;*/
-    z-index: 1;
-    margin-left: 35px;
-    width: var(--width-body-top);       /* 150: width dell'intero avatar base*/
-    height: 400px;      
-}
-.body-top {
-    background-color: var(--clothing-top-color);
-    width: var(--width-body-top);   
-    height: var(--height-body-top);
-    position: absolute;
-    top: var(--body-top-starting-point);
-    left: var(--left-body-top);
-    transform: translateX(-50%);
-    z-index: 2;
-    border-top-left-radius: 50px;
-    border-top-right-radius: 50px;
-}
-.arm-left{
-    background-color: var(--clothing-top-color);
-    position: absolute;
-    left: calc(var(--left-body-top) - var(--half-body-top));
-    width: var(--width-arms);   
-    height: var(--height-arm-body-center-bottom);
-    z-index: 53;
-    top: calc(var(--body-top-starting-point) + var(--height-body-top));
-}
-.hand-left{
-    background-color: var(--skin-color);
-    position: absolute;
-    width: var(--width-arms);
-    height: 15px;
-    top: var(--height-arm-body-center-bottom);
-    z-index: 54;
-    border-bottom-left-radius: 50px;
-    border-bottom-right-radius: 50px;
+    .beard::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      top: -2px;
+      height: 20px;
+      background-color: var(--skin-color);
+      border-bottom-right-radius: 24px;
+      border-bottom-left-radius: 24px;
+      left: 0%;
+    }
 
-}
-.arm-right{
-    background-color: var(--clothing-top-color);
-    position: absolute;
-    left: calc(var(--half-body-top) + var(--left-body-top) - var(--width-arms));
-    width: var(--width-arms);   
-    height: var(--height-arm-body-center-bottom);
-    z-index: 53;
-    top: calc(var(--body-top-starting-point) + var(--height-body-top));;
-}
-.hand-right{
-    background-color: var(--skin-color);
-    position: absolute;
-    width: var(--width-arms);
-    height: 15px;
-    z-index: 54;
-    top: var(--height-arm-body-center-bottom);
-    border-bottom-left-radius: 50px;
-    border-bottom-right-radius: 50px;
-}
+    .human-body {
+      /*background-color: #ebebeb;*/
+      z-index: 1;
+      margin-left: 35px;
+      width: var(--width-body-top);
+      /* 150: width dell'intero avatar base*/
+      height: 400px;
+    }
 
-.body-center-top{
-    background-color: var(--clothing-top-color);
-    position: absolute;
-    left: var(--left-body-center);  
-    width: var(--width-body-center);   
-    height: var(--height-body-center-top);
-    top: calc(var(--body-top-starting-point) + var(--height-body-top));;
-    z-index: 2;
-    border-bottom-right-radius: 50px;
-    border-bottom-left-radius: 50px;
-}
-.body-center-bottom{
-    background-color: var(--clothing-top-color);
-    position: absolute;
-    left: var(--left-body-center);
-    width: var(--width-body-center);   
-    height: var(--height-body-center-bottom);
-    top: calc(var(--body-top-starting-point) + var(--height-body-top));;
-    z-index: 2;
-    border-top-right-radius: 80px;
-    border-top-left-radius: 80px;
-}
-.body-center-full{
-    background-color: var(--clothing-top-color);
-    position: absolute;
-    left: var(--left-body-center);
-    width: var(--width-body-center);   
-    height: var(--height-body-center-full);
-    top: calc(var(--body-top-starting-point) + var(--height-body-top));;
-    z-index: 2;
-}
+    .body-top {
+      background-color: var(--clothing-top-color);
+      width: var(--width-body-top);
+      height: var(--height-body-top);
+      position: absolute;
+      top: var(--body-top-starting-point);
+      left: var(--left-body-top);
+      transform: translateX(-50%);
+      z-index: 2;
+      border-top-left-radius: 50px;
+      border-top-right-radius: 50px;
+    }
 
-.bottom-top{
-    background-color: var(--clothing-bottom-color);
-    position: absolute;
-    left: var(--left-body-center);
-    width: var(--width-body-center);
-    height: var(--height-bottom-top);
-    max-width: 190px;
-    z-index: 1;
-    top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top));
+    .arm-left {
+      background-color: var(--clothing-top-color);
+      position: absolute;
+      left: calc(var(--left-body-top) - var(--half-body-top));
+      width: var(--width-arms);
+      height: var(--height-arm-body-center-bottom);
+      z-index: 53;
+      top: calc(var(--body-top-starting-point) + var(--height-body-top));
+    }
 
-}
-.leg-left{
-    background-color: var(--clothing-bottom-color);
-    position: absolute;
-    left: calc(var(--left-body-center));
-    width: calc(var(--width-legs));
-    max-width: 43px;
-    height: var(--height-legs);
-    z-index: 1;
-    top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top));
-}
-.leg-right{
-    background-color: var(--clothing-bottom-color);
-    position: absolute;
-    left: calc(var(--left-body-center) + var(--width-body-center) - var(--width-legs));
-    width: var(--width-legs);
-    max-width: 43px;
-    height: var(--height-legs);
-    z-index: 1;
-    top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top));
-}
-.midtriangle-left{
-    width: 0; 
-    height: 0; 
-    position: absolute;
-    left: 100px;
-    top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top));
-    z-index: 1;
-    border-top: 5px solid var(--clothing-bottom-color);
-    border-bottom: var(--height-legs) solid transparent;
-    border-left: 10px solid var(--clothing-bottom-color);
-}
-.midtriangle-right{
-    width: 0; 
-    height: 0; 
-    position: absolute;
-    left: 110px;
-    top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top));
-    z-index: 1;
-    border-top: 5px solid var(--clothing-bottom-color);
-    border-bottom: var(--height-legs) solid transparent;
-    border-right: 10px solid var(--clothing-bottom-color);
-}
-.shoeleg-left{
-    background-color: var(--shoes-color);
-    position: absolute;
-    left: 69px;
-    width: 31px;
-    height: 20px;
-    z-index: 1;
-    top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top) + var(--height-legs));
-}
-.shoe-left{
-    background-color: var(--shoes-color);
-    position: absolute;
-    left: 45px;
-    width: 55px;
-    height: 23px;
-    z-index: 1;
-    top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top) + var(--height-legs) + 10px);
-    border-top-left-radius: 30px;
-}
-.shoeleg-right{
-    background-color: var(--shoes-color);
-    position: absolute;
-    left: 120px;
-    width: 31px;
-    height: 20px;
-    z-index: 1;
-    top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top) + var(--height-legs));
-}
-.shoe-right{
-    background-color: var(--shoes-color);
-    position: absolute;
-    left: 120px;
-    width: 55px;
-    height: 23px;
-    z-index: 1;
-    top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top) + var(--height-legs) + 10px);
-    border-top-right-radius: 30px;
-}
-/* End Drawing */
+    .hand-left {
+      background-color: var(--skin-color);
+      position: absolute;
+      width: var(--width-arms);
+      height: 15px;
+      top: var(--height-arm-body-center-bottom);
+      z-index: 54;
+      border-bottom-left-radius: 50px;
+      border-bottom-right-radius: 50px;
+    }
 
-/* vestiti */
-.c-body-top {
-    background-color: var(--c-clothing-top-color);
-    width: var(--selected_width_top);   
-    height: var(--height-body-top);
-    position: absolute;
-    top: var(--body-top-starting-point);
-    left: var(--left-body-top);
-    transform: translateX(-50%);
-    z-index: 53;
-    border-top-left-radius: 50px;
-    border-top-right-radius: 50px;
-}
-.c-arm-left{
-    background-color: var(--c-clothing-top-color);
-    position: absolute;
-    left: calc(var(--left-body-top) - var(--c-half-body-top));  /* non le ho modificate perchè costanti */
-    width: var(--c-width-arms);   
-    height: var(--height-arm-body-center-bottom);
-    z-index: 53;
-    top: calc(var(--body-top-starting-point) + var(--height-body-top));
-}
-.c-hand-left{
-    background-color: var(--skin-color);
-    position: absolute;
-    width: var(--width-arms);
-    height: 15px;
-    left: calc(var(--c-width-arms) - var(--width-arms));
-    top: var(--height-arm-body-center-bottom);
-    z-index: 1;
-    border-bottom-left-radius: 50px;
-    border-bottom-right-radius: 50px;
+    .arm-right {
+      background-color: var(--clothing-top-color);
+      position: absolute;
+      left: calc(var(--half-body-top) + var(--left-body-top) - var(--width-arms));
+      width: var(--width-arms);
+      height: var(--height-arm-body-center-bottom);
+      z-index: 53;
+      top: calc(var(--body-top-starting-point) + var(--height-body-top));
+      ;
+    }
 
-}
-.c-arm-right{
-    background-color: var(--c-clothing-top-color);
-    position: absolute;
-    left: calc(var(--c-half-body-top) + var(--left-body-top) - var(--c-width-arms));
-    width: var(--c-width-arms);   
-    height: var(--height-arm-body-center-bottom);
-    z-index: 53;
-    top: calc(var(--body-top-starting-point) + var(--height-body-top));
-}
-.c-hand-right{
-    background-color: var(--skin-color);
-    position: absolute;
-    width: var(--width-arms);
-    height: 15px;
-    z-index: 1;
-    top: var(--height-arm-body-center-bottom);
-    border-bottom-left-radius: 50px;
-    border-bottom-right-radius: 50px;
-}
-.c-body-center-top{
-    background-color: var(--c-clothing-top-color);
-    position: absolute;
-    left: var(--c-left-body-center);  
-    width: var(--c-width-body-center);   
-    height: var(--height-body-center-top);
-    top: calc(var(--body-top-starting-point) + var(--height-body-top));
-    z-index: 53;
-    border-bottom-right-radius: 50px;
-    border-bottom-left-radius: 50px;
-}
-.c-body-center-bottom{
-    background-color: var(--c-clothing-top-color);
-    position: absolute;
-    left: var(--c-left-body-center);
-    width: var(--c-width-body-center);   
-    height: var(--height-body-center-bottom);
-    top: calc(var(--body-top-starting-point) + var(--height-body-top));
-    z-index: 53;
-    border-top-right-radius: 80px;
-    border-top-left-radius: 80px;
-}
-.c-body-center-full{
-    background-color: var(--c-clothing-top-color);
-    position: absolute;
-    left: var(--c-left-body-center);
-    width: var(--c-width-body-center);   
-    height: var(--height-body-center-full);
-    top: calc(var(--body-top-starting-point) + var(--height-body-top));
-    z-index: 53;
-}
-.c-bottom-top{
-    background-color: var(--c-clothing-bottom-color);
-    position: absolute;
-    left: var(--c-left-body-center-but-legs);
-    width: var(--c-width-body-center-but-legs);
-    height: var(--height-bottom-top);
-    max-width: 190px;
-    z-index: 52;
-    top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top));
+    .hand-right {
+      background-color: var(--skin-color);
+      position: absolute;
+      width: var(--width-arms);
+      height: 15px;
+      z-index: 54;
+      top: var(--height-arm-body-center-bottom);
+      border-bottom-left-radius: 50px;
+      border-bottom-right-radius: 50px;
+    }
 
-}
-.c-leg-left{
-    background-color: var(--c-clothing-bottom-color);
-    position: absolute;
-    left: var(--c-left-body-center-but-legs);
-    width: var(--c-width-legs);
-    max-width: 43px;
-    height: var(--height-legs);
-    z-index: 52;
-    top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top));
-}
-.c-leg-right{
-    background-color: var(--c-clothing-bottom-color);
-    position: absolute;
-    left: calc(var(--c-left-body-center-but-legs) + var(--c-width-body-center-but-legs) - var(--c-width-legs));
-    width: var(--c-width-legs);
-    max-width: 43px;
-    height: var(--height-legs);
-    z-index: 52;
-    top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top));
-}
-.c-midtriangle-left{
-    width: 0; 
-    height: 0; 
-    position: absolute;
-    left: 100px;
-    top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top));
-    z-index: 52;
-    border-top: 5px solid var(--c-clothing-bottom-color);
-    border-bottom: var(--height-legs) solid transparent;
-    border-left: 10px solid var(--c-clothing-bottom-color);
-}
-.c-midtriangle-right{
-    width: 0; 
-    height: 0; 
-    position: absolute;
-    left: 110px;
-    top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top));
-    z-index: 52;
-    border-top: 5px solid var(--c-clothing-bottom-color);
-    border-bottom: var(--height-legs) solid transparent;
-    border-right: 10px solid var(--c-clothing-bottom-color);
-}
-/* fine vestiti */
+    .body-center-top {
+      background-color: var(--clothing-top-color);
+      position: absolute;
+      left: var(--left-body-center);
+      width: var(--width-body-center);
+      height: var(--height-body-center-top);
+      top: calc(var(--body-top-starting-point) + var(--height-body-top));
+      ;
+      z-index: 2;
+      border-bottom-right-radius: 50px;
+      border-bottom-left-radius: 50px;
+    }
 
-.non-vestibile {
-    opacity: 0.5; /* Opacità ridotta per indicare che non è disponibile */
-    pointer-events: none; /* Non è cliccabile */
-}
+    .body-center-bottom {
+      background-color: var(--clothing-top-color);
+      position: absolute;
+      left: var(--left-body-center);
+      width: var(--width-body-center);
+      height: var(--height-body-center-bottom);
+      top: calc(var(--body-top-starting-point) + var(--height-body-top));
+      ;
+      z-index: 2;
+      border-top-right-radius: 80px;
+      border-top-left-radius: 80px;
+    }
 
-  </style>
-    {% include 'components/header.html' %}
-  <body class="bg-gray-100">
+    .body-center-full {
+      background-color: var(--clothing-top-color);
+      position: absolute;
+      left: var(--left-body-center);
+      width: var(--width-body-center);
+      height: var(--height-body-center-full);
+      top: calc(var(--body-top-starting-point) + var(--height-body-top));
+      ;
+      z-index: 2;
+    }
+
+    .bottom-top {
+      background-color: var(--clothing-bottom-color);
+      position: absolute;
+      left: var(--left-body-center);
+      width: var(--width-body-center);
+      height: var(--height-bottom-top);
+      max-width: 190px;
+      z-index: 1;
+      top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top));
+    }
+
+    .leg-left {
+      background-color: var(--clothing-bottom-color);
+      position: absolute;
+      left: calc(var(--left-body-center));
+      width: calc(var(--width-legs));
+      max-width: 43px;
+      height: var(--height-legs);
+      z-index: 1;
+      top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top));
+    }
+
+    .leg-right {
+      background-color: var(--clothing-bottom-color);
+      position: absolute;
+      left: calc(var(--left-body-center) + var(--width-body-center) - var(--width-legs));
+      width: var(--width-legs);
+      max-width: 43px;
+      height: var(--height-legs);
+      z-index: 1;
+      top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top));
+    }
+
+    .midtriangle-left {
+      width: 0;
+      height: 0;
+      position: absolute;
+      left: 100px;
+      top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top));
+      z-index: 1;
+      border-top: 5px solid var(--clothing-bottom-color);
+      border-bottom: var(--height-legs) solid transparent;
+      border-left: 10px solid var(--clothing-bottom-color);
+    }
+
+    .midtriangle-right {
+      width: 0;
+      height: 0;
+      position: absolute;
+      left: 110px;
+      top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top));
+      z-index: 1;
+      border-top: 5px solid var(--clothing-bottom-color);
+      border-bottom: var(--height-legs) solid transparent;
+      border-right: 10px solid var(--clothing-bottom-color);
+    }
+
+    .shoeleg-left {
+      background-color: var(--shoes-color);
+      position: absolute;
+      left: 69px;
+      width: 31px;
+      height: 20px;
+      z-index: 1;
+      top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top) + var(--height-legs));
+    }
+
+    .shoe-left {
+      background-color: var(--shoes-color);
+      position: absolute;
+      left: 45px;
+      width: 55px;
+      height: 23px;
+      z-index: 1;
+      top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top) + var(--height-legs) + 10px);
+      border-top-left-radius: 30px;
+    }
+
+    .shoeleg-right {
+      background-color: var(--shoes-color);
+      position: absolute;
+      left: 120px;
+      width: 31px;
+      height: 20px;
+      z-index: 1;
+      top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top) + var(--height-legs));
+    }
+
+    .shoe-right {
+      background-color: var(--shoes-color);
+      position: absolute;
+      left: 120px;
+      width: 55px;
+      height: 23px;
+      z-index: 1;
+      top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top) + var(--height-legs) + 10px);
+      border-top-right-radius: 30px;
+    }
+
+    /* End Drawing */
+    /* vestiti */
+    .c-body-top {
+      background-color: var(--c-clothing-top-color);
+      width: var(--selected_width_top);
+      height: var(--height-body-top);
+      position: absolute;
+      top: var(--body-top-starting-point);
+      left: var(--left-body-top);
+      transform: translateX(-50%);
+      z-index: 53;
+      border-top-left-radius: 50px;
+      border-top-right-radius: 50px;
+    }
+
+    .c-arm-left {
+      background-color: var(--c-clothing-top-color);
+      position: absolute;
+      left: calc(var(--left-body-top) - var(--c-half-body-top));
+      /* non le ho modificate perchè costanti */
+      width: var(--c-width-arms);
+      height: var(--height-arm-body-center-bottom);
+      z-index: 53;
+      top: calc(var(--body-top-starting-point) + var(--height-body-top));
+    }
+
+    .c-hand-left {
+      background-color: var(--skin-color);
+      position: absolute;
+      width: var(--width-arms);
+      height: 15px;
+      left: calc(var(--c-width-arms) - var(--width-arms));
+      top: var(--height-arm-body-center-bottom);
+      z-index: 1;
+      border-bottom-left-radius: 50px;
+      border-bottom-right-radius: 50px;
+    }
+
+    .c-arm-right {
+      background-color: var(--c-clothing-top-color);
+      position: absolute;
+      left: calc(var(--c-half-body-top) + var(--left-body-top) - var(--c-width-arms));
+      width: var(--c-width-arms);
+      height: var(--height-arm-body-center-bottom);
+      z-index: 53;
+      top: calc(var(--body-top-starting-point) + var(--height-body-top));
+    }
+
+    .c-hand-right {
+      background-color: var(--skin-color);
+      position: absolute;
+      width: var(--width-arms);
+      height: 15px;
+      z-index: 1;
+      top: var(--height-arm-body-center-bottom);
+      border-bottom-left-radius: 50px;
+      border-bottom-right-radius: 50px;
+    }
+
+    .c-body-center-top {
+      background-color: var(--c-clothing-top-color);
+      position: absolute;
+      left: var(--c-left-body-center);
+      width: var(--c-width-body-center);
+      height: var(--height-body-center-top);
+      top: calc(var(--body-top-starting-point) + var(--height-body-top));
+      z-index: 53;
+      border-bottom-right-radius: 50px;
+      border-bottom-left-radius: 50px;
+    }
+
+    .c-body-center-bottom {
+      background-color: var(--c-clothing-top-color);
+      position: absolute;
+      left: var(--c-left-body-center);
+      width: var(--c-width-body-center);
+      height: var(--height-body-center-bottom);
+      top: calc(var(--body-top-starting-point) + var(--height-body-top));
+      z-index: 53;
+      border-top-right-radius: 80px;
+      border-top-left-radius: 80px;
+    }
+
+    .c-body-center-full {
+      background-color: var(--c-clothing-top-color);
+      position: absolute;
+      left: var(--c-left-body-center);
+      width: var(--c-width-body-center);
+      height: var(--height-body-center-full);
+      top: calc(var(--body-top-starting-point) + var(--height-body-top));
+      z-index: 53;
+    }
+
+    .c-bottom-top {
+      background-color: var(--c-clothing-bottom-color);
+      position: absolute;
+      left: var(--c-left-body-center-but-legs);
+      width: var(--c-width-body-center-but-legs);
+      height: var(--height-bottom-top);
+      max-width: 190px;
+      z-index: 52;
+      top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top));
+    }
+
+    .c-leg-left {
+      background-color: var(--c-clothing-bottom-color);
+      position: absolute;
+      left: var(--c-left-body-center-but-legs);
+      width: var(--c-width-legs);
+      max-width: 43px;
+      height: var(--height-legs);
+      z-index: 52;
+      top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top));
+    }
+
+    .c-leg-right {
+      background-color: var(--c-clothing-bottom-color);
+      position: absolute;
+      left: calc(var(--c-left-body-center-but-legs) + var(--c-width-body-center-but-legs) - var(--c-width-legs));
+      width: var(--c-width-legs);
+      max-width: 43px;
+      height: var(--height-legs);
+      z-index: 52;
+      top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top));
+    }
+
+    .c-midtriangle-left {
+      width: 0;
+      height: 0;
+      position: absolute;
+      left: 100px;
+      top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top));
+      z-index: 52;
+      border-top: 5px solid var(--c-clothing-bottom-color);
+      border-bottom: var(--height-legs) solid transparent;
+      border-left: 10px solid var(--c-clothing-bottom-color);
+    }
+
+    .c-midtriangle-right {
+      width: 0;
+      height: 0;
+      position: absolute;
+      left: 110px;
+      top: calc(var(--height-arm-body-center-bottom) + var(--body-top-starting-point) + var(--height-body-top) + var(--height-bottom-top));
+      z-index: 52;
+      border-top: 5px solid var(--c-clothing-bottom-color);
+      border-bottom: var(--height-legs) solid transparent;
+      border-right: 10px solid var(--c-clothing-bottom-color);
+    }
+
+    /* fine vestiti */
+    .non-vestibile {
+      opacity: 0.5;
+      /* Opacità ridotta per indicare che non è disponibile */
+      pointer-events: none;
+      /* Non è cliccabile */
+    }
+  </style> {% include 'components/header.html' %} <body class="bg-gray-100">
     <div class="flex">
-
-        <!-- AVATAR -->
-        <div class="w-1/3 p-2 ">
-            <div class="relative w-40 h-40 mx-auto">
-                <div class="human-body-top">
-                    <div class="hair-female" style="display: hidden;"></div>
-                    <div class="hair-male" style="display: none;"></div>                                        <!-- visible se MASCHIO-->                   
-                        <div class="face" style="border-top-right-radius: 0px; border-top-left-radius: 0px;"> <!-- 50px per uomo, 0 per donna-->
-                            <div class="napkin" style="height: 40px;" ></div>                                    <!-- 0 per uomo, 40 per donna-->
-                            <div class="eye1">
-                                <div class="brow1"></div>
-                            </div>
-                            <div class="eye2">
-                                <div class="brow2"></div>
-                            </div>
-                            <div class="nose"></div>
-                            <div class="cheek"></div>
-                            <div class="mouth">
-                                <div class="teeth"></div>
-                                <div class="tongue"></div>
-                            </div>
-                            <div class="beard" id="beard" style="display: none"></div>
-                            <div class="neck"></div>
-                        </div>
-
-                        <div class="human-body">
-                            <div class="body-top"></div>
-                            <div class="arm-left">
-                                <div class="hand-left"></div>
-                            </div>
-                            <div class="arm-right">
-                                <div class="hand-right"></div>
-                            </div>
-                            <div class="body-center-top"></div>
-                            <div class="body-center-bottom"></div>
-                            <div class="body-center-full" style="display: none;"></div>      <!-- hidden per uomo -->                   <!-- visible se MASCHIO-->
-    
-                            <div class="bottom-top"></div>
-                            <div class="leg-left"></div>
-                            <div class="leg-right"></div>
-    
-                            <div class="midtriangle-left"></div>
-                            <div class="midtriangle-right"></div>
-    
-                            <div class="shoeleg-left"></div>
-                            <div class="shoe-left"></div>
-                            <div class="shoeleg-right"></div>
-                            <div class="shoe-right"></div>
-
-                            <!-- elementi dei vestiti da sopra l'avatar -->
-                            <div class="c-body-top"></div>
-                            <div class="c-arm-left">
-                              <div class="c-hand-left" style="display: none;"></div>
-                            </div>
-                            <div class="c-arm-right">
-                              <div class="c-hand-right" style="display: none;"></div>
-                            </div>
-
-                            <div class="c-body-center-top"></div>
-                            <div class="c-body-center-bottom"></div>
-                            <div class="c-body-center-full" style="display: none;"></div>
-
-                            <div class="c-bottom-top"></div>
-                            <div class="c-leg-left"></div>
-                            <div class="c-leg-right"></div>
-                            <div class="c-midtriangle-left"></div>
-                            <div class="c-midtriangle-right"></div>
-                        </div>
-                    </div>
+      <!-- AVATAR -->
+      <div class="w-1/3 p-2 ">
+        <div class="relative w-40 h-40 mx-auto">
+          <div class="human-body-top">
+            <div class="hair-female" style="display: hidden;"></div>
+            <div class="hair-male" style="display: none;"></div>
+            <!-- visible se MASCHIO-->
+            <div class="face" style="border-top-right-radius: 0px; border-top-left-radius: 0px;">
+              <!-- 50px per uomo, 0 per donna-->
+              <div class="napkin" style="height: 40px;"></div>
+              <!-- 0 per uomo, 40 per donna-->
+              <div class="eye1">
+                <div class="brow1"></div>
+              </div>
+              <div class="eye2">
+                <div class="brow2"></div>
+              </div>
+              <div class="nose"></div>
+              <div class="cheek"></div>
+              <div class="mouth">
+                <div class="teeth"></div>
+                <div class="tongue"></div>
+              </div>
+              <div class="beard" id="beard" style="display: none"></div>
+              <div class="neck"></div>
             </div>
+            <div class="human-body">
+              <div class="body-top"></div>
+              <div class="arm-left">
+                <div class="hand-left"></div>
+              </div>
+              <div class="arm-right">
+                <div class="hand-right"></div>
+              </div>
+              <div class="body-center-top"></div>
+              <div class="body-center-bottom"></div>
+              <div class="body-center-full" style="display: none;"></div>
+              <!-- hidden per uomo -->
+              <!-- visible se MASCHIO-->
+              <div class="bottom-top"></div>
+              <div class="leg-left"></div>
+              <div class="leg-right"></div>
+              <div class="midtriangle-left"></div>
+              <div class="midtriangle-right"></div>
+              <div class="shoeleg-left"></div>
+              <div class="shoe-left"></div>
+              <div class="shoeleg-right"></div>
+              <div class="shoe-right"></div>
+              <!-- elementi dei vestiti da sopra l'avatar -->
+              <div class="c-body-top"></div>
+              <div class="c-arm-left">
+                <div class="c-hand-left" style="display: none;"></div>
+              </div>
+              <div class="c-arm-right">
+                <div class="c-hand-right" style="display: none;"></div>
+              </div>
+              <div class="c-body-center-top"></div>
+              <div class="c-body-center-bottom"></div>
+              <div class="c-body-center-full" style="display: none;"></div>
+              <div class="c-bottom-top"></div>
+              <div class="c-leg-left"></div>
+              <div class="c-leg-right"></div>
+              <div class="c-midtriangle-left"></div>
+              <div class="c-midtriangle-right"></div>
+            </div>
+          </div>
         </div>
-
-        <!-- INIZIO colonna a destra per selezionare robe -->
+      </div>
+      <!-- INIZIO colonna a destra per selezionare robe -->
       <div class=" p-6 bg-gray-200 m-9 max-w-xl ml-auto">
         <h2 class="text-2xl font-bold mb-4">Vesti il tuo avatar</h2>
         <form id="avatarForm" action="#" method="post" class="space-y-4">
           <!-- COLORI PELLE -->
           <div class="mb-4" style="display: none;">
-            <label for="colorePelle" class="block font-medium mb-2"
-              >Colore Pelle:</label
-            >
+            <label for="colorePelle" class="block font-medium mb-2">Colore Pelle:</label>
             <div class="flex flex-wrap items-center space-x-1">
-              <input type="radio" id="colorePelle1" name="colorePelle"
-              value="Rosa pallido" class="opacity-0 absolute sr-only"{% if
-              avatar[1]=='Rosa pallido' %}checked{% endif %} />
-              <label
-                for="colorePelle1"
-                class="flex items-center relative cursor-pointer"
-              >
-                <div
-                  class="w-8 h-8 rounded-full bg-red-200 border border-gray-300"
-                ></div>
-                <div
-                  class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"
-                ></div>
+              <input type="radio" id="colorePelle1" name="colorePelle" value="Rosa pallido" class="opacity-0 absolute sr-only" {% if
+                           avatar[1]=='Rosa pallido' %}checked{% endif %} />
+              <label for="colorePelle1" class="flex items-center relative cursor-pointer">
+                <div class="w-8 h-8 rounded-full bg-red-200 border border-gray-300"></div>
+                <div class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"></div>
               </label>
-              <input type="radio" id="colorePelle2" name="colorePelle"
-              value="Rosa" class="opacity-0 absolute sr-only" {% if
-                avatar[1]=='Rosa' %}checked{% endif %}/>
-              <label
-                for="colorePelle2"
-                class="flex items-center relative cursor-pointer"
-              >
-                <div
-                  class="w-8 h-8 rounded-full bg-red-300 border border-gray-300"
-                ></div>
-                <div
-                  class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"
-                ></div>
+              <input type="radio" id="colorePelle2" name="colorePelle" value="Rosa" class="opacity-0 absolute sr-only" {% if
+                           avatar[1]=='Rosa' %}checked{% endif %} />
+              <label for="colorePelle2" class="flex items-center relative cursor-pointer">
+                <div class="w-8 h-8 rounded-full bg-red-300 border border-gray-300"></div>
+                <div class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"></div>
               </label>
-              <input type="radio" id="colorePelle3" name="colorePelle"
-              value="marrone chiaro" class="opacity-0 absolute sr-only" {% if
-                avatar[1]=='marrone chiaro' %}checked{% endif %}/>
-              <label
-                for="colorePelle3"
-                class="flex items-center relative cursor-pointer"
-              >
-                <div
-                  class="w-8 h-8 rounded-full bg-yellow-600 border border-gray-300"
-                ></div>
-                <div
-                  class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"
-                ></div>
+              <input type="radio" id="colorePelle3" name="colorePelle" value="marrone chiaro" class="opacity-0 absolute sr-only" {% if
+                           avatar[1]=='marrone chiaro' %}checked{% endif %} />
+              <label for="colorePelle3" class="flex items-center relative cursor-pointer">
+                <div class="w-8 h-8 rounded-full bg-yellow-600 border border-gray-300"></div>
+                <div class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"></div>
               </label>
-              <input type="radio" id="colorePelle4" name="colorePelle"
-              value="mulatto" class="opacity-0 absolute sr-only" {% if
-                avatar[1]=='mulatto' %}checked{% endif %}/>
-              <label
-                for="colorePelle4"
-                class="flex items-center relative cursor-pointer"
-              >
-                <div
-                  class="w-8 h-8 rounded-full bg-yellow-800 border border-gray-300"
-                ></div>
-                <div
-                  class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"
-                ></div>
+              <input type="radio" id="colorePelle4" name="colorePelle" value="mulatto" class="opacity-0 absolute sr-only" {% if
+                           avatar[1]=='mulatto' %}checked{% endif %} />
+              <label for="colorePelle4" class="flex items-center relative cursor-pointer">
+                <div class="w-8 h-8 rounded-full bg-yellow-800 border border-gray-300"></div>
+                <div class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"></div>
               </label>
-              <input type="radio" id="colorePelle5" name="colorePelle"
-              value="marrone scuro" class="opacity-0 absolute sr-only" {% if
-                avatar[1]=='marrone scuro' %}checked{% endif %}/>
-              <label
-                for="colorePelle5"
-                class="flex items-center relative cursor-pointer"
-              >
-                <div
-                  class="w-8 h-8 rounded-full bg-yellow-900 border border-gray-300"
-                ></div>
-                <div
-                  class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"
-                ></div>
+              <input type="radio" id="colorePelle5" name="colorePelle" value="marrone scuro" class="opacity-0 absolute sr-only" {% if
+                           avatar[1]=='marrone scuro' %}checked{% endif %} />
+              <label for="colorePelle5" class="flex items-center relative cursor-pointer">
+                <div class="w-8 h-8 rounded-full bg-yellow-900 border border-gray-300"></div>
+                <div class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"></div>
               </label>
             </div>
           </div>
-
           <!-- COLORI OCCHI -->
           <div class="mb-4" style="display: none;">
-            <label for="coloreOcchi" class="block font-medium"
-              >Colore Occhi:</label
-            >
+            <label for="coloreOcchi" class="block font-medium">Colore Occhi:</label>
             <div class="flex flex-wrap items-center space-x-1">
-              <input type="radio" id="coloreOcchi1" name="coloreOcchi"
-              value="blu chiaro" class="opacity-0 absolute sr-only" {% if
-                avatar[2]=='blu chiaro' %}checked{% endif %} />
-              <label
-                for="coloreOcchi1"
-                class="flex items-center relative cursor-pointer"
-              >
-                <div
-                  class="w-8 h-8 rounded-full bg-blue-400 border border-gray-300"
-                ></div>
-                <div
-                  class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"
-                ></div>
+              <input type="radio" id="coloreOcchi1" name="coloreOcchi" value="blu chiaro" class="opacity-0 absolute sr-only" {% if
+                           avatar[2]=='blu chiaro' %}checked{% endif %} />
+              <label for="coloreOcchi1" class="flex items-center relative cursor-pointer">
+                <div class="w-8 h-8 rounded-full bg-blue-400 border border-gray-300"></div>
+                <div class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"></div>
               </label>
-              <input type="radio" id="coloreOcchi2" name="coloreOcchi"
-              value="blu scuro" class="opacity-0 absolute sr-only" {% if
-                avatar[2]=='blu scuro' %}checked{% endif %} />
-              <label
-                for="coloreOcchi2"
-                class="flex items-center relative cursor-pointer"
-              >
-                <div
-                  class="w-8 h-8 rounded-full bg-blue-700 border border-gray-300"
-                ></div>
-                <div
-                  class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"
-                ></div>
+              <input type="radio" id="coloreOcchi2" name="coloreOcchi" value="blu scuro" class="opacity-0 absolute sr-only" {% if
+                           avatar[2]=='blu scuro' %}checked{% endif %} />
+              <label for="coloreOcchi2" class="flex items-center relative cursor-pointer">
+                <div class="w-8 h-8 rounded-full bg-blue-700 border border-gray-300"></div>
+                <div class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"></div>
               </label>
-              <input type="radio" id="coloreOcchi3" name="coloreOcchi"
-              value="verde chiaro" class="opacity-0 absolute sr-only" {% if
-                avatar[2]=='verde chiaro' %}checked{% endif %} />
-              <label
-                for="coloreOcchi3"
-                class="flex items-center relative cursor-pointer"
-              >
-                <div
-                  class="w-8 h-8 rounded-full bg-green-600 border border-gray-300"
-                ></div>
-                <div
-                  class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"
-                ></div>
+              <input type="radio" id="coloreOcchi3" name="coloreOcchi" value="verde chiaro" class="opacity-0 absolute sr-only" {% if
+                           avatar[2]=='verde chiaro' %}checked{% endif %} />
+              <label for="coloreOcchi3" class="flex items-center relative cursor-pointer">
+                <div class="w-8 h-8 rounded-full bg-green-600 border border-gray-300"></div>
+                <div class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"></div>
               </label>
-              <input type="radio" id="coloreOcchi4" name="coloreOcchi"
-              value="verde scuro" class="opacity-0 absolute sr-only" {% if
-                avatar[2]=='verde scuro' %}checked{% endif %} />
-              <label
-                for="coloreOcchi4"
-                class="flex items-center relative cursor-pointer"
-              >
-                <div
-                  class="w-8 h-8 rounded-full bg-green-800 border border-gray-300"
-                ></div>
-                <div
-                  class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"
-                ></div>
+              <input type="radio" id="coloreOcchi4" name="coloreOcchi" value="verde scuro" class="opacity-0 absolute sr-only" {% if
+                           avatar[2]=='verde scuro' %}checked{% endif %} />
+              <label for="coloreOcchi4" class="flex items-center relative cursor-pointer">
+                <div class="w-8 h-8 rounded-full bg-green-800 border border-gray-300"></div>
+                <div class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"></div>
               </label>
-              <input type="radio" id="coloreOcchi5" name="coloreOcchi"
-              value="marrone" class="opacity-0 absolute sr-only" {% if
-                avatar[2]=='marrone' %}checked{% endif %} />
-              <label
-                for="coloreOcchi5"
-                class="flex items-center relative cursor-pointer"
-              >
-                <div
-                  class="w-8 h-8 rounded-full bg-yellow-800 border border-gray-300"
-                ></div>
-                <div
-                  class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"
-                ></div>
+              <input type="radio" id="coloreOcchi5" name="coloreOcchi" value="marrone" class="opacity-0 absolute sr-only" {% if
+                           avatar[2]=='marrone' %}checked{% endif %} />
+              <label for="coloreOcchi5" class="flex items-center relative cursor-pointer">
+                <div class="w-8 h-8 rounded-full bg-yellow-800 border border-gray-300"></div>
+                <div class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"></div>
               </label>
             </div>
           </div>
-
           <!-- COLORI CAPELLI -->
           <div class="mb-4" style="display: none;">
-            <label for="coloreCapelli" class="block font-medium"
-              >Colore Capelli:</label
-            >
+            <label for="coloreCapelli" class="block font-medium">Colore Capelli:</label>
             <div class="flex flex-wrap items-center space-x-1">
-              <input type="radio" id="coloreCapelli1" name="coloreCapelli"
-              value="bianco" class="opacity-0 absolute sr-only" {% if
-                avatar[3]=='bianco' %}checked{% endif %} />
-              <label
-                for="coloreCapelli1"
-                class="flex items-center relative cursor-pointer"
-              >
-                <div
-                  class="w-8 h-8 rounded-full bg-gray-100 border border-gray-300"
-                ></div>
-                <div
-                  class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"
-                ></div>
+              <input type="radio" id="coloreCapelli1" name="coloreCapelli" value="bianco" class="opacity-0 absolute sr-only" {% if
+                           avatar[3]=='bianco' %}checked{% endif %} />
+              <label for="coloreCapelli1" class="flex items-center relative cursor-pointer">
+                <div class="w-8 h-8 rounded-full bg-gray-100 border border-gray-300"></div>
+                <div class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"></div>
               </label>
-              <input type="radio" id="coloreCapelli2" name="coloreCapelli"
-              value="nero" class="opacity-0 absolute sr-only" {% if
-                avatar[3]=='nero' %}checked{% endif %} />
-              <label
-                for="coloreCapelli2"
-                class="flex items-center relative cursor-pointer"
-              >
-                <div
-                  class="w-8 h-8 rounded-full bg-gray-700 border border-gray-300"
-                ></div>
-                <div
-                  class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"
-                ></div>
+              <input type="radio" id="coloreCapelli2" name="coloreCapelli" value="nero" class="opacity-0 absolute sr-only" {% if
+                           avatar[3]=='nero' %}checked{% endif %} />
+              <label for="coloreCapelli2" class="flex items-center relative cursor-pointer">
+                <div class="w-8 h-8 rounded-full bg-gray-700 border border-gray-300"></div>
+                <div class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"></div>
               </label>
-              <input type="radio" id="coloreCapelli3" name="coloreCapelli"
-              value="marrone chiaro" class="opacity-0 absolute sr-only" {% if
-                avatar[3]=='marrone chiaro' %}checked{% endif %} />
-              <label
-                for="coloreCapelli3"
-                class="flex items-center relative cursor-pointer"
-              >
-                <div
-                  class="w-8 h-8 rounded-full bg-yellow-700 border border-gray-300"
-                ></div>
-                <div
-                  class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"
-                ></div>
+              <input type="radio" id="coloreCapelli3" name="coloreCapelli" value="marrone chiaro" class="opacity-0 absolute sr-only" {% if
+                           avatar[3]=='marrone chiaro' %}checked{% endif %} />
+              <label for="coloreCapelli3" class="flex items-center relative cursor-pointer">
+                <div class="w-8 h-8 rounded-full bg-yellow-700 border border-gray-300"></div>
+                <div class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"></div>
               </label>
-              <input type="radio" id="coloreCapelli4" name="coloreCapelli"
-              value="marrone scuro" class="opacity-0 absolute sr-only" {% if
-                avatar[3]=='marrone scuro' %}checked{% endif %} />
-              <label
-                for="coloreCapelli4"
-                class="flex items-center relative cursor-pointer"
-              >
-                <div
-                  class="w-8 h-8 rounded-full bg-yellow-900 border border-gray-300"
-                ></div>
-                <div
-                  class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"
-                ></div>
+              <input type="radio" id="coloreCapelli4" name="coloreCapelli" value="marrone scuro" class="opacity-0 absolute sr-only" {% if
+                           avatar[3]=='marrone scuro' %}checked{% endif %} />
+              <label for="coloreCapelli4" class="flex items-center relative cursor-pointer">
+                <div class="w-8 h-8 rounded-full bg-yellow-900 border border-gray-300"></div>
+                <div class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"></div>
               </label>
-              <input type="radio" id="coloreCapelli5" name="coloreCapelli"
-              value="biondo" class="opacity-0 absolute sr-only" {% if
-                avatar[3]=='biondo' %}checked{% endif %} />
-              <label
-                for="coloreCapelli5"
-                class="flex items-center relative cursor-pointer"
-              >
-                <div
-                  class="w-8 h-8 rounded-full bg-yellow-400 border border-gray-300"
-                ></div>
-                <div
-                  class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"
-                ></div>
+              <input type="radio" id="coloreCapelli5" name="coloreCapelli" value="biondo" class="opacity-0 absolute sr-only" {% if
+                           avatar[3]=='biondo' %}checked{% endif %} />
+              <label for="coloreCapelli5" class="flex items-center relative cursor-pointer">
+                <div class="w-8 h-8 rounded-full bg-yellow-400 border border-gray-300"></div>
+                <div class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"></div>
               </label>
             </div>
           </div>
-
           <!-- LUNGHEZZA CAPELLI -->
           <div style="display: none;">
-            <label for="lunghezzaCapelli" class="block font-medium"
-              >Lunghezza Capelli:</label
-            >
-            <input
-              type="range"
-              id="lunghezzaCapelli"
-              name="lunghezzaCapelli"
-              min="1"
-              max="20"
-              class="w-full rounded-md border-gray-300"
-              value="{{avatar[4]}}"
-            />
+            <label for="lunghezzaCapelli" class="block font-medium">Lunghezza Capelli:</label>
+            <input type="range" id="lunghezzaCapelli" name="lunghezzaCapelli" min="1" max="20" class="w-full rounded-md border-gray-300" value="{{avatar[4]}}" />
           </div>
-
           <!-- ALTEZZA AVATAR -->
           <div style="display: none;">
             <label for="altezza" class="block font-medium">Altezza:</label>
-            <input
-              type="range"
-              id="altezza"
-              name="altezza"
-              min="140"
-              max="200"
-              class="w-full rounded-md border-gray-300"
-              value="{{avatar[5]}}"
-            />
+            <input type="range" id="altezza" name="altezza" min="140" max="200" class="w-full rounded-md border-gray-300" value="{{avatar[5]}}" />
           </div>
-
           <!-- PESO AVATAR -->
           <div style="display: none;">
             <label for="peso" class="block font-medium">Peso:</label>
-            <input
-              type="range"
-              id="peso"
-              name="peso"
-              min="145"
-              max="183"
-              class="w-full rounded-md border-gray-300"
-              value="{{avatar[6]}}"
-            />
+            <input type="range" id="peso" name="peso" min="145" max="183" class="w-full rounded-md border-gray-300" value="{{avatar[6]}}" />
           </div>
-
           <!-- BARBA SI/NO -->
           <div style="display: none;">
             <label for="barba" class="block font-medium">Barba:</label>
             <input type="checkbox" id="barba" name="barba" {% if avatar[7]==1
-            %}checked{% endif %}/>
+                       %}checked{% endif %} />
           </div>
-
           <!-- ETA' -->
           <div style="display: none;">
             <label for="eta" class="block font-medium">Età:</label>
-            <input
-              type="number"
-              id="eta"
-              name="eta"
-              min="1"
-              max="100"
-              required
-              class="w-full rounded-md border-gray-300"
-              value="{{avatar[8]}}"
-            />
+            <input type="number" id="eta" name="eta" min="1" max="100" required class="w-full rounded-md border-gray-300" value="{{avatar[8]}}" />
           </div>
-
           <!-- DIMENSIONI CORPO -->
           <div style="display: none;">
-            <label for="dimensioniCorpo" class="block font-medium"
-              >Dimensioni del Corpo:</label
-            >
-            <select
-              id="dimensioniCorpo"
-              name="dimensioniCorpo"
-              required
-              class="w-full rounded-md border-gray-300"
-            >
-            <option value="esile" {% if
-              avatar[9]=='esile' %}selected{% endif %}>Esile (S)</option>
-            <option value="normale" {% if
-              avatar[9]=='normale' %}selected{% endif %}>Medio (M)</option>
-            <option value="grande" {% if
-              avatar[9]=='grande' %}selected{% endif %}>Grande (L)</option>
-            <option value="xgrande" {% if
-              avatar[9]=='xgrande' %}selected{% endif %}>Più grande (XL)</option>
+            <label for="dimensioniCorpo" class="block font-medium">Dimensioni del Corpo:</label>
+            <select id="dimensioniCorpo" name="dimensioniCorpo" required class="w-full rounded-md border-gray-300">
+              <option value="esile" {% if
+                            avatar[9]=='esile' %}selected{% endif %}>Esile (S) </option>
+              <option value="normale" {% if
+                            avatar[9]=='normale' %}selected{% endif %}>Medio (M) </option>
+              <option value="grande" {% if
+                            avatar[9]=='grande' %}selected{% endif %}>Grande (L) </option>
+              <option value="xgrande" {% if
+                            avatar[9]=='xgrande' %}selected{% endif %}>Più grande (XL) </option>
             </select>
           </div>
-
           <!-- SESSO -->
           <div style="display: none;">
             <label for="sesso" class="block font-medium">Sesso:</label>
-            <select
-              id="sesso"
-              name="sesso"
-              required
-              class="w-full rounded-md border-gray-300"
-            >
+            <select id="sesso" name="sesso" required class="w-full rounded-md border-gray-300">
               <option value="uomo" {% if
-                avatar[10]=='uomo' %}selected{% endif %}>Uomo</option>
+                            avatar[10]=='uomo' %}selected{% endif %}>Uomo </option>
               <option value="donna" {% if
-                avatar[10]=='donna' %}selected{% endif %}>Donna</option>
+                            avatar[10]=='donna' %}selected{% endif %}>Donna </option>
             </select>
           </div>
-
-          <button
-            type="button"
-            class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400"
-            onclick="annullaModifiche()"
-            style="display: none;"
-          >
-            Annulla
-          </button>
-          <button
-            type="button"
-            class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-            onclick="salvaModifiche()"
-            style="display: none;"
-          >
-            Salva Modifiche
-          </button>
+          <button type="button" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400" onclick="annullaModifiche()" style="display: none;"> Annulla </button>
+          <button type="button" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600" onclick="salvaModifiche()" style="display: none;"> Salva Modifiche </button>
         </form>
-
-        <!-- Per ogni indumento: se è una maglia/maglietta allora 
+        <!-- Per ogni indumento: se è una maglia/maglietta allora
               lo mette nella categoira maglietta; altrimenti in quella pantaloni.
 
               per ogni maglietta/pantalone, prende i valori di nome, colore e taglia.
@@ -1049,272 +878,202 @@ body {
               [10]colore: il colore del prodotto.
               [11]materiale: il materiale del prodotto.
               [12]immagine: l'immagine del prodotto codificata in base64.
-        
-        -->
-
-
-        <div class="mb-4"> <!-- MAGLIETTE -->
-          <label for="maglietta" class="block font-medium">Magliette:</label>
-      
-          {% set magliettePresenti = None %}
-      
-          {% for prodotto in prodotti[0] %}
-
-              {% if 'maglia' in prodotto[4] or 'maglietta' in prodotto[4] %}
-                  {% set magliettePresenti = true %}
-
-
-            <!-- Radio button personalizzato per il pantalone con colore, taglia e nome -->
-            <label class="flex flex-col items-center space-y-2 cursor-pointer border p-4 rounded transition duration-300 ease-in-out hover:border-gray-700 focus-within:border-black">
-              <input type="radio" name="maglietta" value="{{ prodotto[10] }}-{{ prodotto[8] }}" class="hidden">
-              <span class="text-gray-700">{{ prodotto[4] }}</span>
-              <span>Taglia: {{ prodotto[8] }}</span>
-              <span>Colore: {{ prodotto[10] }}</span>
-              <span class="tipologia" style="display: none;">{{ prodotto[5]}}</span>
-            </label>
-              {% endif %}
-
-          {% endfor %}
-      
-          {% if magliettePresenti is not defined %}
-              <p>Il carrello non ha prodotti di tipo "Magliette".</p>
-          {% endif %}
-      </div>
-      
-      <div class="mb-4"> <!-- PANTALONI -->
-          <label for="pantalone" class="block font-medium">Pantaloni:</label>
-      
-          {% set pantaloniPresenti = None %}
-      
-          {% for prodotto in prodotti[0] %}
-              {% if 'jeans' in prodotto[4] or 'pantaloni' in prodotto[4] or 'pantalone' in prodotto[4] %}
-                  {% set pantaloniPresenti = true %}
-      
-                  <!-- Radio button personalizzato per il pantalone con colore, taglia e nome -->
-                  <label class="flex flex-col items-center space-y-2 cursor-pointer border p-4 rounded transition duration-300 ease-in-out hover:border-gray-700 focus-within:border-black">
-                      <input type="radio" name="pantalone" value="{{ prodotto[10] }}-{{ prodotto[8] }}" class="hidden">
-                      <span class="text-gray-700">{{ prodotto[4] }}</span>
-                      <span>Taglia: {{ prodotto[8] }}</span>
-                      <span>Colore: {{ prodotto[10] }}</span>
-                      <img
-                        src="data:image/jpeg;base64,{{ prodotto[12] }}"
-                        alt="Product"
-                        class="w-24 h-24 object-cover"
-                      />
-                  </label>
-              {% endif %}
-          {% endfor %}
-      
-          {% if pantaloniPresenti is not defined %}
-              <p>Il carrello non ha prodotti di tipo "Pantaloni".</p>
-          {% endif %}
-      </div>
-
-      </div> <!-- terminazione intero rettangolo a sinistra dell'avatar -->
-
-        <!--
-            a prescindere, questi sono i valori taglia:
-            145 - taglia S
-            158 - taglia M
-            170 - taglia L
-            183 - taglia XL
-
-            questi sono i colori dei vari indumenti: (camelCase)
-            bianco - #e4dcdc
-            grigio chiaro - #acacac
-            grigio scuro - #616161
-            nero - #202020
-            blu chiaro - #567dca
-            blu scuro - #274889
-            verde chiaro - #74d151
-            verde scuro - #2b9933
-            rosa - #f2b8b8
-            rosso - #f44444
-            bordeaux - #b13419
-            giallo - #edd940
-            arancione - #f9af5c
-            marrone chiaro - #c6935b
-            marrone scuro - #8c5920
-            ...
 
         -->
+        <div class="mb-4">
+          <!-- MAGLIETTE -->
+            {{prodotti[0][0][8]}}
+          <label for="maglietta" class="block font-medium">Magliette:</label> {% set magliettePresenti = namespace(found=None) %} {% for prodotto in prodotti[0] %} {% if 'maglia' in prodotto[4] or 'maglietta' in prodotto[4] %} {% set magliettePresenti.found = 1 %}
+          <!-- Radio button personalizzato per il pantalone con colore, taglia e nome -->
+          <label class="flex flex-col items-center space-y-2 cursor-pointer border p-4 rounded transition duration-300 ease-in-out hover:border-gray-700 focus-within:border-black">
+            <img src="data:image/jpeg;base64,{{ prodotto[12] }}" alt="Product" class="w-24 h-24 object-cover" />
+            <input type="radio" name="maglietta" value="{{ prodotto[10] }}-{{ prodotto[8] }}" class="hidden" {% if prodotto[5] != avatar[10] %}disabled{% endif %}>
+            <span class="tipologia" style="display: none;">{{ prodotto[5]}}</span>
+          </label> {% endif %} {% endfor %} {% if not magliettePresenti.found %} <p>Il carrello non ha prodotti di tipo "Magliette".</p> {% endif %}
+        </div>
+        <div class="mb-4">
+          <!-- PANTALONI -->
+          <label for="pantalone" class="block font-medium">Pantaloni:</label> {% set pantaloniPresenti = None %} {% for prodotto in prodotti[0] %} {% if 'jeans' in prodotto[4] or 'pantaloni' in prodotto[4] or 'pantalone' in prodotto[4] %} {% set pantaloniPresenti.found = 1 %}
+          <!-- Radio button personalizzato per il pantalone con colore, taglia e nome -->
+          <label class="flex flex-col items-center space-y-2 cursor-pointer border p-4 rounded transition duration-300 ease-in-out hover:border-gray-700 focus-within:border-black">
+            <img src="data:image/jpeg;base64,{{ prodotto[12] }}" alt="Product" class="w-24 h-24 object-cover" />
+            <input type="radio" name="pantalone" value="{{ prodotto[10] }}-{{ prodotto[8] }}" class="hidden" {% if prodotto[5] != avatar[10] %}disabled{% endif %}>
+            <span class="tipologia" style="display: none;">{{ prodotto[5]}}</span>
+          </label> {% endif %} {% endfor %} {% if not pantaloniPresenti.found %} <p>Il carrello non ha prodotti di tipo "Pantaloni".</p> {% endif %}
+        </div>
+      </div>
+      <!-- terminazione intero rettangolo a sinistra dell'avatar -->
+      <!--
+        a prescindere, questi sono i valori taglia:
+        145 - taglia S
+        158 - taglia M
+        170 - taglia L
+        183 - taglia XL
 
-  </div>
+        questi sono i colori dei vari indumenti: (camelCase)
+        bianco - #e4dcdc
+        grigio chiaro - #acacac
+        grigio scuro - #616161
+        nero - #202020
+        blu chiaro - #567dca
+        blu scuro - #274889
+        verde chiaro - #74d151
+        verde scuro - #2b9933
+        rosa - #f2b8b8
+        rosso - #f44444
+        bordeaux - #b13419
+        giallo - #edd940
+        arancione - #f9af5c
+        marrone chiaro - #c6935b
+        marrone scuro - #8c5920
+        ...
 
+    -->
+    </div>
     <script>
-
-        document.addEventListener('DOMContentLoaded', function () {
-          
-          document.querySelector('.c-midtriangle-left').style.display = 'none';
-          document.querySelector('.c-midtriangle-right').style.display = 'none';
-        });
-
-        document.addEventListener('DOMContentLoaded', function () {
-    // Chiamata alle funzioni di inizializzazione dei colori
-    console.log("sto per fare la funzione");
-    initializeColors();
-    aggiornaAvatar();
-});
-
-// Funzione per gestire il cambio di colore della pelle
-function initializeSkinColor() {
-
-    var radioButtonsPelle = document.querySelectorAll('input[name="colorePelle"]');
-    var skinColorMap = {
-        'rosa pallido': '#fecaca',
-        'rosa': '#fca5a5',
-        'marrone chiaro': '#d97706',
-        'mulatto': '#854d0e',
-        'marrone scuro': '#713f12'
-    };
-
-    
-
-    radioButtonsPelle.forEach(function (radioButton) {
-        radioButton.addEventListener('change', function () {
+      document.addEventListener('DOMContentLoaded', function() {
+        document.querySelector('.c-midtriangle-left').style.display = 'none';
+        document.querySelector('.c-midtriangle-right').style.display = 'none';
+      });
+      document.addEventListener('DOMContentLoaded', function() {
+        // Chiamata alle funzioni di inizializzazione dei colori
+        console.log("sto per fare la funzione");
+        initializeColors();
+        aggiornaAvatar();
+      });
+      // Funzione per gestire il cambio di colore della pelle
+      function initializeSkinColor() {
+        var radioButtonsPelle = document.querySelectorAll('input[name="colorePelle"]');
+        var skinColorMap = {
+          'rosa pallido': '#fecaca',
+          'rosa': '#fca5a5',
+          'marrone chiaro': '#d97706',
+          'mulatto': '#854d0e',
+          'marrone scuro': '#713f12'
+        };
+        radioButtonsPelle.forEach(function(radioButton) {
+          radioButton.addEventListener('change', function() {
             document.documentElement.style.setProperty('--skin-color', skinColorMap[radioButton.value]);
             console.log(skinColorMap[radioButton.value]);
             console.log("skin color modified");
+          });
         });
-    });
-}
-
-// Funzione per gestire il cambio di colore degli occhi
-function initializeEyeColor() {
-    var radioButtonsOcchi = document.querySelectorAll('input[name="coloreOcchi"]');
-    var eyeColorMap = {
-        'blu chiaro': '#60a5fa',
-        'blu scuro': '#1d4ed8',
-        'verde chiaro': '#16a34a',
-        'verde scuro': '#166534',
-        'marrone': '#713f12'
-    };
-
-    radioButtonsOcchi.forEach(function (radioButton) {
-        radioButton.addEventListener('change', function () {
+      }
+      // Funzione per gestire il cambio di colore degli occhi
+      function initializeEyeColor() {
+        var radioButtonsOcchi = document.querySelectorAll('input[name="coloreOcchi"]');
+        var eyeColorMap = {
+          'blu chiaro': '#60a5fa',
+          'blu scuro': '#1d4ed8',
+          'verde chiaro': '#16a34a',
+          'verde scuro': '#166534',
+          'marrone': '#713f12'
+        };
+        radioButtonsOcchi.forEach(function(radioButton) {
+          radioButton.addEventListener('change', function() {
             document.documentElement.style.setProperty('--eye-color', eyeColorMap[radioButton.value]);
             console.log("eye color modified");
+          });
         });
-    });
-}
-
-// Funzione per gestire il cambio di colore dei capelli
-function initializeHairColor() {
-    var radioButtonsCapelli = document.querySelectorAll('input[name="coloreCapelli"]');
-    var hairColorMap = {
-        'bianco': '#e5e7eb',
-        'nero': '#030712',
-        'marrone chiaro': '#a16207',
-        'marrone scuro': '#422006',
-        'biondo': '#facc15'
-    };
-
-    radioButtonsCapelli.forEach(function (radioButton) {
-        radioButton.addEventListener('change', function () {
+      }
+      // Funzione per gestire il cambio di colore dei capelli
+      function initializeHairColor() {
+        var radioButtonsCapelli = document.querySelectorAll('input[name="coloreCapelli"]');
+        var hairColorMap = {
+          'bianco': '#e5e7eb',
+          'nero': '#030712',
+          'marrone chiaro': '#a16207',
+          'marrone scuro': '#422006',
+          'biondo': '#facc15'
+        };
+        radioButtonsCapelli.forEach(function(radioButton) {
+          radioButton.addEventListener('change', function() {
             document.documentElement.style.setProperty('--hair-color', hairColorMap[radioButton.value]);
             console.log("hair color modified");
+          });
         });
-    });
-}
-
-// Funzione per inizializzare tutti i colori
-function initializeColors() {
-
-initializeSkinColor();
-
-initializeEyeColor();
-
-initializeHairColor();
-
-}
-
-        // Funzione per impostare la lunghezza dei capelli
-        function setHairLength(length) {
-            const cappedLength = Math.min(Math.max(length, 1), 20); // Limita il valore tra 1 e 20
-            document.documentElement.style.setProperty('--hair-length', `${cappedLength}px`);
+      }
+      // Funzione per inizializzare tutti i colori
+      function initializeColors() {
+        initializeSkinColor();
+        initializeEyeColor();
+        initializeHairColor();
+      }
+      // Funzione per impostare la lunghezza dei capelli
+      function setHairLength(length) {
+        const cappedLength = Math.min(Math.max(length, 1), 20); // Limita il valore tra 1 e 20
+        document.documentElement.style.setProperty('--hair-length', `${cappedLength}px`);
+      }
+      // Aggiungi un event listener per l'input di tipo "range"
+      const rangeInput1 = document.getElementById('lunghezzaCapelli');
+      rangeInput1.addEventListener('input', (event) => {
+        const selectedLength = event.target.value;
+        setHairLength(selectedLength);
+      });
+      // Funzione per impostare l'altezza dell'avatar
+      function setHeight(height) {
+        const cappedHeight = Math.min(Math.max(height, 140), 200); // Limita il valore tra 1 e 20
+        document.documentElement.style.setProperty('--avatar_height', `${cappedHeight}px`);
+      }
+      // Aggiungi un event listener per l'input di tipo "range"
+      const rangeInput2 = document.getElementById('altezza');
+      rangeInput2.addEventListener('input', (event) => {
+        const selectedHeight = event.target.value;
+        setHeight(selectedHeight);
+      });
+      // Funzione per impostare il peso dell'avatar
+      function setWidth(width) {
+        const cappedWidth = Math.min(Math.max(width, 145), 183); // Limita il valore tra 1 e 20
+        document.documentElement.style.setProperty('--avatar_width', `${cappedWidth}px`);
+      }
+      // Aggiungi un event listener per l'input di tipo "range"
+      const rangeInput3 = document.getElementById('peso');
+      rangeInput3.addEventListener('input', (event) => {
+        const selectedWidth = event.target.value;
+        setWidth(selectedWidth);
+      });
+      const checkbox = document.getElementById('barba');
+      const beardElement = document.getElementById('beard');
+      checkbox.addEventListener('change', function() {
+        if (this.checked) {
+          beardElement.style.display = 'block'; // Nascondi la barba
+        } else {
+          beardElement.style.display = 'none'; // Mostra la barba
         }
-
-        // Aggiungi un event listener per l'input di tipo "range"
-        const rangeInput1 = document.getElementById('lunghezzaCapelli');
-        rangeInput1.addEventListener('input', (event) => {
-            const selectedLength = event.target.value;
-            setHairLength(selectedLength);
-         });
-
-        // Funzione per impostare l'altezza dell'avatar
-        function setHeight(height) {
-            const cappedHeight = Math.min(Math.max(height, 140), 200); // Limita il valore tra 1 e 20
-            document.documentElement.style.setProperty('--avatar_height', `${cappedHeight}px`);
-        }
-
-        // Aggiungi un event listener per l'input di tipo "range"
-        const rangeInput2 = document.getElementById('altezza');
-        rangeInput2.addEventListener('input', (event) => {
-            const selectedHeight = event.target.value;
-            setHeight(selectedHeight);
-         });
-
-        // Funzione per impostare il peso dell'avatar
-        function setWidth(width) {
-            const cappedWidth = Math.min(Math.max(width, 145), 183); // Limita il valore tra 1 e 20
-            document.documentElement.style.setProperty('--avatar_width', `${cappedWidth}px`);
-        }
-
-        // Aggiungi un event listener per l'input di tipo "range"
-        const rangeInput3 = document.getElementById('peso');
-        rangeInput3.addEventListener('input', (event) => {
-            const selectedWidth = event.target.value;
-            setWidth(selectedWidth);
-         });
-
-        const checkbox = document.getElementById('barba');
-        const beardElement = document.getElementById('beard');
-
-        checkbox.addEventListener('change', function() {
-            if (this.checked) {
-            beardElement.style.display = 'block'; // Nascondi la barba
-            } else {
-            beardElement.style.display = 'none'; // Mostra la barba
-            }
-        });
-
-        // Funzione per gestire le modifiche in base al sesso selezionato
-         function handleSessoChange() {
-            const sessoSelect = document.getElementById('sesso');
-            const hairMale = document.querySelector('.hair-male');
-            const hairFemale = document.querySelector('.hair-female');
-            const face = document.querySelector('.face');
-            const napkin = document.querySelector('.napkin');
-            const bodyCenterFull = document.querySelector('.body-center-full');
-
-            if (sessoSelect.value === 'uomo') {
-            // Uomo
-            hairMale.style.display = 'block';
-            hairFemale.style.display = 'none';
-            face.style.borderTopRightRadius = '50px';
-            face.style.borderTopLeftRadius = '50px';
-            napkin.style.height = '0';
-            bodyCenterFull.style.display = 'block';
-            } else if (sessoSelect.value === 'donna') {
-            // Donna
-            hairMale.style.display = 'none';
-            hairFemale.style.display = 'block';
-            face.style.borderTopRightRadius = '0';
-            face.style.borderTopLeftRadius = '0';
-            napkin.style.height = '40px';
-            bodyCenterFull.style.display = 'none';
-            }
-        }
-
-        // Aggiungi un event listener per l'input della selezione del sesso
+      });
+      // Funzione per gestire le modifiche in base al sesso selezionato
+      function handleSessoChange() {
         const sessoSelect = document.getElementById('sesso');
-        sessoSelect.addEventListener('change', handleSessoChange);
-
-        // Esegui la funzione all'avvio per impostare lo stato iniziale
-        handleSessoChange();
-
-        //vediamo se questa cosa funziona:
-        function aggiornaAvatar() {
+        const hairMale = document.querySelector('.hair-male');
+        const hairFemale = document.querySelector('.hair-female');
+        const face = document.querySelector('.face');
+        const napkin = document.querySelector('.napkin');
+        const bodyCenterFull = document.querySelector('.body-center-full');
+        if (sessoSelect.value === 'uomo') {
+          // Uomo
+          hairMale.style.display = 'block';
+          hairFemale.style.display = 'none';
+          face.style.borderTopRightRadius = '50px';
+          face.style.borderTopLeftRadius = '50px';
+          napkin.style.height = '0';
+          bodyCenterFull.style.display = 'block';
+        } else if (sessoSelect.value === 'donna') {
+          // Donna
+          hairMale.style.display = 'none';
+          hairFemale.style.display = 'block';
+          face.style.borderTopRightRadius = '0';
+          face.style.borderTopLeftRadius = '0';
+          napkin.style.height = '40px';
+          bodyCenterFull.style.display = 'none';
+        }
+      }
+      // Aggiungi un event listener per l'input della selezione del sesso
+      const sessoSelect = document.getElementById('sesso');
+      sessoSelect.addEventListener('change', handleSessoChange);
+      // Esegui la funzione all'avvio per impostare lo stato iniziale
+      handleSessoChange();
+      //vediamo se questa cosa funziona:
+      function aggiornaAvatar() {
         // Recupera i valori dal form
         const colorePelle = document.querySelector('input[name="colorePelle"]:checked').value;
         const coloreOcchi = document.querySelector('input[name="coloreOcchi"]:checked').value;
@@ -1324,259 +1083,219 @@ initializeHairColor();
         const peso = document.getElementById('peso').value;
         const barba = document.getElementById('barba').checked;
         const sesso = document.getElementById('sesso').value;
-
         // Applica i valori all'avatar
         setHairLength(lunghezzaCapelli);
         setHeight(altezza);
         setWidth(peso);
         handleSessoChange();
-
         initializeSkinColor();
         initializeEyeColor();
         initializeHairColor();
-
-
         // Imposta l'altezza, la larghezza e i colori dell'avatar direttamente
         document.documentElement.style.setProperty('--avatar_height', `${altezza}px`);
         document.documentElement.style.setProperty('--avatar_width', `${peso}px`);
-
         // Puoi aggiungere ulteriori impostazioni qui se necessario
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
+      }
+      document.addEventListener('DOMContentLoaded', function() {
         // Chiamare la funzione di aggiornamento al caricamento della pagina
         aggiornaAvatar();
         console.log("aggiornaAvatar eseguita")
-    });
+      });
 
-        function updateLegWidth() {
-
-          // Ottieni il nuovo valore selezionato
-          var selectedPantalone = document.querySelector('input[name="pantalone"]:checked');
-
-          // Verifica se un radio button è selezionato
-          if (selectedPantalone) {
-            // Estrai il valore dall'attributo "value"
-            var selectedValue = selectedPantalone.value;
-
-            // Dividi il valore in colore e taglia
-            var valuesArray = selectedValue.split("-");
-            var colore = valuesArray[0];
-            var taglia = valuesArray[1];
-
-            // Associa il nome del colore ad una serie di colori predefiniti:
-            var colorMap = {
-              bianco: '#e4dcdc',
-              'grigioChiaro': '#acacac',
-              'grigioScuro': '#616161',
-              nero: '#202020',
-              'bluChiaro': '#567dca',
-              'bluScuro': '#274889',
-              'verdeChiaro': '#74d151',
-              'verdeScuro': '#2b9933',
-              rosa: '#f2b8b8',
-              rosso: '#f44444',
-              bordeaux: '#b13419',
-              giallo: '#edd940',
-              arancione: '#f9af5c',
-              'marroneChiaro': '#c6935b',
-              'marroneScuro': '#8c5920'
-            };
-
-            // Ottieni il colore associato al nome del colore
-            var coloreHex = colorMap[colore];
-
-            // Aggiorna la variabile CSS con il colore associato
-            var root = document.documentElement;
-            root.style.setProperty('--c-clothing-bottom-color', coloreHex);
-
-            // Associa i valori numerici in base alla taglia
-            var tagliaValue = 0;
-            switch (taglia) {
-              case "S":
-                tagliaValue = 145;
-                break;
-              case "M":
-                tagliaValue = 158;
-                break;
-              case "L":
-                tagliaValue = 170;
-                break;
-              case "XL":
-                tagliaValue = 183;
-                break;
-              default:
-                // Se la taglia non è riconosciuta, assegna un valore di default
-                tagliaValue = 0;
-            }
-          }
-
-          document.querySelector('.c-midtriangle-left').style.display = 'block';
-          document.querySelector('.c-midtriangle-right').style.display = 'block';
-          document.querySelector('.bottom-top').style.display = 'block';
-          document.querySelector('.leg-left').style.display = 'none';
-          document.querySelector('.leg-right').style.display = 'none';
-          document.querySelector('.bottom-top').style.display = 'none';
-          
+      function updateLegWidth() {
+        // Ottieni il nuovo valore selezionato
+        var selectedPantalone = document.querySelector('input[name="pantalone"]:checked');
+        // Verifica se un radio button è selezionato
+        if (selectedPantalone) {
+          // Estrai il valore dall'attributo "value"
+          var selectedValue = selectedPantalone.value;
+          // Dividi il valore in colore e taglia
+          var valuesArray = selectedValue.split("-");
+          var colore = valuesArray[0];
+          var taglia = valuesArray[1];
+          // Associa il nome del colore ad una serie di colori predefiniti:
+          var colorMap = {
+            bianco: '#e4dcdc',
+            'grigioChiaro': '#acacac',
+            'grigioScuro': '#616161',
+            nero: '#202020',
+            'bluChiaro': '#567dca',
+            'bluScuro': '#274889',
+            'verdeChiaro': '#74d151',
+            'verdeScuro': '#2b9933',
+            rosa: '#f2b8b8',
+            rosso: '#f44444',
+            bordeaux: '#b13419',
+            giallo: '#edd940',
+            arancione: '#f9af5c',
+            'marroneChiaro': '#c6935b',
+            'marroneScuro': '#8c5920'
+          };
+          // Ottieni il colore associato al nome del colore
+          var coloreHex = colorMap[colore];
+          // Aggiorna la variabile CSS con il colore associato
           var root = document.documentElement;
-          root.style.setProperty('--selected_width_legs', tagliaValue + 'px');
-
-        }
-
-        function updateTopWidth() {
-          // Ottieni l'elemento radio button selezionato
-          var selectedMaglietta = document.querySelector('input[name="maglietta"]:checked');
-
-          // Verifica se un radio button è selezionato
-          if (selectedMaglietta) {
-            // Estrai il valore dall'attributo "value"
-            var selectedValue = selectedMaglietta.value;
-
-            // Dividi il valore in colore e taglia
-            var valuesArray = selectedValue.split("-");
-            var colore = valuesArray[0];
-            var taglia = valuesArray[1];
-
-            // Associa il nome del colore ad una serie di colori predefiniti:
-            var colorMap = {
-              bianco: '#e4dcdc',
-              'grigioChiaro': '#acacac',
-              'grigioScuro': '#616161',
-              nero: '#202020',
-              'bluChiaro': '#567dca',
-              'bluScuro': '#274889',
-              'verdeChiaro': '#74d151',
-              'verdeScuro': '#2b9933',
-              rosa: '#f2b8b8',
-              rosso: '#f44444',
-              bordeaux: '#b13419',
-              giallo: '#edd940',
-              arancione: '#f9af5c',
-              'marroneChiaro': '#c6935b',
-              'marroneScuro': '#8c5920'
-            };
-
-            // Ottieni il colore associato al nome del colore
-            var coloreHex = colorMap[colore];
-
-            // Aggiorna la variabile CSS con il colore associato
-            var root = document.documentElement;
-            root.style.setProperty('--c-clothing-top-color', coloreHex);
-
-            // Associa i valori numerici in base alla taglia
-            var tagliaValue = 0;
-            switch (taglia) {
-              case "S":
-                tagliaValue = 145;
-                break;
-              case "M":
-                tagliaValue = 158;
-                break;
-              case "L":
-                tagliaValue = 170;
-                break;
-              case "XL":
-                tagliaValue = 183;
-                break;
-              default:
-                // Se la taglia non è riconosciuta, assegna un valore di default
-                tagliaValue = 0;
-            }
-
-            // Aggiorna il layout o le proprietà CSS in base ai valori estratti
-            document.querySelector('.arm-left').style.display = 'none';
-            document.querySelector('.arm-right').style.display = 'none';
-            document.querySelector('.hand-left').style.display = 'none';
-            document.querySelector('.hand-right').style.display = 'none';
-            document.querySelector('.c-hand-left').style.display = 'block';
-            document.querySelector('.c-hand-right').style.display = 'block';
-            document.querySelector('.body-top').style.display = 'none';
-            document.querySelector('.body-center-top').style.display = 'none';
-            document.querySelector('.body-center-bottom').style.display = 'none';
-            document.querySelector('.body-center-full').style.display = 'none';
-
-            // Aggiorna la variabile CSS con il valore numerico associato alla taglia
-            var root = document.documentElement;
-            root.style.setProperty('--selected_width_top', tagliaValue + 'px');
+          root.style.setProperty('--c-clothing-bottom-color', coloreHex);
+          // Associa i valori numerici in base alla taglia
+          var tagliaValue = 0;
+          switch (taglia) {
+            case "S":
+              tagliaValue = 145;
+              break;
+            case "M":
+              tagliaValue = 158;
+              break;
+            case "L":
+              tagliaValue = 170;
+              break;
+            case "XL":
+              tagliaValue = 183;
+              break;
+            default:
+              // Se la taglia non è riconosciuta, assegna un valore di default
+              tagliaValue = 0;
           }
         }
+        document.querySelector('.c-midtriangle-left').style.display = 'block';
+        document.querySelector('.c-midtriangle-right').style.display = 'block';
+        document.querySelector('.bottom-top').style.display = 'block';
+        document.querySelector('.leg-left').style.display = 'none';
+        document.querySelector('.leg-right').style.display = 'none';
+        document.querySelector('.bottom-top').style.display = 'none';
+        var root = document.documentElement;
+        root.style.setProperty('--selected_width_legs', tagliaValue + 'px');
+      }
 
-        // Aggiungi JavaScript per gestire la persistenza della selezione
-        document.addEventListener("DOMContentLoaded", function () {
-            var radioButtons = document.querySelectorAll('input[name="maglietta"]');
-
-            radioButtons.forEach(function (radioButton) {
-                radioButton.addEventListener("change", function () {
-                    radioButtons.forEach(function (otherRadioButton) {
-                        // Rimuovi la classe "border-black" da tutti gli altri radio button
-                        otherRadioButton.parentNode.classList.remove("border-black");
-                    });
-
-                    // Aggiungi la classe "border-black" al radio button selezionato
-                    this.parentNode.classList.add("border-black");
-
-                    //effettua modifiche all'avatar
-                    updateTopWidth()
-
-                });
-            });
-        });
-
-        // Aggiungi JavaScript per gestire la persistenza della selezione
-        document.addEventListener("DOMContentLoaded", function () {
-            var radioButtons = document.querySelectorAll('input[name="pantalone"]');
-
-            radioButtons.forEach(function (radioButton) {
-                radioButton.addEventListener("change", function () {
-                    radioButtons.forEach(function (otherRadioButton) {
-                        // Rimuovi la classe "border-black" da tutti gli altri radio button
-                        otherRadioButton.parentNode.classList.remove("border-black");
-                    });
-
-                    // Aggiungi la classe "border-black" al radio button selezionato
-                    this.parentNode.classList.add("border-black");
-
-                    updateLegWidth()
-                });
-            });
-        });
-
-// Ottieni tutti gli elementi radio con il nome "maglietta"
-var radioButtons = document.querySelectorAll('input[name="maglietta"]');
-
-// Ottieni il div da mostrare/nascondere
-var bodyCenterFullDiv = document.querySelector('.c-body-center-full');
-
-// Ottieni l'elemento della dropdown "sesso"
-var sessoDropdown = document.getElementById('sesso');
-
-// Aggiungi un listener di cambio stato a ciascun radio button
-radioButtons.forEach(function(radioButton) {
-  radioButton.addEventListener('change', function() {
-    // Verifica se il radio button è selezionato
-    if (this.checked) {
-      // Ottieni il valore della tipologia associato al radio button selezionato
-      var tipologiaValore = this.parentElement.querySelector('.tipologia').textContent;
-
-      // Confronto tra tipologiaValore e sessoDropdown
-      if (tipologiaValore === sessoDropdown.value) {
-          this.removeAttribute('disabled');
-          // Verifica se il valore della tipologia è "uomo"
-          if (tipologiaValore === 'uomo') {
-            // Mostra il div
-            bodyCenterFullDiv.style.display = 'block';
-            } else {
-            // Nascondi il div se la tipologia non è "uomo"
-            bodyCenterFullDiv.style.display = 'none';
-            }
-           
-        } else {
-          this.setAttribute('disabled', 'disabled');
+      function updateTopWidth() {
+        // Ottieni l'elemento radio button selezionato
+        var selectedMaglietta = document.querySelector('input[name="maglietta"]:checked');
+        // Verifica se un radio button è selezionato
+        if (selectedMaglietta) {
+          // Estrai il valore dall'attributo "value"
+          var selectedValue = selectedMaglietta.value;
+          // Dividi il valore in colore e taglia
+          var valuesArray = selectedValue.split("-");
+          var colore = valuesArray[0];
+          var taglia = valuesArray[1];
+          // Associa il nome del colore ad una serie di colori predefiniti:
+          var colorMap = {
+            bianco: '#e4dcdc',
+            'grigioChiaro': '#acacac',
+            'grigioScuro': '#616161',
+            nero: '#202020',
+            'bluChiaro': '#567dca',
+            'bluScuro': '#274889',
+            'verdeChiaro': '#74d151',
+            'verdeScuro': '#2b9933',
+            rosa: '#f2b8b8',
+            rosso: '#f44444',
+            bordeaux: '#b13419',
+            giallo: '#edd940',
+            arancione: '#f9af5c',
+            'marroneChiaro': '#c6935b',
+            'marroneScuro': '#8c5920'
+          };
+          // Ottieni il colore associato al nome del colore
+          var coloreHex = colorMap[colore];
+          // Aggiorna la variabile CSS con il colore associato
+          var root = document.documentElement;
+          root.style.setProperty('--c-clothing-top-color', coloreHex);
+          // Associa i valori numerici in base alla taglia
+          var tagliaValue = 0;
+          switch (taglia) {
+            case "S":
+              tagliaValue = 145;
+              break;
+            case "M":
+              tagliaValue = 158;
+              break;
+            case "L":
+              tagliaValue = 170;
+              break;
+            case "XL":
+              tagliaValue = 183;
+              break;
+            default:
+              // Se la taglia non è riconosciuta, assegna un valore di default
+              tagliaValue = 0;
+          }
+          // Aggiorna il layout o le proprietà CSS in base ai valori estratti
+          document.querySelector('.arm-left').style.display = 'none';
+          document.querySelector('.arm-right').style.display = 'none';
+          document.querySelector('.hand-left').style.display = 'none';
+          document.querySelector('.hand-right').style.display = 'none';
+          document.querySelector('.c-hand-left').style.display = 'block';
+          document.querySelector('.c-hand-right').style.display = 'block';
+          document.querySelector('.body-top').style.display = 'none';
+          document.querySelector('.body-center-top').style.display = 'none';
+          document.querySelector('.body-center-bottom').style.display = 'none';
+          document.querySelector('.body-center-full').style.display = 'none';
+          // Aggiorna la variabile CSS con il valore numerico associato alla taglia
+          var root = document.documentElement;
+          root.style.setProperty('--selected_width_top', tagliaValue + 'px');
         }
-    }
-  });
-});
-
+      }
+      // Aggiungi JavaScript per gestire la persistenza della selezione
+      document.addEventListener("DOMContentLoaded", function() {
+        var radioButtons = document.querySelectorAll('input[name="maglietta"]');
+        radioButtons.forEach(function(radioButton) {
+          radioButton.addEventListener("change", function() {
+            radioButtons.forEach(function(otherRadioButton) {
+              // Rimuovi la classe "border-black" da tutti gli altri radio button
+              otherRadioButton.parentNode.classList.remove("border-black");
+            });
+            // Aggiungi la classe "border-black" al radio button selezionato
+            this.parentNode.classList.add("border-black");
+            //effettua modifiche all'avatar
+            updateTopWidth()
+          });
+        });
+      });
+      // Aggiungi JavaScript per gestire la persistenza della selezione
+      document.addEventListener("DOMContentLoaded", function() {
+        var radioButtons = document.querySelectorAll('input[name="pantalone"]');
+        radioButtons.forEach(function(radioButton) {
+          radioButton.addEventListener("change", function() {
+            radioButtons.forEach(function(otherRadioButton) {
+              // Rimuovi la classe "border-black" da tutti gli altri radio button
+              otherRadioButton.parentNode.classList.remove("border-black");
+            });
+            // Aggiungi la classe "border-black" al radio button selezionato
+            this.parentNode.classList.add("border-black");
+            updateLegWidth()
+          });
+        });
+      });
+      // Ottieni tutti gli elementi radio con il nome "maglietta"
+      var radioButtons = document.querySelectorAll('input[name="maglietta"]');
+      // Ottieni il div da mostrare/nascondere
+      var bodyCenterFullDiv = document.querySelector('.c-body-center-full');
+      // Ottieni l'elemento della dropdown "sesso"
+      var sessoDropdown = document.getElementById('sesso');
+      // Aggiungi un listener di cambio stato a ciascun radio button
+      radioButtons.forEach(function(radioButton) {
+        radioButton.addEventListener('change', function() {
+          // Verifica se il radio button è selezionato
+          if (this.checked) {
+            // Ottieni il valore della tipologia associato al radio button selezionato
+            var tipologiaValore = this.parentElement.querySelector('.tipologia').textContent;
+            // Confronto tra tipologiaValore e sessoDropdown
+            if (tipologiaValore === sessoDropdown.value) {
+              this.removeAttribute('disabled');
+              // Verifica se il valore della tipologia è "uomo"
+              if (tipologiaValore === 'uomo') {
+                // Mostra il div
+                bodyCenterFullDiv.style.display = 'block';
+              } else {
+                // Nascondi il div se la tipologia non è "uomo"
+                bodyCenterFullDiv.style.display = 'none';
+              }
+            } else {
+              this.setAttribute('disabled', 'disabled');
+            }
+          }
+        });
+      });
     </script>
   </body>
 </html>
