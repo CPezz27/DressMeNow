@@ -19,6 +19,6 @@ def search():
             else:
                 return render_template('/utente/risultati_NLP.html', data=None)
     except Exception as e:
-        return render_template('/utente/ricerca_NLP.html', message='Errore con il server')
+        return render_template('/utente/risultati_NLP.html', data=None)
 
     return render_template('/utente/ricerca_NLP.html')
