@@ -54,8 +54,11 @@ def register():
                 numero_telefono=telefono,
                 data_nascita=data_nascita)
 
-            user.save()
-            return redirect('login')
+            flag = user.save()
+            if not flag:
+                return render_template('utente/registrazione.html', message="Non è possibile registrare questo account.")
+            else:
+                return redirect('login')
 
         except mysql.connector.Error as err:
             return render_template('utente/registrazione.html', message="Errore nel server. Riprova più tardi.")
