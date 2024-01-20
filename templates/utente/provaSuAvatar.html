@@ -882,13 +882,12 @@
         -->
         <div class="mb-4">
           <!-- MAGLIETTE -->
-            {{prodotti[0][0][8]}}
           <label for="maglietta" class="block font-medium">Magliette:</label> {% set magliettePresenti = namespace(found=None) %} {% for prodotto in prodotti[0] %} {% if 'maglia' in prodotto[4] or 'maglietta' in prodotto[4] or 'Maglia' in prodotto[4] or 'Maglietta' in prodotto[4] %} {% set magliettePresenti.found = 1 %}
           
           <!-- Radio button personalizzato per il pantalone con colore, taglia e nome -->
           <label class="flex flex-col items-center space-y-2 cursor-pointer border p-4 rounded transition duration-300 ease-in-out hover:border-gray-700 focus-within:border-black">
             <img src="data:image/jpeg;base64,{{ prodotto[12] }}" alt="Product" class="w-24 h-24 object-cover" />
-            <input type="radio" name="maglietta" value="{{ prodotto[10] }}-{{ prodotto[8] }}" class="hidden" {% if prodotto[5] != avatar[10] %}disabled{% endif %}>
+            <input type="radio" name="maglietta" value="{{ prodotto[10] }}-{{ prodotto[8] }}" class="hidden" {% if prodotto[5] != avatar[10] or prodotto[8] < avatar[6] %}disabled{% endif %}>
             <span> {{prodotti[8]}}</span>
             <span class="tipologia" style="display: none;">{{ prodotto[5]}}</span>
           </label> {% endif %} {% endfor %} {% if not magliettePresenti.found %} <p class="text-gray-400">Il carrello non ha prodotti di tipo "Magliette".</p> {% endif %}
@@ -899,7 +898,7 @@
           <!-- Radio button personalizzato per il pantalone con colore, taglia e nome -->
           <label class="flex flex-col items-center space-y-2 cursor-pointer border p-4 rounded transition duration-300 ease-in-out hover:border-gray-700 focus-within:border-black">
             <img src="data:image/jpeg;base64,{{ prodotto[12] }}" alt="Product" class="w-24 h-24 object-cover" />
-            <input type="radio" name="pantalone" value="{{ prodotto[10] }}-{{ prodotto[8] }}" class="hidden" {% if prodotto[5] != avatar[10] %}disabled{% endif %}>
+            <input type="radio" name="pantalone" value="{{ prodotto[10] }}-{{ prodotto[8] }}" class="hidden" {% if prodotto[5] != avatar[10] or prodotto[8] < avatar[6] %}disabled{% endif %}>
             <span class="tipologia" style="display: none;">{{ prodotto[5]}}</span>
           </label> {% endif %} {% endfor %} {% if not pantaloniPresenti.found %} <p class="text-gray-400">Il carrello non ha prodotti di tipo "Pantaloni".</p> {% endif %}
         </div>
