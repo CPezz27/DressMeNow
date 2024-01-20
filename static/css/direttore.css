@@ -7,7 +7,7 @@ html, body, header, main, footer {
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    background-color: #f4f4f4;
+    background: linear-gradient(to right, #3fb6a8, #7ed386);
 }
 
 header {

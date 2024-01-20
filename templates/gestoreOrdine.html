@@ -24,6 +24,53 @@
     charset="utf8"
     src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"
   ></script>
+  <style>
+     #overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.2);
+        z-index: 999;
+      }
+
+      #logoutConfirmation {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        transition: 0.3s;
+        text-align: center;
+      }
+
+      #logoutConfirmation p {
+        margin-bottom: 20px;
+      }
+
+      #logoutConfirmation button {
+        padding: 5px 10px;
+        margin: 0 5px;
+        border: 1px solid #3498db;
+        border-radius: 5px;
+        background-color: #3498db;
+        color: #fff;
+        cursor: pointer;
+        transition: 0.3s;
+        font-size: 14px;
+      }
+
+      #logoutConfirmation button:hover {
+        background-color: #2980b9;
+      }
+  </style>
 </head>
 <body>
 <header>
@@ -31,10 +78,16 @@
         <nav class="navGestoreOrdine">
             <ul>
                 <li><a href="/go/dashboard">Dashboard</a></li>
-                <li><a href="/logout">Logout</a></li>
+                <li><button onclick="showLogoutConfirmation()">Logout</button></li>
             </ul>
         </nav>
     </header>
+    <div id="overlay"></div>
+    <div id="logoutConfirmation">
+      <p>Sei sicuro di voler effettuare il Logout?</p>
+      <button id="Si" onclick="confirmLogout()">Si</button>
+      <button id="No" onclick="cancelLogout()">No</button>
+    </div>
 
   <div>
     <div class="container mx-auto my-8 max-w-md">
@@ -74,6 +127,19 @@
 <script src="../../static/js/gestore_ordine.js">
 </script>
 <script>
+      function showLogoutConfirmation() {
+        document.getElementById("overlay").style.display = "block";
+        document.getElementById("logoutConfirmation").style.display = "block";
+      }
+
+      function confirmLogout() {
+        window.location.href = "/logout";
+      }
+
+      function cancelLogout() {
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("logoutConfirmation").style.display = "none";
+      }
   $(document).ready(function () {
         $("#example").DataTable();
   });
