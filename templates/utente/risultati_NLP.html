@@ -56,46 +56,35 @@
         Ecco una selezione di prodotti che potrebbe piacerti:
       </h1>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+        {% for prodotto in data %}
         <div class="bg-white rounded-lg shadow-md overflow-hidden">
-          <a href="#"
+          <a href="/pd?product_id={{prodotto[0]}}"
             ><div class="aspect-w-1 aspect-h-1">
               <img
-                src=""
+                src="data:image/jpeg;base64,{{ prodotto[10] }}"
                 alt="Prodotto 1"
                 class="w-full h-48 object-cover object-center"
               /></div
           ></a>
           <div class="p-4">
-            <h2 class="text-xl font-semibold mb-2">prodotto[1]</h2>
+            <h2 class="text-xl font-semibold mb-2">{{prodotto[1]}}</h2>
             <input type="hidden" name="id_prodotto" value="prodotto" />
             <p
               class="text-gray-600 mb-2 overflow-hidden whitespace-nowrap"
               id="product-description"
             >
-              prodotto[4]
+              {{prodotto[4]}}
             </p>
-            <p class="text-gray-600 mb-2">Taglia: prodotto[5]</p>
-            <p class="text-gray-900 font-semibold text-lg mb-2">prodotto[6]€</p>
-            <button
-              type="button"
-              onclick="location.href='#'"
-              class="px-4 py-2 bg-green-500 text-white rounded-md mr-2"
-            >
-              Aggiungi al carrello
-            </button>
+            <p class="text-gray-600 mb-2">Vestibilità: {{prodotto[5]}}</p>
+            <p class="text-gray-900 font-semibold text-lg mb-2">{{prodotto[6]}}€</p>
           </div>
         </div>
-        <h1
-          style="
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-          "
-        >
-          Ci dispiace, non abbiamo trovato prodotti coerenti al tuo stile
-        </h1>
+        {% endfor %}
+        {% if not data %}
+          <h1 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+            Ci dispiace, non abbiamo trovato prodotti coerenti al tuo stile
+          </h1>
+        {% endif %}
       </div>
       <a href="/ricercaNLP">
         <svg

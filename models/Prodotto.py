@@ -1,5 +1,4 @@
 import base64
-from flask import request
 import mysql.connector
 from utils import mysql_config
 from utils.nlp import preprocess_text
@@ -139,26 +138,37 @@ def view_products_by_category(category):
         return None
 
 
-def search_products(text, indumenti=None, categoria=None, colore=None, vestibilità=None):
+def search_products(text):
     try:
         filtered_words, indumenti, colore, categoria, vestibilità = preprocess_text(text)
 
-        query = "SELECT * FROM prodotto WHERE "
+        query = (
+            "SELECT p.*, TO_BASE64(MAX(i.immagine)) as immagine_base64 "
+            "FROM prodotto p "
+            "LEFT JOIN immagine i ON p.id_prodotto = i.id_prodotto AND i.tipo = 'pagina_prodotto' "
+            "WHERE "
+        )
+
         conditions = []
 
         if indumenti:
-            conditions.append("nome LIKE %s")
+            conditions.append("p.nome LIKE %s")
         if colore:
-            conditions.append("colore LIKE %s")
+            conditions.append("p.colore LIKE %s")
         if categoria:
-            conditions.append("categoria LIKE %s")
+            conditions.append("p.categoria LIKE %s")
         if vestibilità:
-            conditions.append("vestibilità LIKE %s")
+            conditions.append("p.vestibilità LIKE %s")
 
         if conditions:
             query += " AND ".join(conditions)
 
-        compiled_query = query % tuple([f"%{i}%" for i in indumenti] + [f"%{c}%" for c in colore] + [f"%{cat}%" for cat in categoria] + [f"%{v}" for v in vestibilità])
+        query += " GROUP BY p.id_prodotto"
+
+        compiled_query = query % tuple(
+            [f"%{i}%" for i in indumenti] + [f"%{c}%" for c in colore] + [f"%{cat}%" for cat in categoria] + [f"%{v}"
+                                                                                                              for v in
+                                                                                                              vestibilità])
         print("compiled query:", compiled_query)
 
         cursor.execute(query, [f"%{i}%" for i in indumenti] + [f"%{c}%" for c in colore] + [f"%{cat}%" for cat in categoria] + [f"%{v}%" for v in vestibilità])
@@ -167,6 +177,7 @@ def search_products(text, indumenti=None, categoria=None, colore=None, vestibili
 
         return products
     except Exception as err:
+        print(err)
         return None
 
 
