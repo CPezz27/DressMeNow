@@ -2,7 +2,7 @@ import base64
 from flask import request
 import mysql.connector
 from utils import mysql_config
-# from utils.nlp import preprocess_text
+from utils.nlp import preprocess_text
 
 conn = mysql_config.get_database_connection()
 cursor = conn.cursor()
@@ -25,6 +25,7 @@ def mostra_info_prodotto():
             prezzo = row[1]
             taglia = row[2]
             quantita = row[3]
+            print(f"{nome_prodotto}, {prezzo}€, {taglia}, {quantita}")
 
     except mysql.connector.Error as err:
         return False
@@ -40,8 +41,10 @@ def get_sizes_for_product(prodotto_id):
         )
         cursor.execute(query, (prodotto_id,))
         sizes = cursor.fetchall()
+        # print(sizes)
         return sizes
     except mysql.connector.Error as err:
+        print(f"Errore durante il recupero delle taglie per il prodotto {prodotto_id}: {err}")
         return None
 
 
@@ -136,26 +139,32 @@ def view_products_by_category(category):
         return None
 
 
-def search_products(query, categoria=None, colore=None):
+def search_products(query, categoria=None, colore=None, vestibilità=None, taglia=None):
     try:
         # Query per cercare prodotti nel database in base al testo di input
+
+        filtered_words, aggettivi = preprocess_text(query)
+        print("parole filtrate", filtered_words)
+        print("aggettivi", aggettivi)
         search_query = "SELECT * FROM prodotti WHERE LOWER(descrizione) LIKE %s"
-        params = ('%' + ' '.join(preprocess_text(query)) + '%',)
+        params = ('%' + ' '.join(filtered_words) + '%',)
 
+        condizioni_like = ' OR '.join([f"descrizione LIKE '%{parola}%'" for parola in aggettivi])
 
-        if colore:
-            search_query += " AND colore = %s"
-            params += (colore,)
-        if categoria:
-            search_query += " AND categoria = %s"
-            params += (categoria,)
+        query = ("SELECT * FROM prodotto WHERE descrizione LIKE '%maglia%' AND descrizione LIKE %")
+
+        print(condizioni_like)
+
+        nonso_query = f""" SELECT * FROM prodotto WHERE {condizioni_like};"""
 
         cursor.execute(search_query, params)
 
         products = cursor.fetchall()
 
         return products
+
     except mysql.connector.Error as err:
+
         return None
 
 
