@@ -2,7 +2,7 @@ import base64
 from flask import request
 import mysql.connector
 from utils import mysql_config
-# from utils.nlp import preprocess_text
+from utils.nlp import preprocess_text
 
 conn = mysql_config.get_database_connection()
 cursor = conn.cursor()
@@ -141,14 +141,7 @@ def view_products_by_category(category):
 
 def search_products(text, indumenti=None, categoria=None, colore=None, vestibilità=None):
     try:
-        # Query per cercare prodotti nel database in base al testo di input
-
         filtered_words, indumenti, colore, categoria, vestibilità = preprocess_text(text)
-        print("parole filtrate", filtered_words)
-        print("indumenti", indumenti)
-        print("colore", colore)
-        print("categoria", categoria)
-        print("vestibilità", vestibilità)
 
         query = "SELECT * FROM prodotto WHERE "
         conditions = []
@@ -156,28 +149,24 @@ def search_products(text, indumenti=None, categoria=None, colore=None, vestibili
         if indumenti:
             conditions.append("nome LIKE %s")
         if colore:
-            conditions.append("colore = %s")
+            conditions.append("colore LIKE %s")
         if categoria:
-            conditions.append("categoria = %s")
+            conditions.append("categoria LIKE %s")
         if vestibilità:
-            conditions.append("vestibilità = %s")
+            conditions.append("vestibilità LIKE %s")
 
         if conditions:
             query += " AND ".join(conditions)
 
-        print("query", query)
+        compiled_query = query % tuple([f"%{i}%" for i in indumenti] + [f"%{c}%" for c in colore] + [f"%{cat}%" for cat in categoria] + [f"%{v}" for v in vestibilità])
+        print("compiled query:", compiled_query)
 
-        cursor.execute(query)
+        cursor.execute(query, [f"%{i}%" for i in indumenti] + [f"%{c}%" for c in colore] + [f"%{cat}%" for cat in categoria] + [f"%{v}%" for v in vestibilità])
 
         products = cursor.fetchall()
 
-        print("prodotti", products)
-
         return products
-
-    except mysql.connector.Error as err:
-        print("Marameo alalallalal")
-
+    except Exception as err:
         return None
 
 
