@@ -60,6 +60,25 @@ def prova_su_avatar():
 
     dati_prodotti = Carrello.contenuto_carrello(user_id)
 
-    
+    #let's check la taglia e associamoci dei valori veri e propri secondo ciò:
+    #   145 - taglia S
+    #   158 - taglia M
+    #   170 - taglia L
+    #   183 - taglia XL
+
+    #eccolo il mapping assurdo
+    taglia_numerica = {
+        'S': 145,
+        'M': 158,
+        'L': 170,
+        'XL': 183
+    }
+
+    for i, item in enumerate(dati_prodotti[0]):
+        taglia = item[8]  
+
+        if taglia in taglia_numerica:
+            dati_prodotti[0][i] = item[:8] + (taglia_numerica[taglia],) + item[9:]
+            
 
     return render_template("utente/provaSuAvatar.html", avatar=avatar_data, prodotti=dati_prodotti)
