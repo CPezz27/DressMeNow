@@ -66,14 +66,25 @@ class Indirizzo:
         self.citta = citta
 
     def save(self):
-        insert_query = ("INSERT INTO indirizzo "
-                        "(id_utente, provincia, cap, via, tipo, città) "
+        count_query = ("SELECT COUNT(*) FROM indirizzo WHERE id_utente = %s")
+        cursor.execute(count_query, (self.id_utente,))
+        count_result = cursor.fetchone()[0]
+
+        if count_result >= 2:
+            return False
+
+        check_query = ("SELECT COUNT(*) FROM indirizzo WHERE id_utente = %s AND tipo = %s")
+        cursor.execute(check_query, (self.id_utente, self.tipo))
+        check_result = cursor.fetchone()[0]
+
+        if check_result > 0:
+            return False
+
+        insert_query = ("INSERT INTO indirizzo (id_utente, provincia, cap, via, tipo, citta) "
                         "VALUES (%s, %s, %s, %s, %s, %s)")
 
-        data = (self.id_utente, self.provincia, self.cap, self.via, self.tipo, self.citta)
-
         try:
-            cursor.execute(insert_query, data)
+            cursor.execute(insert_query, (self.id_utente, self.provincia, self.cap, self.via, self.tipo, self.citta))
             conn.commit()
             return True
         except mysql.connector.Error as err:
