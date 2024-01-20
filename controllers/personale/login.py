@@ -37,7 +37,7 @@ def login():
                     session['ruolo'] = 'gestore_prodotto'
                     return redirect(url_for('direttore_login.gestore_prodotto'))
             else:
-                return "Credenziali non valide. Riprova."
+                return render_template("/direttore/login.html", message="Credenziali non valide. Riprova.")
         except Exception as err:
             print(f"Errore durante l'esecuzione della query")
 
