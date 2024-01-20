@@ -24,7 +24,6 @@
     {% include 'components/header.html' %}
 
     <div class="container">
-
       <div class="leftbox">
         <nav class="nav-profilo">
           <a id="profile" href="#" class="active">
@@ -125,45 +124,47 @@
       </div>
       <style>
         .rightbox2 {
-	           display: flex;
-	           align-items: flex-end;
-	           justify-content: center;
-             height: 100%;
-             width: 67.5%;
+          display: flex;
+          align-items: flex-end;
+          justify-content: center;
+          height: 100%;
+          width: 67.5%;
         }
         .save-button {
-            background-color: #7ed386;
-            color: #fff;
-            border-radius: 5px;
-            padding: 6px 10px;
-            transition: background-color 0.3s ease; 
-            margin-top: 5px;
-            margin-block-start: auto;
+          background-color: #50c878;
+          color: #fff;
+          border-radius: 5px;
+          padding: 6px 10px;
+          transition: background-color 0.3s ease;
+          margin-top: 5px;
+          margin-block-start: auto;
         }
-    
+
         .save-button:hover {
-            background-color: #5aa963; 
+          background-color: #2e8b57;
         }
-    
+
         .delete-button {
-            background-color: #d63030;
-            color: #fff;
-            border-radius: 5px;
-            padding: 6px 10px;
-            transition: background-color 0.3s ease;
-            margin-top: 2px;
-            margin-block-end: auto;
+          background-color: #ff9060;
+          color: #fff;
+          border-radius: 5px;
+          padding: 6px 10px;
+          transition: background-color 0.3s ease;
+          margin-top: 2px;
+          margin-block-end: auto;
         }
-    
+
         .delete-button:hover {
-            background-color: #a52020; 
+          background-color: #ff6347;
         }
-    </style>
+      </style>
 
       <div class="rightbox2">
         <div class="impostazioni" id="impostazioni">
           <h2>Effettua il logout:</h2>
-          <a href="/logout"><button type="submit" class="save-button">Esci</button></a>
+          <a href="/logout"
+            ><button type="submit" class="save-button">Esci</button></a
+          >
 
           <h2>Cancella il tuo account</h2>
           <form action="/p/cancella_account" method="post">
