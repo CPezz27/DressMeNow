@@ -18,15 +18,15 @@ def aggiungi_indirizzo():
             cap = request.form['cap']
             via = request.form['via']
             tipo = request.form['tipo']
-            citta = request.form['citta']
+            città = request.form['citta']
 
             new_address = Indirizzo(
-                id_utente=user_id, provincia=provincia, cap=cap, via=via, tipo=tipo, citta=citta)
-            success = new_address.save()
+                id_utente=user_id, provincia=provincia, cap=cap, via=via, tipo=tipo, città=città)
+            success, message = new_address.save()
             if success:
                 return redirect(url_for('user_profile.indirizzi'))
             else:
-                return render_template('errore.html', message="Errore durante l'aggiunta dell'indirizzo.")
+                return render_template('utente/aggiungi_indirizzo.html', message=message)
         else:
             return redirect(url_for('user_login.login_page'))
 

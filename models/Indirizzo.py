@@ -57,13 +57,13 @@ def delete(id_indirizzo):
 
 
 class Indirizzo:
-    def __init__(self, id_utente, provincia, cap, via, tipo, citta):
+    def __init__(self, id_utente, provincia, cap, via, tipo, città):
         self.id_utente = id_utente
         self.provincia = provincia
         self.cap = cap
         self.via = via
         self.tipo = tipo
-        self.citta = citta
+        self.città = città
 
     def save(self):
         count_query = ("SELECT COUNT(*) FROM indirizzo WHERE id_utente = %s")
@@ -71,21 +71,22 @@ class Indirizzo:
         count_result = cursor.fetchone()[0]
 
         if count_result >= 2:
-            return False
+            return False, "Errore, il numero massimo di indirizzi è già stato raggiunto"
 
         check_query = ("SELECT COUNT(*) FROM indirizzo WHERE id_utente = %s AND tipo = %s")
         cursor.execute(check_query, (self.id_utente, self.tipo))
         check_result = cursor.fetchone()[0]
 
         if check_result > 0:
-            return False
+            msg = "Errore, è già presente un indirizzo di " + self.tipo
+            return False, msg
 
-        insert_query = ("INSERT INTO indirizzo (id_utente, provincia, cap, via, tipo, citta) "
+        insert_query = ("INSERT INTO indirizzo (id_utente, provincia, cap, via, tipo, città) "
                         "VALUES (%s, %s, %s, %s, %s, %s)")
 
         try:
-            cursor.execute(insert_query, (self.id_utente, self.provincia, self.cap, self.via, self.tipo, self.citta))
+            cursor.execute(insert_query, (self.id_utente, self.provincia, self.cap, self.via, self.tipo, self.città))
             conn.commit()
-            return True
+            return True, "Inserimento avvenuto con successo"
         except mysql.connector.Error as err:
-            return False
+            return False, str(err)

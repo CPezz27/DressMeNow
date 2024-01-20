@@ -21,6 +21,9 @@
     {% include 'components/header.html' %}
 
         <div class="container mx-auto p-8 max-w-md">
+            {% if message %}
+                <p>{{message}}</p>
+            {% endif %}
             <h2 class="text-2xl font-bold mb-4">Inserisci Informazioni Indirizzo</h2>
             <h3 class="mb-4" >Innanzitutto inserisci i dati riguardo l'indirizzo:</h3>
                 <form action="/indirizzo/aggiungi" method="post" class="space-y-4">

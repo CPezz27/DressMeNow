@@ -85,7 +85,7 @@
       </div>
       
       <div class="rightbox">
-        {% if data and data|length < 3 %}
+        {% if data and data|length < 2 %}
         <button id="aggiungiIndirizzo" class="mx-auto block text-center" style="color: #000000; border-radius: 5px;" onclick="location.href='/indirizzo/aggiungi'">
           <svg width="25" height="25" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 2a10 10 0 1 0 0 20 10 10 0 1 0 0-20z"></path>
@@ -99,7 +99,7 @@
             {% for indirizzo in data %}
             <div class="indirizzo-attivo" id="indirizzo{{ loop.index0 }}">
             <form action="/indirizzo/modifica/{{indirizzo[0]}}" method="post">
-              <h1>Indirizzo {{ loop.index }}
+              <h1>Indirizzo di {{indirizzo[5]}}
                 <button onclick="abilitaModifica(this,event)">
                   <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"
                        xmlns="http://www.w3.org/2000/svg">
@@ -141,21 +141,6 @@
                   value="{{indirizzo[4]}}"
                   readonly
                 />
-              </div>
-              </div>
-              <div>
-                <label>Tipo </label>
-                <div>
-                <select
-                        class="input-text"
-                        name="tipo"
-                        disabled
-                >
-                    <option value="Spedizione" {% if indirizzo[5]==
-                    'Spedizione' %}selected{% endif %}>Spedizione</option>
-                    <option value="Fatturazione" {% if indirizzo[5]==
-                    'Fatturazione' %}selected{% endif %}>Fatturazione</option>
-                </select>
               </div>
               </div>
               <div>
