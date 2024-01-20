@@ -56,6 +56,11 @@
         Ecco una selezione di prodotti che potrebbe piacerti:
       </h1>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+        {% if not data %}
+          <h1 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+            Ci dispiace, non abbiamo trovato prodotti coerenti al tuo stile
+          </h1>
+        {% else %}
         {% for prodotto in data %}
         <div class="bg-white rounded-lg shadow-md overflow-hidden">
           <a href="/pd?product_id={{prodotto[0]}}"
@@ -80,10 +85,6 @@
           </div>
         </div>
         {% endfor %}
-        {% if not data %}
-          <h1 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
-            Ci dispiace, non abbiamo trovato prodotti coerenti al tuo stile
-          </h1>
         {% endif %}
       </div>
       <a href="/ricercaNLP">
