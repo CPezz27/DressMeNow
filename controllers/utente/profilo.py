@@ -38,13 +38,9 @@ def indirizzi():
     if 'logged_in' not in session or not session['logged_in']:
         return redirect(url_for('user_login.login_page'))
 
-    print("Sono prima nell'altro modulo")
     user_id = session['id']
-    print("Sono nell'altro modulo", user_id)
 
     addresses = get_addresses(int(user_id))
-
-    print(addresses)
 
     return render_template("utente/indirizzi.html", data=addresses)
 
