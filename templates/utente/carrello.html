@@ -111,12 +111,22 @@
           </div>
           <!--<button class="mt-4 bg-blue-500 text-white py-2 px-4 rounded-full">Proceed to Checkout</button>-->
           <div id="paypal-button-container"></div>
-          <button
-            class="block bg-blue-500 text-white py-2 px-6 rounded-full mt-3"
-            onclick="location.href='/pagamento'"
-          >
-            Completa l'acquisto
-          </button>
+          {% if not data:%}
+            <button
+              disabled
+              class="block bg-gray-300 text-gray-600 py-2 px-6 rounded-full mt-3 completa-acquisto-button opacity-50 cursor-not-allowed"
+              onclick="location.href='/pagamento'"
+            >
+              Completa l'acquisto
+            </button>
+          {% else: %}
+            <button
+              class="block bg-blue-500 text-white py-2 px-6 rounded-full mt-3"
+              onclick="location.href='/pagamento'"
+            >
+              Completa l'acquisto
+            </button>
+          {% endif %}
         </div>
 
         <!-- Sezione "Prova i prodotti sull'avatar" -->
@@ -125,13 +135,26 @@
             <h1 class="text-3xl font-semibold mb-4 text-center">
               Prova i prodotti sull'avatar!
             </h1>
-            <a href="/prova_su_avatar"
-              ><button
-                class="mx-auto block bg-blue-500 text-white py-2 px-6 rounded-full"
-              >
-                Prova ora
-              </button></a
-            >
+            {% if not data:%}
+              <a href="/prova_su_avatar"
+                ><button
+                  class="mx-auto block bg-gray-300 text-gray-600 py-2 px-6 rounded-full mt-3 altro-bottone opacity-50 cursor-not-allowed"
+                  onclick="location.href='/altro-percorso'"
+                  disabled
+                >
+                  Prova ora
+                </button>
+              </a>
+            {% else: %}
+              <a href="/prova_su_avatar"
+                ><button
+                  class="mx-auto block bg-blue-500 text-white py-2 px-6 rounded-full"
+                >
+                  Prova ora
+                </button>
+              </a>
+            {% endif %}
+
           </div>
         </div>
       </div>
