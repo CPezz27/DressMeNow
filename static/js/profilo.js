@@ -47,3 +47,11 @@ function abilitaModifica(button, e) {
   });
   button.style.display = 'none';
 }
+
+function abilitaModificaselect(button, event) {
+  event.preventDefault();
+  var parentDiv = button.parentNode;
+  var selectElement = parentDiv.querySelector('select');
+  selectElement.disabled = !selectElement.disabled;
+}
+
