@@ -16,14 +16,13 @@ def products_category():
         return redirect(url_for('index.homepage'))
 
 
-
 @app_bp.route("/search")
 def search_products():
     product_name = request.args.get('product_name')
 
     if product_name:
         products = Prodotto.search_prodotto_by_name(product_name)
-        return render_template("utente/ricercaProdotto.html", data=products)
+        return render_template("utente/ricercaProdotto.html", data=products, nome=product_name)
     else:
         return redirect(url_for('index.homepage'))
 
@@ -40,6 +39,5 @@ def view_product():
     product_id = request.args.get('product_id')
 
     product = Prodotto.view_product(product_id)
-
 
     return render_template("utente/dettagliProdotto.html", data=product)
