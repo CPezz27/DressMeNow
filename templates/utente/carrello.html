@@ -14,13 +14,16 @@
       }
     </style>
   </head>
-  
+
   {% include 'components/header.html' %}
   <body class="font-sans custom-background">
     <div class="container mx-auto my-8 p-4 flex flex-wrap">
       <!-- Carrello a sinistra -->
       <div class="w-full md:w-1/2 mb-6 md:mb-0 md:pr-4">
-        <div style="background-color:whitesmoke" class="bg-white p-4 rounded-lg shadow-md">
+        <div
+          style="background-color: whitesmoke"
+          class="bg-white p-4 rounded-lg shadow-md"
+        >
           <div class="flex justify-between items-center mb-4">
             <h1 class="text-3xl font-semibold">Carrello</h1>
             <form method="post" action="/svuota_carrello">
@@ -29,8 +32,7 @@
               </button>
             </form>
           </div>
-        
-        
+
           <div id="cartItems" class="grid grid-cols-1 gap-4">
             <!-- Ciclo sugli elementi del carrello -->
             {% for prodotto in data %}
@@ -68,8 +70,21 @@
                   name="id_prodotto"
                   value="{{ prodotto[1] }}"
                 />
-                <button class="bg-red-500 text-white py-2 px-4 rounded-full">
-                  Rimuovi
+                <button>
+                  <svg
+                    width="25"
+                    height="25"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M12 2a10 10 0 1 0 0 20 10 10 0 1 0 0-20z"></path>
+                    <path d="M8 12h8"></path>
+                  </svg>
                 </button>
               </form>
             </div>
@@ -80,8 +95,13 @@
 
       <!-- Riepilogo dell'ordine a destra -->
       <div class="w-full md:w-1/2">
-        <div style="background-color:whitesmoke" class="bg-white p-4 rounded-lg shadow-md">
-          <h1 class="text-3xl font-semibold mb-4 text-center">Riepilogo dell'Ordine</h1>
+        <div
+          style="background-color: whitesmoke"
+          class="bg-white p-4 rounded-lg shadow-md"
+        >
+          <h1 class="text-3xl font-semibold mb-4 text-center">
+            Riepilogo dell'Ordine
+          </h1>
           <div class="flex justify-between items-center mb-2">
             <span class="text-gray-600">Totale Prodotti:</span>
             <span
@@ -89,17 +109,16 @@
               class="font-semibold"
               style="color: #000000"
             >
-            {% if totale %} 
-          </span>
-        </div>
-        <div class="flex justify-between items-center mb-2">
-          <span class="text-gray-600">Spedizione:</span>
-          {% if totale > 50 %}
-          <span class="font-semibold" style="color: #000000">Gratis</span>
-        {% else %}
-          <span class="font-semibold" style="color: #000000">5.00€</span>
-        {% endif %}
-    {% endif %}
+              {% if totale %}
+            </span>
+          </div>
+          <div class="flex justify-between items-center mb-2">
+            <span class="text-gray-600">Spedizione:</span>
+            {% if totale > 50 %}
+            <span class="font-semibold" style="color: #000000">Gratis</span>
+            {% else %}
+            <span class="font-semibold" style="color: #000000">5.00€</span>
+            {% endif %} {% endif %}
           </div>
           <hr class="my-2 border-gray-300" />
           <div class="flex justify-between items-center">
@@ -117,49 +136,51 @@
           <!--<button class="mt-4 bg-blue-500 text-white py-2 px-4 rounded-full">Proceed to Checkout</button>-->
           <div id="paypal-button-container"></div>
           {% if not data:%}
-            <button
-              disabled
-              class="block bg-gray-300 text-gray-600 py-2 px-6 rounded-full mt-3 completa-acquisto-button opacity-50 cursor-not-allowed"
-              onclick="location.href='/pagamento'"
-            >
-              Completa l'acquisto
-            </button>
+          <button
+            disabled
+            class="block bg-gray-300 text-gray-600 py-2 px-6 rounded-full mt-3 completa-acquisto-button opacity-50 cursor-not-allowed"
+            onclick="location.href='/pagamento'"
+          >
+            Completa l'acquisto
+          </button>
           {% else: %}
-            <button
-              class="block bg-blue-500 text-white py-2 px-6 rounded-full mt-3"
-              onclick="location.href='/pagamento'"
-            >
-              Completa l'acquisto
-            </button>
+          <button
+            class="block bg-blue-500 text-white py-2 px-6 rounded-full mt-3"
+            onclick="location.href='/pagamento'"
+          >
+            Completa l'acquisto
+          </button>
           {% endif %}
         </div>
 
         <!-- Sezione "Prova i prodotti sull'avatar" -->
         <div class="w-full md:w-1/2 mt-8">
-          <div style="background-color:whitesmoke" class="bg-white p-4 rounded-lg shadow-md">
+          <div
+            style="background-color: whitesmoke"
+            class="bg-white p-4 rounded-lg shadow-md"
+          >
             <h1 class="text-3xl font-semibold mb-4 text-center">
               Prova i prodotti sull'avatar!
             </h1>
             {% if not data:%}
-              <a href="/prova_su_avatar"
-                ><button
-                  class="mx-auto block bg-gray-300 text-gray-600 py-2 px-6 rounded-full mt-3 altro-bottone opacity-50 cursor-not-allowed"
-                  onclick="location.href='/altro-percorso'"
-                  disabled
-                >
-                  Prova ora
-                </button>
-              </a>
+            <a href="/prova_su_avatar"
+              ><button
+                class="mx-auto block bg-gray-300 text-gray-600 py-2 px-6 rounded-full mt-3 altro-bottone opacity-50 cursor-not-allowed"
+                onclick="location.href='/altro-percorso'"
+                disabled
+              >
+                Prova ora
+              </button>
+            </a>
             {% else: %}
-              <a href="/prova_su_avatar"
-                ><button
-                  class="mx-auto block bg-blue-500 text-white py-2 px-6 rounded-full"
-                >
-                  Prova ora
-                </button>
-              </a>
+            <a href="/prova_su_avatar"
+              ><button
+                class="mx-auto block bg-blue-500 text-white py-2 px-6 rounded-full"
+              >
+                Prova ora
+              </button>
+            </a>
             {% endif %}
-
           </div>
         </div>
       </div>

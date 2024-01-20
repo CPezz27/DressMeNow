@@ -157,23 +157,184 @@
         .delete-button:hover {
           background-color: #ff6347;
         }
+        #overlay {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.2);
+          z-index: 999;
+        }
+
+        #logoutConfirmation {
+          display: none;
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background-color: #fff;
+          padding: 20px;
+          border-radius: 10px;
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+          z-index: 1000;
+          transition: 0.3s;
+          text-align: center;
+        }
+
+        #logoutConfirmation p {
+          margin-bottom: 20px;
+        }
+
+        #logoutConfirmation button {
+          padding: 5px 10px;
+          margin: 0 5px;
+          border: 1px solid #3498db;
+          border-radius: 5px;
+          background-color: #3498db;
+          color: #fff;
+          cursor: pointer;
+          transition: 0.3s;
+          font-size: 14px;
+        }
+
+        #logoutConfirmation button:hover {
+          background-color: #2980b9;
+        }
+
+        #deleteAccountConfirmation {
+          display: none;
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background-color: #fff;
+          padding: 20px;
+          border-radius: 10px;
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+          z-index: 1000;
+          transition: 0.3s;
+          text-align: center;
+        }
+
+        #deleteAccountConfirmation p {
+          margin-bottom: 20px;
+        }
+
+        #deleteAccountConfirmation button {
+          padding: 5px 10px;
+          margin: 0 5px;
+          border: 1px solid #3498db;
+          border-radius: 5px;
+          background-color: #3498db;
+          color: #fff;
+          cursor: pointer;
+          transition: 0.3s;
+          font-size: 14px;
+        }
+
+        #deleteAccountConfirmation button:hover {
+          background-color: #2980b9;
+        }
       </style>
 
       <div class="rightbox2">
         <div class="impostazioni" id="impostazioni">
           <h2>Effettua il logout:</h2>
-          <a href="/logout"
-            ><button type="submit" class="save-button">Esci</button></a
+          <button
+            onclick="showLogoutConfirmation()"
+            type="submit"
+            class="save-button"
           >
+            Esci
+          </button>
 
           <h2>Cancella il tuo account</h2>
-          <form action="/p/cancella_account" method="post">
-            <button type="submit" class="delete-button">Elimina</button>
-          </form>
+          <button id="deleteAccountButton" type="button" class="delete-button">
+            Elimina
+          </button>
         </div>
       </div>
     </div>
+    <div id="overlay"></div>
+    <div id="logoutConfirmation">
+      <p>Sei sicuro di voler effettuare il Logout?</p>
+      <button id="Si" onclick="confirmLogout()">Si</button>
+      <button id="No" onclick="cancelLogout()">No</button>
+    </div>
+    <div id="deleteAccountConfirmation" class="confirmation">
+      <p>Sei sicuro di voler cancellare il tuo account?</p>
+      <button id="confirmDeleteAccount" onclick="confirmDeleteAccount()">
+        Si
+      </button>
+      <button id="cancelDeleteAccount" onclick="cancelDeleteAccount()">
+        No
+      </button>
+    </div>
+
     <script src="../../static/js/profilo.js"></script>
+    <script>
+      function showLogoutConfirmation() {
+        document.getElementById("overlay").style.display = "block";
+        document.getElementById("logoutConfirmation").style.display = "block";
+      }
+
+      function confirmLogout() {
+        window.location.href = "/logout";
+      }
+
+      function cancelLogout() {
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("logoutConfirmation").style.display = "none";
+      }
+
+      function showDeleteAccountConfirmation() {
+        document.getElementById("overlay").style.display = "block";
+        document.getElementById("deleteAccountConfirmation").style.display =
+          "block";
+      }
+      //CANCELLA ACCOUNT
+      function confirmDeleteAccount() {
+        // Utilizza fetch per inviare una richiesta POST al server
+        fetch("/p/cancella_account", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({}),
+        })
+          .then((response) => {
+            if (response.ok) {
+              // Gestisci la risposta del server come desideri
+              // In questo esempio, ricarica la pagina
+              window.location.reload();
+            } else {
+              // Gestisci eventuali errori
+              console.error(
+                "Errore nella richiesta di cancellazione dell'account"
+              );
+            }
+          })
+          .catch((error) => {
+            console.error(
+              "Errore nella richiesta di cancellazione dell'account:",
+              error
+            );
+          });
+      }
+
+      function cancelDeleteAccount() {
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("deleteAccountConfirmation").style.display =
+          "none";
+      }
+
+      // Aggiungi un event listener al bottone "Cancella il tuo account"
+      document
+        .getElementById("deleteAccountButton")
+        .addEventListener("click", showDeleteAccountConfirmation);
+    </script>
     {% include 'components/footer.html' %}
   </body>
 </html>
