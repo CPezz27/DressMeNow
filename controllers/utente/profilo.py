@@ -170,6 +170,7 @@ def logout():
 
     session.pop('id', None)
     session.pop('logged_in', None)
+    session.pop('ruolo', None)
 
     if 'ruolo' not in session or not session['ruolo']:
         return redirect(url_for('user_login.login_page'))
