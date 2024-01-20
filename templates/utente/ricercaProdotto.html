@@ -18,7 +18,7 @@
 
     <div class="w-full mx-auto px-6 py-12">
       <h1 class="text-4xl font-semibold mb-8 text-center">
-        Risultati di ricerca per {{ nome }}
+        Risultati di ricerca per: {{ nome }}
       </h1>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
@@ -52,21 +52,23 @@
           </div>
         </div>
         {% endfor %} {% else %}
-        <h1
-          style="
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-          "
-        >
-          Non abbiamo trovato nessun prodotto con questo nome
-        </h1>
+        <div style="margin-bottom: 170px">
+          <h1
+            style="
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              text-align: center;
+            "
+          >
+            Non abbiamo trovato nessun prodotto con questo nome
+          </h1>
+        </div>
         {% endif %}
       </div>
     </div>
-    {% include 'components/footer.html' %}
+    <div>{% include 'components/footer.html' %}</div>
   </body>
 </html>
 
