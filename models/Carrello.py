@@ -112,6 +112,8 @@ def contenuto_carrello(id_utente):
             for item in cart_contents:
                 total_price += float(item[9]) * float(item[2])
 
+            total_price = round(total_price, 2)
+
             return cart_contents, total_price
         else:
             return None, None
