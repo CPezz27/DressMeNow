@@ -20,7 +20,7 @@ def search():
             products = search_products(query)
 
             if products:
-                return render_template('/utente/ricerca_NLP.html', data="test")
+                return render_template('/utente/risultati_NLP.html', data="test")
             else:
                 return render_template('/utente/ricerca_NLP.html')
     except Exception as e:
