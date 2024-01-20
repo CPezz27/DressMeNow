@@ -8,6 +8,7 @@ from ModificaPersonaleTest import ModificaPersonaleTest
 from RegisterTest import RegisterTest
 from SearchProductTest import SearchProductTest
 from AggiungiDatiSpedizioneTest import AggiungiDatiSpedizioneTest
+from AggiungiProdottoTest import AggiungiProdottoTest
 
 
 if __name__ == '__main__':
@@ -23,9 +24,11 @@ if __name__ == '__main__':
     register_suite = loader.loadTestsFromTestCase(RegisterTest)
     search_product_suite = loader.loadTestsFromTestCase(SearchProductTest)
     aggiungi_indirizzo_suite = loader.loadTestsFromTestCase(AggiungiDatiSpedizioneTest)
+    aggiungi_prodotto_suite = loader.loadTestsFromTestCase(AggiungiProdottoTest)
 
     all_tests = unittest.TestSuite([modifica_ordine_suite, elimina_account_suite, login_suite, modifica_prodotto_suite,
-                                    modifica_personale_suite, register_suite, search_product_suite, aggiungi_indirizzo_suite])
+                                    modifica_personale_suite, register_suite, search_product_suite,
+                                    aggiungi_indirizzo_suite, aggiungi_prodotto_suite])
 
     unittest.TextTestRunner(verbosity=2).run(all_tests)
 
