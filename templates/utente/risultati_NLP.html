@@ -52,9 +52,6 @@
     {% include 'components/header.html' %}
 
     <div class="w-full mx-auto px-6 py-12">
-      <h1 class="typewriter" style="text-align: center">
-        Ecco una selezione di prodotti che potrebbe piacerti:
-      </h1>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
         {% if not data %}
           <h1 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
