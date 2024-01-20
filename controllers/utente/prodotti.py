@@ -5,12 +5,6 @@ from models import Prodotto
 app_bp = Blueprint('user_prodotti', __name__)
 
 
-#ELIMINARE QUESTA FUNZIONE MOMENTANEA!!!!!!
-@app_bp.route("/prodotti_momentaneo")
-def momentaneo():
-    return render_template("utente/ricercaProdotto.html")
-
-
 @app_bp.route("/c")
 def products_category():
     category = request.args.get('category')

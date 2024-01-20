@@ -43,5 +43,3 @@ def reso_ordine(order_id):
 
     except Exception as err:
         return render_template('/utente/resoOrdine.html', message=f'Errore durante il reso: {err}')
-
-    return render_template('/utente/resoOrdine.html', message='Il metodo non è accessibile')

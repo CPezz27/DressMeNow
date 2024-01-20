@@ -30,7 +30,7 @@ def aggiungi_indirizzo():
             else:
                 return render_template('errore.html', message="Errore durante l'aggiunta dell'indirizzo.")
         else:
-            return render_template('/login')
+            return redirect(url_for('user_login.login_page'))
 
     return render_template('utente/aggiungi_indirizzo.html')
 

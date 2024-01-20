@@ -102,7 +102,6 @@ def delete_account():
         return redirect(url_for('user_register.register'))
 
     except mysql.connector.Error as err:
-        print(f"Errore durante la cancellazione dell'account: {err}")
         return redirect(url_for('user_profile.profilo', message='Si è verificato un errore'))
 
 
@@ -175,4 +174,8 @@ def logout():
 
     session.pop('id', None)
     session.pop('logged_in', None)
-    return redirect(url_for('user_login.login_page'))
+
+    if 'ruolo' not in session or not session['ruolo']:
+        return redirect(url_for('user_login.login_page'))
+    else:
+        return redirect(url_for('direttore_login.login_page'))
