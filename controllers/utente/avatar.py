@@ -57,5 +57,5 @@ def prova_su_avatar():
     user_id = session['id']
     avatar_data = CFGAvatar.view_avatar(user_id)
 
-    dati_prodotti = Carrello.contenuto_carrello(user_id)
+    dati_prodotti = Carrello.contenuto_carrello(user_id)  
     return render_template("utente/provaSuAvatar.html", avatar=avatar_data, prodotti=dati_prodotti)

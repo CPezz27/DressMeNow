@@ -1056,23 +1056,27 @@ body {
         <div class="mb-4"> <!-- MAGLIETTE -->
           <label for="maglietta" class="block font-medium">Magliette:</label>
       
-          {% set magliettePresenti = false %}
+          {% set magliettePresenti = None %}
       
-          {% for prodotto in prodotti %}
+          {% for prodotto in prodotti[0] %}
+
               {% if 'maglia' in prodotto[4] or 'maglietta' in prodotto[4] %}
                   {% set magliettePresenti = true %}
-      
-                  <!-- Radio button personalizzato per la maglietta con colore, taglia e nome -->
-                  <label class="flex flex-col items-center space-y-2 cursor-pointer border p-4 rounded transition duration-300 ease-in-out hover:border-gray-700 focus-within:border-black {% if not checkIfVestibile(prodotto[3]) %}non-vestibile{% endif %}">
-                      <input type="radio" name="maglietta" value="{{ prodotto[10] }}-{{ prodotto[3] }}" class="hidden" {% if checkIfVestibile(prodotto[3]) %}checked{% endif %} {% if not checkIfVestibile(prodotto[3]) %}disabled{% endif %}>
-                      <span class="text-gray-700">{{ prodotto[4] }}</span>
-                      <span>Taglia: {{ prodotto[3] }}</span>
-                      <span>Colore: {{ prodotto[10] }}</span>
-                  </label>
+
+
+            <!-- Radio button personalizzato per il pantalone con colore, taglia e nome -->
+            <label class="flex flex-col items-center space-y-2 cursor-pointer border p-4 rounded transition duration-300 ease-in-out hover:border-gray-700 focus-within:border-black">
+              <input type="radio" name="maglietta" value="{{ prodotto[10] }}-{{ prodotto[8] }}" class="hidden">
+              <span class="text-gray-700">{{ prodotto[4] }}</span>
+              <span>Taglia: {{ prodotto[8] }}</span>
+              <span>Colore: {{ prodotto[10] }}</span>
+              <span class="tipologia" style="display: none;">{{ prodotto[5]}}</span>
+            </label>
               {% endif %}
+
           {% endfor %}
       
-          {% if not magliettePresenti %}
+          {% if magliettePresenti is not defined %}
               <p>Il carrello non ha prodotti di tipo "Magliette".</p>
           {% endif %}
       </div>
@@ -1080,31 +1084,33 @@ body {
       <div class="mb-4"> <!-- PANTALONI -->
           <label for="pantalone" class="block font-medium">Pantaloni:</label>
       
-          {% set pantaloniPresenti = false %}
+          {% set pantaloniPresenti = None %}
       
-          {% for prodotto in prodotti %}
+          {% for prodotto in prodotti[0] %}
               {% if 'jeans' in prodotto[4] or 'pantaloni' in prodotto[4] or 'pantalone' in prodotto[4] %}
                   {% set pantaloniPresenti = true %}
       
                   <!-- Radio button personalizzato per il pantalone con colore, taglia e nome -->
-                  <label class="flex flex-col items-center space-y-2 cursor-pointer border p-4 rounded transition duration-300 ease-in-out hover:border-gray-700 focus-within:border-black  {% if not checkIfVestibile(prodotto[3]) %}non-vestibile{% endif %}">
-                      <input type="radio" name="pantalone" value="{{ prodotto[10] }}-{{ prodotto[3] }}" class="hidden" {% if checkIfVestibile(prodotto[3]) %}checked{% endif %}  {% if not checkIfVestibile(prodotto[3]) %}disabled{% endif %}>
+                  <label class="flex flex-col items-center space-y-2 cursor-pointer border p-4 rounded transition duration-300 ease-in-out hover:border-gray-700 focus-within:border-black">
+                      <input type="radio" name="pantalone" value="{{ prodotto[10] }}-{{ prodotto[8] }}" class="hidden">
                       <span class="text-gray-700">{{ prodotto[4] }}</span>
-                      <span>Taglia: {{ prodotto[3] }}</span>
+                      <span>Taglia: {{ prodotto[8] }}</span>
                       <span>Colore: {{ prodotto[10] }}</span>
+                      <img
+                        src="data:image/jpeg;base64,{{ prodotto[12] }}"
+                        alt="Product"
+                        class="w-24 h-24 object-cover"
+                      />
                   </label>
               {% endif %}
           {% endfor %}
       
-          {% if not pantaloniPresenti %}
+          {% if pantaloniPresenti is not defined %}
               <p>Il carrello non ha prodotti di tipo "Pantaloni".</p>
           {% endif %}
       </div>
 
       </div> <!-- terminazione intero rettangolo a sinistra dell'avatar -->
-
-      <!-- fine scelta prodotti presenti nel DB; inizio momentaneo della scelta della taglia -->
-        
 
         <!--
             a prescindere, questi sono i valori taglia:
@@ -1343,32 +1349,6 @@ initializeHairColor();
         console.log("aggiornaAvatar eseguita")
     });
 
-    //okk questa funzione dovrebbe funzionare. Se non funziona allora piango
-    function checkIfVestibile(taglia) {
-    // Mappa dei valori di taglia
-    const tagliaMap = {
-        'esile': 145,
-        'normale': 158,
-        'grande': 170,
-        'xgrande': 183
-    };
-
-    // Mappa il valore di taglia passato come argomento
-    const tagliaNumerica = tagliaMap[taglia];
-
-    // Recupera il valore di taglia_avatar dall'elemento select
-    const selectElement = document.getElementById('dimensioniCorpo');
-    const tagliaAvatar = tagliaMap[selectElement.value];
-
-    // Confronta le taglie
-    if (tagliaNumerica >= tagliaAvatar) {
-        return true; // L'elemento è vestibile
-    } else {
-        return false; // L'elemento non è vestibile
-    }
-}
-
-
         function updateLegWidth() {
 
           // Ottieni il nuovo valore selezionato
@@ -1560,6 +1540,42 @@ initializeHairColor();
                 });
             });
         });
+
+// Ottieni tutti gli elementi radio con il nome "maglietta"
+var radioButtons = document.querySelectorAll('input[name="maglietta"]');
+
+// Ottieni il div da mostrare/nascondere
+var bodyCenterFullDiv = document.querySelector('.c-body-center-full');
+
+// Ottieni l'elemento della dropdown "sesso"
+var sessoDropdown = document.getElementById('sesso');
+
+// Aggiungi un listener di cambio stato a ciascun radio button
+radioButtons.forEach(function(radioButton) {
+  radioButton.addEventListener('change', function() {
+    // Verifica se il radio button è selezionato
+    if (this.checked) {
+      // Ottieni il valore della tipologia associato al radio button selezionato
+      var tipologiaValore = this.parentElement.querySelector('.tipologia').textContent;
+
+      // Confronto tra tipologiaValore e sessoDropdown
+      if (tipologiaValore === sessoDropdown.value) {
+          this.removeAttribute('disabled');
+          // Verifica se il valore della tipologia è "uomo"
+          if (tipologiaValore === 'uomo') {
+            // Mostra il div
+            bodyCenterFullDiv.style.display = 'block';
+            } else {
+            // Nascondi il div se la tipologia non è "uomo"
+            bodyCenterFullDiv.style.display = 'none';
+            }
+           
+        } else {
+          this.setAttribute('disabled', 'disabled');
+        }
+    }
+  });
+});
 
     </script>
   </body>
