@@ -89,12 +89,18 @@
               class="font-semibold"
               style="color: #000000"
             >
-              {% if totale %} {{ totale }}€ {% else %} 0.00€ {% endif %}
-            </span>
-          </div>
-          <div class="flex justify-between items-center mb-2">
-            <span class="text-gray-600">Shipping:</span>
-            <span class="font-semibold" style="color: #000000">5.00€</span>
+            {% if totale %} 
+          </span>
+        </div>
+        <div class="flex justify-between items-center mb-2">
+          <span class="text-gray-600">Shipping:</span>
+          {% if totale > 50 %}
+          <span class="font-semibold" style="color: #000000">Free</span>
+        {% else %}
+          <span class="font-semibold" style="color: #000000">5.00€</span>
+        {% endif %}
+      </div>
+    {% endif %}
           </div>
           <hr class="my-2 border-gray-300" />
           <div class="flex justify-between items-center">
