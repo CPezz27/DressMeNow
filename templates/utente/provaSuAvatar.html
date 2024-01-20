@@ -54,8 +54,8 @@
       --left-body-top: 110px;
       --half-left-body-top: calc(var(--left-body-top) / 2);
       /* variabili per i vestiti */
-      --c-clothing-top-color: #ff0000;
-      --c-clothing-bottom-color: rgb(17, 0, 255);
+      --c-clothing-top-color: #ff000000;
+      --c-clothing-bottom-color: rgba(17, 0, 255, 0);
       --c-whitespace: calc((var(--selected_width_top) - var(--c-width-arms) - var(--c-width-arms)) / 2);
       --c-half-body-top: calc(var(--selected_width_top) / 2);
       --c-width-arms: calc((var(--selected_width_top) / 100) * 20);
@@ -71,7 +71,7 @@
     /* End Variables */
     /* Start Global Rules */
     body {
-      background-color: #ffffff;
+      background: linear-gradient(to right, #3fb6a8, #7ed386);
     }
 
     .human-body-top {
@@ -525,6 +525,15 @@
       border-bottom-right-radius: 50px;
     }
 
+    .c-svgimage{
+      position: absolute;
+      left: var(--c-left-body-center);
+      width: var(--c-width-body-center);
+      height: calc((var(--height-body-center-full) / 100) * 60);
+      top: calc(var(--body-top-starting-point) + var(--height-body-top));
+      z-index: 90;
+    }
+
     .c-body-center-top {
       background-color: var(--c-clothing-top-color);
       position: absolute;
@@ -681,6 +690,9 @@
               <div class="c-arm-right">
                 <div class="c-hand-right" style="display: none;"></div>
               </div>
+              <div class="svgs"> <!-- eventuali svg -->
+                <img src="https://dev.w3.org/SVG/tools/svgweb/samples/svg-files/compass.svg" alt="SVG file" class="c-svgimage" class="svg1" id="1">
+              </div>
               <div class="c-body-center-top"></div>
               <div class="c-body-center-bottom"></div>
               <div class="c-body-center-full" style="display: none;"></div>
@@ -693,8 +705,9 @@
           </div>
         </div>
       </div>
+
       <!-- INIZIO colonna a destra per selezionare robe -->
-      <div class=" p-6 bg-gray-200 m-9 max-w-xl ml-auto">
+      <div class="p-6 bg-white m-9 w-2/3 max-w-2xl border border-gray-300 rounded-md">
         <h2 class="text-2xl font-bold mb-4">Vesti il tuo avatar</h2>
         <form id="avatarForm" action="#" method="post" class="space-y-4">
           <!-- COLORI PELLE -->
@@ -883,24 +896,37 @@
         <div class="mb-4">
           <!-- MAGLIETTE -->
           <label for="maglietta" class="block font-medium">Magliette:</label> {% set magliettePresenti = namespace(found=None) %} {% for prodotto in prodotti[0] %} {% if 'maglia' in prodotto[4] or 'maglietta' in prodotto[4] or 'Maglia' in prodotto[4] or 'Maglietta' in prodotto[4] %} {% set magliettePresenti.found = 1 %}
-          
+          <div class="mb-4 flex" > 
           <!-- Radio button personalizzato per il pantalone con colore, taglia e nome -->
-          <label class="flex flex-col items-center space-y-2 cursor-pointer border p-4 rounded transition duration-300 ease-in-out hover:border-gray-700 focus-within:border-black">
+          <label class="flex flex-col items-center space-y-2 cursor-pointer border p-1 rounded transition duration-300 ease-in-out hover:border-gray-700 focus-within:border-black">
             <img src="data:image/jpeg;base64,{{ prodotto[12] }}" alt="Product" class="w-24 h-24 object-cover" />
             <input type="radio" name="maglietta" value="{{ prodotto[10] }}-{{ prodotto[8] }}" class="hidden" {% if prodotto[5] != avatar[10] or prodotto[8] < avatar[6] %}disabled{% endif %}>
             <span> {{prodotti[8]}}</span>
             <span class="tipologia" style="display: none;">{{ prodotto[5]}}</span>
           </label> {% endif %} {% endfor %} {% if not magliettePresenti.found %} <p class="text-gray-400">Il carrello non ha prodotti di tipo "Magliette".</p> {% endif %}
+          </div>
         </div>
         <div class="mb-4">
           <!-- PANTALONI -->
           <label for="pantalone" class="block font-medium">Pantaloni:</label> {% set pantaloniPresenti = namespace(found=None) %} {% for prodotto in prodotti[0] %} {% if 'jeans' in prodotto[4] or 'pantaloni' in prodotto[4] or 'Jeans' in prodotto[4] or 'Pantaloni' in prodotto[4]  %} {% set pantaloniPresenti.found = 1 %}
+          <div class="mb-4 flex">
           <!-- Radio button personalizzato per il pantalone con colore, taglia e nome -->
-          <label class="flex flex-col items-center space-y-2 cursor-pointer border p-4 rounded transition duration-300 ease-in-out hover:border-gray-700 focus-within:border-black">
+          <label class="flex flex-col items-center space-y-2 cursor-pointer border p-1 rounded transition duration-300 ease-in-out hover:border-gray-700 focus-within:border-black">
             <img src="data:image/jpeg;base64,{{ prodotto[12] }}" alt="Product" class="w-24 h-24 object-cover" />
             <input type="radio" name="pantalone" value="{{ prodotto[10] }}-{{ prodotto[8] }}" class="hidden" {% if prodotto[5] != avatar[10] or prodotto[8] < avatar[6] %}disabled{% endif %}>
             <span class="tipologia" style="display: none;">{{ prodotto[5]}}</span>
           </label> {% endif %} {% endfor %} {% if not pantaloniPresenti.found %} <p class="text-gray-400">Il carrello non ha prodotti di tipo "Pantaloni".</p> {% endif %}
+          </div>
+        </div>
+        
+        <!-- Nuovo div per i pulsanti -->
+        <div class="flex justify-between">
+          <!-- Pulsante per rimuovere tutte le selezioni -->
+          <button class="bg-blue-500 text-white p-2 rounded hover:bg-blue-700" onclick="resetSelections()">Rimuovi selezioni</button>
+  
+          <!-- Pulsante per tornare al carrello -->
+          <button class="text-white p-2 rounded" style="background-color: #7ed386;" onmouseover="this.style.backgroundColor='#5aa963'" 
+          onmouseout="this.style.backgroundColor='#7ed386'" onclick="returnToCart()">Torna al carrello</button>
         </div>
       </div>
       <!-- terminazione intero rettangolo a sinistra dell'avatar -->
@@ -932,6 +958,15 @@
     -->
     </div>
     <script>
+
+      function resetSelections() {
+        location.reload(); // Questa riga ricarica la pagina
+      }
+
+      function returnToCart() {
+        window.location.href = '/carrello';
+      }
+
       document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('.c-midtriangle-left').style.display = 'none';
         document.querySelector('.c-midtriangle-right').style.display = 'none';
@@ -1232,28 +1267,29 @@
           });
         });
       });
+
       // Ottieni tutti gli elementi radio con il nome "maglietta"
       var radioButtons = document.querySelectorAll('input[name="maglietta"]');
       // Ottieni il div da mostrare/nascondere
       var bodyCenterFullDiv = document.querySelector('.c-body-center-full');
       // Ottieni l'elemento della dropdown "sesso"
       var sessoDropdown = document.getElementById('sesso');
-      // Aggiungi un listener di cambio stato a ciascun radio button
+      
       radioButtons.forEach(function(radioButton) {
         radioButton.addEventListener('change', function() {
-          // Verifica se il radio button è selezionato
+          
           if (this.checked) {
-            // Ottieni il valore della tipologia associato al radio button selezionato
             var tipologiaValore = this.parentElement.querySelector('.tipologia').textContent;
+
             // Confronto tra tipologiaValore e sessoDropdown
             if (tipologiaValore === sessoDropdown.value) {
-              this.removeAttribute('disabled');
+
               // Verifica se il valore della tipologia è "uomo"
               if (tipologiaValore === 'uomo') {
-                // Mostra il div
+                // sì - Mostra il div
                 bodyCenterFullDiv.style.display = 'block';
               } else {
-                // Nascondi il div se la tipologia non è "uomo"
+                // no - Nascondi il div 
                 bodyCenterFullDiv.style.display = 'none';
               }
             } else {
