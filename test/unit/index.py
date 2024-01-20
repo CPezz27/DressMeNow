@@ -10,7 +10,7 @@ from SearchProductTest import SearchProductTest
 
 
 if __name__ == '__main__':
-    cov = coverage.Coverage()
+    cov = coverage.Coverage(branch=True)
     cov.start()
 
     loader = unittest.TestLoader()
