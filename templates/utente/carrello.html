@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shopping Cart - Clothing Store</title>
+    <title>Carrello</title>
     <link
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
       rel="stylesheet"
@@ -25,7 +25,7 @@
             <h1 class="text-3xl font-semibold">Carrello</h1>
             <form method="post" action="/svuota_carrello">
               <button class="bg-red-500 text-white py-2 px-4 rounded-full">
-                Remove All from Cart
+                Rimuovi tutto dal carrello
               </button>
             </form>
           </div>
@@ -57,9 +57,9 @@
                 </div>
                 <div>
                   <h2 class="text-lg font-semibold">{{ prodotto[4] }}</h2>
-                  <p class="text-gray-600">Size: {{ prodotto[8] }}</p>
-                  <p class="text-gray-600">Quantity: {{ prodotto[2] }}</p>
-                  <p class="text-gray-600">Price: {{ prodotto[9] }}€</p>
+                  <p class="text-gray-600">Taglia: {{ prodotto[8] }}</p>
+                  <p class="text-gray-600">Quantità: {{ prodotto[2] }}</p>
+                  <p class="text-gray-600">Prezzo: {{ prodotto[9] }}€</p>
                 </div>
               </div>
               <form action="/rimuovi_dal_carrello" method="post">
@@ -69,7 +69,7 @@
                   value="{{ prodotto[1] }}"
                 />
                 <button class="bg-red-500 text-white py-2 px-4 rounded-full">
-                  Remove
+                  Rimuovi
                 </button>
               </form>
             </div>
@@ -81,9 +81,9 @@
       <!-- Riepilogo dell'ordine a destra -->
       <div class="w-full md:w-1/2">
         <div style="background-color:whitesmoke" class="bg-white p-4 rounded-lg shadow-md">
-          <h1 class="text-3xl font-semibold mb-4 text-center">Order Summary</h1>
+          <h1 class="text-3xl font-semibold mb-4 text-center">Riepilogo dell'Ordine</h1>
           <div class="flex justify-between items-center mb-2">
-            <span class="text-gray-600">Total Products:</span>
+            <span class="text-gray-600">Totale Prodotti:</span>
             <span
               id="totalProducts"
               class="font-semibold"
@@ -93,9 +93,9 @@
           </span>
         </div>
         <div class="flex justify-between items-center mb-2">
-          <span class="text-gray-600">Shipping:</span>
+          <span class="text-gray-600">Spedizione:</span>
           {% if totale > 50 %}
-          <span class="font-semibold" style="color: #000000">Free</span>
+          <span class="font-semibold" style="color: #000000">Gratis</span>
         {% else %}
           <span class="font-semibold" style="color: #000000">5.00€</span>
         {% endif %}
