@@ -29,9 +29,9 @@ class AggiungiProdottoTest(unittest.TestCase):
                 materiale='Materiale Test'
             ), follow_redirects=True)
 
-            self.assertIn(b"taglie ", response.data)
+            self.assertIn(b"taglie", response.data)
 
-            if b"taglie " in response.data:
+            if b"taglie" in response.data:
                 print("Test 'test_aggiungi_prodotto_with_valid_input' PASSATO")
             else:
                 print("Test 'test_aggiungi_prodotto_with_valid_input' FALLITO")
