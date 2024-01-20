@@ -94,13 +94,15 @@
       </div>
       
       <div class="rightbox">
+        {% if data and data|length < 3 %}
         <button id="aggiungiIndirizzo" class="mx-auto block text-center" style="color: #000000; border-radius: 5px;" onclick="location.href='/indirizzo/aggiungi'">
           <svg width="25" height="25" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 2a10 10 0 1 0 0 20 10 10 0 1 0 0-20z"></path>
             <path d="M12 8v8"></path>
             <path d="M8 12h8"></path>
           </svg>
-        </button> 
+        </button>
+        {% endif %}
         <div class="addresses">
             {% if data %}
             {% for indirizzo in data %}
