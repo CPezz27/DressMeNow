@@ -2,7 +2,7 @@ import base64
 from flask import request
 import mysql.connector
 from utils import mysql_config
-#from utils.nlp import preprocess_text
+# from utils.nlp import preprocess_text
 
 conn = mysql_config.get_database_connection()
 cursor = conn.cursor()
@@ -139,31 +139,44 @@ def view_products_by_category(category):
         return None
 
 
-def search_products(query, categoria=None, colore=None, vestibilità=None, taglia=None):
+def search_products(text, indumenti=None, categoria=None, colore=None, vestibilità=None):
     try:
         # Query per cercare prodotti nel database in base al testo di input
 
-        filtered_words, aggettivi = preprocess_text(query)
+        filtered_words, indumenti, colore, categoria, vestibilità = preprocess_text(text)
         print("parole filtrate", filtered_words)
-        print("aggettivi", aggettivi)
-        search_query = "SELECT * FROM prodotti WHERE LOWER(descrizione) LIKE %s"
-        params = ('%' + ' '.join(filtered_words) + '%',)
+        print("indumenti", indumenti)
+        print("colore", colore)
+        print("categoria", categoria)
+        print("vestibilità", vestibilità)
 
-        condizioni_like = ' OR '.join([f"descrizione LIKE '%{parola}%'" for parola in aggettivi])
+        query = "SELECT * FROM prodotto WHERE "
+        conditions = []
 
-        query = ("SELECT * FROM prodotto WHERE descrizione LIKE '%maglia%' AND descrizione LIKE %")
+        if indumenti:
+            conditions.append("nome LIKE %s")
+        if colore:
+            conditions.append("colore = %s")
+        if categoria:
+            conditions.append("categoria = %s")
+        if vestibilità:
+            conditions.append("vestibilità = %s")
 
-        print(condizioni_like)
+        if conditions:
+            query += " AND ".join(conditions)
 
-        nonso_query = f""" SELECT * FROM prodotto WHERE {condizioni_like};"""
+        print("query", query)
 
-        cursor.execute(search_query, params)
+        cursor.execute(query)
 
         products = cursor.fetchall()
+
+        print("prodotti", products)
 
         return products
 
     except mysql.connector.Error as err:
+        print("Marameo alalallalal")
 
         return None
 
