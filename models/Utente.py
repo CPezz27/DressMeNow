@@ -152,6 +152,15 @@ class Utente:
         try:
             conn.start_transaction()
 
+            check_query = "SELECT COUNT(*) FROM utente WHERE email = %s"
+
+            cursor.execute(check_query, (self.email,))
+
+            count = cursor.fetchone()[0]
+
+            if count > 0:
+                return False
+
             insert_user_query = ("INSERT INTO utente "
                                 "(nome, cognome, email, password, sesso, telefono, data_nascita) "
                                 "VALUES (%s, %s, %s, %s, %s, %s, %s)")
