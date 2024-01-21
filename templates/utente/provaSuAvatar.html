@@ -654,7 +654,7 @@
       /* Non è cliccabile */
     }
   </style> {% include 'components/header.html' %} <body class="bg-gray-100">
-    <div class="flex">
+    <div class="flex flex-row">
       <!-- AVATAR -->
       <div class="w-1/3 p-2 ">
         <div class="relative w-40 h-40 mx-auto">
@@ -731,7 +731,7 @@
       </div>
 
       <!-- INIZIO colonna a destra per selezionare robe -->
-      <div class="p-6 bg-white m-9 w-2/3 max-w-2xl border border-gray-300 rounded-md">
+      <div class="p-6 bg-white m-9 w-3/5 max-w-2xl border border-gray-300 rounded-md">
         <h2 class="text-2xl font-bold mb-4">Vesti il tuo avatar</h2>
         <form id="avatarForm" action="#" method="post" class="space-y-4">
                     <!-- COLORI PELLE -->
@@ -1108,7 +1108,7 @@
         <div class="mb-4">
           <!-- MAGLIETTE -->
           <label for="maglietta" class="block font-medium">Magliette:</label> {% set magliettePresenti = namespace(found=None) %} {% for prodotto in prodotti[0] %} {% if 'maglia' in prodotto[4] or 'maglietta' in prodotto[4] or 'Maglia' in prodotto[4] or 'Maglietta' in prodotto[4] %} {% set magliettePresenti.found = 1 %}
-          <div class="mb-4 flex" > 
+          <div class="mb-4  flex flex-wrap items-center space-x-1" > 
           <!-- Radio button personalizzato per il pantalone con colore, taglia e nome -->
           <label class="flex flex-col items-center space-y-2 cursor-pointer border p-1 rounded transition duration-300 ease-in-out hover:border-gray-700 focus-within:border-black">
             <img src="data:image/jpeg;base64,{{ prodotto[12] }}" alt="Product" class="w-24 h-24 object-cover" />
@@ -1121,7 +1121,7 @@
         <div class="mb-4">
           <!-- PANTALONI -->
           <label for="pantalone" class="block font-medium">Pantaloni:</label> {% set pantaloniPresenti = namespace(found=None) %} {% for prodotto in prodotti[0] %} {% if 'jeans' in prodotto[4] or 'pantaloni' in prodotto[4] or 'Jeans' in prodotto[4] or 'Pantaloni' in prodotto[4]  %} {% set pantaloniPresenti.found = 1 %}
-          <div class="mb-4 flex">
+          <div class="mb-4  flex flex-wrap items-center space-x-1">
           <!-- Radio button personalizzato per il pantalone con colore, taglia e nome -->
           <label class="flex flex-col items-center space-y-2 cursor-pointer border p-1 rounded transition duration-300 ease-in-out hover:border-gray-700 focus-within:border-black">
             <img src="data:image/jpeg;base64,{{ prodotto[12] }}" alt="Product" class="w-24 h-24 object-cover" />
