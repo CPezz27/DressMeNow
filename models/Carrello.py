@@ -91,10 +91,11 @@ def contenuto_carrello(id_utente):
         cursor.execute(query_get_cart_id, (id_utente,))
         cart_id = cursor.fetchone()
 
+
         if cart_id:
-            query = (
+            query_main = (
                 "SELECT pc.*, p.nome, p.categoria, p.marca, p.descrizione, p.vestibilità, "
-                "p.prezzo, p.colore, p.materiale, TO_BASE64(MAX(i.immagine)) as immagine "
+                "p.prezzo, p.colore, p.materiale, TO_BASE64(MAX(i.immagine)) as immagine, p.id_prodotto "
                 "FROM prodotto_in_carrello pc "
                 "JOIN prodotto p ON pc.id_prodotto = p.id_prodotto "
                 "LEFT JOIN (SELECT id_prodotto, immagine FROM immagine WHERE tipo = 'pagina_prodotto') i "
@@ -104,21 +105,31 @@ def contenuto_carrello(id_utente):
                 "p.prezzo, p.colore, p.materiale"
             )
 
-            cursor.execute(query, (cart_id[0],))
-            cart_contents = cursor.fetchall()
 
-            total_price = 0.0
+            cursor.execute(query_main, (cart_id[0],))
+            cart_contents = cursor.fetchall()
+            query_avatar = (
+                "SELECT TO_BASE64(i.immagine) as avatar "
+                "FROM immagine i "
+                "WHERE i.id_prodotto = %s AND i.tipo = 'avatar'"
+            )
+
+            avatar_images = []
 
             for item in cart_contents:
-                total_price += float(item[9]) * float(item[2])
+                print(item[13])
+                cursor.execute(query_avatar, (item[13],))
+                avatar_data = cursor.fetchone()
+                avatar_images.append({'id_prodotto': item[13], 'avatar': avatar_data[0]} if avatar_data else None)
 
+            total_price = sum(float(item[9]) * float(item[2]) for item in cart_contents)
             total_price = round(total_price, 2)
 
-            return cart_contents, total_price
+            return cart_contents, total_price, avatar_images
         else:
-            return None, None
+            return None, None, None
     except mysql.connector.Error as err:
-        return None, None
+        return None, None, None
 
 
 class Carrello:

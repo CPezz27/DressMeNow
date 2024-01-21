@@ -13,7 +13,7 @@ def visualizza_carrello():
     try:
         user_id = session.get('id')
 
-        prodotti, totale = Carrello.contenuto_carrello(user_id)
+        prodotti, totale, immagini_avatar = Carrello.contenuto_carrello(user_id)
 
         return render_template('/utente/carrello.html', data=prodotti, totale=totale)
 
