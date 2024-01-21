@@ -21,8 +21,8 @@
       --clothing-top-color: #b1b1b1;
       --clothing-bottom-color: rgb(148, 148, 148);
       --shoes-color: rgb(77, 77, 77);
-      /* variabili modificabili da slider */
-      --avatar_height: 160px;
+      /* variabili */
+      --avatar_height: 160px; 
       /* min: 140, max: 200 */
       --avatar_width: 150px;
       /* min: 145, max: 184 */
@@ -34,7 +34,7 @@
       /* variabili varie*/
       --height-body-top: calc((var(--avatar_height) / 100) * 30);
       --hair-lenght-female: calc((var(--hair-length)*2) + 99px);
-      /* 1 = 100,  - 140 */
+      /* 1 = 100, 20 = 140 */
       --hair-lenght-male: calc(var(--hair-length) + 89px);
       /* 90 - 110 */
       --height-arm-body-center-bottom: calc((var(--avatar_height) / 100) * 55);
@@ -119,7 +119,7 @@
       top: 80px;
       left: 50px;
       transform: translateX(35%);
-      z-index: 100;
+      z-index: 99;
       border-radius: 0 0 80px 80px;
     }
 
@@ -144,40 +144,61 @@
       /*box-shadow: 42px 0 0 var(--hair-color);*/
       border-radius: 50%;
       border: 1px solid white;
+      transition: height 0.02s linear;
     }
 
     .brow1 {
       position: absolute;
-      top: -5px;
-      left: -1px;
+      top: 22px;
+      left: 8px;
       width: 12px;
       height: 2px;
       background: #000000;
       /*box-shadow: 42px 0 0 #000000;*/
       border-radius: 10px;
+    }
+    .pupil1{
+      background-color: black;
+      width: 6px;
+      height: 6px;
+      position: absolute;
+      top: 30px;
+      left: 11px;
+      border-radius: 50%;
+      transition: height 0.02s linear;
+
     }
 
     .eye2 {
-      background-color: var(--eye-color);
-      width: 12px;
-      height: 12px;
-      position: absolute;
-      top: 27px;
-      left: 50px;
-      /*box-shadow: 42px 0 0 var(--hair-color);*/
-      border-radius: 50%;
-      border: 1px solid white;
-    }
+    background-color: var(--eye-color);
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    top: 27px;
+    left: 50px;
+    border-radius: 50%;
+    border: 1px solid white;
+    transition: height 0.02s linear;
 
+    }
     .brow2 {
-      position: absolute;
-      top: -5px;
-      left: -1px;
-      width: 12px;
-      height: 2px;
-      background: #000000;
-      /*box-shadow: 42px 0 0 #000000;*/
-      border-radius: 10px;
+    position: absolute;
+    top: 22px;
+    left: 50px;
+    width: 12px;
+    height: 2px;
+    background: #000000;
+    border-radius: 10px;
+    }
+    .pupil2{
+    background-color: black;
+    width: 6px;
+    height: 6px;
+    position: absolute;
+    top: 30px;
+    left: 53px;
+    border-radius: 50%;
+    transition: height 0.02s linear;
     }
 
     .nose {
@@ -202,7 +223,7 @@
       background-color: black;
       border-radius: 0 0 20px 20px;
       overflow: hidden;
-      z-index: 4;
+      z-index: 99;
     }
 
     .teeth {
@@ -214,7 +235,7 @@
       left: 50%;
       transform: translateX(-50%);
       border-radius: 10px;
-      z-index: 5;
+      z-index: 100;
     }
 
     .tongue {
@@ -226,7 +247,7 @@
       left: 50%;
       transform: translateX(-50%);
       border-radius: 10px;
-      z-index: 5;
+      z-index: 100;
     }
 
     .neck {
@@ -236,7 +257,7 @@
       position: absolute;
       bottom: -12px;
       left: 50%;
-      z-index: 95;
+      z-index: 50;
       transform: translateX(-50%);
       border-radius: 50px;
     }
@@ -249,7 +270,7 @@
       top: 49px;
       left: -24.5px;
       transform: translateX(35%);
-      z-index: 99;
+      z-index: 51;
       border-radius: 0 0 80px 80px;
     }
 
@@ -645,12 +666,15 @@
               <!-- 50px per uomo, 0 per donna-->
               <div class="napkin" style="height: 40px;"></div>
               <!-- 0 per uomo, 40 per donna-->
-              <div class="eye1">
-                <div class="brow1"></div>
-              </div>
-              <div class="eye2">
-                <div class="brow2"></div>
-              </div>
+
+
+              <div class="brow1"></div>            
+              <div class="eye1"></div>
+              <div class="pupil1" style="display: block"></div>
+              <div class="brow2"></div>
+              <div class="eye2"></div>
+              <div class="pupil2" style="display: block"></div>
+
               <div class="nose"></div>
               <div class="cheek"></div>
               <div class="mouth">
@@ -710,164 +734,352 @@
       <div class="p-6 bg-white m-9 w-2/3 max-w-2xl border border-gray-300 rounded-md">
         <h2 class="text-2xl font-bold mb-4">Vesti il tuo avatar</h2>
         <form id="avatarForm" action="#" method="post" class="space-y-4">
-          <!-- COLORI PELLE -->
-          <div class="mb-4" style="display: none;">
-            <label for="colorePelle" class="block font-medium mb-2">Colore Pelle:</label>
-            <div class="flex flex-wrap items-center space-x-1">
-              <input type="radio" id="colorePelle1" name="colorePelle" value="Rosa pallido" class="opacity-0 absolute sr-only" {% if
-                           avatar[1]=='Rosa pallido' %}checked{% endif %} />
-              <label for="colorePelle1" class="flex items-center relative cursor-pointer">
-                <div class="w-8 h-8 rounded-full bg-red-200 border border-gray-300"></div>
-                <div class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"></div>
-              </label>
-              <input type="radio" id="colorePelle2" name="colorePelle" value="Rosa" class="opacity-0 absolute sr-only" {% if
-                           avatar[1]=='Rosa' %}checked{% endif %} />
-              <label for="colorePelle2" class="flex items-center relative cursor-pointer">
-                <div class="w-8 h-8 rounded-full bg-red-300 border border-gray-300"></div>
-                <div class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"></div>
-              </label>
-              <input type="radio" id="colorePelle3" name="colorePelle" value="marrone chiaro" class="opacity-0 absolute sr-only" {% if
-                           avatar[1]=='marrone chiaro' %}checked{% endif %} />
-              <label for="colorePelle3" class="flex items-center relative cursor-pointer">
-                <div class="w-8 h-8 rounded-full bg-yellow-600 border border-gray-300"></div>
-                <div class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"></div>
-              </label>
-              <input type="radio" id="colorePelle4" name="colorePelle" value="mulatto" class="opacity-0 absolute sr-only" {% if
-                           avatar[1]=='mulatto' %}checked{% endif %} />
-              <label for="colorePelle4" class="flex items-center relative cursor-pointer">
-                <div class="w-8 h-8 rounded-full bg-yellow-800 border border-gray-300"></div>
-                <div class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"></div>
-              </label>
-              <input type="radio" id="colorePelle5" name="colorePelle" value="marrone scuro" class="opacity-0 absolute sr-only" {% if
-                           avatar[1]=='marrone scuro' %}checked{% endif %} />
-              <label for="colorePelle5" class="flex items-center relative cursor-pointer">
-                <div class="w-8 h-8 rounded-full bg-yellow-900 border border-gray-300"></div>
-                <div class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"></div>
-              </label>
-            </div>
-          </div>
-          <!-- COLORI OCCHI -->
-          <div class="mb-4" style="display: none;">
-            <label for="coloreOcchi" class="block font-medium">Colore Occhi:</label>
-            <div class="flex flex-wrap items-center space-x-1">
-              <input type="radio" id="coloreOcchi1" name="coloreOcchi" value="blu chiaro" class="opacity-0 absolute sr-only" {% if
-                           avatar[2]=='blu chiaro' %}checked{% endif %} />
-              <label for="coloreOcchi1" class="flex items-center relative cursor-pointer">
-                <div class="w-8 h-8 rounded-full bg-blue-400 border border-gray-300"></div>
-                <div class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"></div>
-              </label>
-              <input type="radio" id="coloreOcchi2" name="coloreOcchi" value="blu scuro" class="opacity-0 absolute sr-only" {% if
-                           avatar[2]=='blu scuro' %}checked{% endif %} />
-              <label for="coloreOcchi2" class="flex items-center relative cursor-pointer">
-                <div class="w-8 h-8 rounded-full bg-blue-700 border border-gray-300"></div>
-                <div class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"></div>
-              </label>
-              <input type="radio" id="coloreOcchi3" name="coloreOcchi" value="verde chiaro" class="opacity-0 absolute sr-only" {% if
-                           avatar[2]=='verde chiaro' %}checked{% endif %} />
-              <label for="coloreOcchi3" class="flex items-center relative cursor-pointer">
-                <div class="w-8 h-8 rounded-full bg-green-600 border border-gray-300"></div>
-                <div class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"></div>
-              </label>
-              <input type="radio" id="coloreOcchi4" name="coloreOcchi" value="verde scuro" class="opacity-0 absolute sr-only" {% if
-                           avatar[2]=='verde scuro' %}checked{% endif %} />
-              <label for="coloreOcchi4" class="flex items-center relative cursor-pointer">
-                <div class="w-8 h-8 rounded-full bg-green-800 border border-gray-300"></div>
-                <div class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"></div>
-              </label>
-              <input type="radio" id="coloreOcchi5" name="coloreOcchi" value="marrone" class="opacity-0 absolute sr-only" {% if
-                           avatar[2]=='marrone' %}checked{% endif %} />
-              <label for="coloreOcchi5" class="flex items-center relative cursor-pointer">
-                <div class="w-8 h-8 rounded-full bg-yellow-800 border border-gray-300"></div>
-                <div class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"></div>
-              </label>
-            </div>
-          </div>
-          <!-- COLORI CAPELLI -->
-          <div class="mb-4" style="display: none;">
-            <label for="coloreCapelli" class="block font-medium">Colore Capelli:</label>
-            <div class="flex flex-wrap items-center space-x-1">
-              <input type="radio" id="coloreCapelli1" name="coloreCapelli" value="bianco" class="opacity-0 absolute sr-only" {% if
-                           avatar[3]=='bianco' %}checked{% endif %} />
-              <label for="coloreCapelli1" class="flex items-center relative cursor-pointer">
-                <div class="w-8 h-8 rounded-full bg-gray-100 border border-gray-300"></div>
-                <div class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"></div>
-              </label>
-              <input type="radio" id="coloreCapelli2" name="coloreCapelli" value="nero" class="opacity-0 absolute sr-only" {% if
-                           avatar[3]=='nero' %}checked{% endif %} />
-              <label for="coloreCapelli2" class="flex items-center relative cursor-pointer">
-                <div class="w-8 h-8 rounded-full bg-gray-700 border border-gray-300"></div>
-                <div class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"></div>
-              </label>
-              <input type="radio" id="coloreCapelli3" name="coloreCapelli" value="marrone chiaro" class="opacity-0 absolute sr-only" {% if
-                           avatar[3]=='marrone chiaro' %}checked{% endif %} />
-              <label for="coloreCapelli3" class="flex items-center relative cursor-pointer">
-                <div class="w-8 h-8 rounded-full bg-yellow-700 border border-gray-300"></div>
-                <div class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"></div>
-              </label>
-              <input type="radio" id="coloreCapelli4" name="coloreCapelli" value="marrone scuro" class="opacity-0 absolute sr-only" {% if
-                           avatar[3]=='marrone scuro' %}checked{% endif %} />
-              <label for="coloreCapelli4" class="flex items-center relative cursor-pointer">
-                <div class="w-8 h-8 rounded-full bg-yellow-900 border border-gray-300"></div>
-                <div class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"></div>
-              </label>
-              <input type="radio" id="coloreCapelli5" name="coloreCapelli" value="biondo" class="opacity-0 absolute sr-only" {% if
-                           avatar[3]=='biondo' %}checked{% endif %} />
-              <label for="coloreCapelli5" class="flex items-center relative cursor-pointer">
-                <div class="w-8 h-8 rounded-full bg-yellow-400 border border-gray-300"></div>
-                <div class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"></div>
-              </label>
-            </div>
-          </div>
-          <!-- LUNGHEZZA CAPELLI -->
-          <div style="display: none;">
-            <label for="lunghezzaCapelli" class="block font-medium">Lunghezza Capelli:</label>
-            <input type="range" id="lunghezzaCapelli" name="lunghezzaCapelli" min="1" max="20" class="w-full rounded-md border-gray-300" value="{{avatar[4]}}" />
-          </div>
-          <!-- ALTEZZA AVATAR -->
-          <div style="display: none;">
-            <label for="altezza" class="block font-medium">Altezza:</label>
-            <input type="range" id="altezza" name="altezza" min="140" max="200" class="w-full rounded-md border-gray-300" value="{{avatar[5]}}" />
-          </div>
-          <!-- PESO AVATAR -->
-          <div style="display: none;">
-            <label for="peso" class="block font-medium">Peso:</label>
-            <input type="range" id="peso" name="peso" min="145" max="183" class="w-full rounded-md border-gray-300" value="{{avatar[6]}}" />
-          </div>
-          <!-- BARBA SI/NO -->
-          <div style="display: none;">
-            <label for="barba" class="block font-medium">Barba:</label>
-            <input type="checkbox" id="barba" name="barba" {% if avatar[7]==1
-                       %}checked{% endif %} />
-          </div>
-          <!-- ETA' -->
-          <div style="display: none;">
-            <label for="eta" class="block font-medium">Età:</label>
-            <input type="number" id="eta" name="eta" min="1" max="100" required class="w-full rounded-md border-gray-300" value="{{avatar[8]}}" />
-          </div>
-          <!-- DIMENSIONI CORPO -->
-          <div style="display: none;">
-            <label for="dimensioniCorpo" class="block font-medium">Dimensioni del Corpo:</label>
-            <select id="dimensioniCorpo" name="dimensioniCorpo" required class="w-full rounded-md border-gray-300">
-              <option value="esile" {% if
-                            avatar[9]=='esile' %}selected{% endif %}>Esile (S) </option>
-              <option value="normale" {% if
-                            avatar[9]=='normale' %}selected{% endif %}>Medio (M) </option>
-              <option value="grande" {% if
-                            avatar[9]=='grande' %}selected{% endif %}>Grande (L) </option>
-              <option value="xgrande" {% if
-                            avatar[9]=='xgrande' %}selected{% endif %}>Più grande (XL) </option>
-            </select>
-          </div>
-          <!-- SESSO -->
-          <div style="display: none;">
-            <label for="sesso" class="block font-medium">Sesso:</label>
-            <select id="sesso" name="sesso" required class="w-full rounded-md border-gray-300">
-              <option value="uomo" {% if
-                            avatar[10]=='uomo' %}selected{% endif %}>Uomo </option>
-              <option value="donna" {% if
-                            avatar[10]=='donna' %}selected{% endif %}>Donna </option>
-            </select>
-          </div>
+                    <!-- COLORI PELLE -->
+                    <div class="mb-4" style="display: none;">
+                      <label for="colorePelle" class="block font-medium mb-2"
+                        >Colore Pelle:</label
+                      >
+                      <div class="flex flex-wrap items-center space-x-1">
+                        <input type="radio" id="colorePelle1" name="colorePelle"
+                        value="rosa pallido" class="opacity-0 absolute sr-only"{% if
+                        avatar[1]=='rosa pallido' %}checked{% endif %} />
+                        <label
+                          for="colorePelle1"
+                          class="flex items-center relative cursor-pointer"
+                        >
+                          <div
+                            class="w-8 h-8 rounded-full bg-red-200 border border-gray-300"
+                          ></div>
+                          <div
+                            class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"
+                          ></div>
+                        </label>
+                        <input type="radio" id="colorePelle2" name="colorePelle"
+                        value="rosa" class="opacity-0 absolute sr-only" {% if
+                        avatar[1]=='rosa' %}checked{% endif %}/>
+                        <label
+                          for="colorePelle2"
+                          class="flex items-center relative cursor-pointer"
+                        >
+                          <div
+                            class="w-8 h-8 rounded-full bg-red-300 border border-gray-300"
+                          ></div>
+                          <div
+                            class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"
+                          ></div>
+                        </label>
+                        <input type="radio" id="colorePelle3" name="colorePelle"
+                        value="marrone chiaro" class="opacity-0 absolute sr-only" {% if
+                        avatar[1]=='marrone chiaro' %}checked{% endif %}/>
+                        <label
+                          for="colorePelle3"
+                          class="flex items-center relative cursor-pointer"
+                        >
+                          <div
+                            class="w-8 h-8 rounded-full bg-yellow-600 border border-gray-300"
+                          ></div>
+                          <div
+                            class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"
+                          ></div>
+                        </label>
+                        <input type="radio" id="colorePelle4" name="colorePelle"
+                        value="mulatto" class="opacity-0 absolute sr-only" {% if
+                        avatar[1]=='mulatto' %}checked{% endif %}/>
+                        <label
+                          for="colorePelle4"
+                          class="flex items-center relative cursor-pointer"
+                        >
+                          <div
+                            class="w-8 h-8 rounded-full bg-yellow-800 border border-gray-300"
+                          ></div>
+                          <div
+                            class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"
+                          ></div>
+                        </label>
+                        <input type="radio" id="colorePelle5" name="colorePelle"
+                        value="marrone scuro" class="opacity-0 absolute sr-only" {% if
+                        avatar[1]=='marrone scuro' %}checked{% endif %}/>
+                        <label
+                          for="colorePelle5"
+                          class="flex items-center relative cursor-pointer"
+                        >
+                          <div
+                            class="w-8 h-8 rounded-full bg-yellow-900 border border-gray-300"
+                          ></div>
+                          <div
+                            class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"
+                          ></div>
+                        </label>
+                      </div>
+                    </div>
+          
+                    <!-- COLORI OCCHI -->
+                    <div class="mb-4" style="display: none;">
+                      <label for="coloreOcchi" class="block font-medium"
+                        >Colore Occhi:</label
+                      >
+                      <div class="flex flex-wrap items-center space-x-1">
+                        <input type="radio" id="coloreOcchi1" name="coloreOcchi"
+                        value="blu chiaro" class="opacity-0 absolute sr-only" {% if
+                        avatar[2]=='blu chiaro' %}checked{% endif %} />
+                        <label
+                          for="coloreOcchi1"
+                          class="flex items-center relative cursor-pointer"
+                        >
+                          <div
+                            class="w-8 h-8 rounded-full bg-blue-400 border border-gray-300"
+                          ></div>
+                          <div
+                            class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"
+                          ></div>
+                        </label>
+                        <input type="radio" id="coloreOcchi2" name="coloreOcchi"
+                        value="blu scuro" class="opacity-0 absolute sr-only" {% if
+                        avatar[2]=='blu scuro' %}checked{% endif %} />
+                        <label
+                          for="coloreOcchi2"
+                          class="flex items-center relative cursor-pointer"
+                        >
+                          <div
+                            class="w-8 h-8 rounded-full bg-blue-700 border border-gray-300"
+                          ></div>
+                          <div
+                            class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"
+                          ></div>
+                        </label>
+                        <input type="radio" id="coloreOcchi3" name="coloreOcchi"
+                        value="verde chiaro" class="opacity-0 absolute sr-only" {% if
+                        avatar[2]=='verde chiaro' %}checked{% endif %} />
+                        <label
+                          for="coloreOcchi3"
+                          class="flex items-center relative cursor-pointer"
+                        >
+                          <div
+                            class="w-8 h-8 rounded-full bg-green-600 border border-gray-300"
+                          ></div>
+                          <div
+                            class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"
+                          ></div>
+                        </label>
+                        <input type="radio" id="coloreOcchi4" name="coloreOcchi"
+                        value="verde scuro" class="opacity-0 absolute sr-only" {% if
+                        avatar[2]=='verde scuro' %}checked{% endif %} />
+                        <label
+                          for="coloreOcchi4"
+                          class="flex items-center relative cursor-pointer"
+                        >
+                          <div
+                            class="w-8 h-8 rounded-full bg-green-800 border border-gray-300"
+                          ></div>
+                          <div
+                            class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"
+                          ></div>
+                        </label>
+                        <input type="radio" id="coloreOcchi5" name="coloreOcchi"
+                        value="marrone" class="opacity-0 absolute sr-only" {% if
+                        avatar[2]=='marrone' %}checked{% endif %} />
+                        <label
+                          for="coloreOcchi5"
+                          class="flex items-center relative cursor-pointer"
+                        >
+                          <div
+                            class="w-8 h-8 rounded-full bg-yellow-800 border border-gray-300"
+                          ></div>
+                          <div
+                            class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"
+                          ></div>
+                        </label>
+                      </div>
+                    </div>
+          
+                    <!-- COLORI CAPELLI -->
+                    <div class="mb-4" style="display: none;">
+                      <label for="coloreCapelli" class="block font-medium"
+                        >Colore Capelli:</label
+                      >
+                      <div class="flex flex-wrap items-center space-x-1">
+                        <input type="radio" id="coloreCapelli1" name="coloreCapelli"
+                        value="bianco" class="opacity-0 absolute sr-only" {% if
+                        avatar[3]=='bianco' %}checked{% endif %} />
+                        <label
+                          for="coloreCapelli1"
+                          class="flex items-center relative cursor-pointer"
+                        >
+                          <div
+                            class="w-8 h-8 rounded-full bg-gray-100 border border-gray-300"
+                          ></div>
+                          <div
+                            class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"
+                          ></div>
+                        </label>
+                        <input type="radio" id="coloreCapelli2" name="coloreCapelli"
+                        value="nero" class="opacity-0 absolute sr-only" {% if
+                        avatar[3]=='nero' %}checked{% endif %} />
+                        <label
+                          for="coloreCapelli2"
+                          class="flex items-center relative cursor-pointer"
+                        >
+                          <div
+                            class="w-8 h-8 rounded-full bg-gray-700 border border-gray-300"
+                          ></div>
+                          <div
+                            class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"
+                          ></div>
+                        </label>
+                        <input type="radio" id="coloreCapelli3" name="coloreCapelli"
+                        value="marrone chiaro" class="opacity-0 absolute sr-only" {% if
+                        avatar[3]=='marrone chiaro' %}checked{% endif %} />
+                        <label
+                          for="coloreCapelli3"
+                          class="flex items-center relative cursor-pointer"
+                        >
+                          <div
+                            class="w-8 h-8 rounded-full bg-yellow-700 border border-gray-300"
+                          ></div>
+                          <div
+                            class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"
+                          ></div>
+                        </label>
+                        <input type="radio" id="coloreCapelli4" name="coloreCapelli"
+                        value="marrone scuro" class="opacity-0 absolute sr-only" {% if
+                        avatar[3]=='marrone scuro' %}checked{% endif %} />
+                        <label
+                          for="coloreCapelli4"
+                          class="flex items-center relative cursor-pointer"
+                        >
+                          <div
+                            class="w-8 h-8 rounded-full bg-yellow-900 border border-gray-300"
+                          ></div>
+                          <div
+                            class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"
+                          ></div>
+                        </label>
+                        <input type="radio" id="coloreCapelli5" name="coloreCapelli"
+                        value="biondo" class="opacity-0 absolute sr-only" {% if
+                        avatar[3]=='biondo' %}checked{% endif %} />
+                        <label
+                          for="coloreCapelli5"
+                          class="flex items-center relative cursor-pointer"
+                        >
+                          <div
+                            class="w-8 h-8 rounded-full bg-yellow-400 border border-gray-300"
+                          ></div>
+                          <div
+                            class="absolute top-0 left-0 w-8 h-8 rounded-full border-2 border-black opacity-0 transition-opacity duration-300 selected-border"
+                          ></div>
+                        </label>
+                      </div>
+                    </div>
+          
+                    <!-- LUNGHEZZA CAPELLI -->
+                    <div style="display: none;">
+                      <label for="lunghezzaCapelli" class="block font-medium" style="display: none;"
+                        >Lunghezza Capelli:</label
+                      >
+                      <input
+                        type="range"
+                        id="lunghezzaCapelli"
+                        name="lunghezzaCapelli"
+                        min="1"
+                        max="20"
+                        class="w-full rounded-md border-gray-300"
+                        value="{{avatar[4]}}"
+                      />
+                    </div>
+          
+                    <!-- ALTEZZA AVATAR -->
+                    <div style="display: none;">
+                      <label for="altezza" class="block font-medium" style="display: none;">Altezza:</label>
+                      <input
+                        type="range"
+                        id="altezza"
+                        name="altezza"
+                        min="140"
+                        max="200"
+                        class="w-full rounded-md border-gray-300"
+                        value="{{avatar[5]}}"
+                      />
+                    </div>
+          
+                    <!-- PESO AVATAR -->
+                    <div style="display: none;">
+                      <label for="peso" class="block font-medium" style="display: none;">Peso:</label>
+                      <input
+                        type="range"
+                        id="peso"
+                        name="peso"
+                        min="145"
+                        max="183"
+                        class="w-full rounded-md border-gray-300"
+                        value="{{avatar[6]}}"
+                      />
+                    </div>
+          
+                    <!-- BARBA SI/NO -->
+                    <div style="display: none;">
+                      <label for="barba" class="block font-medium" style="display: none;">Barba:</label>
+                      <input type="checkbox" id="barba" name="barba" {% if avatar[7]==1
+                      %}checked{% endif %}/>
+                    </div>
+          
+                    <!-- ETA' -->
+                    <div style="display: none;">
+                      <label for="eta" class="block font-medium" style="display: none;">Età:</label>
+                      <input
+                        type="number"
+                        id="eta"
+                        name="eta"
+                        min="1"
+                        max="100"
+                        required
+                        class="w-full rounded-md border-gray-300"
+                        value="{{avatar[8]}}"
+                      />
+                    </div>
+          
+                    <!-- DIMENSIONI CORPO -->
+                    <div style="display: none;">
+                      <label for="dimensioniCorpo" class="block font-medium" style="display: none;"
+                        >Dimensioni del Corpo:</label
+                      >
+                      <select
+                        id="dimensioniCorpo"
+                        name="dimensioniCorpo"
+                        required
+                        class="w-full rounded-md border-gray-300"
+                      >
+                        <option value="esile" {% if
+                          avatar[9]=='esile' %}selected{% endif %}>Esile (S)</option>
+                        <option value="normale" {% if
+                          avatar[9]=='normale' %}selected{% endif %}>Medio (M)</option>
+                        <option value="grande" {% if
+                          avatar[9]=='grande' %}selected{% endif %}>Grande (L)</option>
+                        <option value="xgrande" {% if
+                          avatar[9]=='xgrande' %}selected{% endif %}>Più grande (XL)</option>
+                      </select>
+                    </div>
+          
+                    <!-- SESSO -->
+                    <div style="display: none;">
+                      <label for="sesso" class="block font-medium" style="display: none;">Sesso:</label>
+                      <select
+                        id="sesso"
+                        name="sesso"
+                        required
+                        class="w-full rounded-md border-gray-300"
+                      >
+                        <option value="uomo" {% if
+                          avatar[10]=='uomo' %}selected{% endif %}>Uomo</option>
+                        <option value="donna" {% if
+                          avatar[10]=='donna' %}selected{% endif %}>Donna</option>
+                      </select>
+                    </div>
+
+              <!-- tricky hack ma serve per settare vari colori all'avatar dopo il salvataggio -->
+              <input type="hidden" id="new_colore_pelle" value="{{ avatar[1] }}">
+              <input type="hidden" id="new_colore_occhi" value="{{ avatar[2] }}">
+              <input type="hidden" id="new_colore_capelli" value="{{ avatar[3] }}">
+              <input type="hidden" id="new_barba" value="{{ avatar[7] }}">
           <button type="button" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400" onclick="annullaModifiche()" style="display: none;"> Annulla </button>
           <button type="button" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600" onclick="salvaModifiche()" style="display: none;"> Salva Modifiche </button>
         </form>
@@ -958,14 +1170,6 @@
     -->
     </div>
     <script>
-
-      function resetSelections() {
-        location.reload(); // Questa riga ricarica la pagina
-      }
-
-      function returnToCart() {
-        window.location.href = '/carrello';
-      }
 
       document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('.c-midtriangle-left').style.display = 'none';
@@ -1130,8 +1334,18 @@
         // Imposta l'altezza, la larghezza e i colori dell'avatar direttamente
         document.documentElement.style.setProperty('--avatar_height', `${altezza}px`);
         document.documentElement.style.setProperty('--avatar_width', `${peso}px`);
-        // Puoi aggiungere ulteriori impostazioni qui se necessario
+        
+        // Ri-settiamo i colori perchè boh non si settano normalmente:
+        var valoreColorePelle = document.getElementById("new_colore_pelle").value;
+        var valoreColoreOcchi = document.getElementById("new_colore_occhi").value;
+        var valoreColoreCapelli = document.getElementById("new_colore_capelli").value;
+
+        setSkinColor(valoreColorePelle);
+        setEyeColor(valoreColoreOcchi);
+        setHairColor(valoreColoreCapelli);
+        setBarba();
       }
+
       document.addEventListener('DOMContentLoaded', function() {
         // Chiamare la funzione di aggiornamento al caricamento della pagina
         aggiornaAvatar();
@@ -1298,6 +1512,88 @@
           }
         });
       });
+
+      function resetSelections() {
+        location.reload(); // Questa riga ricarica la pagina
+      }
+
+      function returnToCart() {
+        window.location.href = '/carrello';
+      }
+
+       // Funzioni per settare vari colori marooo
+  function setSkinColor(colore) {
+
+var skinColorMap = {
+  'rosa pallido': '#fecaca',
+  'rosa': '#fca5a5',
+  'marrone chiaro': '#d97706',
+  'mulatto': '#854d0e',
+  'marrone scuro': '#713f12'
+};
+  document.documentElement.style.setProperty('--skin-color', skinColorMap[colore]);
+}
+
+function setEyeColor(colore) {
+var eyeColorMap = {
+    'blu chiaro': '#60a5fa',
+    'blu scuro': '#1d4ed8',
+    'verde chiaro': '#16a34a',
+    'verde scuro': '#166534',
+    'marrone': '#713f12'
+};
+  document.documentElement.style.setProperty('--eye-color', eyeColorMap[colore]);
+}
+
+function setHairColor(colore) {
+var hairColorMap = {
+    'bianco': '#e5e7eb',
+    'nero': '#030712',
+    'marrone chiaro': '#a16207',
+    'marrone scuro': '#422006',
+    'biondo': '#facc15'
+};
+  document.documentElement.style.setProperty('--hair-color', hairColorMap[colore]);
+}
+function setBarba(){
+  const valoreBarba = document.getElementById('new_barba').value;
+  var beardElement = document.getElementById("beard");
+
+    console.log(valoreBarba);
+    if (valoreBarba) {
+      beardElement.style.display = 'block'; 
+    } else {
+      beardElement.style.display = 'none'; 
+    }
+
+}function blink() {
+        // Chiudi le palpebre
+        document.querySelector('.eye1').style.height = '0px';
+        document.querySelector('.eye2').style.height = '0px';
+        document.querySelector('.eye1').style.border = '0px solid white';
+        document.querySelector('.eye2').style.border = '0px solid white';
+        document.querySelector('.pupil1').style.height = '0px';
+        document.querySelector('.pupil2').style.height = '0px';
+
+        // Riapri le palpebre dopo un breve ritardo
+        setTimeout(() => {
+            document.querySelector('.eye1').style.height = '12px';
+            document.querySelector('.eye2').style.height = '12px';
+            document.querySelector('.eye1').style.border = '1px solid white';
+            document.querySelector('.eye2').style.border = '1px solid white';
+            document.querySelector('.pupil1').style.height = '6px';
+            document.querySelector('.pupil2').style.height = '6px';
+        }, 200);
+    }
+
+    // Esegui la funzione blink ad intervalli casuali
+    function randomBlink() {
+        blink();
+        setTimeout(randomBlink, Math.random() * (4000 - 250) + 2000); // Intervallo tra 2 e 5 secondi
+    }
+
+    // Avvia il battito delle palpebre
+    randomBlink();
     </script>
   </body>
 </html>

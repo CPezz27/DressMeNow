@@ -154,19 +154,30 @@ body {
     position: absolute;
     top: 27px;
     left: 8px;
-    /*box-shadow: 42px 0 0 var(--hair-color);*/
     border-radius: 50%;
     border: 1px solid white;
+    transition: height 0.02s linear;
+
 }
 .brow1 {
     position: absolute;
-    top: -5px;
-    left: -1px;
+    top: 22px;
+    left: 8px;
     width: 12px;
     height: 2px;
     background: #000000;
-    /*box-shadow: 42px 0 0 #000000;*/
     border-radius: 10px;
+}
+.pupil1{
+    background-color: black;
+    width: 6px;
+    height: 6px;
+    position: absolute;
+    top: 30px;
+    left: 11px;
+    border-radius: 50%;
+    transition: height 0.02s linear;
+
 }
 .eye2 {
     background-color: var(--eye-color);
@@ -175,22 +186,32 @@ body {
     position: absolute;
     top: 27px;
     left: 50px;
-    /*box-shadow: 42px 0 0 var(--hair-color);*/
     border-radius: 50%;
     border: 1px solid white;
+    transition: height 0.02s linear;
+
 }
 .brow2 {
     position: absolute;
-    top: -5px;
-    left: -1px;
+    top: 22px;
+    left: 50px;
     width: 12px;
     height: 2px;
     background: #000000;
-    /*box-shadow: 42px 0 0 #000000;*/
     border-radius: 10px;
 }
+.pupil2{
+    background-color: black;
+    width: 6px;
+    height: 6px;
+    position: absolute;
+    top: 30px;
+    left: 53px;
+    border-radius: 50%;
+    transition: height 0.02s linear;
+}
 .nose {
-    background-color: transparent; /* naso inutile */
+    background-color: transparent; /* naso inutile haha */
     width: 8px;
     height: 16px;
     position: absolute;
@@ -267,7 +288,6 @@ body {
 }
 
 .human-body{
-    /*background-color: #ebebeb;*/
     z-index: 1;
     margin-left: 35px;
     width: var(--width-body-top);       /* 150: width dell'intero avatar base*/
@@ -461,13 +481,15 @@ body {
                     <div class="hair-female" style="display: hidden;"></div>
                     <div class="hair-male" style="display: none;"></div>                                        <!-- visible se MASCHIO-->                   
                         <div class="face" style="border-top-right-radius: 0px; border-top-left-radius: 0px;"> <!-- 50px per uomo, 0 per donna-->
-                            <div class="napkin" style="height: 40px;" ></div>                                    <!-- 0 per uomo, 40 per donna-->
-                            <div class="eye1">
-                                <div class="brow1"></div>
-                            </div>
-                            <div class="eye2">
-                                <div class="brow2"></div>
-                            </div>
+                            <div class="napkin" style="height: 40px;" ></div> 
+
+                            <div class="brow1"></div>                                   <!-- 0 per uomo, 40 per donna-->
+                            <div class="eye1"></div>
+                            <div class="pupil1" style="display: block"></div>
+                            <div class="brow2"></div>
+                            <div class="eye2"></div>
+                            <div class="pupil2" style="display: block"></div>
+
                             <div class="nose"></div>
                             <div class="cheek"></div>
                             <div class="mouth">
@@ -505,11 +527,11 @@ body {
             </div>
         </div>
 
-      <div class="w-1/3 p-6 bg-gray-200 m-9 max-w-xl">
+      <div class="w-1/3 p-6 bg-white m-9 max-w-xl flex flex-wrap items-center space-x-1 border border-gray-300 rounded-md">
         <h2 class="text-2xl font-bold mb-4">Modifica Avatar</h2>
         <form id="avatarForm" action="/modifica_avatar" method="post" class="space-y-4">
           <!-- COLORI PELLE -->
-          <div class="mb-4">
+          <div class="mb-4 ">
             <label for="colorePelle" class="block font-medium mb-2"
               >Colore Pelle:</label
             >
@@ -871,6 +893,11 @@ body {
         </div>       
         {% endif %}
         </form>
+        <!-- tricky hack ma serve per settare vari colori all'avatar dopo il salvataggio -->
+        <input type="hidden" id="new_colore_pelle" value="{{ data[1] }}">
+        <input type="hidden" id="new_colore_occhi" value="{{ data[2] }}">
+        <input type="hidden" id="new_colore_capelli" value="{{ data[3] }}">
+        <input type="hidden" id="new_barba" value="{{ data[7] }}"> <!-- PFF questo solo non worka -->
       </div>
     </div>
 
@@ -947,7 +974,6 @@ function annullaModifiche() {
 
 document.addEventListener('DOMContentLoaded', function () {
     // Chiamata alle funzioni di inizializzazione dei colori
-    console.log("sto per fare la funzione");
     initializeColors();
     aggiornaAvatar();
 });
@@ -1136,14 +1162,99 @@ initializeHairColor();
         document.documentElement.style.setProperty('--avatar_height', `${altezza}px`);
         document.documentElement.style.setProperty('--avatar_width', `${peso}px`);
 
-        // Puoi aggiungere ulteriori impostazioni qui se necessario
+        // Ri-settiamo i colori perchè boh non si settano normalmente:
+        var valoreColorePelle = document.getElementById("new_colore_pelle").value;
+        var valoreColoreOcchi = document.getElementById("new_colore_occhi").value;
+        var valoreColoreCapelli = document.getElementById("new_colore_capelli").value;
+
+        setSkinColor(valoreColorePelle);
+        setEyeColor(valoreColoreOcchi);
+        setHairColor(valoreColoreCapelli);
+
+        setBarba();
+
     }
 
     document.addEventListener('DOMContentLoaded', function () {
         // Chiamare la funzione di aggiornamento al caricamento della pagina
         aggiornaAvatar();
-        console.log("aggiornaAvatar eseguita")
     });
+
+  // Funzioni per settare vari colori marooo
+  function setSkinColor(colore) {
+
+    var skinColorMap = {
+      'rosa pallido': '#fecaca',
+      'rosa': '#fca5a5',
+      'marrone chiaro': '#d97706',
+      'mulatto': '#854d0e',
+      'marrone scuro': '#713f12'
+    };
+      document.documentElement.style.setProperty('--skin-color', skinColorMap[colore]);
+  }
+
+function setEyeColor(colore) {
+    var eyeColorMap = {
+        'blu chiaro': '#60a5fa',
+        'blu scuro': '#1d4ed8',
+        'verde chiaro': '#16a34a',
+        'verde scuro': '#166534',
+        'marrone': '#713f12'
+    };
+      document.documentElement.style.setProperty('--eye-color', eyeColorMap[colore]);
+}
+
+function setHairColor(colore) {
+    var hairColorMap = {
+        'bianco': '#e5e7eb',
+        'nero': '#030712',
+        'marrone chiaro': '#a16207',
+        'marrone scuro': '#422006',
+        'biondo': '#facc15'
+    };
+      document.documentElement.style.setProperty('--hair-color', hairColorMap[colore]);
+}
+
+function setBarba(){
+  const valoreBarba = document.getElementById('new_barba').value;
+  var beardElement = document.getElementById("beard");
+
+    console.log(valoreBarba);
+    if (valoreBarba) {
+      beardElement.style.display = 'block'; 
+    } else {
+      beardElement.style.display = 'none'; 
+    }
+
+}function blink() {
+        // Chiudi le palpebre
+        document.querySelector('.eye1').style.height = '0px';
+        document.querySelector('.eye2').style.height = '0px';
+        document.querySelector('.eye1').style.border = '0px solid white';
+        document.querySelector('.eye2').style.border = '0px solid white';
+        document.querySelector('.pupil1').style.height = '0px';
+        document.querySelector('.pupil2').style.height = '0px';
+
+        // Riapri le palpebre dopo un breve ritardo
+        setTimeout(() => {
+            document.querySelector('.eye1').style.height = '12px';
+            document.querySelector('.eye2').style.height = '12px';
+            document.querySelector('.eye1').style.border = '1px solid white';
+            document.querySelector('.eye2').style.border = '1px solid white';
+            document.querySelector('.pupil1').style.height = '6px';
+            document.querySelector('.pupil2').style.height = '6px';
+        }, 200);
+    }
+
+    // Esegui la funzione blink ad intervalli casuali
+    function randomBlink() {
+        blink();
+        setTimeout(randomBlink, Math.random() * (4000 - 250) + 2000); // Intervallo tra 2 e 5 secondi
+    }
+
+    // Avvia il battito delle palpebre
+    randomBlink();
+
     </script>
   </body>
 </html>
