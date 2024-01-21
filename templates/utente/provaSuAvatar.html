@@ -1568,18 +1568,22 @@ var hairColorMap = {
 };
   document.documentElement.style.setProperty('--hair-color', hairColorMap[colore]);
 }
-function setBarba(){
-  const valoreBarba = document.getElementById('new_barba').value;
-  var beardElement = document.getElementById("beard");
 
-    console.log(valoreBarba);
-    if (valoreBarba) {
-      beardElement.style.display = 'block'; 
-    } else {
-      beardElement.style.display = 'none'; 
-    }
+function setBarba() {
+  const valoreBarba = parseInt(document.getElementById('new_barba').value, 10);
+  var beard = document.getElementById("beard");
+  beard.style.display = 'none';
 
-}function blink() {
+  if (!isNaN(valoreBarba) && valoreBarba === 1) {
+    beard.style.display = 'block';
+    
+  } else {
+    beard.style.display = 'none';
+    
+  }
+}
+
+function blink() {
         // Chiudi le palpebre
         document.querySelector('.eye1').style.height = '0px';
         document.querySelector('.eye2').style.height = '0px';

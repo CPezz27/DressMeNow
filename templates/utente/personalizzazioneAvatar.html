@@ -1093,10 +1093,11 @@ initializeHairColor();
 
         checkbox.addEventListener('change', function() {
             if (this.checked) {
-            beardElement.style.display = 'block'; // Nascondi la barba
+            beardElement.style.display = 'block'; 
             } else {
-            beardElement.style.display = 'none'; // Mostra la barba
+            beardElement.style.display = 'none'; 
             }
+
         });
 
         // Funzione per gestire le modifiche in base al sesso selezionato
@@ -1174,11 +1175,6 @@ initializeHairColor();
 
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
-        // Chiamare la funzione di aggiornamento al caricamento della pagina
-        aggiornaAvatar();
-    });
-
   // Funzioni per settare vari colori marooo
   function setSkinColor(colore) {
 
@@ -1214,18 +1210,21 @@ function setHairColor(colore) {
       document.documentElement.style.setProperty('--hair-color', hairColorMap[colore]);
 }
 
-function setBarba(){
-  const valoreBarba = document.getElementById('new_barba').value;
-  var beardElement = document.getElementById("beard");
+function setBarba() {
+  const valoreBarba = parseInt(document.getElementById('new_barba').value, 10);
+  var beard = document.getElementById("beard");
+  beard.style.display = 'none';
 
-    console.log(valoreBarba);
-    if (valoreBarba) {
-      beardElement.style.display = 'block'; 
-    } else {
-      beardElement.style.display = 'none'; 
-    }
+  if (!isNaN(valoreBarba) && valoreBarba === 1) {
+    beard.style.display = 'block';
+    
+  } else {
+    beard.style.display = 'none';
+    
+  }
+}
 
-}function blink() {
+function blink() {
         // Chiudi le palpebre
         document.querySelector('.eye1').style.height = '0px';
         document.querySelector('.eye2').style.height = '0px';
