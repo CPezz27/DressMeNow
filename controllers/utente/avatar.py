@@ -73,9 +73,11 @@ def prova_su_avatar():
         'L': 170,
         'XL': 183
     }
-
+    
     for i, item in enumerate(dati_prodotti[0]):
-        taglia = item[8]  
+        
+        print(i) #test, ma non risolve il problema della riga di sotto
+        taglia = item[9]  
 
         if taglia in taglia_numerica:
             dati_prodotti[0][i] = item[:8] + (taglia_numerica[taglia],) + item[9:]

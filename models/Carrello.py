@@ -114,6 +114,8 @@ def contenuto_carrello(id_utente):
                 "WHERE i.id_prodotto = %s AND i.tipo = 'avatar'"
             )
 
+            total_price = 0.0
+
             avatar_images = []
 
             for item in cart_contents:

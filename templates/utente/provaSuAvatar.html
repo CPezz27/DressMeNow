@@ -715,7 +715,18 @@
                 <div class="c-hand-right" style="display: none;"></div>
               </div>
               <div class="svgs"> <!-- eventuali svg -->
-                <img src="https://dev.w3.org/SVG/tools/svgweb/samples/svg-files/compass.svg" alt="SVG file" class="c-svgimage" class="svg1" id="1">
+                {% for image in immagini_avatar %}
+                  {{image[0]}}
+                  {% if image %}
+                  <div>
+                    <img src="data:image/jpeg;base64,{{ image[1] }}" class="c-svgimage" style="display: none;">
+                    <input type="hidden" id="image_on_product" value="{{ avatar[0] }}">
+                  </div>
+                  {% else %}
+                  <div>
+                    <input type="hidden" id="image_on_product" value=" no niente, serve solo per non far apparire nulla al posto dell'immagine ">
+                  </div>
+                {% endfor %}
               </div>
               <div class="c-body-center-top"></div>
               <div class="c-body-center-bottom"></div>
@@ -1115,6 +1126,7 @@
             <input type="radio" name="maglietta" value="{{ prodotto[10] }}-{{ prodotto[8] }}" class="hidden" {% if prodotto[5] != avatar[10] or prodotto[8] < avatar[6] %}disabled{% endif %}>
             <span> {{prodotti[8]}}</span>
             <span class="tipologia" style="display: none;">{{ prodotto[5]}}</span>
+            <span class="id_prodotto" style="display: none;">{{ prodotto[1]}}</span> <!-- oppure [0] se prodotto_in_carrello-->
           </label> {% endif %} {% endfor %} {% if not magliettePresenti.found %} <p class="text-gray-400">Il carrello non ha prodotti di tipo "Magliette".</p> {% endif %}
           </div>
         </div>
@@ -1127,6 +1139,7 @@
             <img src="data:image/jpeg;base64,{{ prodotto[12] }}" alt="Product" class="w-24 h-24 object-cover" />
             <input type="radio" name="pantalone" value="{{ prodotto[10] }}-{{ prodotto[8] }}" class="hidden" {% if prodotto[5] != avatar[10] or prodotto[8] < avatar[6] %}disabled{% endif %}>
             <span class="tipologia" style="display: none;">{{ prodotto[5]}}</span>
+            <span class="id_prodotto" style="display: none;">{{ prodotto[1]}}</span> <!-- oppure [0] se prodotto_in_carrello-->
           </label> {% endif %} {% endfor %} {% if not pantaloniPresenti.found %} <p class="text-gray-400">Il carrello non ha prodotti di tipo "Pantaloni".</p> {% endif %}
           </div>
         </div>
