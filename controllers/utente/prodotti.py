@@ -27,13 +27,6 @@ def search_products():
         return redirect(url_for('index.homepage'))
 
 
-@app_bp.route("/")
-def main_products():
-    products = Prodotto.view_products()
-
-    return render_template("utente/search_product.html", data=products)
-
-
 @app_bp.route("/pd")
 def view_product():
     product_id = request.args.get('product_id')
