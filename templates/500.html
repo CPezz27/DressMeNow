@@ -47,7 +47,7 @@
     </style>
   </head>
   <body>
-    <video src="assets/404.mp4" autoplay loop muted></video>
+    <video src="{{ url_for('static', filename='assets/404.mp4') }}" autoplay loop muted></video>
     <h1>
       Aiuto! Stiamo avendo problemi al server! I nostri supereroi stanno lavorando
         per ristabilire il servizio il prima possibile.

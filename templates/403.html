@@ -47,7 +47,7 @@
     </style>
   </head>
   <body>
-    <video src="assets/404.mp4" autoplay loop muted></video>
+    <video src="{{ url_for('static', filename='assets/404.mp4') }}" autoplay loop muted></video>
     <h1>
       Ehi! Fermo lì! Dove vuoi andare? Sei pregato di tornare alla <a href="/DressMeNow/Homepage">home</a>?
     </h1>

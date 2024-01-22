@@ -47,7 +47,7 @@
     </style>
   </head>
   <body>
-    <video src="static/assets/404.mp4" autoplay loop muted></video>
+    <video src="{{ url_for('static', filename='assets/404.mp4') }}" autoplay loop muted></video>
     <h1>
       Strano, non abbiamo trovato la pagina che stavi cercando, potrebbe essere
       un segno per tornare alla <a href="/">home</a>?
