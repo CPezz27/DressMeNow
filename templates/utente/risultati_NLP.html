@@ -54,11 +54,18 @@
     <div class="w-full mx-auto px-6 py-12">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
         {% if not data %}
-          <h1 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
-            Ci dispiace, non abbiamo trovato prodotti coerenti al tuo stile
-          </h1>
-        {% else %}
-        {% for prodotto in data %}
+        <h1
+          style="
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+          "
+        >
+          Ci dispiace, non abbiamo trovato prodotti coerenti al tuo stile
+        </h1>
+        {% else %} {% for prodotto in data %}
         <div class="bg-white rounded-lg shadow-md overflow-hidden">
           <a href="/pd?product_id={{prodotto[0]}}"
             ><div class="aspect-w-1 aspect-h-1">
@@ -78,11 +85,12 @@
               {{prodotto[4]}}
             </p>
             <p class="text-gray-600 mb-2">Vestibilità: {{prodotto[5]}}</p>
-            <p class="text-gray-900 font-semibold text-lg mb-2">{{prodotto[6]}}€</p>
+            <p class="text-gray-900 font-semibold text-lg mb-2">
+              {{prodotto[6]}}€
+            </p>
           </div>
         </div>
-        {% endfor %}
-        {% endif %}
+        {% endfor %} {% endif %}
       </div>
       <a href="/ricercaNLP">
         <svg
@@ -106,8 +114,8 @@
         </svg>
       </a>
     </div>
+    {% include 'components/footer.html' %}
   </body>
-  {% include 'components/footer.html' %}
 </html>
 
 <script>
