@@ -107,32 +107,47 @@ def contenuto_carrello(id_utente):
 
 
             cursor.execute(query_main, (cart_id[0],))
-            cart_contents = cursor.fetchall()
-            query_avatar = (
-                "SELECT TO_BASE64(i.immagine) as avatar "
-                "FROM immagine i "
-                "WHERE i.id_prodotto = %s AND i.tipo = 'avatar'"
-            )
+            cart_contents = cursor.fetchall()           
 
             total_price = 0.0
 
-            avatar_images = []
-
             for item in cart_contents:
-                print(item[13])
-                cursor.execute(query_avatar, (item[13],))
-                avatar_data = cursor.fetchone()
-                avatar_images.append({'id_prodotto': item[13], 'avatar': avatar_data[0]} if avatar_data else None)
+                total_price += float(item[9]) * float(item[2])
 
-            total_price = sum(float(item[9]) * float(item[2]) for item in cart_contents)
             total_price = round(total_price, 2)
 
-            return cart_contents, total_price, avatar_images
+            return cart_contents, total_price
         else:
-            return None, None, None
+            return None, None
     except mysql.connector.Error as err:
-        return None, None, None
+        return None, None
 
+
+def immagini_avatar(id_utente):
+    try:
+        query_get_cart_id = "SELECT id FROM carrello WHERE id_utente = %s"
+        cursor.execute(query_get_cart_id, (id_utente,))
+        cart_id = cursor.fetchone()
+
+
+        if cart_id:
+            query_avatar = (
+                "SELECT pc.id_prodotto, TO_BASE64(i.immagine) AS avatar "
+                "FROM immagine i "
+                "JOIN prodotto_in_carrello pc ON i.id_prodotto = pc.id_prodotto "
+                "WHERE pc.id_carrello = %s AND i.tipo = 'avatar'"
+            )
+
+            cursor.execute(query_avatar, (cart_id[0],))
+            images = cursor.fetchall()  
+
+            print(images)         
+
+            return images
+        else:
+            return None
+    except mysql.connector.Error as err:
+        return None
 
 class Carrello:
     def __init__(self, id_utente):

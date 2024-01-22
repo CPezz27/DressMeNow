@@ -548,8 +548,9 @@
 
     .c-svgimage{
       position: absolute;
-      left: var(--c-left-body-center);
-      width: var(--c-width-body-center);
+      left: 39%;
+      /*width: var(--c-width-body-center);*/
+      max-width: calc((var(--height-body-center-full) / 100) * 60);
       height: calc((var(--height-body-center-full) / 100) * 60);
       top: calc(var(--body-top-starting-point) + var(--height-body-top));
       z-index: 90;
@@ -716,16 +717,17 @@
               </div>
               <div class="svgs"> <!-- eventuali svg -->
                 {% for image in immagini_avatar %}
-                  {{image[0]}}
+                  
                   {% if image %}
                   <div>
-                    <img src="data:image/jpeg;base64,{{ image[1] }}" class="c-svgimage" style="display: none;">
+                    <img src="data:image/jpeg;base64,{{ image[1] }}" class="c-svgimage" style="display: none;" data-product-id="{{ image[0] }}">
                     <input type="hidden" id="image_on_product" value="{{ avatar[0] }}">
                   </div>
                   {% else %}
                   <div>
                     <input type="hidden" id="image_on_product" value=" no niente, serve solo per non far apparire nulla al posto dell'immagine ">
                   </div>
+                  {% endif %}
                 {% endfor %}
               </div>
               <div class="c-body-center-top"></div>
@@ -1123,7 +1125,7 @@
           <!-- Radio button personalizzato per il pantalone con colore, taglia e nome -->
           <label class="flex flex-col items-center space-y-2 cursor-pointer border p-1 rounded transition duration-300 ease-in-out hover:border-gray-700 focus-within:border-black">
             <img src="data:image/jpeg;base64,{{ prodotto[12] }}" alt="Product" class="w-24 h-24 object-cover" />
-            <input type="radio" name="maglietta" value="{{ prodotto[10] }}-{{ prodotto[8] }}" class="hidden" {% if prodotto[5] != avatar[10] or prodotto[8] < avatar[6] %}disabled{% endif %}>
+            <input type="radio" name="maglietta" value="{{ prodotto[10] }}-{{ prodotto[8] }}-{{ prodotto[1] }}" class="hidden" {% if prodotto[5] != avatar[10] or prodotto[8] < avatar[6] %}disabled{% endif %}>
             <span> {{prodotti[8]}}</span>
             <span class="tipologia" style="display: none;">{{ prodotto[5]}}</span>
             <span class="id_prodotto" style="display: none;">{{ prodotto[1]}}</span> <!-- oppure [0] se prodotto_in_carrello-->
@@ -1142,16 +1144,15 @@
             <span class="id_prodotto" style="display: none;">{{ prodotto[1]}}</span> <!-- oppure [0] se prodotto_in_carrello-->
           </label> {% endif %} {% endfor %} {% if not pantaloniPresenti.found %} <p class="text-gray-400">Il carrello non ha prodotti di tipo "Pantaloni".</p> {% endif %}
           </div>
-        </div>
-        
-        <!-- Nuovo div per i pulsanti -->
-        <div class="flex justify-between">
-          <!-- Pulsante per rimuovere tutte le selezioni -->
-          <button class="bg-blue-500 text-white p-2 rounded hover:bg-blue-700" onclick="resetSelections()">Rimuovi tutto</button>
-  
-          <!-- Pulsante per tornare al carrello -->
-          <button class="text-white p-2 rounded" style="background-color: #7ed386;" onmouseover="this.style.backgroundColor='#5aa963'" 
-          onmouseout="this.style.backgroundColor='#7ed386'" onclick="returnToCart()">Torna al carrello</button>
+
+          <div class="flex justify-between">
+            <!-- Pulsante per rimuovere tutte le selezioni -->
+            <button class="bg-blue-500 text-white p-2 rounded hover:bg-blue-700" onclick="resetSelections()">Rimuovi tutto</button>
+    
+            <!-- Pulsante per tornare al carrello -->
+            <button class="text-white p-2 rounded" style="background-color: #7ed386;" onmouseover="this.style.backgroundColor='#5aa963'" 
+            onmouseout="this.style.backgroundColor='#7ed386'" onclick="returnToCart()">Torna al carrello</button>
+          </div>
         </div>
       </div>
       <!-- terminazione intero rettangolo a sinistra dell'avatar -->
@@ -1372,10 +1373,11 @@
         if (selectedPantalone) {
           // Estrai il valore dall'attributo "value"
           var selectedValue = selectedPantalone.value;
-          // Dividi il valore in colore e taglia
+          // Dividi il valore in colore e taglia e id
           var valuesArray = selectedValue.split("-");
           var colore = valuesArray[0];
           var taglia = valuesArray[1];
+          var id_prodotto_inutilizzato = valuesArray[2];
           // Associa il nome del colore ad una serie di colori predefiniti:
           var colorMap = {
             bianco: '#e4dcdc',
@@ -1419,10 +1421,11 @@
         if (selectedMaglietta) {
           // Estrai il valore dall'attributo "value"
           var selectedValue = selectedMaglietta.value;
-          // Dividi il valore in colore e taglia
+          // Dividi il valore in colore e taglia e id
           var valuesArray = selectedValue.split("-");
           var colore = valuesArray[0];
           var taglia = valuesArray[1];
+          var id_prodotto_inutilizzato = valuesArray[2];
           // Associa il nome del colore ad una serie di colori predefiniti:
           var colorMap = {
             bianco: '#e4dcdc',
@@ -1582,6 +1585,40 @@ function setBarba() {
     
   }
 }
+
+function handleSelectionChange() {
+    // Trova tutti gli elementi radio button
+    var radioButtons = document.querySelectorAll('input[name="maglietta"]');
+    
+    // Trova l'elemento immagine
+    var images = document.querySelectorAll('.svgs img');
+    
+    // Nascondi tutte le immagini
+    images.forEach(function(image) {
+      image.style.display = 'none';
+    });
+    
+    // Trova l'elemento radio button selezionato
+    var selectedRadioButton = Array.from(radioButtons).find(function(radioButton) {
+      return radioButton.checked;
+    });
+    
+    // Se è stato selezionato un radio button, mostra l'immagine corrispondente
+    if (selectedRadioButton) {
+      var selectedProductId = selectedRadioButton.value.split('-')[2];
+      var selectedImage = document.querySelector('.svgs img[data-product-id="' + selectedProductId + '"]');
+      if (selectedImage) {
+        selectedImage.style.display = 'block';
+      }
+    }
+  }
+
+  // Aggiungi un listener per l'evento di cambio selezione
+  var radioButtons = document.querySelectorAll('input[name="maglietta"]');
+  radioButtons.forEach(function(radioButton) {
+    radioButton.addEventListener('change', handleSelectionChange);
+    console.log("stocambiando");
+  });
 
 function blink() {
         // Chiudi le palpebre

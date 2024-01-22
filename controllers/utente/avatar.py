@@ -58,7 +58,9 @@ def prova_su_avatar():
 
     avatar_data = CFGAvatar.view_avatar(user_id)
 
-    dati_prodotti, prezzo, immagini_avatar = Carrello.contenuto_carrello(user_id)
+    dati_prodotti = Carrello.contenuto_carrello(user_id)
+
+    imgs_avatar = Carrello.immagini_avatar(user_id)
 
     #let's check la taglia e associamoci dei valori veri e propri secondo ciò:
     #   145 - taglia S
@@ -75,12 +77,10 @@ def prova_su_avatar():
     }
     
     for i, item in enumerate(dati_prodotti[0]):
-        
-        print(i) #test, ma non risolve il problema della riga di sotto
-        taglia = item[9]  
+        taglia = item[8]  
 
         if taglia in taglia_numerica:
             dati_prodotti[0][i] = item[:8] + (taglia_numerica[taglia],) + item[9:]
             
 
-    return render_template("utente/provaSuAvatar.html", avatar=avatar_data, prodotti=dati_prodotti, immagini_avatar=immagini_avatar)
+    return render_template("utente/provaSuAvatar.html", avatar=avatar_data, prodotti=dati_prodotti, immagini_avatar = imgs_avatar)
