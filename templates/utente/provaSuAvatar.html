@@ -548,10 +548,10 @@
 
     .c-svgimage{
       position: absolute;
-      left: 39%;
+      left: 43%;
       /*width: var(--c-width-body-center);*/
       max-width: calc((var(--height-body-center-full) / 100) * 60);
-      height: calc((var(--height-body-center-full) / 100) * 60);
+      height: 32px;
       top: calc(var(--body-top-starting-point) + var(--height-body-top));
       z-index: 90;
     }
@@ -1191,7 +1191,7 @@
       });
       document.addEventListener('DOMContentLoaded', function() {
         // Chiamata alle funzioni di inizializzazione dei colori
-        console.log("sto per fare la funzione");
+        
         initializeColors();
         aggiornaAvatar();
       });
@@ -1363,7 +1363,7 @@
       document.addEventListener('DOMContentLoaded', function() {
         // Chiamare la funzione di aggiornamento al caricamento della pagina
         aggiornaAvatar();
-        console.log("aggiornaAvatar eseguita")
+        
       });
 
       function updateLegWidth() {
@@ -1510,7 +1510,7 @@
           
           if (this.checked) {
             var tipologiaValore = this.parentElement.querySelector('.tipologia').textContent;
-
+            console.log(tipologiaValore);
             // Confronto tra tipologiaValore e sessoDropdown
             if (tipologiaValore === sessoDropdown.value) {
 
@@ -1523,7 +1523,8 @@
                 bodyCenterFullDiv.style.display = 'none';
               }
             } else {
-              this.setAttribute('disabled', 'disabled');
+              console.log("non è conforme")
+              bodyCenterFullDiv.style.display = 'block';  // Caso bambino
             }
           }
         });
@@ -1617,7 +1618,7 @@ function handleSelectionChange() {
   var radioButtons = document.querySelectorAll('input[name="maglietta"]');
   radioButtons.forEach(function(radioButton) {
     radioButton.addEventListener('change', handleSelectionChange);
-    console.log("stocambiando");
+    
   });
 
 function blink() {
