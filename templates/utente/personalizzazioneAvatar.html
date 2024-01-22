@@ -833,7 +833,7 @@ body {
           </div>
 
           <!-- DIMENSIONI CORPO -->
-          <div>
+          <div style="display: none;"> <!-- in realtà si basa sulla width-->
             <label for="dimensioniCorpo" class="block font-medium"
               >Dimensioni del Corpo:</label
             >
@@ -896,7 +896,7 @@ body {
         <input type="hidden" id="new_colore_pelle" value="{{ data[1] }}">
         <input type="hidden" id="new_colore_occhi" value="{{ data[2] }}">
         <input type="hidden" id="new_colore_capelli" value="{{ data[3] }}">
-        <input type="hidden" id="new_barba" value="{{ data[7] }}"> <!-- PFF questo solo non worka -->
+        <input type="hidden" id="new_barba" value="{{ data[7] }}"> 
       </div>
     </div>
 

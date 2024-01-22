@@ -648,15 +648,20 @@
     }
 
     /* fine vestiti */
-    .non-vestibile {
-      opacity: 0.5;
-      /* Opacità ridotta per indicare che non è disponibile */
-      pointer-events: none;
-      /* Non è cliccabile */
-    }
 
     .max-w-leftthing {
-    max-width: 600px; /* Imposta la tua dimensione desiderata, ad esempio 'sm' */
+    max-width: 600px; 
+    }
+
+    .immagine-no-click{
+      cursor: not-allowed;
+      opacity: 0.5; 
+    }
+    .informative-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+    z-index: 53;
     }
   </style> {% include 'components/header.html' %} <body class="bg-gray-100">
     <div class="flex flex-row">
@@ -1127,13 +1132,14 @@
           <label for="maglietta" class="block font-medium">Magliette:</label> {% set magliettePresenti = namespace(found=None) %} {% for prodotto in prodotti[0] %} {% if 'maglia' in prodotto[4] or 'maglietta' in prodotto[4] or 'Maglia' in prodotto[4] or 'Maglietta' in prodotto[4] %} {% set magliettePresenti.found = 1 %}
           <div class="flex flex-wrap items-center space-x-1" >
           <!-- Radio button personalizzato per il pantalone con colore, taglia e nome -->
-          <label class="flex flex-col items-center space-y-2 cursor-pointer border p-1 rounded transition duration-300 ease-in-out hover:border-gray-700 focus-within:border-black">
-            <img src="data:image/jpeg;base64,{{ prodotto[12] }}" alt="Product" class="w-24 h-24 object-cover" />
+          <label class="flex flex-col items-center space-y-2 cursor-pointer border p-1 rounded transition duration-300 ease-in-out hover:border-gray-700 focus-within:border-black" >
+            <img src="data:image/jpeg;base64,{{ prodotto[12] }}" alt="Product" class="w-24 h-24 object-cover {% if prodotto[5] != avatar[10] and prodotto[5] != "bambino" or prodotto[8] < avatar[6] %}immagine-no-click{% endif %}" />
             <input type="radio" name="maglietta" value="{{ prodotto[10] }}-{{ prodotto[8] }}-{{ prodotto[1] }}" class="hidden" {% if prodotto[5] != avatar[10] and prodotto[5] != "bambino" or prodotto[8] < avatar[6] %}disabled{% endif %}>
             <span> {{prodotti[8]}}</span>
             <span class="tipologia" style="display: none;">{{ prodotto[5]}}</span>
-            <span class="id_prodotto" style="display: none;">{{ prodotto[1]}}</span> <!-- oppure [0] se prodotto_in_carrello-->
-          </label> {% endif %} {% endfor %} {% if not magliettePresenti.found %} <p class="text-gray-400">Il carrello non ha prodotti di tipo "Magliette".</p> {% endif %}
+            <span class="id_prodotto" style="display: none;">{{ prodotto[1]}}</span> <!-- oppure [0] se prodotto_in_carrello-->    
+          </label> 
+          {% endif %} {% endfor %} {% if not magliettePresenti.found %} <p class="text-gray-400">Il carrello non ha prodotti di tipo "Magliette".</p> {% endif %}
           </div>
         </div>
         <div class="mb-4">
@@ -1141,14 +1147,17 @@
           <label for="pantalone" class="block font-medium">Pantaloni:</label> {% set pantaloniPresenti = namespace(found=None) %} {% for prodotto in prodotti[0] %} {% if 'jeans' in prodotto[4] or 'pantaloni' in prodotto[4] or 'Jeans' in prodotto[4] or 'Pantaloni' in prodotto[4]  %} {% set pantaloniPresenti.found = 1 %}
           <div class="flex flex-wrap items-center space-x-1">
           <!-- Radio button personalizzato per il pantalone con colore, taglia e nome -->
-          <label class="flex flex-col items-center space-y-2 cursor-pointer border p-1 rounded transition duration-300 ease-in-out hover:border-gray-700 focus-within:border-black">
-            <img src="data:image/jpeg;base64,{{ prodotto[12] }}" alt="Product" class="w-24 h-24 object-cover" />
+          <label class="flex flex-col items-center space-y-2 cursor-pointer border p-1 rounded transition duration-300 ease-in-out hover:border-gray-700 focus-within:border-black" >
+            <img src="data:image/jpeg;base64,{{ prodotto[12] }}" alt="Product" class="w-24 h-24 object-cover {% if prodotto[5] != avatar[10] and prodotto[5] != "bambino" or prodotto[8] < avatar[6] %}immagine-no-click{% endif %}" />
             <input type="radio" name="pantalone" value="{{ prodotto[10] }}-{{ prodotto[8] }}" class="hidden" {% if prodotto[5] != avatar[10] and prodotto[5] != "bambino" or prodotto[8] < avatar[6] %}disabled{% endif %}>
             <span class="tipologia" style="display: none;">{{ prodotto[5]}}</span>
             <span class="id_prodotto" style="display: none;">{{ prodotto[1]}}</span> <!-- oppure [0] se prodotto_in_carrello-->
-          </label> {% endif %} {% endfor %} {% if not pantaloniPresenti.found %} <p class="text-gray-400">Il carrello non ha prodotti di tipo "Pantaloni".</p> {% endif %}
+          </label> 
+          {% endif %} {% endfor %} {% if not pantaloniPresenti.found %} <p class="text-gray-400">Il carrello non ha prodotti di tipo "Pantaloni".</p> {% endif %}
           </div>
 
+        </div>
+        <div class="">
           <div class="flex justify-between">
             <!-- Pulsante per rimuovere tutte le selezioni -->
             <button class="bg-blue-500 text-white p-2 rounded hover:bg-blue-700" onclick="resetSelections()">Rimuovi tutto</button>
