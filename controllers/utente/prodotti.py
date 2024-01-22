@@ -11,7 +11,7 @@ def products_category():
 
     if category and (category == 'uomo' or category == 'donna' or category == 'bambino'):
         products = Prodotto.view_products_by_category(category)
-        return render_template("utente/categoria.html", data=products)
+        return render_template("utente/categoria.html", data=products, category=category)
     else:
         return redirect(url_for('index.homepage'))
 
