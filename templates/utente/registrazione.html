@@ -29,10 +29,10 @@
 
             <div class="mb-4 grid grid-cols-2 gap-4">
                 <div>
-                    <input type="text" id="firstName" name="firstName" class="border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Nome" required>
+                    <input type="text" id="firstName" name="firstName" class="border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Nome" required pattern="[a-zA-Z\s]{1,50}" title="Il nome non rispetta il formato richiesto">
                 </div>
                 <div>
-                    <input type="text" id="lastName" name="lastName" class="border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Cognome" required>
+                    <input type="text" id="lastName" name="lastName" class="border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Cognome" required pattern="[a-zA-Z\s]{1,50}" title="Il cognome non rispetta il formato richiesto">
                 </div>
             </div>
 
@@ -41,7 +41,7 @@
             </div>
 
             <div class="mb-4">
-                <input type="text" id="numTel" name="NumeroTelefonico" class="border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Numero di telefono" required>
+                <input type="text" id="numTel" name="NumeroTelefonico" class="border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Numero di telefono" required pattern="^\d{10}$" title="Il numero telefonico non rispetta il formato richiesto">
             </div>
 
             <div class="mb-4 flex items-center">
@@ -60,7 +60,7 @@
                     <input id="password" type="password" name="password" class="border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="La tua password" title="Minimo 8 caratteri, di cui una maiuscola, un numero ed un carattere speciale" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%?&])[A-Za-z\d@$!%?&]{8,}$" required>
                 </div>
                 <div>
-                    <input id="confirmPassword" type="password" name="confirmPassword" class="border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Conferma password" title="Conferma la tua password" required>
+                    <input id="confirmPassword" type="password" name="confirmPassword" class="border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Conferma password" title="Conferma la tua password" required title="Minimo 8 caratteri, di cui una maiuscola, un numero ed un carattere speciale" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%?&])[A-Za-z\d@$!%?&]{8,}$">
                 </div>
             </div>
 
