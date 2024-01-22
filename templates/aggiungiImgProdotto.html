@@ -4,8 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Visualizza Immagini Prodotto</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/aggiungiImg.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/gestore_prodotti.css') }}">
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/aggiungiImg.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/gestore_prodotti.css') }}"
+    />
     <link
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
       rel="stylesheet"
@@ -17,83 +23,87 @@
     ></script>
   </head>
   <body class="bg-gray-100">
+    {% include 'components/headerGestoreProdotto.html' %}
 
-  {% include 'components/headerGestoreProdotto.html' %}
+    <div class="container">
+      <h1 class="mt-8">Immagini Prodotto</h1>
 
-    <h1 class="mt-8">Immagini Prodotto</h1>
-
-    {% if message %}
-    <div class="mb-4">
-      <p class="success-message">{{ message }}</p>
-    </div>
-    {% endif %}
-
-    <div class="grid-container">
-      {% if data %} {% for immagine in data %}
-      <div class="image-container">
-        <img
-          src="data:image/jpeg;base64,{{ immagine[2] }}"
-          alt="Immagine Prodotto"
-        />
-        <button
-          class="delete-button"
-          onclick="window.location.href='/gp/rimuovi_immagine/{{ immagine[0] }}/{{ immagine[1] }}'"
-        >
-          Cancella
-        </button>
+      {% if message %}
+      <div class="mb-4">
+        <p class="success-message">{{ message }}</p>
       </div>
-      {% endfor %} {% else %}
-      <p>Nessuna immagine disponibile per questo prodotto.</p>
       {% endif %}
-    </div>
 
-    <form
-      action="/gp/aggiungi_immagine"
-      method="POST"
-      enctype="multipart/form-data"
-    >
-      <label for="fileInput">Carica un'immagine:</label>
-      <input
-        type="file"
-        id="fileInput"
-        name="immagine"
-        accept="image/*"
-        required
-      />
+      <div class="grid-container">
+        {% if data %} {% for immagine in data %}
+        <div class="image-container">
+          <img
+            src="data:image/jpeg;base64,{{ immagine[2] }}"
+            alt="Immagine Prodotto"
+          />
+          <button
+            class="delete-button"
+            onclick="window.location.href='/gp/rimuovi_immagine/{{ immagine[0] }}/{{ immagine[1] }}'"
+          >
+            Cancella
+          </button>
+        </div>
+        {% endfor %} {% else %}
+        <p>Nessuna immagine disponibile per questo prodotto.</p>
+        {% endif %}
+      </div>
 
-      <br><br>
-
-      <input
-        type="hidden"
-        name="id_prodotto"
-        value="{{id_prodotto}}"
-        required
-      />
-
-      <label>
-        <input type="radio" name="tipo_immagine" value="avatar" required />
-        Immagine avatar
-      </label>
-      <br><br>
-      <label>
+      <form
+        action="/gp/aggiungi_immagine"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <label for="fileInput">Carica un'immagine:</label>
         <input
-          type="radio"
-          name="tipo_immagine"
-          value="pagina_prodotto"
+          type="file"
+          id="fileInput"
+          name="immagine"
+          accept="image/*"
           required
         />
-        Immagine pagina prodotto
-      </label>
-      <br><br>
-      <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md">
-        Salva Modifiche
-      </button>
-      <br><br>
-      <a
-        href="/gestore_prodotto"
-        class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md"
-        >Torna Indietro</a
-      >
-    </form>
+
+        <br /><br />
+
+        <input
+          type="hidden"
+          name="id_prodotto"
+          value="{{id_prodotto}}"
+          required
+        />
+
+        <label>
+          <input type="radio" name="tipo_immagine" value="avatar" required />
+          Immagine avatar
+        </label>
+        <br /><br />
+        <label>
+          <input
+            type="radio"
+            name="tipo_immagine"
+            value="pagina_prodotto"
+            required
+          />
+          Immagine pagina prodotto
+        </label>
+        <br /><br />
+        <button
+          type="submit"
+          class="px-4 py-2 bg-blue-500 text-white rounded-md"
+        >
+          Salva Modifiche
+        </button>
+        <br /><br />
+        <a
+          href="/gestore_prodotto"
+          class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md"
+          >Torna Indietro</a
+        >
+      </form>
+    </div>
   </body>
 </html>
