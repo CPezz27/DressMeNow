@@ -23,14 +23,14 @@
                 <!-- NOME -->
                 <div class="flex flex-col">
                     <label for="nome" class="text-sm font-semibold text-gray-600">Nome:</label>
-                    <input type="text" id="nome" name="nome" required
+                    <input type="text" id="nome" name="nome" required pattern=".{1,50}" message="Lunghezza massima 50 caratteri"
                            class="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500">
                 </div>
     
                 <!-- CATEGORIA -->
                 <div class="flex flex-col">
                     <label for="categoria" class="text-sm font-semibold text-gray-600">Categoria:</label>
-                    <select id="categoria" name="categoria" required
+                    <select id="categoria" name="categoria" required pattern=".{1,50}" message="Lunghezza massima 50 caratteri"
                             class="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500">
                         <option value="uomo">Uomo</option>
                         <option value="donna">Donna</option>
@@ -41,20 +41,20 @@
                 <!-- MARCA -->
                 <div class="flex flex-col">
                     <label for="marca" class="text-sm font-semibold text-gray-600">Marca:</label>
-                    <input type="text" id="marca" name="marca" required
+                    <input type="text" id="marca" name="marca" required pattern=".{1,50}" message="Lunghezza massima 50 caratteri"
                            class="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500">
                 </div>
 
                 <!--DESCRIZIONE-->
                 <div class="flex flex-col">
                     <label for="descrizione" class="text-sm font-semibold text-gray-600">Descrizione:</label>
-                    <input type="text" id="descrizione" name="descrizione" required
+                    <input type="text" id="descrizione" name="descrizione" required pattern=".{1,200}" message="Lunghezza massima 200 caratteri"
                            class="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500">
                 </div>
                 <!--VESTIBILITA-->
                 <div class="flex flex-col">
                     <label for="vestibilita" class="text-sm font-semibold text-gray-600">Vestibilità:</label>
-                    <select id="vestibilita" name="vestibilita" required
+                    <select id="vestibilita" name="vestibilita" required pattern=".{1,50}" message="Lunghezza massima 50 caratteri"
                             class="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500">
                         <option value="S">S</option>
                         <option value="M">M</option>
@@ -65,20 +65,20 @@
                 <!--PREZZO-->
                 <div class="flex flex-col">
                     <label for="prezzo" class="text-sm font-semibold text-gray-600">Prezzo:</label>
-                    <input type="text" id="prezzo" name="prezzo" required
+                    <input type="number" id="prezzo" name="prezzo" required step="0.01"
                            class="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500"
                            placeholder="Inserisci il prezzo (es. 10.99)">
                 </div>
                 <!--COLORE-->
                 <div class="flex flex-col">
                     <label for="colore" class="text-sm font-semibold text-gray-600">Colore:</label>
-                    <input type="text" id="colore" name="colore" required
+                    <input type="text" id="colore" name="colore" required pattern=".{1,50}" message="Lunghezza massima 50 caratteri"
                            class="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500">
                 </div>
                 <!--MATERIALE-->
                 <div class="flex flex-col">
                     <label for="materiale" class="text-sm font-semibold text-gray-600">Materiale:</label>
-                    <input type="text" id="materiale" name="materiale" required
+                    <input type="text" id="materiale" name="materiale" required pattern=".{1,50}" message="Lunghezza massima 50 caratteri"
                            class="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-500">
                 </div>
 
