@@ -1143,7 +1143,7 @@
           <!-- Radio button personalizzato per il pantalone con colore, taglia e nome -->
           <label class="flex flex-col items-center space-y-2 cursor-pointer border p-1 rounded transition duration-300 ease-in-out hover:border-gray-700 focus-within:border-black">
             <img src="data:image/jpeg;base64,{{ prodotto[12] }}" alt="Product" class="w-24 h-24 object-cover" />
-            <input type="radio" name="pantalone" value="{{ prodotto[10] }}-{{ prodotto[8] }}" class="hidden" {% prodotto[5] != avatar[10] and prodotto[5] != "bambino" or prodotto[8] < avatar[6] %}disabled{% endif %}>
+            <input type="radio" name="pantalone" value="{{ prodotto[10] }}-{{ prodotto[8] }}" class="hidden" {% if prodotto[5] != avatar[10] and prodotto[5] != "bambino" or prodotto[8] < avatar[6] %}disabled{% endif %}>
             <span class="tipologia" style="display: none;">{{ prodotto[5]}}</span>
             <span class="id_prodotto" style="display: none;">{{ prodotto[1]}}</span> <!-- oppure [0] se prodotto_in_carrello-->
           </label> {% endif %} {% endfor %} {% if not pantaloniPresenti.found %} <p class="text-gray-400">Il carrello non ha prodotti di tipo "Pantaloni".</p> {% endif %}
