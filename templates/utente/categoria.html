@@ -27,11 +27,27 @@
   }
 </style>
 <body class="bg-gray-100">
-  <button id="tornaSu" onclick="tornaSu()">Torna su</button>
+  <button id="tornaSu" onclick="tornaSu()"><svg
+    width="25"
+    height="25"
+    fill="none"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="2"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M12 19V5"></path>
+    <path d="m5 12 7-7 7 7"></path>
+  </svg></button>
 {% include 'components/header.html' %}
-
+<h1 style="margin-top: 10px;" class="text-4xl font-semibold mb-8 text-center">
+  Categoria {{ category }}
+</h1>
   <!-- Contenitore per i prodotti -->
   <div class="container mx-auto mt-8 grid grid-cols-3 gap-6" id="products-container">
+
             {% for prodotto in data %}
             <!-- Prodotto -->
             <div class="bg-white rounded-lg shadow-md overflow-hidden">
@@ -56,6 +72,7 @@
     var category = "{{ category }}";
     showProducts(category);
     console.log(category);
+
     </script>
   <script>
     // Funzione per tornare in cima alla pagina
