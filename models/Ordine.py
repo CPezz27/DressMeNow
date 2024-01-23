@@ -142,13 +142,12 @@ def visualizza_ordine_conimg(order_id):
     query = (
         "SELECT o.id_ordine, o.stato AS stato_ordine, o.data AS data_ordine, t.id_transazione, t.data AS data_transazione, t.totale, t.stato AS stato_transazione, "
         "pio.quantita, p.id_prodotto, p.nome AS nome_prodotto, o.reso, p.prezzo, p.materiale, iu.id_utente AS id_utente, iu.nome AS nome_utente, iu.cognome AS cognome_utente, "
-        "iu.email AS email_utente, iu.telefono, p.marca, TO_BASE64(img.immagine), o.note_reso "
+        "iu.email AS email_utente, iu.telefono, p.marca, (SELECT TO_BASE64(immagine) FROM immagine i WHERE i.id_prodotto = p.id_prodotto AND i.tipo = 'pagina_prodotto' LIMIT 1), o.note_reso "
         "FROM ordine o "
         "JOIN transazione t ON o.id_ordine = t.id_ordine "
         "JOIN prodotto_in_ordine pio ON o.id_ordine = pio.id_ordine "
         "JOIN prodotto p ON pio.id_prodotto = p.id_prodotto "
         "JOIN utente iu ON o.id_utente = iu.id_utente "
-        "LEFT JOIN immagine img ON p.id_prodotto = img.id_prodotto AND img.tipo = 'pagina_prodotto' "
         "WHERE o.id_ordine = %s;"
     )
 
