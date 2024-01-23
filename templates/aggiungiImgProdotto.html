@@ -69,12 +69,11 @@
 
         <br /><br />
 
-        <input
-          type="hidden"
-          name="id_prodotto"
-          value="{{id_prodotto}}"
-          required
-        />
+        {% if id_prodotto: %}
+          <input type="hidden" name="id_prodotto" value="{{id_prodotto}}" required />
+        {% else: %}
+          <input type="hidden" name="id_prodotto" value="{{ data[0][1] }}" required />
+        {% endif %}
 
         <label>
           <input type="radio" name="tipo_immagine" value="avatar" required />
