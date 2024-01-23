@@ -95,10 +95,9 @@ def contenuto_carrello(id_utente):
         if cart_id:
             query_main = (
                 "SELECT pc.*, p.nome, p.categoria, p.marca, p.descrizione, p.vestibilità, "
-                "p.prezzo, p.colore, p.materiale, TO_BASE64(MAX(i.immagine)) as immagine, p.id_prodotto "
+                "p.prezzo, p.colore, p.materiale, (SELECT TO_BASE64(immagine) FROM immagine i WHERE i.id_prodotto = p.id_prodotto AND i.tipo = 'pagina_prodotto' LIMIT 1), p.id_prodotto "
                 "FROM prodotto_in_carrello pc "
                 "JOIN prodotto p ON pc.id_prodotto = p.id_prodotto "
-                "LEFT JOIN (SELECT id_prodotto, immagine FROM immagine WHERE tipo = 'pagina_prodotto') i "
                 "ON pc.id_prodotto = i.id_prodotto "
                 "WHERE pc.id_carrello = %s "
                 "GROUP BY pc.id_prodotto, pc.id_taglia, p.nome, p.categoria, p.marca, p.descrizione, p.vestibilità, pc.quantità, "
