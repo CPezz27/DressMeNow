@@ -59,10 +59,13 @@
             </div>
             
             <div class="mb-4">
-                <label for="product-category" class="block text-gray-700 font-medium">Categoria</label>
-                <input type="text" id="product-category" name="categoria" class="mt-1 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:border-blue-500" placeholder="Inserisci la categoria" value="{{ product['product_details'][2] }}" required>
+              <label for="product-category" class="block text-gray-700 font-medium">Categoria</label>
+              <select id="product-category" name="categoria" class="mt-1 p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:border-blue-500" required>
+                  <option value="uomo" {% if product['product_details'][2] == 'uomo' %}selected{% endif %}>Uomo</option>
+                  <option value="donna" {% if product['product_details'][2] == 'donna' %}selected{% endif %}>Donna</option>
+                  <option value="bambino" {% if product['product_details'][2] == 'bambino' %}selected{% endif %}>Bambino</option>
+              </select>
             </div>
-            <!-- Altri campi del prodotto precompilati -->
 
             <div class="mb-4">
               <label for="is_deleted" class="block text-gray-700 font-medium">Visibile al pubblico</label>
