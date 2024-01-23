@@ -141,7 +141,7 @@ def search_products(text, indumenti=None, categoria=None, colore=None, vestibili
     try:
         filtered_words, indumenti, colore, categoria, vestibilità = preprocess_text(text)
 
-        query = "SELECT * FROM prodotto WHERE "
+        query = "SELECT *, (SELECT TO_BASE64(immagine) FROM immagine i WHERE i.id_prodotto = p.id_prodotto LIMIT 1) AS base64_immagine FROM prodotto p WHERE "
         conditions = []
 
         if indumenti:
