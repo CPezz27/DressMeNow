@@ -153,7 +153,7 @@
         quantityInput.value = parseInt(quantityInput.value) + 1;
       }
 
-      function decrementQty() {
+      function decrementQty(e) {
         e.preventDefault();
         var quantityInput = document.getElementById("quantity");
         if (parseInt(quantityInput.value) > 1) {
