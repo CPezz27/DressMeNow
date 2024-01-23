@@ -137,51 +137,34 @@ def view_products_by_category(category):
         return None
 
 
-def search_products(text):
+def search_products(text, indumenti=None, categoria=None, colore=None, vestibilità=None):
     try:
-        filtered_words, indumenti, colore, categoria, vestibilita = preprocess_text(text) # attenzione vestibilita
+        filtered_words, indumenti, colore, categoria, vestibilità = preprocess_text(text)
 
-        query = (
-            "SELECT p.*, TO_BASE64(MAX(i.immagine)) as immagine_base64 "
-            "FROM prodotto p "
-            "LEFT JOIN immagine i ON p.id_prodotto = i.id_prodotto AND i.tipo = 'pagina_prodotto' "
-            "WHERE 1=1 "
-        )
-
+        query = "SELECT * FROM prodotto WHERE "
         conditions = []
 
         if indumenti:
-            conditions.append("p.nome LIKE %s" % (", ".join(["%s" for _ in indumenti]))) # attenzione DOPPIA
+            conditions.append("nome LIKE %s")
         if colore:
-            conditions.append("p.colore LIKE (%s)" % (", ".join(["%s" for _ in colore]))) # attenzione TRIPLA
+            conditions.append("colore LIKE %s")
         if categoria:
-            conditions.append("p.categoria LIKE (%s)" % (", ".join(["%s" for _ in categoria]))) # attenzione DOPPIA
-        if vestibilita:
-            conditions.append("p.vestibilità LIKE (%s)" % (", ".join(["%s" for _ in vestibilita]))) # attenzione TRIPLA
+            conditions.append("categoria LIKE %s")
+        if vestibilità:
+            conditions.append("vestibilità LIKE %s")
 
         if conditions:
             query += " AND ".join(conditions)
 
-        query += " GROUP BY p.id_prodotto"
-
-        #compiled_query = query % tuple(
-        #    [f"%{i}%" for i in indumenti] + [f"%{c}%" for c in colore] + [f"%{cat}%" for cat in categoria] + [f"%{v}"
-        #                                                                                                      for v in
-        #                                                                                                      vestibilità])
-        #print("compiled query:", compiled_query)
-
-        #cursor.execute(query, [f"%{i}%" for i in indumenti] + [f"%{c}%" for c in colore] + [f"%{cat}%" for cat in categoria] + [f"%{v}%" for v in vestibilità])
-
-        compiled_query = query % tuple(indumenti + colore + categoria + vestibilita)
+        compiled_query = query % tuple([f"%{i}%" for i in indumenti] + [f"%{c}%" for c in colore] + [f"%{cat}%" for cat in categoria] + [f"%{v}" for v in vestibilità])
         print("compiled query:", compiled_query)
 
-        cursor.execute(compiled_query, indumenti + colore + categoria + vestibilita)
+        cursor.execute(query, [f"%{i}%" for i in indumenti] + [f"%{c}%" for c in colore] + [f"%{cat}%" for cat in categoria] + [f"%{v}%" for v in vestibilità])
 
         products = cursor.fetchall()
 
         return products
     except Exception as err:
-        print(err)
         return None
 
 

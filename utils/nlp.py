@@ -76,6 +76,8 @@ def preprocess_text(text):
 
     vestibilita_cercata = []
 
+
+
     for token in filtered_words:
         if token in indumenti:
             indumenti_cercati.append(token)
@@ -90,11 +92,6 @@ def preprocess_text(text):
     indumenti_mappati = [mappatura_indumenti.get(indumenti, indumenti) for indumenti in indumenti_cercati]
     categoria_mappata = [mappatura_categoria.get(categoria, categoria) for categoria in categoria_cercata]
     vestibilita_mappata = [mappatura_vestibilita.get(vestibilita, vestibilita) for vestibilita in vestibilita_cercata]
-
-    print("indumenti trovati", indumenti_cercati)
-    print("colori trovati", colori_cercati)
-    print("categoria trovati", categoria_cercata)
-    print("vestibilita trovati", vestibilita_cercata)
 
     print("colori mappati", colori_mappati, "\n")
     print("indumenti mappati", indumenti_mappati, "\n")
