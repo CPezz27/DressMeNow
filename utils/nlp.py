@@ -28,6 +28,7 @@ def preprocess_text(text):
         'maglietta': 'maglia',
         't-shirt': 'maglia',
         'pantalone': 'pantaloni',
+        'jeans': 'pantaloni'
     }
 
     indumenti_cercati = []
@@ -72,7 +73,7 @@ def preprocess_text(text):
     categoria_cercata = []
 
     marca = ['loro piana', 'givenchy', 'nike', 'giorgio armani', 'dressmenow', 'guess', 'calvin klein', 'cv clothing', 'goat', 'goatseller',
-             'ecosostenibile', 'eco', 'green', 'lusso', 'lussuoso', 'sportivo', 'moda', ]
+             'ecosostenibile', 'eco', 'green', 'lusso', 'lussuoso', 'sportivo', 'moda', 'sostenibile', 'sostenibilità']
 
     marca_cercata = []
 
@@ -81,6 +82,7 @@ def preprocess_text(text):
         'lussuoso': 'Loro Piana',
         'eco': 'DressMeNow',
         'green': 'DressMeNow',
+        'sostenibile': 'DressMeNow',
         'sostenibilità': "DressMeNow",
         'ecosostenibile': 'DressMeNow',
         'sportivo': 'Nike',
