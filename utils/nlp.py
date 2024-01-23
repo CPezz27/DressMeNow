@@ -53,6 +53,8 @@ def preprocess_text(text):
         'gialla': 'giallo',
         'gialli': 'giallo',
         'gialle': 'giallo',
+        'verdi': 'verde',
+        'marroni': 'marrone',
         'arancioni': 'arancione',
     }
 
@@ -69,16 +71,21 @@ def preprocess_text(text):
 
     categoria_cercata = []
 
-    vestibilita = ['regolare', 'largo', 'stretto', 'slim', 'oversize']
+    marca = ['loro piana', 'givenchy', 'nike', 'giorgio armani', 'dressmenow', 'guess', 'calvin klein', 'cv clothing', 'goat', 'goatseller',
+             'ecosostenibile', 'eco', 'green', 'lusso', 'lussuoso', 'sportivo', 'moda', ]
 
-    mappatura_vestibilita = {
-        'largo': 'oversize',
-        'stretto': 'slim',
+    marca_cercata = []
+
+    mappatura_marca = {
+        'lusso': 'Loro Piana',
+        'lussuoso': 'Loro Piana',
+        'eco': 'DressMeNow',
+        'green': 'DressMeNow',
+        'sostenibilità': "DressMeNow",
+        'ecosostenibile': 'DressMeNow',
+        'sportivo': 'Nike',
+        'moda': 'Giorgio Armani'
     }
-
-    vestibilita_cercata = []
-
-
 
     for token in filtered_words:
         if token in indumenti:
@@ -87,17 +94,17 @@ def preprocess_text(text):
             colori_cercati.append(token)
         if token in categoria:
             categoria_cercata.append(token)
-        if token in vestibilita:
-            vestibilita_cercata.append(token)
+        if token in marca:
+            marca_cercata.append(token)
 
     colori_mappati = [mappatura_colori.get(colore, colore) for colore in colori_cercati]
     indumenti_mappati = [mappatura_indumenti.get(indumenti, indumenti) for indumenti in indumenti_cercati]
     categoria_mappata = [mappatura_categoria.get(categoria, categoria) for categoria in categoria_cercata]
-    vestibilita_mappata = [mappatura_vestibilita.get(vestibilita, vestibilita) for vestibilita in vestibilita_cercata]
+    marca_mappata = [mappatura_marca.get(marca, marca) for marca in marca_cercata]
 
     print("colori mappati", colori_mappati, "\n")
     print("indumenti mappati", indumenti_mappati, "\n")
     print("categoria mappata", categoria_mappata, "\n")
-    print("vestibilità mappata", vestibilita_mappata, "\n")
+    print("marca mappata", marca_mappata, "\n")
 
-    return filtered_words, indumenti_mappati, colori_mappati, categoria_mappata, vestibilita_mappata
+    return filtered_words, indumenti_mappati, colori_mappati, categoria_mappata, marca_mappata
