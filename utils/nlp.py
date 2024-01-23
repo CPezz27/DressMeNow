@@ -20,9 +20,11 @@ def preprocess_text(text):
 
     print(filtered_words)
 
-    indumenti = ['maglia', 'maglietta', 'pantaloni', 'jeans', 't-shirt', 'pantalone']
+    indumenti = ['maglia', 'maglietta', 'pantaloni', 'jeans', 't-shirt', 'pantalone', 'maglie', 'magliette']
 
     mappatura_indumenti = {
+        'magliette': 'maglia',
+        'maglie': 'maglia',
         'maglietta': 'maglia',
         't-shirt': 'maglia',
         'pantalone': 'pantaloni',
