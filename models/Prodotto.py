@@ -139,7 +139,7 @@ def view_products_by_category(category):
 
 def search_products(text):
     try:
-        filtered_words, indumenti, colore, categoria, marca = preprocess_text(text)
+        filtered_words, indumenti, colore, categoria = preprocess_text(text)
 
         query = "SELECT *, (SELECT TO_BASE64(immagine) FROM immagine i WHERE i.id_prodotto = p.id_prodotto AND i.tipo = 'pagina_prodotto' LIMIT 1) AS base64_immagine FROM prodotto p WHERE "
         conditions = []
@@ -150,16 +150,15 @@ def search_products(text):
             conditions.append("colore LIKE %s")
         if categoria:
             conditions.append("categoria LIKE %s")
-        if marca:
-            conditions.append("marca LIKE %s")
+
 
         if conditions:
             query += " AND ".join(conditions)
 
-        compiled_query = query % tuple([f"%{i}%" for i in indumenti] + [f"%{c}%" for c in colore] + [f"%{cat}%" for cat in categoria] + [f"%{m}%" for m in marca])
+        compiled_query = query % tuple([f"%{i}%" for i in indumenti] + [f"%{c}%" for c in colore] + [f"%{cat}%" for cat in categoria])
         print("compiled query:", compiled_query)
 
-        cursor.execute(query, [f"%{i}%" for i in indumenti] + [f"%{c}%" for c in colore] + [f"%{cat}%" for cat in categoria] + [f"%{m}%" for m in marca])
+        cursor.execute(query, [f"%{i}%" for i in indumenti] + [f"%{c}%" for c in colore] + [f"%{cat}%" for cat in categoria])
 
         products = cursor.fetchall()
 

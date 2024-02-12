@@ -1,5 +1,10 @@
 from nltk.corpus import stopwords
 import stanza
+from gensim.models import KeyedVectors
+
+word_vectors = KeyedVectors.load("C:\\Users\\divic\\Desktop\\ProgettoFIA\\SG-300-W10N20E50\\W2V.kv", mmap='r+')
+vocabs = word_vectors.index_to_key
+vectors = word_vectors.vectors
 
 # nltk.download('stopwords')
 # nltk.download('averaged_perceptron_tagger')
@@ -10,103 +15,68 @@ nlp = stanza.Pipeline('it')
 stop_words = set(stopwords.words('italian'))
 
 
+def auto_map_word(word):
+    print("Parola:", word)
+    if word in vocabs:
+        print("La parola è già presente nel vocabolario:", word)
+        return word
+
+    if word.endswith("i") or word.endswith("e"):
+        singular_form = word[:-1]
+        if singular_form in vocabs:
+            print("Trovata forma singolare:", singular_form)
+            return singular_form
+
+    elif word.endswith("a"):
+        masculine_form = word[:-1] + "o"
+        if masculine_form in vocabs:
+            print("Trovata forma maschile:", masculine_form)
+            return masculine_form
+
+    elif word.endswith("he"):
+        masculine_form = word[:-2] + "o"
+        if masculine_form in vocabs:
+            print("Trovata forma maschile singolare:", masculine_form)
+            return masculine_form
+
+    similar_words = word_vectors.similar_by_word(word, topn=1)
+    print("Parola simile:", similar_words)
+    if similar_words:
+        similar_word = similar_words[0][0]
+        if similar_word in vocabs:
+            print("Parola simile trovata nel vocabolario:", similar_word)
+            return similar_word
+
+    return word
+
+
 def preprocess_text(text):
-    # Tokenizzazione e rimozione delle stop words
     doc = nlp(text)
 
     filtered_words = [word.text.lower() for sent in doc.sentences for word in sent.words
                       if word.text.isalnum() and word.text.lower() not in stop_words
-                      and word.pos not in ['VERB', 'AUX']]  # 'VERB' per i verbi
-
+                      and word.pos not in ['VERB', 'AUX']]
     print(filtered_words)
 
-    indumenti = ['maglia', 'maglietta', 'pantaloni', 'jeans', 't-shirt', 'pantalone', 'maglie', 'magliette']
-
-    mappatura_indumenti = {
-        'magliette': 'maglia',
-        'maglie': 'maglia',
-        'maglietta': 'maglia',
-        't-shirt': 'maglia',
-        'pantalone': 'pantaloni',
-        'jeans': 'pantaloni'
-    }
+    indumenti = ['maglia', 'pantaloni']
+    colori = ['bianco', 'blu', 'rosso', 'marrone', 'nero', 'bordeaux', 'arancione', 'grigio', 'rosa', 'verde']
+    categoria = ['uomo', 'donna']
 
     indumenti_cercati = []
-
-    colori = ['bianco', 'bianca', 'bianchi', 'bianche', 'grigio', 'grigia', 'grigi', 'grige', 'arancioni'
-              'nero', 'nera', 'neri', 'nere', 'blu', 'verde', 'verdi', 'marrone', 'marroni', 'rosse', 'rose',
-              'rosa', 'rosso', 'rossa', 'rossi', 'bordeaux', 'giallo', 'gialla', 'gialli', 'gialle', 'arancione']
-
-    mappatura_colori = {
-        'bianca': 'bianco',
-        'bianchi': 'bianco',
-        'bianche': 'bianco',
-        'grigio': 'grigia',
-        'grigi': 'grigia',
-        'grige': 'grigia',
-        'nera': 'nero',
-        'neri': 'nero',
-        'nere': 'nero',
-        'rosse': 'rosso',
-        'rose': 'rosso',
-        'rossa': 'rosso',
-        'rossi': 'rosso',
-        'gialla': 'giallo',
-        'gialli': 'giallo',
-        'gialle': 'giallo',
-        'verdi': 'verde',
-        'marroni': 'marrone',
-        'arancioni': 'arancione',
-    }
-
     colori_cercati = []
-
-    categoria = ['uomo', 'donna', 'bambino', 'bambina', 'bambini', 'ragazzo', 'ragazza']
-
-    mappatura_categoria = {
-        'ragazzo': 'uomo',
-        'ragazza': 'donna',
-        'bambina': 'bambino',
-        'bambini': 'bambino',
-    }
-
     categoria_cercata = []
 
-    marca = ['loro piana', 'givenchy', 'nike', 'giorgio armani', 'dressmenow', 'guess', 'calvin klein', 'cv clothing', 'goat', 'goatseller',
-             'ecosostenibile', 'eco', 'green', 'lusso', 'lussuoso', 'sportivo', 'moda', 'sostenibile', 'sostenibilità']
-
-    marca_cercata = []
-
-    mappatura_marca = {
-        'lusso': 'Loro Piana',
-        'lussuoso': 'Loro Piana',
-        'eco': 'DressMeNow',
-        'green': 'DressMeNow',
-        'sostenibile': 'DressMeNow',
-        'sostenibilità': "DressMeNow",
-        'ecosostenibile': 'DressMeNow',
-        'sportivo': 'Nike',
-        'moda': 'Giorgio Armani'
-    }
-
     for token in filtered_words:
-        if token in indumenti:
+        mapped_word=auto_map_word(token)
+        if mapped_word in indumenti:
             indumenti_cercati.append(token)
-        if token in colori:
+        if mapped_word in colori:
             colori_cercati.append(token)
-        if token in categoria:
+        if mapped_word in categoria:
             categoria_cercata.append(token)
-        if token in marca:
-            marca_cercata.append(token)
 
-    colori_mappati = [mappatura_colori.get(colore, colore) for colore in colori_cercati]
-    indumenti_mappati = [mappatura_indumenti.get(indumenti, indumenti) for indumenti in indumenti_cercati]
-    categoria_mappata = [mappatura_categoria.get(categoria, categoria) for categoria in categoria_cercata]
-    marca_mappata = [mappatura_marca.get(marca, marca) for marca in marca_cercata]
+    print("colori mappati", colori_cercati, "\n")
+    print("indumenti mappati", indumenti_cercati, "\n")
+    print("categoria mappata", categoria_cercata, "\n")
 
-    print("colori mappati", colori_mappati, "\n")
-    print("indumenti mappati", indumenti_mappati, "\n")
-    print("categoria mappata", categoria_mappata, "\n")
-    print("marca mappata", marca_mappata, "\n")
-
-    return filtered_words, indumenti_mappati, colori_mappati, categoria_mappata, marca_mappata
+    return filtered_words, indumenti_cercati, colori_cercati, categoria_cercata
