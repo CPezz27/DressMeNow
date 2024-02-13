@@ -1,4 +1,5 @@
 from nltk.corpus import stopwords
+import icu
 import stanza
 from gensim.models import KeyedVectors
 
@@ -17,35 +18,33 @@ stop_words = set(stopwords.words('italian'))
 
 def auto_map_word(word):
     print("Parola:", word)
+
     if word in vocabs:
         print("La parola è già presente nel vocabolario:", word)
-        return word
 
-    if word.endswith("i") or word.endswith("e"):
-        singular_form = word[:-1]
-        if singular_form in vocabs:
+        it_locale = icu.Locale('it_IT')
+        it_collator = icu.Collator.createInstance(it_locale)
+        it_plural_rules = icu.PluralRules.createDefaultRules(it_locale)
+
+        singular_form = it_plural_rules.select(word, 1)
+        if singular_form != word:
             print("Trovata forma singolare:", singular_form)
-            return singular_form
+            if singular_form in vocabs:
+                return singular_form
 
-    elif word.endswith("a"):
-        masculine_form = word[:-1] + "o"
-        if masculine_form in vocabs:
-            print("Trovata forma maschile:", masculine_form)
-            return masculine_form
+        plural_form = it_plural_rules.select(word, 2)
+        if plural_form != word:
+            print("Trovata forma plurale:", plural_form)
+            if plural_form in vocabs:
+                return plural_form
 
-    elif word.endswith("he"):
-        masculine_form = word[:-2] + "o"
-        if masculine_form in vocabs:
-            print("Trovata forma maschile singolare:", masculine_form)
-            return masculine_form
-
-    similar_words = word_vectors.similar_by_word(word, topn=1)
-    print("Parola simile:", similar_words)
-    if similar_words:
-        similar_word = similar_words[0][0]
-        if similar_word in vocabs:
-            print("Parola simile trovata nel vocabolario:", similar_word)
-            return similar_word
+        similar_words = word_vectors.similar_by_word(word, topn=1)
+        print("Parola simile:", similar_words)
+        if similar_words:
+            similar_word = similar_words[0][0]
+            if similar_word in vocabs:
+                print("Parola simile trovata nel vocabolario:", similar_word)
+                return similar_word
 
     return word
 
