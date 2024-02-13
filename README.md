@@ -30,3 +30,17 @@ Il tasso medio di ritorno nell'e-commerce è del 18,1% (NRF, HubSpot).
 Il 34% degli acquirenti Amazon ha restituito un articolo perché la taglia, il colore o la vestibilità erano sbagliati (Narvar). 
 
 Shopify registra una diminuzione del 40% dei resi di prodotti grazie alla visualizzazione in 3D (Wizeline) 
+
+#Parte FIA
+
+La parte di FIA lato backand è divisa in 3 file: La prima parte è quella che ci permette di connetterla al server specificando la rotta (così da averla raggiunggibile), poi c'è la seconda in cui si concentra la parte di intelligenza artificiale, infine la terza in Prodotto.py in cui abbiamo la funzione search_products contenente la query che si interfaccia con il database una volta ottenute le informazioni di cui necessita e controlla se nel DB sono presenti prodotti corrispondenti. Soffermandoci sulla seconda è presente l'importazione delle librerie necessarie e del modello (Caricato tramite path) e la lisa di vocaboli in vocabs.
+
+Sono necessari i download delle stopwords in nltk e del linguaggio italiano tramite la libreria stanza. Il linguaggio italiano viene poi caricato e vengono specificate le stop words della lingua italiana.
+
+Per prima cosa nella funzione preprocess_text creiamo un documento che contenga le informazioni delle parole nel testo passato alla funzione.
+Tali parole vengono successivamente filtrate, rimuovendo eventuali stop word, segni di punteggiatura, verbi ed ausiliari.
+Salviamo in una lista tutte le parole filtrate.
+Creiamo quindi delle liste contenenti tutti i possibili elementi che ci interessa cercare nel database, e creiamo delle liste vuote che, qualora questi elementi dovessero essere trovati, verrebbero salvati nelle liste appropriate. 
+Creiamo quindi una lista in cui mappiamo le parole in base alle nostre necessità e le mappiamo tramite un'altra funzione, auto_map_word in cui ci sono tutte le informazione e tutto il mapping necessario affinché possiamo avere le parole che ci interessano elaborate nel modo in cui ci interessa.
+Una volta ottenuta la parola filtrata (salvata nella lista delle parole mappata), andiamo a confrontare token per token se è presente in una delle liste con le caratteristiche che ci servono e, in caso sia presente, la salviamo nella lista vuota creata precedentemente.
+Una volta effettuato questo procedimento, restituiamo le liste con tutti gli elementi trovati. Se le liste sono vuote non verranno trovati risultati, altrimenti per ogni caratteristica/gruppo di caratteristiche con prodotti corrispondenti, avremo un elenco di risultati.
