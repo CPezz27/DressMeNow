@@ -1,6 +1,4 @@
-import nltk
-from nltk.tokenize import word_tokenize
-from nltk.corpus import stopwords, wordnet
+from nltk.corpus import stopwords
 import stanza
 from gensim.models import KeyedVectors
 
