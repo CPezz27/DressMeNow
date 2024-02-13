@@ -6,7 +6,6 @@ word_vectors = KeyedVectors.load("C:\\Users\\divic\\Desktop\\ProgettoFIA\\SG-300
 vocabs = word_vectors.index_to_key
 
 # nltk.download('stopwords')
-# nltk.download('averaged_perceptron_tagger')
 # stanza.download('it')
 
 nlp = stanza.Pipeline('it')
