@@ -1,5 +1,6 @@
-from nltk.corpus import stopwords
-import icu
+import nltk
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords, wordnet
 import stanza
 from gensim.models import KeyedVectors
 
@@ -17,36 +18,58 @@ stop_words = set(stopwords.words('italian'))
 
 
 def auto_map_word(word):
-    print("Parola:", word)
-
+    print("parola: ", word)
     if word in vocabs:
-        print("La parola è già presente nel vocabolario:", word)
-
-        it_locale = icu.Locale('it_IT')
-        it_collator = icu.Collator.createInstance(it_locale)
-        it_plural_rules = icu.PluralRules.createDefaultRules(it_locale)
-
-        singular_form = it_plural_rules.select(word, 1)
-        if singular_form != word:
-            print("Trovata forma singolare:", singular_form)
+        if word.endswith("i") or word.endswith("e"):
+            if word == "uomini":
+                singular_form = word[:-3] + "o"
+                print("forma:", singular_form)
+                return singular_form
+            if word == "donne" or word == "maglie" or word == "rose":
+                singular_form = word[:-1] + "a"
+                print("forma:", singular_form)
+                return singular_form
+            if word == "verdi" or word == "pantaloni" or word == "arancioni":
+                singular_form = word[:-1] + "e"
+                print("forma:", singular_form)
+                return singular_form
+            if word == "verde" or word == "pantalone" or word == "arancione":
+                singular_form = word[:-1] + "e"
+                print("forma:", singular_form)
+                return singular_form
+            if word == "pantalone":
+                singular_form = word[:-1] + "i"
+                print("forma:", singular_form)
+                return singular_form
+            if word == "grigi":
+                singular_form = word.append("i")
+                print("forma:", singular_form)
+                return singular_form
+            if word == "bianchi" or word == "bianche":
+                singular_form = word[:-2] + "o"
+                print("forma:", singular_form)
+                return singular_form
+            singular_form = word[:-1] + "o"
             if singular_form in vocabs:
                 return singular_form
-
-        plural_form = it_plural_rules.select(word, 2)
-        if plural_form != word:
-            print("Trovata forma plurale:", plural_form)
-            if plural_form in vocabs:
-                return plural_form
-
+        elif word.endswith("a"):
+            if word == "maglia" or word == "donna" or word == "rosa":
+                return word
+            masculine_form = word[:-1] + "o"
+            if masculine_form in vocabs:
+                return masculine_form
+        else:
+            return word
+    else:
         similar_words = word_vectors.similar_by_word(word, topn=1)
-        print("Parola simile:", similar_words)
+        print("Parola simile?", similar_words)
         if similar_words:
             similar_word = similar_words[0][0]
             if similar_word in vocabs:
-                print("Parola simile trovata nel vocabolario:", similar_word)
+                print("1. ", similar_word)
                 return similar_word
-
-    return word
+            else:
+                return word
 
 
 def preprocess_text(text):
@@ -59,19 +82,24 @@ def preprocess_text(text):
 
     indumenti = ['maglia', 'pantaloni']
     colori = ['bianco', 'blu', 'rosso', 'marrone', 'nero', 'bordeaux', 'arancione', 'grigio', 'rosa', 'verde']
-    categoria = ['uomo', 'donna']
+    categoria = ['uomo', 'donna', 'bambi']
 
     indumenti_cercati = []
     colori_cercati = []
     categoria_cercata = []
 
+    mapped_word = []
+
     for token in filtered_words:
-        mapped_word=auto_map_word(token)
-        if mapped_word in indumenti:
+        mapped_word.append(auto_map_word(token))
+
+    for token in mapped_word:
+        print("token1: ", token)
+        if token in indumenti:
             indumenti_cercati.append(token)
-        if mapped_word in colori:
+        if token in colori:
             colori_cercati.append(token)
-        if mapped_word in categoria:
+        if token in categoria:
             categoria_cercata.append(token)
 
     print("colori mappati", colori_cercati, "\n")
