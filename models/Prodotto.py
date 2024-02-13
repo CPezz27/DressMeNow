@@ -139,7 +139,7 @@ def view_products_by_category(category):
 
 def search_products(text):
     try:
-        filtered_words, indumenti, colore, categoria = preprocess_text(text)
+        indumenti, colore, categoria = preprocess_text(text)
 
         query = "SELECT *, (SELECT TO_BASE64(immagine) FROM immagine i WHERE i.id_prodotto = p.id_prodotto AND i.tipo = 'pagina_prodotto' LIMIT 1) AS base64_immagine FROM prodotto p WHERE "
         conditions = []
@@ -150,7 +150,6 @@ def search_products(text):
             conditions.append("colore LIKE %s")
         if categoria:
             conditions.append("categoria LIKE %s")
-
 
         if conditions:
             query += " AND ".join(conditions)

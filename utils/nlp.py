@@ -4,7 +4,6 @@ from gensim.models import KeyedVectors
 
 word_vectors = KeyedVectors.load("C:\\Users\\divic\\Desktop\\ProgettoFIA\\SG-300-W10N20E50\\W2V.kv", mmap='r+')
 vocabs = word_vectors.index_to_key
-vectors = word_vectors.vectors
 
 # nltk.download('stopwords')
 # nltk.download('averaged_perceptron_tagger')
@@ -40,7 +39,7 @@ def auto_map_word(word):
                 print("forma:", singular_form)
                 return singular_form
             if word == "grigi":
-                singular_form = word.append("i")
+                singular_form = word + "o"
                 print("forma:", singular_form)
                 return singular_form
             if word == "bianchi" or word == "bianche":
@@ -80,7 +79,7 @@ def preprocess_text(text):
 
     indumenti = ['maglia', 'pantaloni']
     colori = ['bianco', 'blu', 'rosso', 'marrone', 'nero', 'bordeaux', 'arancione', 'grigio', 'rosa', 'verde']
-    categoria = ['uomo', 'donna', 'bambi']
+    categoria = ['uomo', 'donna', 'bambino']
 
     indumenti_cercati = []
     colori_cercati = []
@@ -92,7 +91,7 @@ def preprocess_text(text):
         mapped_word.append(auto_map_word(token))
 
     for token in mapped_word:
-        print("token1: ", token)
+        print("token: ", token)
         if token in indumenti:
             indumenti_cercati.append(token)
         if token in colori:
@@ -104,4 +103,4 @@ def preprocess_text(text):
     print("indumenti mappati", indumenti_cercati, "\n")
     print("categoria mappata", categoria_cercata, "\n")
 
-    return filtered_words, indumenti_cercati, colori_cercati, categoria_cercata
+    return indumenti_cercati, colori_cercati, categoria_cercata
