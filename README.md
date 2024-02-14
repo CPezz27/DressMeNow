@@ -31,7 +31,7 @@ Il 34% degli acquirenti Amazon ha restituito un articolo perché la taglia, il c
 
 Shopify registra una diminuzione del 40% dei resi di prodotti grazie alla visualizzazione in 3D (Wizeline) 
 
-#Parte FIA
+# Parte FIA
 
 La parte di FIA lato backand è divisa in 3 file: La prima parte è quella che ci permette di connetterla al server specificando la rotta (così da averla raggiunggibile), poi c'è la seconda in cui si concentra la parte di intelligenza artificiale, infine la terza in Prodotto.py in cui abbiamo la funzione search_products contenente la query che si interfaccia con il database una volta ottenute le informazioni di cui necessita e controlla se nel DB sono presenti prodotti corrispondenti. Soffermandoci sulla seconda è presente l'importazione delle librerie necessarie e del modello (Caricato tramite path) e la lisa di vocaboli in vocabs.
 
