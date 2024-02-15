@@ -29,6 +29,10 @@ def auto_map_word(word):
                 singular_form = word[:-1] + "e"
                 print("forma:", singular_form)
                 return singular_form
+            if word == "verde" or word == "marrone" or word == "arancione":
+                singular_form = word
+                print("forma:", singular_form)
+                return singular_form
             if word == "pantaloni":
                 singular_form = word
                 print("forma:", singular_form)
